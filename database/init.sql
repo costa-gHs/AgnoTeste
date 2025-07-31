@@ -1,10 +1,6 @@
 -- Agno Platform Database Schema
 -- PostgreSQL Database Initialization
 
--- Create database if not exists
-CREATE DATABASE IF NOT EXISTS agno_db;
-USE agno_db;
-
 -- Enable extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
@@ -251,5 +247,3 @@ INSERT INTO agno_agent_templates (creator_id, name, description, category, tags,
 (1, 'Analista Financeiro', 'Template para análise financeira e de mercado', 'finance', ARRAY['finanças', 'mercado', 'investimentos'],
  '{"modelProvider": "anthropic", "modelId": "claude-3-5-sonnet-20241022", "tools": ["yfinance", "reasoning"], "instructions": ["Você é um analista financeiro experiente.", "Forneça análises detalhadas com disclaimers."], "memoryEnabled": true, "ragEnabled": false}',
  true, true);
-
-COMMIT;

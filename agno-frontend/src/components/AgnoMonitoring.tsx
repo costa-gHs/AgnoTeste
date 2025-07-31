@@ -16,114 +16,117 @@ import {
   Calendar,
   User,
   Bot,
-  GitBranch
+  GitBranch,
+  Loader,
+  AlertCircle
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts';
 
-const AgnoMonitoring = () => {
+// Import do cliente Agno
+import AgnoClient from './agnoClient';
+
+const AgnoMonitoringReal = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [timeRange, setTimeRange] = useState('24h');
-  const [filterAgent, setFilterAgent] = useState('all');
   const [sessions, setSessions] = useState([]);
   const [metrics, setMetrics] = useState({});
   const [performanceData, setPerformanceData] = useState([]);
-  const [usageData, setUsageData] = useState([]);
+  const [agents, setAgents] = useState([]);
+  const [workflows, setWorkflows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
 
-  // Mock data para demonstração
+  // Cliente Agno
+  const [agnoClient] = useState(() => new AgnoClient());
+
+  // Carregar dados iniciais
   useEffect(() => {
-    // Métricas gerais
-    setMetrics({
-      totalSessions: 156,
-      successRate: 94.2,
-      avgResponseTime: 2.3,
-      totalTokens: 45678,
-      activeAgents: 8,
-      totalWorkflows: 3,
-      costToday: 12.45,
-      errorsToday: 3
-    });
+    loadAllData();
 
-    // Dados de performance ao longo do tempo
-    setPerformanceData([
-      { time: '00:00', responseTime: 1.8, tokens: 1200, sessions: 12, errors: 0 },
-      { time: '04:00', responseTime: 2.1, tokens: 890, sessions: 8, errors: 1 },
-      { time: '08:00', responseTime: 2.8, tokens: 2100, sessions: 25, errors: 0 },
-      { time: '12:00', responseTime: 3.2, tokens: 3400, sessions: 35, errors: 1 },
-      { time: '16:00', responseTime: 2.9, tokens: 2800, sessions: 28, errors: 0 },
-      { time: '20:00', responseTime: 2.4, tokens: 1950, sessions: 22, errors: 1 }
-    ]);
+    // Auto-refresh a cada 30 segundos
+    const interval = setInterval(loadAllData, 30000);
+    return () => clearInterval(interval);
+  }, [timeRange]);
 
-    // Uso por agente
-    setUsageData([
-      { name: 'Assistente de Pesquisa', sessions: 45, tokens: 12000, avgTime: 2.1, success: 96 },
-      { name: 'Analista Financeiro', sessions: 38, tokens: 15000, avgTime: 3.2, success: 92 },
-      { name: 'Marketing Specialist', sessions: 32, tokens: 8500, avgTime: 1.8, success: 98 },
-      { name: 'Workflow Completo', sessions: 25, tokens: 18000, avgTime: 4.5, success: 88 },
-      { name: 'Support Agent', sessions: 16, tokens: 6200, avgTime: 1.5, success: 100 }
-    ]);
+  const loadAllData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-    // Sessões recentes
-    setSessions([
-      {
-        id: 'sess_001',
-        agent: 'Assistente de Pesquisa',
-        user: 'user_123',
-        startTime: '2025-01-28 14:30:25',
-        duration: 125,
-        tokens: 1250,
-        status: 'success',
-        messages: 8,
-        cost: 0.15
-      },
-      {
-        id: 'sess_002',
-        agent: 'Analista Financeiro',
-        user: 'user_456',
-        startTime: '2025-01-28 14:28:10',
-        duration: 203,
-        tokens: 2100,
-        status: 'success',
-        messages: 12,
-        cost: 0.28
-      },
-      {
-        id: 'sess_003',
-        agent: 'Marketing Specialist',
-        user: 'user_789',
-        startTime: '2025-01-28 14:25:45',
-        duration: 95,
-        tokens: 890,
-        status: 'error',
-        messages: 5,
-        cost: 0.09,
-        error: 'Rate limit exceeded'
-      }
-    ]);
-  }, []);
+      // Carregar dados em paralelo
+      const [
+        metricsData,
+        performanceResult,
+        sessionsData,
+        agentsData,
+        workflowsData
+      ] = await Promise.all([
+        agnoClient.makeRequest('/api/metrics'),
+        agnoClient.makeRequest(`/api/performance?hours=${timeRange === '24h' ? 24 : timeRange === '7d' ? 168 : 720}`),
+        agnoClient.makeRequest('/api/sessions'),
+        agnoClient.makeRequest('/api/agents'),
+        agnoClient.makeRequest('/api/workflows')
+      ]);
 
-  const MetricCard = ({ title, value, subtitle, icon: Icon, trend, color = 'blue' }) => {
+      setMetrics(metricsData);
+      setPerformanceData(performanceResult.reverse()); // Mais recente primeiro
+      setSessions(sessionsData);
+      setAgents(agentsData);
+      setWorkflows(workflowsData);
+      setLastUpdate(new Date());
+
+    } catch (err) {
+      console.error('Erro ao carregar dados:', err);
+      setError(`Erro ao carregar dados: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatTimeRange = (range) => {
+    switch (range) {
+      case '1h': return 'última hora';
+      case '24h': return 'últimas 24h';
+      case '7d': return 'últimos 7 dias';
+      case '30d': return 'últimos 30 dias';
+      default: return range;
+    }
+  };
+
+  const MetricCard = ({ title, value, subtitle, icon: Icon, trend, color = 'blue', loading = false }) => {
     const colorClasses = {
       blue: 'bg-blue-50 text-blue-600',
       green: 'bg-green-50 text-green-600',
       yellow: 'bg-yellow-50 text-yellow-600',
-      red: 'bg-red-50 text-red-600'
+      red: 'bg-red-50 text-red-600',
+      purple: 'bg-purple-50 text-purple-600'
     };
 
     return (
       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between">
-          <div>
+          <div className="flex-1">
             <p className="text-sm text-gray-600 mb-1">{title}</p>
-            <p className="text-2xl font-bold text-gray-900">{value}</p>
-            {subtitle && (
-              <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <Loader className="w-4 h-4 animate-spin text-gray-400" />
+                <span className="text-gray-400">Carregando...</span>
+              </div>
+            ) : (
+              <>
+                <p className="text-2xl font-bold text-gray-900">{value}</p>
+                {subtitle && (
+                  <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+                )}
+              </>
             )}
           </div>
           <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
             <Icon className="w-6 h-6" />
           </div>
         </div>
-        {trend && (
+        {trend && !loading && (
           <div className="mt-4 flex items-center">
             <TrendingUp className={`w-4 h-4 mr-1 ${trend > 0 ? 'text-green-500' : 'text-red-500'}`} />
             <span className={`text-sm font-medium ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -136,16 +139,18 @@ const AgnoMonitoring = () => {
     );
   };
 
-  const SessionRow = ({ session }) => {
+  const SessionRow = ({ session, index }) => {
     const statusColor = {
-      success: 'text-green-600 bg-green-50',
+      completed: 'text-green-600 bg-green-50',
       error: 'text-red-600 bg-red-50',
+      active: 'text-blue-600 bg-blue-50',
       timeout: 'text-yellow-600 bg-yellow-50'
     };
 
     const StatusIcon = {
-      success: CheckCircle,
+      completed: CheckCircle,
       error: XCircle,
+      active: Activity,
       timeout: AlertTriangle
     }[session.status];
 
@@ -158,44 +163,60 @@ const AgnoMonitoring = () => {
             </div>
             <div>
               <div className="text-sm font-medium text-gray-900">{session.id}</div>
-              <div className="text-sm text-gray-500">{session.startTime}</div>
+              <div className="text-sm text-gray-500">
+                {new Date(session.start_time).toLocaleString('pt-BR')}
+              </div>
             </div>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <Bot className="w-4 h-4 text-blue-500 mr-2" />
-            <span className="text-sm text-gray-900">{session.agent}</span>
+            <span className="text-sm text-gray-900">
+              {agents.find(a => a.id.toString() === session.agent_id)?.nome || `Agente ${session.agent_id}`}
+            </span>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <User className="w-4 h-4 text-gray-400 mr-2" />
-            <span className="text-sm text-gray-900">{session.user}</span>
+            <span className="text-sm text-gray-900">user_{session.user_id}</span>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-          {session.duration}s
+          {session.duration ? `${session.duration.toFixed(1)}s` : 'N/A'}
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-          {session.tokens.toLocaleString()}
+          {session.tokens_used ? session.tokens_used.toLocaleString() : 'N/A'}
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-          {session.messages}
+          {session.response_length || 0}
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-          ${session.cost.toFixed(3)}
+          ${((session.tokens_used || 0) * 0.0001).toFixed(3)}
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          {session.error && (
-            <div className="text-xs text-red-600 bg-red-50 px-2 py-1 rounded">
-              {session.error}
+          {session.status === 'error' && (
+            <div className="text-xs text-red-600 bg-red-50 px-2 py-1 rounded max-w-xs truncate">
+              Erro na execução
             </div>
           )}
         </td>
       </tr>
     );
   };
+
+  if (loading && sessions.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Carregando Dashboard</h3>
+          <p className="text-gray-500">Conectando com o backend Agno...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -209,7 +230,9 @@ const AgnoMonitoring = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Monitoramento Agno</h1>
-                <p className="text-sm text-gray-500">Performance e analytics dos seus agentes AI</p>
+                <p className="text-sm text-gray-500">
+                  Performance e analytics em tempo real • Última atualização: {lastUpdate.toLocaleTimeString('pt-BR')}
+                </p>
               </div>
             </div>
 
@@ -225,8 +248,12 @@ const AgnoMonitoring = () => {
                 <option value="30d">Últimos 30 dias</option>
               </select>
 
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2">
-                <RefreshCw className="w-4 h-4" />
+              <button
+                onClick={loadAllData}
+                disabled={loading}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2 disabled:opacity-50"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                 Atualizar
               </button>
 
@@ -236,6 +263,20 @@ const AgnoMonitoring = () => {
               </button>
             </div>
           </div>
+
+          {/* Error Display */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700">
+              <AlertTriangle className="w-4 h-4" />
+              <span className="text-sm">{error}</span>
+              <button
+                onClick={() => setError(null)}
+                className="ml-auto text-red-500 hover:text-red-700"
+              >
+                ×
+              </button>
+            </div>
+          )}
 
           {/* Navigation Tabs */}
           <nav className="flex space-x-8">
@@ -259,7 +300,7 @@ const AgnoMonitoring = () => {
               } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center gap-2`}
             >
               <Activity className="w-4 h-4" />
-              Sessões
+              Sessões ({sessions.length})
             </button>
             <button
               onClick={() => setActiveTab('agents')}
@@ -270,18 +311,18 @@ const AgnoMonitoring = () => {
               } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center gap-2`}
             >
               <Bot className="w-4 h-4" />
-              Por Agente
+              Agentes ({agents.length})
             </button>
             <button
-              onClick={() => setActiveTab('costs')}
+              onClick={() => setActiveTab('performance')}
               className={`${
-                activeTab === 'costs'
+                activeTab === 'performance'
                   ? 'border-purple-500 text-purple-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center gap-2`}
             >
-              <PieChart className="w-4 h-4" />
-              Custos
+              <TrendingUp className="w-4 h-4" />
+              Performance
             </button>
           </nav>
         </div>
@@ -295,38 +336,283 @@ const AgnoMonitoring = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <MetricCard
                 title="Total de Sessões"
-                value={metrics.totalSessions}
-                subtitle="últimas 24h"
+                value={metrics.total_sessions || 0}
+                subtitle={formatTimeRange(timeRange)}
                 icon={Activity}
                 trend={12.5}
                 color="blue"
+                loading={loading}
               />
               <MetricCard
                 title="Taxa de Sucesso"
-                value={`${metrics.successRate}%`}
+                value={`${(metrics.success_rate || 0).toFixed(1)}%`}
                 subtitle="sessões bem-sucedidas"
                 icon={CheckCircle}
                 trend={2.1}
                 color="green"
+                loading={loading}
               />
               <MetricCard
                 title="Tempo Médio"
-                value={`${metrics.avgResponseTime}s`}
+                value={`${(metrics.avg_response_time || 0).toFixed(1)}s`}
                 subtitle="tempo de resposta"
                 icon={Clock}
                 trend={-5.3}
                 color="yellow"
+                loading={loading}
               />
               <MetricCard
-                title="Custo Hoje"
-                value={`$${metrics.costToday}`}
-                subtitle="tokens consumidos"
-                icon={TrendingUp}
+                title="Tokens Usados"
+                value={(metrics.total_tokens || 0).toLocaleString()}
+                subtitle={`$${(metrics.cost_today || 0).toFixed(2)} em custos`}
+                icon={Zap}
                 trend={8.7}
-                color="red"
+                color="purple"
+                loading={loading}
               />
             </div>
 
+            {/* Status dos componentes */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Status do Sistema</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Backend API</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm font-medium text-green-600">Online</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Banco de Dados</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-sm font-medium text-green-600">Conectado</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Agentes Ativos</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className="text-sm font-medium text-blue-600">{metrics.active_agents || 0}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Recursos</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Agentes Criados</span>
+                    <span className="text-sm font-medium text-gray-900">{agents.length}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Workflows</span>
+                    <span className="text-sm font-medium text-gray-900">{workflows.length}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Sessões Hoje</span>
+                    <span className="text-sm font-medium text-gray-900">{sessions.length}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Últimas Atividades</h3>
+                <div className="space-y-3">
+                  {sessions.slice(0, 3).map((session, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <Bot className="w-4 h-4 text-blue-500" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-gray-900 truncate">
+                          Sessão {session.id}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {new Date(session.start_time).toLocaleTimeString('pt-BR')}
+                        </div>
+                      </div>
+                      <div className={`w-2 h-2 rounded-full ${
+                        session.status === 'completed' ? 'bg-green-500' : 
+                        session.status === 'error' ? 'bg-red-500' : 'bg-blue-500'
+                      }`}></div>
+                    </div>
+                  ))}
+                  {sessions.length === 0 && (
+                    <div className="text-sm text-gray-500 text-center py-4">
+                      Nenhuma atividade recente
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Sessions Tab */}
+        {activeTab === 'sessions' && (
+          <div className="space-y-6">
+            {/* Filtros */}
+            <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+              <div className="flex flex-wrap gap-4 items-center">
+                <div className="flex items-center gap-2">
+                  <Search className="w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Buscar sessões..."
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+
+                <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                  <option value="all">Todos os agentes</option>
+                  {agents.map(agent => (
+                    <option key={agent.id} value={agent.id}>{agent.nome}</option>
+                  ))}
+                </select>
+
+                <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                  <option value="all">Todos os status</option>
+                  <option value="completed">Sucesso</option>
+                  <option value="error">Erro</option>
+                  <option value="active">Ativo</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Tabela de sessões */}
+            <div className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Sessão
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Agente
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Usuário
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Duração
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Tokens
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Resposta
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Custo
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {sessions.map((session, index) => (
+                    <SessionRow key={session.id || index} session={session} index={index} />
+                  ))}
+                </tbody>
+              </table>
+
+              {sessions.length === 0 && (
+                <div className="text-center py-12">
+                  <Activity className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Nenhuma sessão encontrada
+                  </h3>
+                  <p className="text-gray-500">
+                    As sessões aparecerão aqui quando os agentes forem utilizados.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Agents Tab */}
+        {activeTab === 'agents' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {agents.map(agent => {
+              // Calcular estatísticas do agente
+              const agentSessions = sessions.filter(s => s.agent_id === agent.id.toString());
+              const successRate = agentSessions.length > 0
+                ? (agentSessions.filter(s => s.status === 'completed').length / agentSessions.length * 100).toFixed(1)
+                : 0;
+              const totalTokens = agentSessions.reduce((sum, s) => sum + (s.tokens_used || 0), 0);
+              const avgDuration = agentSessions.length > 0
+                ? (agentSessions.reduce((sum, s) => sum + (s.duration || 0), 0) / agentSessions.length).toFixed(1)
+                : 0;
+
+              return (
+                <div key={agent.id} className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-blue-100 rounded-lg">
+                        <Bot className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">{agent.nome}</h3>
+                        <p className="text-sm text-gray-500">{agent.agent_role}</p>
+                      </div>
+                    </div>
+                    <div className={`w-2 h-2 rounded-full ${
+                      agent.is_active_agent ? 'bg-green-500' : 'bg-gray-400'
+                    }`} />
+                  </div>
+
+                  <div className="space-y-3 mb-4">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Taxa de Sucesso</span>
+                      <span className={`font-medium ${
+                        successRate >= 90 ? 'text-green-600' : 
+                        successRate >= 70 ? 'text-yellow-600' : 'text-red-600'
+                      }`}>
+                        {successRate}%
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Sessões</span>
+                      <span className="font-medium text-gray-900">{agentSessions.length}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Tokens Usados</span>
+                      <span className="font-medium text-gray-900">{totalTokens.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Tempo Médio</span>
+                      <span className="font-medium text-gray-900">{avgDuration}s</span>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-gray-500">
+                    Modelo: {agent.empresa} - {agent.modelo}
+                  </div>
+                </div>
+              );
+            })}
+
+            {agents.length === 0 && (
+              <div className="col-span-full text-center py-12">
+                <Bot className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Nenhum agente encontrado
+                </h3>
+                <p className="text-gray-500">
+                  Crie agentes para vê-los aparecer aqui.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Performance Tab */}
+        {activeTab === 'performance' && (
+          <div className="space-y-8">
             {/* Gráficos de performance */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
@@ -375,222 +661,9 @@ const AgnoMonitoring = () => {
             </div>
           </div>
         )}
-
-        {/* Sessions Tab */}
-        {activeTab === 'sessions' && (
-          <div className="space-y-6">
-            {/* Filtros */}
-            <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-              <div className="flex flex-wrap gap-4 items-center">
-                <div className="flex items-center gap-2">
-                  <Search className="w-4 h-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Buscar sessões..."
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                </div>
-
-                <select
-                  value={filterAgent}
-                  onChange={(e) => setFilterAgent(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                >
-                  <option value="all">Todos os agentes</option>
-                  <option value="research">Assistente de Pesquisa</option>
-                  <option value="finance">Analista Financeiro</option>
-                  <option value="marketing">Marketing Specialist</option>
-                </select>
-
-                <select className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                  <option value="all">Todos os status</option>
-                  <option value="success">Sucesso</option>
-                  <option value="error">Erro</option>
-                  <option value="timeout">Timeout</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Tabela de sessões */}
-            <div className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Sessão
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Agente
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Usuário
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Duração
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Tokens
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Mensagens
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Custo
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Observações
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {sessions.map(session => (
-                    <SessionRow key={session.id} session={session} />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Paginação */}
-            <div className="flex items-center justify-between bg-white px-6 py-3 border border-gray-200 rounded-lg">
-              <div className="text-sm text-gray-700">
-                Exibindo <span className="font-medium">1</span> a <span className="font-medium">10</span> de{' '}
-                <span className="font-medium">156</span> resultados
-              </div>
-              <div className="flex gap-2">
-                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
-                  Anterior
-                </button>
-                <button className="px-3 py-1 bg-purple-600 text-white rounded text-sm">
-                  1
-                </button>
-                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
-                  2
-                </button>
-                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
-                  Próximo
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Agents Tab */}
-        {activeTab === 'agents' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Tabela de agentes */}
-              <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance por Agente</h3>
-                <div className="space-y-4">
-                  {usageData.map((agent, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <Bot className="w-4 h-4 text-blue-500" />
-                          <span className="font-medium text-gray-900">{agent.name}</span>
-                        </div>
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          agent.success >= 95 ? 'bg-green-50 text-green-600' :
-                          agent.success >= 90 ? 'bg-yellow-50 text-yellow-600' :
-                          'bg-red-50 text-red-600'
-                        }`}>
-                          {agent.success}% sucesso
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-3 gap-4 text-sm">
-                        <div>
-                          <div className="text-gray-500">Sessões</div>
-                          <div className="font-medium">{agent.sessions}</div>
-                        </div>
-                        <div>
-                          <div className="text-gray-500">Tokens</div>
-                          <div className="font-medium">{agent.tokens.toLocaleString()}</div>
-                        </div>
-                        <div>
-                          <div className="text-gray-500">Tempo Médio</div>
-                          <div className="font-medium">{agent.avgTime}s</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Gráfico de uso */}
-              <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Uso por Agente</h3>
-                <ResponsiveContainer width="100%" height={400}>
-                  <BarChart data={usageData} layout="horizontal" margin={{ left: 100 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" />
-                    <YAxis dataKey="name" type="category" width={100} />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="sessions" fill="#8884d8" name="Sessões" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Costs Tab */}
-        {activeTab === 'costs' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <MetricCard
-                title="Custo Total (24h)"
-                value={`$${metrics.costToday}`}
-                subtitle="tokens consumidos"
-                icon={TrendingUp}
-                color="red"
-              />
-              <MetricCard
-                title="Custo por Sessão"
-                value="$0.08"
-                subtitle="média das últimas 24h"
-                icon={Activity}
-                color="blue"
-              />
-              <MetricCard
-                title="Economia vs GPT-4"
-                value="23%"
-                subtitle="usando modelos otimizados"
-                icon={Zap}
-                color="green"
-              />
-            </div>
-
-            {/* Breakdown de custos por agente */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Custos por Agente</h3>
-              <div className="space-y-4">
-                {usageData.map((agent, index) => {
-                  const cost = (agent.tokens * 0.0001).toFixed(3);
-                  return (
-                    <div key={index} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <Bot className="w-5 h-5 text-blue-500" />
-                        <div>
-                          <div className="font-medium text-gray-900">{agent.name}</div>
-                          <div className="text-sm text-gray-500">{agent.tokens.toLocaleString()} tokens</div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-medium text-gray-900">${cost}</div>
-                        <div className="text-sm text-gray-500">{agent.sessions} sessões</div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 };
 
-export default AgnoMonitoring;
+export default AgnoMonitoringReal;

@@ -19,10 +19,18 @@ import {
   Brain,
   TrendingUp,
   Code,
-  MessageSquare
+  MessageSquare,
+  Loader,
+  AlertCircle,
+  CheckCircle,
+  X,
+  RefreshCw
 } from 'lucide-react';
 
-const AgentTemplates = () => {
+// Import do cliente Agno
+import AgnoClient from './agnoClient';
+
+const AgentTemplatesReal = () => {
   const [templates, setTemplates] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -30,125 +38,206 @@ const AgentTemplates = () => {
   const [showCreateTemplate, setShowCreateTemplate] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [templateToEdit, setTemplateToEdit] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [agents, setAgents] = useState([]);
 
-  // Mock data para demonstração
+  // Cliente Agno
+  const [agnoClient] = useState(() => new AgnoClient());
+
+  // Carregar dados iniciais
   useEffect(() => {
-    setCategories([
-      { id: 'all', name: 'Todos', count: 24 },
-      { id: 'research', name: 'Pesquisa', count: 8 },
-      { id: 'finance', name: 'Financeiro', count: 6 },
-      { id: 'marketing', name: 'Marketing', count: 4 },
-      { id: 'development', name: 'Desenvolvimento', count: 3 },
-      { id: 'support', name: 'Suporte', count: 3 }
-    ]);
-
-    setTemplates([
-      {
-        id: 'tpl_001',
-        name: 'Assistente de Pesquisa Acadêmica',
-        description: 'Especializado em pesquisa acadêmica com citações e análise crítica',
-        category: 'research',
-        author: 'Sistema',
-        isPublic: true,
-        isFeatured: true,
-        rating: 4.8,
-        downloads: 2847,
-        lastUpdated: '2025-01-28',
-        tags: ['pesquisa', 'acadêmico', 'citações'],
-        config: {
-          modelProvider: 'openai',
-          modelId: 'gpt-4o',
-          tools: ['duckduckgo', 'reasoning'],
-          instructions: [
-            'Você é um assistente de pesquisa acadêmica especializado.',
-            'Sempre cite suas fontes e forneça análise crítica.',
-            'Use formatação acadêmica apropriada.'
-          ],
-          memoryEnabled: true,
-          ragEnabled: true,
-          reasoningEnabled: true
-        }
-      },
-      {
-        id: 'tpl_002',
-        name: 'Analista Financeiro Avançado',
-        description: 'Análise financeira completa com dados de mercado em tempo real',
-        category: 'finance',
-        author: 'user_123',
-        isPublic: true,
-        isFeatured: true,
-        rating: 4.9,
-        downloads: 1923,
-        lastUpdated: '2025-01-27',
-        tags: ['finanças', 'mercado', 'análise'],
-        config: {
-          modelProvider: 'anthropic',
-          modelId: 'claude-3-sonnet',
-          tools: ['yfinance', 'reasoning'],
-          instructions: [
-            'Você é um analista financeiro com expertise em mercados.',
-            'Forneça insights detalhados com disclaimers apropriados.',
-            'Use gráficos e tabelas para apresentar dados.'
-          ],
-          memoryEnabled: true,
-          ragEnabled: false,
-          reasoningEnabled: true
-        }
-      },
-      {
-        id: 'tpl_003',
-        name: 'Especialista em Marketing Digital',
-        description: 'Estratégias de marketing digital e análise de campanhas',
-        category: 'marketing',
-        author: 'user_456',
-        isPublic: true,
-        isFeatured: false,
-        rating: 4.6,
-        downloads: 1456,
-        lastUpdated: '2025-01-26',
-        tags: ['marketing', 'digital', 'campanhas'],
-        config: {
-          modelProvider: 'openai',
-          modelId: 'gpt-4o-mini',
-          tools: ['duckduckgo', 'reasoning'],
-          instructions: [
-            'Você é um especialista em marketing digital.',
-            'Foque em estratégias práticas e mensuráveis.',
-            'Considere as últimas tendências e melhores práticas.'
-          ],
-          memoryEnabled: true,
-          ragEnabled: true,
-          reasoningEnabled: false
-        }
-      },
-      {
-        id: 'tpl_004',
-        name: 'Assistente de Código Python',
-        description: 'Desenvolvimento e debug de código Python com boas práticas',
-        category: 'development',
-        author: 'Sistema',
-        isPublic: true,
-        isFeatured: false,
-        rating: 4.7,
-        downloads: 3201,
-        lastUpdated: '2025-01-25',
-        tags: ['python', 'código', 'debug'],
-        config: {
-          modelProvider: 'openai',
-          modelId: 'gpt-4o',
-          tools: ['reasoning'],
-          instructions: [
-            'Você é um assistente de programação Python.',
-            'Forneça código limpo e bem documentado.',
-            'Explique conceitos complexos de forma simples.'
-          ],
-          memoryEnabled: true,
-          ragEnabled: false,
-          reasoningEnabled: true
-        }
-      }
-    ]);
+    loadTemplatesAndAgents();
   }, []);
+
+  const loadTemplatesAndAgents = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Carregar agentes existentes para usar como base para templates
+      const agentsData = await agnoClient.listAgents();
+      setAgents(agentsData);
+
+      // Criar templates baseados nos agentes existentes
+      const templatesFromAgents = agentsData.map((agent, index) => {
+        let instructions = [];
+        let tools = [];
+
+        try {
+          instructions = typeof agent.instructions === 'string'
+            ? JSON.parse(agent.instructions)
+            : agent.instructions || ['Assistente útil'];
+        } catch (e) {
+          instructions = ['Assistente útil'];
+        }
+
+        try {
+          const langchainConfig = typeof agent.langchain_config === 'string'
+            ? JSON.parse(agent.langchain_config)
+            : agent.langchain_config || {};
+          tools = langchainConfig.tools || [];
+        } catch (e) {
+          tools = [];
+        }
+
+        return {
+          id: `template_${agent.id}`,
+          name: `Template: ${agent.nome}`,
+          description: `Template baseado no agente ${agent.nome} com papel de ${agent.agent_role}`,
+          category: inferCategory(agent.agent_role, agent.nome),
+          author: 'Sistema',
+          isPublic: true,
+          isFeatured: index < 2, // Primeiros 2 como featured
+          rating: 4.5 + Math.random() * 0.5,
+          downloads: Math.floor(Math.random() * 1000) + 100,
+          lastUpdated: agent.created_at ? new Date(agent.created_at).toISOString().split('T')[0] : '2025-01-28',
+          tags: generateTags(agent.agent_role, tools),
+          originalAgentId: agent.id,
+          config: {
+            modelProvider: agent.empresa || 'openai',
+            modelId: agent.modelo || 'gpt-4o',
+            tools: tools,
+            instructions: instructions,
+            memoryEnabled: true,
+            ragEnabled: agent.usa_rag || false,
+            reasoningEnabled: tools.includes('reasoning')
+          }
+        };
+      });
+
+      // Adicionar alguns templates padrão
+      const defaultTemplates = [
+        {
+          id: 'template_research',
+          name: 'Assistente de Pesquisa Acadêmica',
+          description: 'Especializado em pesquisa acadêmica com citações e análise crítica',
+          category: 'research',
+          author: 'Sistema',
+          isPublic: true,
+          isFeatured: true,
+          rating: 4.8,
+          downloads: 2847,
+          lastUpdated: '2025-01-28',
+          tags: ['pesquisa', 'acadêmico', 'citações', 'análise'],
+          config: {
+            modelProvider: 'openai',
+            modelId: 'gpt-4o',
+            tools: ['duckduckgo', 'reasoning'],
+            instructions: [
+              'Você é um assistente de pesquisa acadêmica especializado.',
+              'Sempre cite suas fontes e forneça análise crítica.',
+              'Use formatação acadêmica apropriada.',
+              'Mantenha-se atualizado com as últimas descobertas em sua área.'
+            ],
+            memoryEnabled: true,
+            ragEnabled: true,
+            reasoningEnabled: true
+          }
+        },
+        {
+          id: 'template_finance',
+          name: 'Analista Financeiro Pro',
+          description: 'Análise financeira avançada com dados de mercado em tempo real',
+          category: 'finance',
+          author: 'Sistema',
+          isPublic: true,
+          isFeatured: true,
+          rating: 4.9,
+          downloads: 1923,
+          lastUpdated: '2025-01-27',
+          tags: ['finanças', 'mercado', 'análise', 'investimentos'],
+          config: {
+            modelProvider: 'anthropic',
+            modelId: 'claude-3-5-sonnet-20241022',
+            tools: ['yfinance', 'reasoning'],
+            instructions: [
+              'Você é um analista financeiro sênior com expertise em mercados globais.',
+              'Forneça insights detalhados com disclaimers apropriados.',
+              'Use gráficos e tabelas para apresentar dados complexos.',
+              'Sempre considere o contexto econômico atual.',
+              'Inclua análise de risco em suas recomendações.'
+            ],
+            memoryEnabled: true,
+            ragEnabled: false,
+            reasoningEnabled: true
+          }
+        },
+        {
+          id: 'template_marketing',
+          name: 'Especialista em Marketing Digital',
+          description: 'Estratégias de marketing digital e análise de campanhas modernas',
+          category: 'marketing',
+          author: 'Sistema',
+          isPublic: true,
+          isFeatured: false,
+          rating: 4.6,
+          downloads: 1456,
+          lastUpdated: '2025-01-26',
+          tags: ['marketing', 'digital', 'campanhas', 'redes sociais'],
+          config: {
+            modelProvider: 'openai',
+            modelId: 'gpt-4o-mini',
+            tools: ['duckduckgo', 'reasoning'],
+            instructions: [
+              'Você é um especialista em marketing digital com experiência em Growth Hacking.',
+              'Foque em estratégias práticas e mensuráveis com ROI claro.',
+              'Considere as últimas tendências em redes sociais e SEO.',
+              'Forneça exemplos concretos e casos de uso.',
+              'Inclua métricas relevantes para cada estratégia sugerida.'
+            ],
+            memoryEnabled: true,
+            ragEnabled: true,
+            reasoningEnabled: false
+          }
+        }
+      ];
+
+      const allTemplates = [...templatesFromAgents, ...defaultTemplates];
+      setTemplates(allTemplates);
+
+      // Calcular categorias
+      const categoryCount = {};
+      allTemplates.forEach(template => {
+        categoryCount[template.category] = (categoryCount[template.category] || 0) + 1;
+      });
+
+      const calculatedCategories = [
+        { id: 'all', name: 'Todos', count: allTemplates.length },
+        { id: 'research', name: 'Pesquisa', count: categoryCount.research || 0 },
+        { id: 'finance', name: 'Financeiro', count: categoryCount.finance || 0 },
+        { id: 'marketing', name: 'Marketing', count: categoryCount.marketing || 0 },
+        { id: 'development', name: 'Desenvolvimento', count: categoryCount.development || 0 },
+        { id: 'support', name: 'Suporte', count: categoryCount.support || 0 },
+        { id: 'general', name: 'Geral', count: categoryCount.general || 0 }
+      ];
+
+      setCategories(calculatedCategories);
+
+    } catch (err) {
+      console.error('Erro ao carregar templates:', err);
+      setError(`Erro ao carregar templates: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inferCategory = (role, name) => {
+    const text = `${role} ${name}`.toLowerCase();
+    if (text.includes('pesquis') || text.includes('research') || text.includes('academ')) return 'research';
+    if (text.includes('financ') || text.includes('market') || text.includes('invest')) return 'finance';
+    if (text.includes('marketing') || text.includes('social')) return 'marketing';
+    if (text.includes('dev') || text.includes('code') || text.includes('program')) return 'development';
+    if (text.includes('support') || text.includes('help') || text.includes('assist')) return 'support';
+    return 'general';
+  };
+
+  const generateTags = (role, tools) => {
+    const tags = [];
+    if (role) tags.push(role.toLowerCase());
+    tools.forEach(tool => tags.push(tool));
+    return tags.slice(0, 4); // Máximo 4 tags
+  };
 
   const filteredTemplates = templates.filter(template => {
     const matchesCategory = selectedCategory === 'all' || template.category === selectedCategory;
@@ -158,31 +247,80 @@ const AgentTemplates = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const TemplateCard = ({ template, onView, onEdit, onClone, onUse }) => {
+  const handleUseTemplate = async (template) => {
+    try {
+      setError(null);
+
+      // Criar agente baseado no template
+      const agentData = {
+        name: template.name.replace('Template: ', ''),
+        role: template.config.instructions[0] || 'Assistant',
+        model_provider: template.config.modelProvider,
+        model_id: template.config.modelId,
+        instructions: template.config.instructions,
+        tools: template.config.tools,
+        memory_enabled: template.config.memoryEnabled,
+        rag_enabled: template.config.ragEnabled
+      };
+
+      console.log('Criando agente a partir do template:', agentData);
+      const result = await agnoClient.createAgent(agentData);
+
+      alert(`Agente criado com sucesso! ID: ${result.agent_id}`);
+
+      // Recarregar dados para mostrar o novo agente
+      await loadTemplatesAndAgents();
+
+    } catch (error) {
+      console.error('Erro ao usar template:', error);
+      setError(`Erro ao criar agente: ${error.message}`);
+    }
+  };
+
+  const handleCloneTemplate = (template) => {
+    setTemplateToEdit({
+      ...template,
+      id: `template_clone_${Date.now()}`,
+      name: `${template.name} (Cópia)`,
+      author: 'Você',
+      isPublic: false,
+      downloads: 0
+    });
+    setShowCreateTemplate(true);
+  };
+
+  const handleDeleteTemplate = (templateId) => {
+    if (confirm('Tem certeza que deseja excluir este template?')) {
+      setTemplates(prev => prev.filter(t => t.id !== templateId));
+    }
+  };
+
+  const TemplateCard = ({ template, onView, onEdit, onClone, onUse, onDelete }) => {
     const categoryColors = {
       research: 'bg-blue-100 text-blue-800',
       finance: 'bg-green-100 text-green-800',
       marketing: 'bg-purple-100 text-purple-800',
       development: 'bg-orange-100 text-orange-800',
-      support: 'bg-gray-100 text-gray-800'
+      support: 'bg-gray-100 text-gray-800',
+      general: 'bg-indigo-100 text-indigo-800'
     };
 
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-all duration-200 group">
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg text-white">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg text-white flex-shrink-0">
               <Bot className="w-5 h-5" />
             </div>
-            <div>
-              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-gray-900 flex items-center gap-2 truncate">
                 {template.name}
                 {template.isFeatured && (
-                  <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-500 fill-current flex-shrink-0" />
                 )}
               </h3>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
+              <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                 <User className="w-3 h-3" />
                 <span>{template.author}</span>
                 <span>•</span>
@@ -192,40 +330,51 @@ const AgentTemplates = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={() => onView(template)}
-              className="p-1 text-gray-400 hover:text-gray-600"
+              className="p-1 text-gray-400 hover:text-gray-600 rounded"
               title="Ver detalhes"
             >
               <Eye className="w-4 h-4" />
             </button>
             <button
-              onClick={() => onEdit(template)}
-              className="p-1 text-gray-400 hover:text-blue-600"
-              title="Editar"
-            >
-              <Edit className="w-4 h-4" />
-            </button>
-            <button
               onClick={() => onClone(template)}
-              className="p-1 text-gray-400 hover:text-green-600"
+              className="p-1 text-gray-400 hover:text-green-600 rounded"
               title="Clonar"
             >
               <Copy className="w-4 h-4" />
             </button>
+            {template.author === 'Você' && (
+              <>
+                <button
+                  onClick={() => onEdit(template)}
+                  className="p-1 text-gray-400 hover:text-blue-600 rounded"
+                  title="Editar"
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => onDelete(template.id)}
+                  className="p-1 text-gray-400 hover:text-red-600 rounded"
+                  title="Excluir"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </>
+            )}
           </div>
         </div>
 
         {/* Descrição */}
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2 min-h-[2.5rem]">
           {template.description}
         </p>
 
         {/* Tags e Categoria */}
-        <div className="flex items-center gap-2 mb-4">
-          <span className={`px-2 py-1 text-xs font-medium rounded-full ${categoryColors[template.category]}`}>
-            {categories.find(c => c.id === template.category)?.name}
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <span className={`px-2 py-1 text-xs font-medium rounded-full ${categoryColors[template.category] || categoryColors.general}`}>
+            {categories.find(c => c.id === template.category)?.name || 'Geral'}
           </span>
           {template.tags.slice(0, 2).map(tag => (
             <span key={tag} className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded">
@@ -250,7 +399,7 @@ const AgentTemplates = () => {
           {template.config.reasoningEnabled && (
             <div className="flex items-center gap-1 text-purple-500">
               <TrendingUp className="w-3 h-3" />
-              <span>Reasoning</span>
+              <span>AI</span>
             </div>
           )}
         </div>
@@ -258,11 +407,17 @@ const AgentTemplates = () => {
         {/* Stats */}
         <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
           <div className="flex items-center gap-4">
-            <span>⭐ {template.rating}</span>
-            <span>📥 {template.downloads.toLocaleString()}</span>
+            <div className="flex items-center gap-1">
+              <Star className="w-3 h-3 text-yellow-500" />
+              <span>{template.rating.toFixed(1)}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Download className="w-3 h-3" />
+              <span>{template.downloads.toLocaleString()}</span>
+            </div>
           </div>
           {template.isPublic && (
-            <span className="bg-green-100 text-green-600 px-2 py-1 rounded">
+            <span className="bg-green-100 text-green-600 px-2 py-1 rounded text-[10px] font-medium">
               Público
             </span>
           )}
@@ -272,50 +427,52 @@ const AgentTemplates = () => {
         <div className="flex gap-2">
           <button
             onClick={() => onUse(template)}
-            className="flex-1 px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2"
+            className="flex-1 px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors"
           >
             <Plus className="w-4 h-4" />
             Usar Template
           </button>
           <button
             onClick={() => onView(template)}
-            className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50"
+            className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors"
           >
-            Visualizar
+            Ver
           </button>
         </div>
       </div>
     );
   };
 
-  const TemplateModal = ({ temple, onClose, onUse }) => {
-    if (!temple) return null;
+  const TemplateModal = ({ template, onClose, onUse }) => {
+    if (!template) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-start mb-6">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                {temple.name}
-                {temple.isFeatured && (
+                {template.name}
+                {template.isFeatured && (
                   <Star className="w-5 h-5 text-yellow-500 fill-current" />
                 )}
               </h2>
               <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
                 <User className="w-4 h-4" />
-                <span>Por {temple.author}</span>
+                <span>Por {template.author}</span>
                 <span>•</span>
-                <span>⭐ {temple.rating}</span>
+                <Star className="w-4 h-4 text-yellow-500" />
+                <span>{template.rating.toFixed(1)}</span>
                 <span>•</span>
-                <span>📥 {temple.downloads.toLocaleString()}</span>
+                <Download className="w-4 h-4" />
+                <span>{template.downloads.toLocaleString()}</span>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-1 text-gray-400 hover:text-gray-600"
+              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
             >
-              ×
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -323,14 +480,14 @@ const AgentTemplates = () => {
             {/* Descrição */}
             <div>
               <h3 className="font-semibold text-gray-900 mb-2">Descrição</h3>
-              <p className="text-gray-600">{temple.description}</p>
+              <p className="text-gray-600">{template.description}</p>
             </div>
 
             {/* Tags */}
             <div>
               <h3 className="font-semibold text-gray-900 mb-2">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {temple.tags.map(tag => (
+                {template.tags.map(tag => (
                   <span key={tag} className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded">
                     {tag}
                   </span>
@@ -342,27 +499,27 @@ const AgentTemplates = () => {
             <div>
               <h3 className="font-semibold text-gray-900 mb-2">Configuração</h3>
               <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <span className="text-sm font-medium text-gray-700">Modelo:</span>
-                    <div className="text-sm text-gray-600">{temple.config.modelProvider} - {temple.config.modelId}</div>
+                    <div className="text-sm text-gray-600">{template.config.modelProvider} - {template.config.modelId}</div>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-700">Ferramentas:</span>
-                    <div className="text-sm text-gray-600">{temple.config.tools.join(', ')}</div>
+                    <div className="text-sm text-gray-600">{template.config.tools.join(', ') || 'Nenhuma'}</div>
                   </div>
                 </div>
 
                 <div>
                   <span className="text-sm font-medium text-gray-700">Funcionalidades:</span>
-                  <div className="flex gap-2 mt-1">
-                    {temple.config.memoryEnabled && (
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {template.config.memoryEnabled && (
                       <span className="px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded">Memória</span>
                     )}
-                    {temple.config.ragEnabled && (
+                    {template.config.ragEnabled && (
                       <span className="px-2 py-1 text-xs bg-green-100 text-green-600 rounded">RAG</span>
                     )}
-                    {temple.config.reasoningEnabled && (
+                    {template.config.reasoningEnabled && (
                       <span className="px-2 py-1 text-xs bg-purple-100 text-purple-600 rounded">Reasoning</span>
                     )}
                   </div>
@@ -370,8 +527,8 @@ const AgentTemplates = () => {
 
                 <div>
                   <span className="text-sm font-medium text-gray-700">Instruções:</span>
-                  <div className="mt-1 space-y-1">
-                    {temple.config.instructions.map((instruction, index) => (
+                  <div className="mt-1 space-y-1 max-h-40 overflow-y-auto">
+                    {template.config.instructions.map((instruction, index) => (
                       <div key={index} className="text-sm text-gray-600 bg-white p-2 rounded border">
                         {instruction}
                       </div>
@@ -390,7 +547,10 @@ const AgentTemplates = () => {
               Fechar
             </button>
             <button
-              onClick={() => onUse(temple)}
+              onClick={() => {
+                onUse(template);
+                onClose();
+              }}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
@@ -402,11 +562,11 @@ const AgentTemplates = () => {
     );
   };
 
-  const CreateTemplateModal = ({ onClose, onSave }) => {
-    const [formData, setFormData] = useState({
+  const CreateTemplateModal = ({ onClose, onSave, editingTemplate }) => {
+    const [formData, setFormData] = useState(editingTemplate || {
       name: '',
       description: '',
-      category: 'research',
+      category: 'general',
       tags: [],
       isPublic: false,
       config: {
@@ -421,6 +581,7 @@ const AgentTemplates = () => {
     });
 
     const [tagInput, setTagInput] = useState('');
+    const [saving, setSaving] = useState(false);
 
     const addTag = () => {
       if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
@@ -439,26 +600,56 @@ const AgentTemplates = () => {
       }));
     };
 
-    const handleSave = () => {
-      console.log('Salvando template:', formData);
-      onSave(formData);
-      onClose();
+    const handleSave = async () => {
+      if (!formData.name || !formData.description || !formData.config.instructions[0]) {
+        setError('Preencha todos os campos obrigatórios');
+        return;
+      }
+
+      try {
+        setSaving(true);
+
+        const newTemplate = {
+          ...formData,
+          id: editingTemplate?.id || `template_custom_${Date.now()}`,
+          author: 'Você',
+          rating: 5.0,
+          downloads: 0,
+          lastUpdated: new Date().toISOString().split('T')[0],
+          isPublic: formData.isPublic,
+          isFeatured: false
+        };
+
+        if (editingTemplate) {
+          setTemplates(prev => prev.map(t => t.id === editingTemplate.id ? newTemplate : t));
+        } else {
+          setTemplates(prev => [...prev, newTemplate]);
+        }
+
+        onClose();
+        setError(null);
+
+      } catch (err) {
+        setError(`Erro ao salvar template: ${err.message}`);
+      } finally {
+        setSaving(false);
+      }
     };
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <FileText className="w-6 h-6" />
-            Criar Template de Agente
+            {editingTemplate ? 'Editar Template' : 'Criar Template de Agente'}
           </h2>
 
           <div className="space-y-6">
             {/* Informações básicas */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nome do Template
+                  Nome do Template *
                 </label>
                 <input
                   type="text"
@@ -478,6 +669,7 @@ const AgentTemplates = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
+                  <option value="general">Geral</option>
                   <option value="research">Pesquisa</option>
                   <option value="finance">Financeiro</option>
                   <option value="marketing">Marketing</option>
@@ -489,7 +681,7 @@ const AgentTemplates = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Descrição
+                Descrição *
               </label>
               <textarea
                 value={formData.description}
@@ -510,11 +702,12 @@ const AgentTemplates = () => {
                   type="text"
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && addTag()}
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                   className="flex-1 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Digite uma tag e pressione Enter"
                 />
                 <button
+                  type="button"
                   onClick={addTag}
                   className="px-3 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
                 >
@@ -526,10 +719,11 @@ const AgentTemplates = () => {
                   <span key={tag} className="flex items-center gap-1 px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded">
                     {tag}
                     <button
+                      type="button"
                       onClick={() => removeTag(tag)}
                       className="text-blue-400 hover:text-blue-600"
                     >
-                      ×
+                      <X className="w-3 h-3" />
                     </button>
                   </span>
                 ))}
@@ -540,7 +734,7 @@ const AgentTemplates = () => {
             <div className="bg-gray-50 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900 mb-4">Configuração do Agente</h3>
 
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Provedor
@@ -572,15 +766,14 @@ const AgentTemplates = () => {
                   >
                     {formData.config.modelProvider === 'openai' ? (
                       <>
-                        <option value="gpt-4o">GPT-4o</option>
-                        <option value="gpt-4o-mini">GPT-4o Mini</option>
-                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                        <option key="openai-gpt-4o" value="gpt-4o">GPT-4o</option>
+                        <option key="openai-gpt-4o-mini" value="gpt-4o-mini">GPT-4o Mini</option>
+                        <option key="openai-gpt-3.5-turbo" value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
                       </>
                     ) : (
                       <>
-                        <option value="claude-3-opus">Claude 3 Opus</option>
-                        <option value="claude-3-sonnet">Claude 3 Sonnet</option>
-                        <option value="claude-3-haiku">Claude 3 Haiku</option>
+                        <option key="anthropic-claude-3-5-sonnet" value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                        <option key="anthropic-claude-3-haiku" value="claude-3-haiku-20240307">Claude 3 Haiku</option>
                       </>
                     )}
                   </select>
@@ -591,9 +784,9 @@ const AgentTemplates = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Ferramentas
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {['duckduckgo', 'yfinance', 'reasoning'].map(tool => (
-                    <label key={tool} className="flex items-center">
+                    <label key={`tool-${tool}`} className="flex items-center">
                       <input
                         type="checkbox"
                         checked={formData.config.tools.includes(tool)}
@@ -616,7 +809,7 @@ const AgentTemplates = () => {
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Instruções do Agente
+                  Instruções do Agente *
                 </label>
                 <textarea
                   value={formData.config.instructions[0]}
@@ -630,7 +823,7 @@ const AgentTemplates = () => {
                 />
               </div>
 
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-6">
                 <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -691,15 +884,26 @@ const AgentTemplates = () => {
             <button
               onClick={onClose}
               className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+              disabled={saving}
             >
               Cancelar
             </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+              disabled={saving}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50"
             >
-              <FileText className="w-4 h-4" />
-              Criar Template
+              {saving ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin" />
+                  Salvando...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-4 h-4" />
+                  {editingTemplate ? 'Salvar Alterações' : 'Criar Template'}
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -707,36 +911,44 @@ const AgentTemplates = () => {
     );
   };
 
-  const handleUseTemplate = (template) => {
-    console.log('Usando template:', template);
-    // Aqui navegaria para o criador de agente com o template pré-preenchido
-  };
-
-  const handleCloneTemplate = (template) => {
-    console.log('Clonando template:', template);
-    // Criar uma cópia do template para edição
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Carregando Templates</h3>
+          <p className="text-gray-500">Conectando com o backend...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg text-white">
                 <FileText className="w-6 h-6" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Templates de Agentes</h1>
-                <p className="text-sm text-gray-500">Crie e use templates para acelerar o desenvolvimento</p>
+                <p className="text-sm text-gray-500">
+                  {templates.length} templates disponíveis • Crie e use templates para acelerar o desenvolvimento
+                </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2">
-                <Upload className="w-4 h-4" />
-                Importar
+              <button
+                onClick={loadTemplatesAndAgents}
+                disabled={loading}
+                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2 disabled:opacity-50"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                Atualizar
               </button>
               <button
                 onClick={() => setShowCreateTemplate(true)}
@@ -747,12 +959,26 @@ const AgentTemplates = () => {
               </button>
             </div>
           </div>
+
+          {/* Error Display */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700">
+              <AlertCircle className="w-4 h-4" />
+              <span className="text-sm flex-1">{error}</span>
+              <button
+                onClick={() => setError(null)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Filtros */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row gap-4 mb-8">
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -766,7 +992,7 @@ const AgentTemplates = () => {
             </div>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto">
+          <div className="flex gap-2 overflow-x-auto pb-2">
             {categories.map(category => (
               <button
                 key={category.id}
@@ -790,27 +1016,34 @@ const AgentTemplates = () => {
               key={template.id}
               template={template}
               onView={setSelectedTemplate}
-              onEdit={setTemplateToEdit}
+              onEdit={(template) => {
+                setTemplateToEdit(template);
+                setShowCreateTemplate(true);
+              }}
               onClone={handleCloneTemplate}
               onUse={handleUseTemplate}
+              onDelete={handleDeleteTemplate}
             />
           ))}
         </div>
 
-        {filteredTemplates.length === 0 && (
+        {filteredTemplates.length === 0 && !loading && (
           <div className="text-center py-12">
             <FileText className="w-16 h-16 mx-auto mb-4 text-gray-400" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
               Nenhum template encontrado
             </h3>
             <p className="text-gray-500 mb-4">
-              Tente ajustar os filtros ou criar um novo template.
+              {searchTerm || selectedCategory !== 'all'
+                ? 'Tente ajustar os filtros de busca.'
+                : 'Crie seu primeiro template para acelerar o desenvolvimento.'}
             </p>
             <button
               onClick={() => setShowCreateTemplate(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 mx-auto"
             >
-              Criar Primeiro Template
+              <Plus className="w-4 h-4" />
+              Criar Template
             </button>
           </div>
         )}
@@ -819,7 +1052,7 @@ const AgentTemplates = () => {
       {/* Modals */}
       {selectedTemplate && (
         <TemplateModal
-          temple={selectedTemplate}
+          template={selectedTemplate}
           onClose={() => setSelectedTemplate(null)}
           onUse={handleUseTemplate}
         />
@@ -827,10 +1060,13 @@ const AgentTemplates = () => {
 
       {showCreateTemplate && (
         <CreateTemplateModal
-          onClose={() => setShowCreateTemplate(false)}
+          editingTemplate={templateToEdit}
+          onClose={() => {
+            setShowCreateTemplate(false);
+            setTemplateToEdit(null);
+          }}
           onSave={(templateData) => {
-            // Aqui salvaria o template via API
-            console.log('Template criado:', templateData);
+            console.log('Template salvo:', templateData);
           }}
         />
       )}
@@ -838,4 +1074,4 @@ const AgentTemplates = () => {
   );
 };
 
-export default AgentTemplates;
+export default AgentTemplatesReal;

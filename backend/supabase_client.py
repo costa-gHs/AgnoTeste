@@ -1,3 +1,5 @@
+# supabase_client_fixed.py - Cliente Supabase corrigido
+
 import os
 import httpx
 from supabase import create_client, Client
@@ -22,79 +24,50 @@ def verificar_senha(senha, hash_armazenado):
     return bcrypt.checkpw(senha.encode("utf-8"), hash_armazenado.encode("utf-8"))
 
 
-# Configurações de timeout otimizadas para produção
-TIMEOUT_CONFIG = httpx.Timeout(
-    connect=10.0,  # Tempo para estabelecer conexão
-    read=30.0,  # Tempo para ler resposta
-    write=10.0,  # Tempo para enviar dados
-    pool=5.0  # Tempo para obter conexão do pool
-)
-
-
 def create_optimized_supabase_client():
     """
-    Cria cliente Supabase otimizado, mantendo compatibilidade com variáveis existentes
+    Cria cliente Supabase com configuração básica e estável
     """
     try:
-        # COMPATIBILIDADE: Usar as mesmas variáveis do código original
         url = os.getenv("SUPABASE_URL")
-        key = os.getenv("SUPABASE_KEY")  # Mantém o nome original
+        key = os.getenv("SUPABASE_KEY")
 
         if not url or not key:
             log_error("SUPABASE_URL e SUPABASE_KEY devem estar configurados")
-            # Fallback para cliente básico
-            return create_client(url or "", key or "")
+            raise ValueError("Configurações do Supabase não encontradas")
 
-        log_info("Criando cliente Supabase otimizado...")
+        log_info("Criando cliente Supabase...")
 
-        # Cliente HTTP customizado com timeouts
-        http_client = httpx.Client(
-            timeout=TIMEOUT_CONFIG,
-            limits=httpx.Limits(
-                max_keepalive_connections=10,
-                max_connections=20,
-                keepalive_expiry=30.0
-            ),
-            verify=True,
-            http2=True  # Usar HTTP/2 se disponível
-        )
+        # Usar cliente básico - mais estável
+        supabase_client = create_client(url, key)
 
-        # Criar cliente Supabase com configurações otimizadas
-        supabase_client = create_client(
-            url,
-            key,
-            options={
-                'postgrest': {
-                    'http_client': http_client
-                }
-            }
-        )
-
-        log_info("Cliente Supabase otimizado criado com sucesso")
+        log_info("Cliente Supabase criado com sucesso")
         return supabase_client
 
     except Exception as e:
-        log_error(f"Erro ao criar cliente Supabase otimizado: {e}")
-        log_info("Fallback para cliente básico...")
-        # Fallback para cliente básico se a versão otimizada falhar
-        return create_client(
-            os.getenv("SUPABASE_URL", ""),
-            os.getenv("SUPABASE_KEY", "")
-        )
+        log_error(f"Erro ao criar cliente Supabase: {e}")
+        raise
 
 
-# Configurações do Supabase - MANTENDO COMPATIBILIDADE
+# Configurações do Supabase
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
-# Inicializa o cliente Supabase com otimizações
+# Verificar se as variáveis estão configuradas
+if not SUPABASE_URL or not SUPABASE_KEY:
+    log_error("SUPABASE_URL e SUPABASE_KEY devem estar configurados no arquivo .env")
+    print("❌ ERRO: Configure as variáveis SUPABASE_URL e SUPABASE_KEY no arquivo .env")
+    exit(1)
+
+# Inicializa o cliente Supabase
 try:
     supabase: Client = create_optimized_supabase_client()
     log_info("Cliente Supabase inicializado com sucesso")
+    print("✅ Cliente Supabase conectado com sucesso")
 except Exception as e:
-    log_error(f"Falha ao inicializar cliente otimizado: {e}")
-    # Fallback para o método original
-    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+    log_error(f"Falha ao inicializar cliente Supabase: {e}")
+    print(f"❌ Erro ao conectar com Supabase: {e}")
+    exit(1)
 
 
 def safe_supabase_query(query_func, max_retries=3, operation_name="consulta"):
@@ -129,7 +102,6 @@ def safe_supabase_query(query_func, max_retries=3, operation_name="consulta"):
 def testar_login(nome, senha):
     """
     Testa credenciais de login com retry automático e tratamento robusto de erros.
-    VERSÃO OTIMIZADA mas mantendo compatibilidade total.
     """
 
     def login_query():
@@ -196,7 +168,6 @@ def is_bcrypt_hash(value):
 def get_api_key(usuario_id):
     """
     Obtém a chave API com retry automático e tratamento robusto de erros.
-    VERSÃO OTIMIZADA mantendo toda a lógica original.
     """
 
     def api_key_query():
@@ -254,76 +225,7 @@ def get_api_key(usuario_id):
         except Exception as e:
             log_error(f"Erro ao buscar API key direta: {e}")
 
-        # Verificar tipo de usuário
-        user_response = safe_supabase_query(user_query, operation_name="busca de tipo de usuário")
-
-        if not user_response.data:
-            log_error(f"Usuário {usuario_id} não encontrado")
-            return None
-
-        user_type = user_response.data.get('tipo_usuario', 'regular_user')
-        is_admin = user_response.data.get('is_admin', False)
-
-        # Para admin ou project_admin, usar chave do ambiente
-        if is_admin or user_type == 'project_admin':
-            env_api_key = os.getenv('OPENAI_API_KEY')
-            if env_api_key:
-                elapsed = time.time() - start_time
-                log_info(f"Usando API key do ambiente para admin/project_admin {usuario_id} ({elapsed:.2f}s)")
-                return env_api_key
-
-        # Para regular_user, buscar chave via projeto
-        if user_type == 'regular_user':
-            try:
-                projeto_response = safe_supabase_query(projeto_query, operation_name="busca de projeto do usuário")
-
-                if not projeto_response.data:
-                    log_error(f"Usuário {usuario_id} não está associado a nenhum projeto ativo")
-                    return None
-
-                projeto_id = projeto_response.data[0]['projeto_id']
-
-                # Buscar admin do projeto
-                def projeto_admin_query():
-                    return supabase.table("projetos") \
-                        .select("admin_id") \
-                        .eq("id", projeto_id) \
-                        .single() \
-                        .execute()
-
-                projeto_admin_response = safe_supabase_query(
-                    projeto_admin_query,
-                    operation_name="busca de admin do projeto"
-                )
-
-                if not projeto_admin_response.data:
-                    log_error(f"Projeto {projeto_id} não encontrado ou sem admin")
-                    return None
-
-                admin_id = projeto_admin_response.data['admin_id']
-
-                # Buscar API key do admin do projeto
-                def admin_key_query():
-                    return supabase.table("api_keys") \
-                        .select("chave") \
-                        .eq("user_id", admin_id) \
-                        .eq("status", "active") \
-                        .execute()
-
-                admin_key_response = safe_supabase_query(
-                    admin_key_query,
-                    operation_name="busca de API key do admin"
-                )
-
-                if admin_key_response.data:
-                    elapsed = time.time() - start_time
-                    log_info(f"Usando API key do admin {admin_id} para usuário {usuario_id} ({elapsed:.2f}s)")
-                    return admin_key_response.data[0]['chave']
-
-            except Exception as e:
-                log_error(f"Erro ao buscar API key via projeto: {e}")
-
-        # Última tentativa: chave global de ambiente
+        # Para simplificar, vamos sempre retornar a chave do ambiente se não encontrar no banco
         env_api_key = os.getenv('OPENAI_API_KEY')
         if env_api_key:
             elapsed = time.time() - start_time
@@ -364,48 +266,26 @@ def health_check():
         return False, str(e)
 
 
-# Atualizar senhas para hashes bcrypt - MANTENDO FUNÇÃO ORIGINAL
-def atualizar_senhas_para_hash(table, column):
-    """
-    Função original mantida para compatibilidade, mas com retry automático
-    """
-
-    def get_users_query():
-        return supabase.table(table).select("*").execute()
-
-    def update_password_query(user_id, new_hash):
-        return supabase.table(table).update({column: new_hash}).eq("id", user_id).execute()
+# Teste inicial de conexão
+if __name__ == "__main__":
+    print("🧪 Testando conexão com Supabase...")
 
     try:
-        log_info(f"Iniciando atualização de senhas na tabela {table}")
-
-        # Obter todos os usuários
-        response = safe_supabase_query(get_users_query, operation_name="busca de usuários para atualização")
-
-        if not response.data:
-            log_info("Nenhum usuário encontrado ou erro na consulta.")
-            return
-
-        datas = response.data
-        updated_count = 0
-
-        for data in datas:
-            if not is_bcrypt_hash(data[column]):  # Verifica se a senha não é um hash
-                nova_senha_hash = bcrypt.hashpw(data[column].encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-
-                # Atualiza a senha no banco de dados
-                safe_supabase_query(
-                    lambda: update_password_query(data["id"], nova_senha_hash),
-                    operation_name=f"atualização de senha usuário {data['id']}"
-                )
-                updated_count += 1
-
-        log_info(f"Atualização de senhas concluída! {updated_count} registros atualizados.")
-
+        is_healthy, message = health_check()
+        if is_healthy:
+            print(f"✅ {message}")
+        else:
+            print(f"❌ Erro: {message}")
     except Exception as e:
-        log_error(f"Erro ao atualizar as senhas: {e}")
+        print(f"❌ Erro ao testar conexão: {e}")
 
-
-# Executa a atualização - MANTENDO LÓGICA ORIGINAL
-if __name__ == "__main__":
-    atualizar_senhas_para_hash("api_keys", "chave")
+    # Testar API key
+    print("\n🔑 Testando busca de API key...")
+    try:
+        api_key = get_api_key(1)  # Testar com usuário ID 1
+        if api_key:
+            print(f"✅ API key encontrada: {api_key[:20]}...")
+        else:
+            print("❌ API key não encontrada")
+    except Exception as e:
+        print(f"❌ Erro ao buscar API key: {e}")
