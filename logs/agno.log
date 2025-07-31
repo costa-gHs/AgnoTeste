@@ -1,0 +1,1852 @@
+2025-07-31 17:44:04,236 - main - INFO - 🚀 Iniciando Agno Platform Backend v3.0
+2025-07-31 17:44:04,238 - main - INFO - 📊 Carregando dados mock...
+2025-07-31 17:44:04,238 - main - INFO - 🤖 2 agentes disponíveis
+2025-07-31 17:44:04,240 - main - INFO - 🔄 1 workflows disponíveis
+2025-07-31 17:44:13,902 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:44:13,903 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:44:13,904 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:44:13,905 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:44:43,963 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:44:43,964 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:44:43,964 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:44:43,965 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:45:14,077 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:45:14,078 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:45:14,079 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:45:14,080 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:45:44,141 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:45:44,142 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:45:44,143 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:45:44,144 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:46:14,210 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:46:14,211 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:46:14,211 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:46:14,212 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:46:44,279 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:46:44,280 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:46:44,280 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:46:44,281 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:47:14,336 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:47:14,337 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:47:14,337 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:47:14,339 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:47:44,416 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:47:44,417 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:47:44,418 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:47:44,419 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:48:14,478 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:48:14,478 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:48:14,479 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:48:14,480 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:48:44,545 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:48:44,545 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:48:44,546 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:48:44,547 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:49:14,606 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:49:14,607 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:49:14,608 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:49:14,609 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:49:44,682 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:49:44,683 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:49:44,684 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:49:44,685 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:50:14,756 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:50:14,756 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:50:14,757 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:50:14,758 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:50:44,806 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:50:44,807 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:50:44,807 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:50:44,808 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:51:14,866 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:51:14,867 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:51:14,867 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:51:14,868 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:51:44,928 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:51:44,929 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:51:44,929 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:51:44,930 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:52:14,998 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:52:14,999 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:52:14,999 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:52:15,000 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:52:45,060 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:52:45,061 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:52:45,062 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:52:45,063 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:53:15,139 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:53:15,140 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:53:15,141 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:53:15,142 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:53:45,214 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:53:45,215 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:53:45,215 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:53:45,216 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:54:15,282 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:54:15,282 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:54:15,283 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:54:15,284 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:54:45,351 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:54:45,352 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:54:45,352 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:54:45,353 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:55:15,422 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:55:15,423 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:55:15,423 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:55:15,424 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:55:45,491 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:55:45,492 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:55:45,492 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:55:45,493 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:56:15,578 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:56:15,579 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:56:15,579 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:56:15,580 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:56:45,645 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:56:45,646 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:56:45,646 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:56:45,647 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:57:15,711 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:57:15,711 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:57:15,712 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:57:15,713 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:57:45,803 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:57:45,803 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:57:45,804 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:57:45,805 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:58:15,861 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:58:15,861 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:58:15,862 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:58:15,863 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:58:45,938 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:58:45,939 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:58:45,939 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:58:45,940 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 17:59:16,012 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:59:16,013 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:59:16,014 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:59:16,014 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 17:59:46,100 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 17:59:46,100 - main - INFO - 🏥 Health check solicitado
+2025-07-31 17:59:46,101 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 17:59:46,102 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:00:16,178 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:00:16,179 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:00:16,179 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:00:16,180 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:00:46,244 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:00:46,245 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:00:46,245 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:00:46,246 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:01:16,315 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:01:16,316 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:01:16,316 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:01:16,317 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:01:46,407 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:01:46,408 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:01:46,409 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:01:46,410 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:02:16,493 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:02:16,494 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:02:16,495 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:02:16,498 - main - INFO - 📤 200 - 0.005s - GET /api/health
+2025-07-31 18:02:46,575 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:02:46,576 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:02:46,578 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:02:46,579 - main - INFO - 📤 200 - 0.004s - GET /api/health
+2025-07-31 18:03:16,660 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:03:16,661 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:03:16,661 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:03:16,663 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:03:46,744 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:03:46,746 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:03:46,747 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:03:46,752 - main - INFO - 📤 200 - 0.008s - GET /api/health
+2025-07-31 18:04:16,821 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:04:16,822 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:04:16,823 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:04:16,825 - main - INFO - 📤 200 - 0.004s - GET /api/health
+2025-07-31 18:04:46,913 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:04:46,914 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:04:46,915 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:04:46,916 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:05:17,005 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:05:17,008 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:05:17,009 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:05:17,010 - main - INFO - 📤 200 - 0.005s - GET /api/health
+2025-07-31 18:05:47,088 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:05:47,089 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:05:47,090 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:05:47,092 - main - INFO - 📤 200 - 0.004s - GET /api/health
+2025-07-31 18:06:17,185 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:06:17,186 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:06:17,187 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:06:17,188 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:06:47,248 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:06:47,249 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:06:47,249 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:06:47,251 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:07:17,326 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:07:17,326 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:07:17,327 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:07:17,328 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:07:47,422 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:07:47,424 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:07:47,424 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:07:47,426 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:08:17,511 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:08:17,512 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:08:17,513 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:08:17,514 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:08:47,580 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:08:47,581 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:08:47,582 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:08:47,583 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:09:17,647 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:09:17,648 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:09:17,648 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:09:17,649 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:09:47,709 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:09:47,710 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:09:47,711 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:09:47,712 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:10:17,770 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:10:17,771 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:10:17,772 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:10:17,773 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:10:47,833 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:10:47,835 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:10:47,835 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:10:47,837 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:11:17,902 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:11:17,903 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:11:17,903 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:11:17,904 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:11:47,977 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:11:47,978 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:11:47,979 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:11:47,980 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:12:18,056 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:12:18,057 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:12:18,058 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:12:18,059 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:12:48,135 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:12:48,136 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:12:48,136 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:12:48,137 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:13:18,204 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:13:18,206 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:13:18,206 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:13:18,208 - main - INFO - 📤 200 - 0.004s - GET /api/health
+2025-07-31 18:13:48,424 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:13:48,431 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:13:48,443 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:13:48,455 - main - INFO - 📤 200 - 0.032s - GET /api/health
+2025-07-31 18:13:52,716 - main - INFO - 🛑 Encerrando Agno Platform Backend
+2025-07-31 18:14:36,597 - main - INFO - 🚀 Iniciando Agno Platform Backend v3.0
+2025-07-31 18:14:36,598 - main - INFO - 📊 Carregando dados mock...
+2025-07-31 18:14:36,598 - main - INFO - 🤖 2 agentes disponíveis
+2025-07-31 18:14:36,599 - main - INFO - 🔄 1 workflows disponíveis
+2025-07-31 18:14:38,400 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:14:38,401 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:14:38,405 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:14:38,406 - main - INFO - 📤 200 - 0.006s - GET /api/health
+2025-07-31 18:15:08,470 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:15:08,471 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:15:08,471 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:15:08,472 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:15:38,530 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:15:38,530 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:15:38,531 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:15:38,531 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:16:08,601 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:16:08,602 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:16:08,602 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:16:08,603 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:16:38,679 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:16:38,680 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:16:38,680 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:16:38,681 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:17:08,744 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:17:08,745 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:17:08,746 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:17:08,747 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:17:38,804 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:17:38,805 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:17:38,805 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:17:38,807 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:18:08,871 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:18:08,872 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:18:08,872 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:18:08,873 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:18:38,950 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:18:38,951 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:18:38,951 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:18:38,953 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:19:09,011 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:19:09,012 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:19:09,012 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:19:09,014 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:19:39,086 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:19:39,087 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:19:39,088 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:19:39,089 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:20:09,152 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:20:09,152 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:20:09,153 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:20:09,154 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:20:39,223 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:20:39,224 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:20:39,224 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:20:39,225 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:21:09,303 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:21:09,304 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:21:09,304 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:21:09,305 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:21:39,368 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:21:39,369 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:21:39,369 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:21:39,370 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:22:09,438 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:22:09,439 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:22:09,439 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:22:09,440 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:22:39,498 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:22:39,499 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:22:39,500 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:22:39,501 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:23:09,560 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:23:09,561 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:23:09,562 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:23:09,563 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:23:39,649 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:23:39,649 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:23:39,650 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:23:39,651 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:24:09,708 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:24:09,709 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:24:09,710 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:24:09,711 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:24:39,767 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:24:39,768 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:24:39,769 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:24:39,770 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:25:09,836 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:25:09,837 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:25:09,838 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:25:09,838 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:25:39,966 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:25:39,967 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:25:39,968 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:25:39,969 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:26:10,034 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:26:10,035 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:26:10,035 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:26:10,036 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:26:40,093 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:26:40,094 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:26:40,095 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:26:40,096 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:27:10,167 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:27:10,168 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:27:10,168 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:27:10,169 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:27:40,227 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:27:40,227 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:27:40,228 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:27:40,229 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:28:10,281 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:28:10,282 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:28:10,282 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:28:10,283 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:28:40,335 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:28:40,336 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:28:40,337 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:28:40,338 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:29:10,411 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:29:10,412 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:29:10,412 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:29:10,413 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:29:40,473 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:29:40,474 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:29:40,474 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:29:40,475 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:30:10,544 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:30:10,545 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:30:10,545 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:30:10,546 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:30:40,611 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:30:40,612 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:30:40,613 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:30:40,614 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:31:10,672 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:31:10,673 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:31:10,674 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:31:10,674 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:31:40,736 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:31:40,737 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:31:40,737 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:31:40,738 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:32:10,806 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:32:10,806 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:32:10,807 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:32:10,808 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:32:40,897 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:32:40,898 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:32:40,899 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:32:40,900 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:33:10,958 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:33:10,959 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:33:10,960 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:33:10,961 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:33:41,034 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:33:41,035 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:33:41,035 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:33:41,036 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:34:11,113 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:34:11,114 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:34:11,115 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:34:11,118 - main - INFO - 📤 200 - 0.005s - GET /api/health
+2025-07-31 18:34:41,171 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:34:41,172 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:34:41,172 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:34:41,173 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:35:11,226 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:35:11,227 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:35:11,227 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:35:11,229 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:35:41,295 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:35:41,295 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:35:41,296 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:35:41,297 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:36:11,357 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:36:11,358 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:36:11,358 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:36:11,359 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:36:41,440 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:36:41,440 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:36:41,441 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:36:41,442 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:37:11,500 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:37:11,501 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:37:11,502 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:37:11,503 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:37:41,557 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:37:41,558 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:37:41,559 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:37:41,559 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:38:11,632 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:38:11,632 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:38:11,633 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:38:11,634 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:38:41,723 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:38:41,726 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:38:41,726 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:38:41,728 - main - INFO - 📤 200 - 0.005s - GET /api/health
+2025-07-31 18:39:11,784 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:39:11,785 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:39:11,785 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:39:11,786 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:39:41,850 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:39:41,851 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:39:41,852 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:39:41,853 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:40:11,946 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:40:11,947 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:40:11,948 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:40:11,949 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:40:42,016 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:40:42,017 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:40:42,017 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:40:42,018 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:41:12,087 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:41:12,088 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:41:12,089 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:41:12,090 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:41:42,172 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:41:42,173 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:41:42,174 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:41:42,175 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:42:12,262 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:42:12,263 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:42:12,264 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:42:12,265 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:42:42,330 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:42:42,331 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:42:42,331 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:42:42,332 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:43:12,400 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:43:12,403 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:43:12,404 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:43:12,406 - main - INFO - 📤 200 - 0.007s - GET /api/health
+2025-07-31 18:43:42,487 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:43:42,488 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:43:42,489 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:43:42,490 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:44:12,568 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:44:12,569 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:44:12,569 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:44:12,571 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:44:42,653 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:44:42,654 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:44:42,654 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:44:42,655 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:45:12,713 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:45:12,713 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:45:12,714 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:45:12,716 - main - INFO - 📤 200 - 0.004s - GET /api/health
+2025-07-31 18:45:42,776 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:45:42,776 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:45:42,777 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:45:42,778 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:46:12,843 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:46:12,843 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:46:12,844 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:46:12,845 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:46:42,904 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:46:42,904 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:46:42,905 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:46:42,906 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:47:12,966 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:47:12,967 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:47:12,968 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:47:12,969 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:47:43,037 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:47:43,038 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:47:43,038 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:47:43,039 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:48:13,112 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:48:13,112 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:48:13,113 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:48:13,114 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:48:43,189 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:48:43,190 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:48:43,191 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:48:43,192 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:49:13,264 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:49:13,265 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:49:13,265 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:49:13,266 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:49:43,323 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:49:43,324 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:49:43,325 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:49:43,326 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:50:13,390 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:50:13,391 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:50:13,391 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:50:13,392 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:50:43,452 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:50:43,453 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:50:43,454 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:50:43,455 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:51:13,523 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:51:13,524 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:51:13,525 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:51:13,526 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:51:43,587 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:51:43,588 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:51:43,588 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:51:43,590 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:52:13,645 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:52:13,646 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:52:13,647 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:52:13,648 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:52:43,710 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:52:43,710 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:52:43,711 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:52:43,712 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:53:13,789 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:53:13,790 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:53:13,791 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:53:13,791 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:53:43,853 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:53:43,854 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:53:43,855 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:53:43,856 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:54:13,921 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:54:13,922 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:54:13,922 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:54:13,923 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:54:44,000 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:54:44,001 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:54:44,001 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:54:44,002 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:55:14,065 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:55:14,065 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:55:14,066 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:55:14,067 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:55:44,120 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:55:44,121 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:55:44,121 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:55:44,122 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:56:14,196 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:56:14,196 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:56:14,197 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:56:14,198 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:56:44,229 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:56:44,230 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:56:44,230 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:56:44,231 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:57:14,276 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:57:14,277 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:57:14,278 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:57:14,279 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:57:44,337 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:57:44,338 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:57:44,339 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:57:44,339 - main - INFO - 📤 200 - 0.003s - GET /api/health
+2025-07-31 18:58:14,406 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:58:14,406 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:58:14,407 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:58:14,408 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:58:44,466 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:58:44,467 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:58:44,468 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:58:44,469 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:59:14,541 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:59:14,541 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:59:14,542 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:59:14,543 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 18:59:44,611 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 18:59:44,612 - main - INFO - 🏥 Health check solicitado
+2025-07-31 18:59:44,613 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 18:59:44,613 - main - INFO - 📤 200 - 0.002s - GET /api/health
+2025-07-31 19:00:14,797 - main - INFO - 📥 GET http://localhost:8000/api/health - IP: 127.0.0.1
+2025-07-31 19:00:14,801 - main - INFO - 🏥 Health check solicitado
+2025-07-31 19:00:14,802 - main - INFO - ✅ Health check passou - sistema saudável
+2025-07-31 19:00:14,806 - main - INFO - 📤 200 - 0.006s - GET /api/health
+2025-07-31 19:00:31,217 - main - INFO - 🛑 Encerrando Agno Platform Backend
+2025-07-31 19:00:37,158 - main.MockAgnoService - [32mINFO[0m - 🚀 MockAgnoService inicializado
+2025-07-31 19:00:37,173 - main - [32mINFO[0m - 🚀 =====================================
+2025-07-31 19:00:37,174 - main - [32mINFO[0m - 🚀 INICIANDO AGNO PLATFORM BACKEND v3.0
+2025-07-31 19:00:37,176 - main - [32mINFO[0m - 🚀 =====================================
+2025-07-31 19:00:37,176 - main - [32mINFO[0m - 📊 Agentes disponíveis: 2
+2025-07-31 19:00:37,177 - main - [32mINFO[0m - 🔄 Workflows disponíveis: 1
+2025-07-31 19:00:37,178 - main - [32mINFO[0m - 🌐 Base URL: http://localhost:8000
+2025-07-31 19:00:37,179 - main - [32mINFO[0m - 📚 Documentação: http://localhost:8000/docs
+2025-07-31 19:00:37,180 - main - [32mINFO[0m - 🔍 Logs: /app/logs/agno.log
+2025-07-31 19:00:37,181 - main - [32mINFO[0m - ✅ Sistema pronto para receber requisições!
+2025-07-31 19:01:29,187 - main.MockAgnoService - [32mINFO[0m - 🚀 MockAgnoService inicializado
+2025-07-31 19:01:29,194 - main - [32mINFO[0m - 🚀 =====================================
+2025-07-31 19:01:29,195 - main - [32mINFO[0m - 🚀 INICIANDO AGNO PLATFORM BACKEND v3.0
+2025-07-31 19:01:29,195 - main - [32mINFO[0m - 🚀 =====================================
+2025-07-31 19:01:29,195 - main - [32mINFO[0m - 📊 Agentes disponíveis: 2
+2025-07-31 19:01:29,196 - main - [32mINFO[0m - 🔄 Workflows disponíveis: 1
+2025-07-31 19:01:29,196 - main - [32mINFO[0m - 🌐 Base URL: http://localhost:8000
+2025-07-31 19:01:29,196 - main - [32mINFO[0m - 📚 Documentação: http://localhost:8000/docs
+2025-07-31 19:01:29,197 - main - [32mINFO[0m - 🔍 Logs: /app/logs/agno.log
+2025-07-31 19:01:29,197 - main - [32mINFO[0m - ✅ Sistema pronto para receber requisições!
+2025-07-31 19:01:32,261 - main - [32mINFO[0m - 📥 [REQ: req_1753988492_4272] GET http://localhost:8000/api/health
+2025-07-31 19:01:32,262 - main - [32mINFO[0m - 🌐 [REQ: req_1753988492_4272] IP: 127.0.0.1
+2025-07-31 19:01:32,262 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:01:32,263 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:01:32,264 - main - [32mINFO[0m - ✅ [REQ: req_1753988492_4272] 200 - 0.002s - GET /api/health
+2025-07-31 19:02:02,336 - main - [32mINFO[0m - 📥 [REQ: req_1753988522_4272] GET http://localhost:8000/api/health
+2025-07-31 19:02:02,336 - main - [32mINFO[0m - 🌐 [REQ: req_1753988522_4272] IP: 127.0.0.1
+2025-07-31 19:02:02,337 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:02:02,337 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:02:02,338 - main - [32mINFO[0m - ✅ [REQ: req_1753988522_4272] 200 - 0.002s - GET /api/health
+2025-07-31 19:02:32,410 - main - [32mINFO[0m - 📥 [REQ: req_1753988552_4272] GET http://localhost:8000/api/health
+2025-07-31 19:02:32,411 - main - [32mINFO[0m - 🌐 [REQ: req_1753988552_4272] IP: 127.0.0.1
+2025-07-31 19:02:32,412 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:02:32,412 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:02:32,413 - main - [32mINFO[0m - ✅ [REQ: req_1753988552_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:03:02,479 - main - [32mINFO[0m - 📥 [REQ: req_1753988582_4272] GET http://localhost:8000/api/health
+2025-07-31 19:03:02,480 - main - [32mINFO[0m - 🌐 [REQ: req_1753988582_4272] IP: 127.0.0.1
+2025-07-31 19:03:02,481 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:03:02,481 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:03:02,483 - main - [32mINFO[0m - ✅ [REQ: req_1753988582_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:03:32,568 - main - [32mINFO[0m - 📥 [REQ: req_1753988612_4272] GET http://localhost:8000/api/health
+2025-07-31 19:03:32,569 - main - [32mINFO[0m - 🌐 [REQ: req_1753988612_4272] IP: 127.0.0.1
+2025-07-31 19:03:32,570 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:03:32,571 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:03:32,572 - main - [32mINFO[0m - ✅ [REQ: req_1753988612_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:04:02,676 - main - [32mINFO[0m - 📥 [REQ: req_1753988642_4272] GET http://localhost:8000/api/health
+2025-07-31 19:04:02,677 - main - [32mINFO[0m - 🌐 [REQ: req_1753988642_4272] IP: 127.0.0.1
+2025-07-31 19:04:02,680 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:04:02,680 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:04:02,683 - main - [32mINFO[0m - ✅ [REQ: req_1753988642_4272] 200 - 0.007s - GET /api/health
+2025-07-31 19:04:29,289 - main - [32mINFO[0m - 📥 [REQ: req_1753988669_2212] GET http://localhost:8000/
+2025-07-31 19:04:29,290 - main - [32mINFO[0m - 🌐 [REQ: req_1753988669_2212] IP: 172.18.0.1
+2025-07-31 19:04:29,304 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:04:29,305 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:04:29,307 - main - [32mINFO[0m - ✅ [REQ: req_1753988669_2212] 200 - 0.018s - GET /
+2025-07-31 19:04:29,355 - main - [32mINFO[0m - 📥 [REQ: req_1753988669_3782] OPTIONS http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:04:29,357 - main - [32mINFO[0m - 🌐 [REQ: req_1753988669_3782] IP: 172.18.0.1
+2025-07-31 19:04:29,358 - main - [32mINFO[0m - 🌊 [REQ: req_1753988669_3782] 200 - 0.003s - OPTIONS /api/agents
+2025-07-31 19:04:29,360 - main - [32mINFO[0m - 📥 [REQ: req_1753988669_1903] OPTIONS http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:04:29,361 - main - [32mINFO[0m - 🌐 [REQ: req_1753988669_1903] IP: 172.18.0.1
+2025-07-31 19:04:29,362 - main - [32mINFO[0m - 🌊 [REQ: req_1753988669_1903] 200 - 0.002s - OPTIONS /api/workflows
+2025-07-31 19:04:29,368 - main - [32mINFO[0m - 📥 [REQ: req_1753988669_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:04:29,371 - main - [32mINFO[0m - 🌐 [REQ: req_1753988669_3782] IP: 172.18.0.1
+2025-07-31 19:04:29,373 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988669] Listagem de agentes solicitada
+2025-07-31 19:04:29,375 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988669] Usuário: 1
+2025-07-31 19:04:29,376 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988669] Encontrados 2 agentes
+2025-07-31 19:04:29,377 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988669] Agentes: ['Assistente Geral', 'Especialista em Código']
+2025-07-31 19:04:29,379 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988669] 2 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:04:29,381 - main - [32mINFO[0m - ✅ [REQ: req_1753988669_3782] 200 - 0.013s - GET /api/agents
+2025-07-31 19:04:29,384 - main - [32mINFO[0m - 📥 [REQ: req_1753988669_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:04:29,390 - main - [32mINFO[0m - 🌐 [REQ: req_1753988669_1903] IP: 172.18.0.1
+2025-07-31 19:04:29,394 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988669] Listagem solicitada por usuário 1
+2025-07-31 19:04:29,395 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988669] Retornando 1 workflows
+2025-07-31 19:04:29,396 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988669] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:04:29,401 - main - [32mINFO[0m - ✅ [REQ: req_1753988669_1903] 200 - 0.017s - GET /api/workflows
+2025-07-31 19:04:32,770 - main - [32mINFO[0m - 📥 [REQ: req_1753988672_4272] GET http://localhost:8000/api/health
+2025-07-31 19:04:32,771 - main - [32mINFO[0m - 🌐 [REQ: req_1753988672_4272] IP: 127.0.0.1
+2025-07-31 19:04:32,771 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:04:32,772 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:04:32,773 - main - [32mINFO[0m - ✅ [REQ: req_1753988672_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:05:02,842 - main - [32mINFO[0m - 📥 [REQ: req_1753988702_4272] GET http://localhost:8000/api/health
+2025-07-31 19:05:02,843 - main - [32mINFO[0m - 🌐 [REQ: req_1753988702_4272] IP: 127.0.0.1
+2025-07-31 19:05:02,844 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:05:02,844 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:05:02,845 - main - [32mINFO[0m - ✅ [REQ: req_1753988702_4272] 200 - 0.002s - GET /api/health
+2025-07-31 19:05:26,669 - main - [32mINFO[0m - 📥 [REQ: req_1753988726_5861] OPTIONS http://localhost:8000/api/agents/2/chat?user_id=1
+2025-07-31 19:05:26,669 - main - [32mINFO[0m - 🌐 [REQ: req_1753988726_5861] IP: 172.18.0.1
+2025-07-31 19:05:26,670 - main - [32mINFO[0m - 🌊 [REQ: req_1753988726_5861] 200 - 0.001s - OPTIONS /api/agents/2/chat
+2025-07-31 19:05:26,673 - main - [32mINFO[0m - 📥 [REQ: req_1753988726_5861] POST http://localhost:8000/api/agents/2/chat?user_id=1
+2025-07-31 19:05:26,674 - main - [32mINFO[0m - 🌐 [REQ: req_1753988726_5861] IP: 172.18.0.1
+2025-07-31 19:05:26,719 - main - [32mINFO[0m - 💬 [CHAT: chat_2_1753988726] === CHAT INICIADO ===
+2025-07-31 19:05:26,719 - main - [32mINFO[0m - 👤 [CHAT: chat_2_1753988726] Usuário: 1
+2025-07-31 19:05:26,719 - main - [32mINFO[0m - 🤖 [CHAT: chat_2_1753988726] Agente: 2
+2025-07-31 19:05:26,720 - main - [32mINFO[0m - 📝 [CHAT: chat_2_1753988726] Mensagem: 'eu nao sei nada de java...'
+2025-07-31 19:05:26,720 - main - [32mINFO[0m - 📏 [CHAT: chat_2_1753988726] Tamanho da mensagem: 23 chars
+2025-07-31 19:05:26,721 - main - [32mINFO[0m - 📡 [CHAT: chat_2_1753988726] Retornando StreamingResponse
+2025-07-31 19:05:26,721 - main - [32mINFO[0m - 🌊 [CHAT: chat_2_1753988726] Iniciando stream generator
+2025-07-31 19:05:26,722 - main.MockAgnoService - [32mINFO[0m - 🚀 [SESSION: chat_1_2_1753988726] === INICIANDO CHAT COM AGENTE ===
+2025-07-31 19:05:26,723 - main.MockAgnoService - [32mINFO[0m - 👤 [SESSION: chat_1_2_1753988726] Usuário: 1
+2025-07-31 19:05:26,723 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: chat_1_2_1753988726] Agente: 2
+2025-07-31 19:05:26,724 - main.MockAgnoService - [32mINFO[0m - 📝 [SESSION: chat_1_2_1753988726] Mensagem (23 chars): eu nao sei nada de java...
+2025-07-31 19:05:26,724 - main.MockAgnoService - [32mINFO[0m - 🕐 [SESSION: chat_1_2_1753988726] Timestamp: 2025-07-31T19:05:26.724909
+2025-07-31 19:05:26,725 - main.MockAgnoService - [32mINFO[0m - 🎯 [SESSION: chat_1_2_1753988726] Agente encontrado: Especialista em Código
+2025-07-31 19:05:26,726 - main.MockAgnoService - [32mINFO[0m - 🏷️  [SESSION: chat_1_2_1753988726] Papel: Desenvolvedor especializado em Python, JavaScript e arquitetura de software
+2025-07-31 19:05:26,726 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: chat_1_2_1753988726] Modelo: anthropic/claude-3-sonnet
+2025-07-31 19:05:26,726 - main.MockAgnoService - [32mINFO[0m - 🛠️  [SESSION: chat_1_2_1753988726] Ferramentas: ['code_interpreter', 'file_manager', 'git_client']
+2025-07-31 19:05:26,727 - main.MockAgnoService - [32mINFO[0m - ⏳ [SESSION: chat_1_2_1753988726] Iniciando processamento...
+2025-07-31 19:05:26,727 - main - [32mINFO[0m - 🌊 [REQ: req_1753988726_5861] 200 - 0.054s - POST /api/agents/2/chat
+2025-07-31 19:05:27,027 - main.MockAgnoService - [32mINFO[0m - 📤 [SESSION: chat_1_2_1753988726] Iniciando streaming de 94 palavras
+2025-07-31 19:05:27,028 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_2_1753988726] Velocidade: ~30ms por palavra
+2025-07-31 19:05:27,790 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_2_1753988726] Progresso: 25/94 palavras (26.6%)
+2025-07-31 19:05:28,550 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_2_1753988726] Progresso: 50/94 palavras (53.2%)
+2025-07-31 19:05:29,309 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_2_1753988726] Progresso: 75/94 palavras (79.8%)
+2025-07-31 19:05:29,888 - main.MockAgnoService - [32mINFO[0m - ✅ [SESSION: chat_1_2_1753988726] Streaming concluído com SUCESSO
+2025-07-31 19:05:29,892 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_2_1753988726] Total de palavras enviadas: 94
+2025-07-31 19:05:29,893 - main.MockAgnoService - [32mINFO[0m - 📏 [SESSION: chat_1_2_1753988726] Total de caracteres: 795
+2025-07-31 19:05:29,893 - main.MockAgnoService - [32mINFO[0m - ⏱️  [SESSION: chat_1_2_1753988726] Duração estimada: 2.82 segundos
+2025-07-31 19:05:29,894 - main.MockAgnoService - [32mINFO[0m - 🏁 [SESSION: chat_1_2_1753988726] === CHAT FINALIZADO ===
+2025-07-31 19:05:29,895 - main - [32mINFO[0m - 🏁 [CHAT: chat_2_1753988726] Stream generator finalizado - 95 chunks enviados
+2025-07-31 19:05:32,902 - main - [32mINFO[0m - 📥 [REQ: req_1753988732_4272] GET http://localhost:8000/api/health
+2025-07-31 19:05:32,903 - main - [32mINFO[0m - 🌐 [REQ: req_1753988732_4272] IP: 127.0.0.1
+2025-07-31 19:05:32,903 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:05:32,904 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:05:32,905 - main - [32mINFO[0m - ✅ [REQ: req_1753988732_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:06:02,984 - main - [32mINFO[0m - 📥 [REQ: req_1753988762_4272] GET http://localhost:8000/api/health
+2025-07-31 19:06:02,985 - main - [32mINFO[0m - 🌐 [REQ: req_1753988762_4272] IP: 127.0.0.1
+2025-07-31 19:06:02,985 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:06:02,986 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:06:02,988 - main - [32mINFO[0m - ✅ [REQ: req_1753988762_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:06:04,479 - main - [32mINFO[0m - 📥 [REQ: req_1753988764_329] GET http://localhost:8000/docs
+2025-07-31 19:06:04,481 - main - [32mINFO[0m - 🌐 [REQ: req_1753988764_329] IP: 172.18.0.1
+2025-07-31 19:06:04,488 - main - [32mINFO[0m - ✅ [REQ: req_1753988764_329] 200 - 0.009s - GET /docs
+2025-07-31 19:06:05,044 - main - [32mINFO[0m - 📥 [REQ: req_1753988765_6290] GET http://localhost:8000/openapi.json
+2025-07-31 19:06:05,046 - main - [32mINFO[0m - 🌐 [REQ: req_1753988765_6290] IP: 172.18.0.1
+2025-07-31 19:06:05,082 - main - [32mINFO[0m - ✅ [REQ: req_1753988765_6290] 200 - 0.038s - GET /openapi.json
+2025-07-31 19:06:33,060 - main - [32mINFO[0m - 📥 [REQ: req_1753988793_4272] GET http://localhost:8000/api/health
+2025-07-31 19:06:33,060 - main - [32mINFO[0m - 🌐 [REQ: req_1753988793_4272] IP: 127.0.0.1
+2025-07-31 19:06:33,062 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:06:33,064 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:06:33,065 - main - [32mINFO[0m - ✅ [REQ: req_1753988793_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:06:52,034 - main - [32mINFO[0m - 📥 [REQ: req_1753988812_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:52,036 - main - [32mINFO[0m - 🌐 [REQ: req_1753988812_3782] IP: 172.18.0.1
+2025-07-31 19:06:52,038 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988812] Listagem de agentes solicitada
+2025-07-31 19:06:52,039 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988812] Usuário: 1
+2025-07-31 19:06:52,040 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988812] Encontrados 2 agentes
+2025-07-31 19:06:52,040 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988812] Agentes: ['Assistente Geral', 'Especialista em Código']
+2025-07-31 19:06:52,041 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988812] 2 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:52,043 - main - [32mINFO[0m - ✅ [REQ: req_1753988812_3782] 200 - 0.009s - GET /api/agents
+2025-07-31 19:06:52,051 - main - [32mINFO[0m - 📥 [REQ: req_1753988812_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:52,052 - main - [32mINFO[0m - 🌐 [REQ: req_1753988812_3782] IP: 172.18.0.1
+2025-07-31 19:06:52,054 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988812] Listagem de agentes solicitada
+2025-07-31 19:06:52,056 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988812] Usuário: 1
+2025-07-31 19:06:52,060 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988812] Encontrados 2 agentes
+2025-07-31 19:06:52,061 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988812] Agentes: ['Assistente Geral', 'Especialista em Código']
+2025-07-31 19:06:52,064 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988812] 2 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:52,066 - main - [32mINFO[0m - ✅ [REQ: req_1753988812_3782] 200 - 0.015s - GET /api/agents
+2025-07-31 19:06:54,388 - main - [32mINFO[0m - 📥 [REQ: req_1753988814_3711] OPTIONS http://localhost:8000/api/agents/create
+2025-07-31 19:06:54,388 - main - [32mINFO[0m - 🌐 [REQ: req_1753988814_3711] IP: 172.18.0.1
+2025-07-31 19:06:54,390 - main - [32mINFO[0m - 🌊 [REQ: req_1753988814_3711] 200 - 0.002s - OPTIONS /api/agents/create
+2025-07-31 19:06:54,394 - main - [32mINFO[0m - 📥 [REQ: req_1753988814_3711] POST http://localhost:8000/api/agents/create
+2025-07-31 19:06:54,395 - main - [32mINFO[0m - 🌐 [REQ: req_1753988814_3711] IP: 172.18.0.1
+2025-07-31 19:06:54,439 - main - [32mINFO[0m - 🎯 [CREATE: create_agent_1753988814] === CRIAÇÃO DE AGENTE INICIADA ===
+2025-07-31 19:06:54,440 - main - [32mINFO[0m - 👤 [CREATE: create_agent_1753988814] Usuário: 1
+2025-07-31 19:06:54,441 - main - [32mINFO[0m - 📝 [CREATE: create_agent_1753988814] Nome: 'Analista Financeiro Pro'
+2025-07-31 19:06:54,442 - main - [32mINFO[0m - 🎭 [CREATE: create_agent_1753988814] Papel: 'Você é um analista financeiro sênior com expertise em mercados globais.'
+2025-07-31 19:06:54,442 - main - [32mINFO[0m - 🤖 [CREATE: create_agent_1753988814] Modelo: anthropic/claude-3-5-sonnet-20241022
+2025-07-31 19:06:54,446 - main - [32mINFO[0m - 🛠️  [CREATE: create_agent_1753988814] Ferramentas: ['yfinance', 'reasoning']
+2025-07-31 19:06:54,447 - main - [32mINFO[0m - 💭 [CREATE: create_agent_1753988814] Memória: True
+2025-07-31 19:06:54,449 - main - [32mINFO[0m - 🔍 [CREATE: create_agent_1753988814] RAG: False
+2025-07-31 19:06:54,449 - main - [32mINFO[0m - 📋 [CREATE: create_agent_1753988814] Instruções (5): ['Você é um analista financeiro sênior com expertise em mercados globais.', 'Forneça insights detalhados com disclaimers apropriados.']
+2025-07-31 19:06:54,450 - main - [32mINFO[0m - ✅ [CREATE: create_agent_1753988814] Validação passou
+2025-07-31 19:06:54,453 - main.MockAgnoService - [32mINFO[0m - 🎯 [SESSION: create_agent_1_1753988814] Iniciando criação de agente
+2025-07-31 19:06:54,454 - main.MockAgnoService - [32mINFO[0m - 👤 [SESSION: create_agent_1_1753988814] Usuário: 1
+2025-07-31 19:06:54,455 - main.MockAgnoService - [32mINFO[0m - 📝 [SESSION: create_agent_1_1753988814] Nome: Analista Financeiro Pro
+2025-07-31 19:06:54,456 - main.MockAgnoService - [32mINFO[0m - 🎭 [SESSION: create_agent_1_1753988814] Papel: Você é um analista financeiro sênior com expertise em mercados globais.
+2025-07-31 19:06:54,457 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: create_agent_1_1753988814] Modelo: anthropic/claude-3-5-sonnet-20241022
+2025-07-31 19:06:54,461 - main.MockAgnoService - [32mINFO[0m - 🛠️  [SESSION: create_agent_1_1753988814] Ferramentas: ['yfinance', 'reasoning']
+2025-07-31 19:06:54,462 - main.MockAgnoService - [32mINFO[0m - 📋 [SESSION: create_agent_1_1753988814] Instruções: 5 itens
+2025-07-31 19:06:54,463 - main.MockAgnoService - [32mINFO[0m - ⏳ [SESSION: create_agent_1_1753988814] Processando criação...
+2025-07-31 19:06:54,963 - main.MockAgnoService - [32mINFO[0m - ✅ [SESSION: create_agent_1_1753988814] Agente criado com sucesso
+2025-07-31 19:06:54,964 - main.MockAgnoService - [32mINFO[0m - 🆔 [SESSION: create_agent_1_1753988814] ID do agente: 3
+2025-07-31 19:06:54,966 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: create_agent_1_1753988814] Total de agentes: 3
+2025-07-31 19:06:54,967 - main - [32mINFO[0m - 🎉 [CREATE: create_agent_1753988814] === AGENTE CRIADO COM SUCESSO ===
+2025-07-31 19:06:54,968 - main - [32mINFO[0m - 🆔 [CREATE: create_agent_1753988814] ID do agente: 3
+2025-07-31 19:06:54,969 - main - [32mINFO[0m - 📊 [CREATE: create_agent_1753988814] Total de agentes no sistema: 3
+2025-07-31 19:06:54,970 - main - [32mINFO[0m - ✅ [REQ: req_1753988814_3711] 200 - 0.575s - POST /api/agents/create
+2025-07-31 19:06:56,912 - main - [32mINFO[0m - 📥 [REQ: req_1753988816_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:56,913 - main - [32mINFO[0m - 🌐 [REQ: req_1753988816_3782] IP: 172.18.0.1
+2025-07-31 19:06:56,914 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988816] Listagem de agentes solicitada
+2025-07-31 19:06:56,915 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988816] Usuário: 1
+2025-07-31 19:06:56,918 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988816] Encontrados 3 agentes
+2025-07-31 19:06:56,919 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988816] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:06:56,920 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988816] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:56,922 - main - [32mINFO[0m - ✅ [REQ: req_1753988816_3782] 200 - 0.010s - GET /api/agents
+2025-07-31 19:06:57,699 - main - [32mINFO[0m - 📥 [REQ: req_1753988817_2212] GET http://localhost:8000/
+2025-07-31 19:06:57,700 - main - [32mINFO[0m - 🌐 [REQ: req_1753988817_2212] IP: 172.18.0.1
+2025-07-31 19:06:57,701 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:06:57,704 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:06:57,706 - main - [32mINFO[0m - ✅ [REQ: req_1753988817_2212] 200 - 0.007s - GET /
+2025-07-31 19:06:57,713 - main - [32mINFO[0m - 📥 [REQ: req_1753988817_2212] GET http://localhost:8000/
+2025-07-31 19:06:57,714 - main - [32mINFO[0m - 🌐 [REQ: req_1753988817_2212] IP: 172.18.0.1
+2025-07-31 19:06:57,717 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:06:57,719 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:06:57,721 - main - [32mINFO[0m - ✅ [REQ: req_1753988817_2212] 200 - 0.008s - GET /
+2025-07-31 19:06:57,728 - main - [32mINFO[0m - 📥 [REQ: req_1753988817_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:57,729 - main - [32mINFO[0m - 🌐 [REQ: req_1753988817_3782] IP: 172.18.0.1
+2025-07-31 19:06:57,731 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988817] Listagem de agentes solicitada
+2025-07-31 19:06:57,733 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988817] Usuário: 1
+2025-07-31 19:06:57,734 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988817] Encontrados 3 agentes
+2025-07-31 19:06:57,738 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988817] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:06:57,739 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988817] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:57,741 - main - [32mINFO[0m - 📥 [REQ: req_1753988817_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:06:57,743 - main - [32mINFO[0m - 🌐 [REQ: req_1753988817_1903] IP: 172.18.0.1
+2025-07-31 19:06:57,748 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988817] Listagem solicitada por usuário 1
+2025-07-31 19:06:57,749 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988817] Retornando 1 workflows
+2025-07-31 19:06:57,750 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988817] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:06:57,752 - main - [32mINFO[0m - ✅ [REQ: req_1753988817_3782] 200 - 0.024s - GET /api/agents
+2025-07-31 19:06:57,754 - main - [32mINFO[0m - ✅ [REQ: req_1753988817_1903] 200 - 0.013s - GET /api/workflows
+2025-07-31 19:06:57,787 - main - [32mINFO[0m - 📥 [REQ: req_1753988817_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:57,788 - main - [32mINFO[0m - 🌐 [REQ: req_1753988817_3782] IP: 172.18.0.1
+2025-07-31 19:06:57,789 - main - [32mINFO[0m - 📥 [REQ: req_1753988817_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:06:57,789 - main - [32mINFO[0m - 🌐 [REQ: req_1753988817_1903] IP: 172.18.0.1
+2025-07-31 19:06:57,791 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988817] Listagem de agentes solicitada
+2025-07-31 19:06:57,792 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988817] Usuário: 1
+2025-07-31 19:06:57,793 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988817] Encontrados 3 agentes
+2025-07-31 19:06:57,794 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988817] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:06:57,795 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988817] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:57,796 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988817] Listagem solicitada por usuário 1
+2025-07-31 19:06:57,797 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988817] Retornando 1 workflows
+2025-07-31 19:06:57,800 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988817] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:06:57,802 - main - [32mINFO[0m - ✅ [REQ: req_1753988817_3782] 200 - 0.015s - GET /api/agents
+2025-07-31 19:06:57,803 - main - [32mINFO[0m - ✅ [REQ: req_1753988817_1903] 200 - 0.014s - GET /api/workflows
+2025-07-31 19:06:59,798 - main - [32mINFO[0m - 📥 [REQ: req_1753988819_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:59,799 - main - [32mINFO[0m - 🌐 [REQ: req_1753988819_3782] IP: 172.18.0.1
+2025-07-31 19:06:59,801 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988819] Listagem de agentes solicitada
+2025-07-31 19:06:59,803 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988819] Usuário: 1
+2025-07-31 19:06:59,804 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988819] Encontrados 3 agentes
+2025-07-31 19:06:59,804 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988819] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:06:59,806 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988819] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:59,808 - main - [32mINFO[0m - 📥 [REQ: req_1753988819_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:06:59,809 - main - [32mINFO[0m - 🌐 [REQ: req_1753988819_1903] IP: 172.18.0.1
+2025-07-31 19:06:59,810 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988819] Listagem solicitada por usuário 1
+2025-07-31 19:06:59,810 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988819] Retornando 1 workflows
+2025-07-31 19:06:59,811 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988819] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:06:59,813 - main - [32mINFO[0m - ✅ [REQ: req_1753988819_3782] 200 - 0.015s - GET /api/agents
+2025-07-31 19:06:59,816 - main - [32mINFO[0m - ✅ [REQ: req_1753988819_1903] 200 - 0.008s - GET /api/workflows
+2025-07-31 19:06:59,823 - main - [32mINFO[0m - 📥 [REQ: req_1753988819_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:06:59,825 - main - [32mINFO[0m - 🌐 [REQ: req_1753988819_1903] IP: 172.18.0.1
+2025-07-31 19:06:59,829 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988819] Listagem solicitada por usuário 1
+2025-07-31 19:06:59,830 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988819] Retornando 1 workflows
+2025-07-31 19:06:59,831 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988819] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:06:59,832 - main - [32mINFO[0m - ✅ [REQ: req_1753988819_1903] 200 - 0.009s - GET /api/workflows
+2025-07-31 19:06:59,834 - main - [32mINFO[0m - 📥 [REQ: req_1753988819_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:06:59,836 - main - [32mINFO[0m - 🌐 [REQ: req_1753988819_3782] IP: 172.18.0.1
+2025-07-31 19:06:59,838 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988819] Listagem de agentes solicitada
+2025-07-31 19:06:59,839 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988819] Usuário: 1
+2025-07-31 19:06:59,841 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988819] Encontrados 3 agentes
+2025-07-31 19:06:59,845 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988819] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:06:59,851 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988819] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:06:59,856 - main - [32mINFO[0m - ✅ [REQ: req_1753988819_3782] 200 - 0.022s - GET /api/agents
+2025-07-31 19:07:03,129 - main - [32mINFO[0m - 📥 [REQ: req_1753988823_4272] GET http://localhost:8000/api/health
+2025-07-31 19:07:03,130 - main - [32mINFO[0m - 🌐 [REQ: req_1753988823_4272] IP: 127.0.0.1
+2025-07-31 19:07:03,131 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:07:03,131 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:07:03,133 - main - [32mINFO[0m - ✅ [REQ: req_1753988823_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:07:14,320 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_6322] OPTIONS http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:07:14,321 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_6322] IP: 172.18.0.1
+2025-07-31 19:07:14,325 - main - [32mINFO[0m - 🌊 [REQ: req_1753988834_6322] 200 - 0.003s - OPTIONS /api/metrics
+2025-07-31 19:07:14,328 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7040] OPTIONS http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:14,329 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7040] IP: 172.18.0.1
+2025-07-31 19:07:14,337 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_6322] OPTIONS http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:07:14,339 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_6322] IP: 172.18.0.1
+2025-07-31 19:07:14,341 - main - [32mINFO[0m - 🌊 [REQ: req_1753988834_7040] 200 - 0.013s - OPTIONS /api/performance
+2025-07-31 19:07:14,344 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7680] OPTIONS http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:07:14,345 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7680] IP: 172.18.0.1
+2025-07-31 19:07:14,347 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7680] OPTIONS http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:07:14,348 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7680] IP: 172.18.0.1
+2025-07-31 19:07:14,350 - main - [32mINFO[0m - 🌊 [REQ: req_1753988834_6322] 200 - 0.012s - OPTIONS /api/metrics
+2025-07-31 19:07:14,353 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7040] OPTIONS http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:14,354 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7040] IP: 172.18.0.1
+2025-07-31 19:07:14,357 - main - [32mINFO[0m - 🌊 [REQ: req_1753988834_7680] 200 - 0.013s - OPTIONS /api/sessions
+2025-07-31 19:07:14,361 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:07:14,363 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_3782] IP: 172.18.0.1
+2025-07-31 19:07:14,365 - main - [32mINFO[0m - 🌊 [REQ: req_1753988834_7680] 200 - 0.018s - OPTIONS /api/sessions
+2025-07-31 19:07:14,367 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988834] Listagem de agentes solicitada
+2025-07-31 19:07:14,372 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988834] Usuário: 1
+2025-07-31 19:07:14,372 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988834] Encontrados 3 agentes
+2025-07-31 19:07:14,374 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988834] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:07:14,375 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988834] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:07:14,376 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:07:14,377 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_1903] IP: 172.18.0.1
+2025-07-31 19:07:14,378 - main - [32mINFO[0m - 🌊 [REQ: req_1753988834_7040] 200 - 0.025s - OPTIONS /api/performance
+2025-07-31 19:07:14,381 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988834] Listagem solicitada por usuário 1
+2025-07-31 19:07:14,382 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988834] Retornando 1 workflows
+2025-07-31 19:07:14,386 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988834] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:07:14,389 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_3782] 200 - 0.028s - GET /api/agents
+2025-07-31 19:07:14,394 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:07:14,402 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_6322] IP: 172.18.0.1
+2025-07-31 19:07:14,403 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_1903] 200 - 0.027s - GET /api/workflows
+2025-07-31 19:07:14,407 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753988834] Métricas solicitadas por usuário 1
+2025-07-31 19:07:14,408 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753988834] Métricas calculadas e retornadas
+2025-07-31 19:07:14,409 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:14,410 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7040] IP: 172.18.0.1
+2025-07-31 19:07:14,413 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:07:14,415 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7680] IP: 172.18.0.1
+2025-07-31 19:07:14,417 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_6322] 200 - 0.023s - GET /api/metrics
+2025-07-31 19:07:14,421 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753988834] Listagem de sessões - usuário 1
+2025-07-31 19:07:14,421 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753988834] Retornando 5 sessões
+2025-07-31 19:07:14,427 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:07:14,427 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_1903] IP: 172.18.0.1
+2025-07-31 19:07:14,429 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:07:14,430 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_3782] IP: 172.18.0.1
+2025-07-31 19:07:14,435 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988834_7040] 405 - 0.026s - GET /api/performance
+2025-07-31 19:07:14,437 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988834] Listagem solicitada por usuário 1
+2025-07-31 19:07:14,438 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988834] Retornando 1 workflows
+2025-07-31 19:07:14,440 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988834] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:07:14,442 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988834] Listagem de agentes solicitada
+2025-07-31 19:07:14,443 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988834] Usuário: 1
+2025-07-31 19:07:14,444 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988834] Encontrados 3 agentes
+2025-07-31 19:07:14,444 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988834] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:07:14,445 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988834] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:07:14,448 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_7680] 200 - 0.035s - GET /api/sessions
+2025-07-31 19:07:14,457 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:07:14,458 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_6322] IP: 172.18.0.1
+2025-07-31 19:07:14,463 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_1903] 200 - 0.036s - GET /api/workflows
+2025-07-31 19:07:14,464 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_3782] 200 - 0.035s - GET /api/agents
+2025-07-31 19:07:14,466 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753988834] Métricas solicitadas por usuário 1
+2025-07-31 19:07:14,467 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753988834] Métricas calculadas e retornadas
+2025-07-31 19:07:14,469 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:14,470 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7040] IP: 172.18.0.1
+2025-07-31 19:07:14,473 - main - [32mINFO[0m - 📥 [REQ: req_1753988834_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:07:14,474 - main - [32mINFO[0m - 🌐 [REQ: req_1753988834_7680] IP: 172.18.0.1
+2025-07-31 19:07:14,477 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_6322] 200 - 0.019s - GET /api/metrics
+2025-07-31 19:07:14,479 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753988834] Listagem de sessões - usuário 1
+2025-07-31 19:07:14,480 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753988834] Retornando 5 sessões
+2025-07-31 19:07:14,482 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988834_7040] 405 - 0.012s - GET /api/performance
+2025-07-31 19:07:14,484 - main - [32mINFO[0m - ✅ [REQ: req_1753988834_7680] 200 - 0.011s - GET /api/sessions
+2025-07-31 19:07:15,470 - main - [32mINFO[0m - 📥 [REQ: req_1753988835_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:15,471 - main - [32mINFO[0m - 🌐 [REQ: req_1753988835_7040] IP: 172.18.0.1
+2025-07-31 19:07:15,472 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988835_7040] 405 - 0.001s - GET /api/performance
+2025-07-31 19:07:15,490 - main - [32mINFO[0m - 📥 [REQ: req_1753988835_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:15,491 - main - [32mINFO[0m - 🌐 [REQ: req_1753988835_7040] IP: 172.18.0.1
+2025-07-31 19:07:15,492 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988835_7040] 405 - 0.001s - GET /api/performance
+2025-07-31 19:07:17,921 - main - [32mINFO[0m - 📥 [REQ: req_1753988837_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:17,922 - main - [32mINFO[0m - 🌐 [REQ: req_1753988837_7040] IP: 172.18.0.1
+2025-07-31 19:07:17,923 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988837_7040] 405 - 0.002s - GET /api/performance
+2025-07-31 19:07:17,927 - main - [32mINFO[0m - 📥 [REQ: req_1753988837_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:17,928 - main - [32mINFO[0m - 🌐 [REQ: req_1753988837_7040] IP: 172.18.0.1
+2025-07-31 19:07:17,929 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988837_7040] 405 - 0.002s - GET /api/performance
+2025-07-31 19:07:33,215 - main - [32mINFO[0m - 📥 [REQ: req_1753988853_4272] GET http://localhost:8000/api/health
+2025-07-31 19:07:33,216 - main - [32mINFO[0m - 🌐 [REQ: req_1753988853_4272] IP: 127.0.0.1
+2025-07-31 19:07:33,216 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:07:33,218 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:07:33,219 - main - [32mINFO[0m - ✅ [REQ: req_1753988853_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:07:44,926 - main - [32mINFO[0m - 📥 [REQ: req_1753988864_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:07:44,930 - main - [32mINFO[0m - 🌐 [REQ: req_1753988864_6322] IP: 172.18.0.1
+2025-07-31 19:07:44,933 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753988864] Métricas solicitadas por usuário 1
+2025-07-31 19:07:44,936 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753988864] Métricas calculadas e retornadas
+2025-07-31 19:07:44,939 - main - [32mINFO[0m - 📥 [REQ: req_1753988864_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:44,940 - main - [32mINFO[0m - 🌐 [REQ: req_1753988864_7040] IP: 172.18.0.1
+2025-07-31 19:07:44,941 - main - [32mINFO[0m - ✅ [REQ: req_1753988864_6322] 200 - 0.015s - GET /api/metrics
+2025-07-31 19:07:44,946 - main - [32mINFO[0m - 📥 [REQ: req_1753988864_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:07:44,947 - main - [32mINFO[0m - 🌐 [REQ: req_1753988864_7680] IP: 172.18.0.1
+2025-07-31 19:07:44,951 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753988864] Listagem de sessões - usuário 1
+2025-07-31 19:07:44,952 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753988864] Retornando 5 sessões
+2025-07-31 19:07:44,953 - main - [32mINFO[0m - 📥 [REQ: req_1753988864_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:07:44,955 - main - [32mINFO[0m - 🌐 [REQ: req_1753988864_1903] IP: 172.18.0.1
+2025-07-31 19:07:44,956 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988864_7040] 405 - 0.017s - GET /api/performance
+2025-07-31 19:07:44,958 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988864] Listagem solicitada por usuário 1
+2025-07-31 19:07:44,958 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988864] Retornando 1 workflows
+2025-07-31 19:07:44,959 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988864] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:07:44,961 - main - [32mINFO[0m - 📥 [REQ: req_1753988864_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:07:44,962 - main - [32mINFO[0m - 🌐 [REQ: req_1753988864_3782] IP: 172.18.0.1
+2025-07-31 19:07:44,963 - main - [32mINFO[0m - ✅ [REQ: req_1753988864_7680] 200 - 0.017s - GET /api/sessions
+2025-07-31 19:07:44,965 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988864] Listagem de agentes solicitada
+2025-07-31 19:07:44,966 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988864] Usuário: 1
+2025-07-31 19:07:44,968 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988864] Encontrados 3 agentes
+2025-07-31 19:07:44,969 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988864] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:07:44,971 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988864] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:07:44,974 - main - [32mINFO[0m - ✅ [REQ: req_1753988864_1903] 200 - 0.020s - GET /api/workflows
+2025-07-31 19:07:44,975 - main - [32mINFO[0m - ✅ [REQ: req_1753988864_3782] 200 - 0.015s - GET /api/agents
+2025-07-31 19:07:46,919 - main - [32mINFO[0m - 📥 [REQ: req_1753988866_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:46,920 - main - [32mINFO[0m - 🌐 [REQ: req_1753988866_7040] IP: 172.18.0.1
+2025-07-31 19:07:46,922 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988866_7040] 405 - 0.003s - GET /api/performance
+2025-07-31 19:07:49,912 - main - [32mINFO[0m - 📥 [REQ: req_1753988869_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:07:49,912 - main - [32mINFO[0m - 🌐 [REQ: req_1753988869_7040] IP: 172.18.0.1
+2025-07-31 19:07:49,914 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988869_7040] 405 - 0.002s - GET /api/performance
+2025-07-31 19:08:03,286 - main - [32mINFO[0m - 📥 [REQ: req_1753988883_4272] GET http://localhost:8000/api/health
+2025-07-31 19:08:03,286 - main - [32mINFO[0m - 🌐 [REQ: req_1753988883_4272] IP: 127.0.0.1
+2025-07-31 19:08:03,287 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:08:03,289 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:08:03,290 - main - [32mINFO[0m - ✅ [REQ: req_1753988883_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:08:14,918 - main - [32mINFO[0m - 📥 [REQ: req_1753988894_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:08:14,920 - main - [32mINFO[0m - 🌐 [REQ: req_1753988894_6322] IP: 172.18.0.1
+2025-07-31 19:08:14,925 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753988894] Métricas solicitadas por usuário 1
+2025-07-31 19:08:14,926 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753988894] Métricas calculadas e retornadas
+2025-07-31 19:08:14,928 - main - [32mINFO[0m - 📥 [REQ: req_1753988894_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:08:14,931 - main - [32mINFO[0m - 🌐 [REQ: req_1753988894_7040] IP: 172.18.0.1
+2025-07-31 19:08:14,934 - main - [32mINFO[0m - ✅ [REQ: req_1753988894_6322] 200 - 0.016s - GET /api/metrics
+2025-07-31 19:08:14,940 - main - [32mINFO[0m - 📥 [REQ: req_1753988894_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:08:14,941 - main - [32mINFO[0m - 🌐 [REQ: req_1753988894_3782] IP: 172.18.0.1
+2025-07-31 19:08:14,944 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988894_7040] 405 - 0.016s - GET /api/performance
+2025-07-31 19:08:14,946 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988894] Listagem de agentes solicitada
+2025-07-31 19:08:14,947 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988894] Usuário: 1
+2025-07-31 19:08:14,948 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988894] Encontrados 3 agentes
+2025-07-31 19:08:14,950 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988894] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:08:14,952 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988894] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:08:14,953 - main - [32mINFO[0m - 📥 [REQ: req_1753988894_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:08:14,955 - main - [32mINFO[0m - 🌐 [REQ: req_1753988894_7680] IP: 172.18.0.1
+2025-07-31 19:08:14,957 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753988894] Listagem de sessões - usuário 1
+2025-07-31 19:08:14,958 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753988894] Retornando 5 sessões
+2025-07-31 19:08:14,959 - main - [32mINFO[0m - 📥 [REQ: req_1753988894_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:08:14,960 - main - [32mINFO[0m - 🌐 [REQ: req_1753988894_1903] IP: 172.18.0.1
+2025-07-31 19:08:14,961 - main - [32mINFO[0m - ✅ [REQ: req_1753988894_3782] 200 - 0.021s - GET /api/agents
+2025-07-31 19:08:14,963 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988894] Listagem solicitada por usuário 1
+2025-07-31 19:08:14,964 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988894] Retornando 1 workflows
+2025-07-31 19:08:14,965 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988894] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:08:14,966 - main - [32mINFO[0m - ✅ [REQ: req_1753988894_7680] 200 - 0.013s - GET /api/sessions
+2025-07-31 19:08:14,968 - main - [32mINFO[0m - ✅ [REQ: req_1753988894_1903] 200 - 0.009s - GET /api/workflows
+2025-07-31 19:08:16,909 - main - [32mINFO[0m - 📥 [REQ: req_1753988896_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:08:16,910 - main - [32mINFO[0m - 🌐 [REQ: req_1753988896_7040] IP: 172.18.0.1
+2025-07-31 19:08:16,911 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988896_7040] 405 - 0.002s - GET /api/performance
+2025-07-31 19:08:19,914 - main - [32mINFO[0m - 📥 [REQ: req_1753988899_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:08:19,915 - main - [32mINFO[0m - 🌐 [REQ: req_1753988899_7040] IP: 172.18.0.1
+2025-07-31 19:08:19,917 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753988899_7040] 405 - 0.003s - GET /api/performance
+2025-07-31 19:08:27,322 - main - [32mINFO[0m - 📥 [REQ: req_1753988907_2212] GET http://localhost:8000/
+2025-07-31 19:08:27,323 - main - [32mINFO[0m - 🌐 [REQ: req_1753988907_2212] IP: 172.18.0.1
+2025-07-31 19:08:27,324 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:08:27,325 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:08:27,327 - main - [32mINFO[0m - ✅ [REQ: req_1753988907_2212] 200 - 0.004s - GET /
+2025-07-31 19:08:27,331 - main - [32mINFO[0m - 📥 [REQ: req_1753988907_2212] GET http://localhost:8000/
+2025-07-31 19:08:27,335 - main - [32mINFO[0m - 🌐 [REQ: req_1753988907_2212] IP: 172.18.0.1
+2025-07-31 19:08:27,336 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:08:27,339 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:08:27,341 - main - [32mINFO[0m - ✅ [REQ: req_1753988907_2212] 200 - 0.010s - GET /
+2025-07-31 19:08:27,344 - main - [32mINFO[0m - 📥 [REQ: req_1753988907_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:08:27,345 - main - [32mINFO[0m - 🌐 [REQ: req_1753988907_3782] IP: 172.18.0.1
+2025-07-31 19:08:27,347 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988907] Listagem de agentes solicitada
+2025-07-31 19:08:27,348 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988907] Usuário: 1
+2025-07-31 19:08:27,349 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988907] Encontrados 3 agentes
+2025-07-31 19:08:27,350 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988907] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:08:27,350 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988907] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:08:27,352 - main - [32mINFO[0m - 📥 [REQ: req_1753988907_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:08:27,354 - main - [32mINFO[0m - 🌐 [REQ: req_1753988907_1903] IP: 172.18.0.1
+2025-07-31 19:08:27,355 - main - [32mINFO[0m - ✅ [REQ: req_1753988907_3782] 200 - 0.012s - GET /api/agents
+2025-07-31 19:08:27,357 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988907] Listagem solicitada por usuário 1
+2025-07-31 19:08:27,358 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988907] Retornando 1 workflows
+2025-07-31 19:08:27,359 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988907] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:08:27,362 - main - [32mINFO[0m - ✅ [REQ: req_1753988907_1903] 200 - 0.010s - GET /api/workflows
+2025-07-31 19:08:27,419 - main - [32mINFO[0m - 📥 [REQ: req_1753988907_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:08:27,420 - main - [32mINFO[0m - 🌐 [REQ: req_1753988907_1903] IP: 172.18.0.1
+2025-07-31 19:08:27,421 - main - [32mINFO[0m - 📥 [REQ: req_1753988907_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:08:27,422 - main - [32mINFO[0m - 🌐 [REQ: req_1753988907_3782] IP: 172.18.0.1
+2025-07-31 19:08:27,424 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753988907] Listagem solicitada por usuário 1
+2025-07-31 19:08:27,425 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753988907] Retornando 1 workflows
+2025-07-31 19:08:27,426 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753988907] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:08:27,427 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753988907] Listagem de agentes solicitada
+2025-07-31 19:08:27,428 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753988907] Usuário: 1
+2025-07-31 19:08:27,431 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753988907] Encontrados 3 agentes
+2025-07-31 19:08:27,433 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753988907] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:08:27,434 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753988907] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:08:27,436 - main - [32mINFO[0m - ✅ [REQ: req_1753988907_1903] 200 - 0.017s - GET /api/workflows
+2025-07-31 19:08:27,438 - main - [32mINFO[0m - ✅ [REQ: req_1753988907_3782] 200 - 0.017s - GET /api/agents
+2025-07-31 19:08:33,351 - main - [32mINFO[0m - 📥 [REQ: req_1753988913_4272] GET http://localhost:8000/api/health
+2025-07-31 19:08:33,352 - main - [32mINFO[0m - 🌐 [REQ: req_1753988913_4272] IP: 127.0.0.1
+2025-07-31 19:08:33,354 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:08:33,355 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:08:33,357 - main - [32mINFO[0m - ✅ [REQ: req_1753988913_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:08:34,838 - main - [32mINFO[0m - 📥 [REQ: req_1753988914_7256] OPTIONS http://localhost:8000/api/agents/1/chat?user_id=1
+2025-07-31 19:08:34,842 - main - [32mINFO[0m - 🌐 [REQ: req_1753988914_7256] IP: 172.18.0.1
+2025-07-31 19:08:34,844 - main - [32mINFO[0m - 🌊 [REQ: req_1753988914_7256] 200 - 0.006s - OPTIONS /api/agents/1/chat
+2025-07-31 19:08:34,849 - main - [32mINFO[0m - 📥 [REQ: req_1753988914_7256] POST http://localhost:8000/api/agents/1/chat?user_id=1
+2025-07-31 19:08:34,850 - main - [32mINFO[0m - 🌐 [REQ: req_1753988914_7256] IP: 172.18.0.1
+2025-07-31 19:08:34,894 - main - [32mINFO[0m - 💬 [CHAT: chat_1_1753988914] === CHAT INICIADO ===
+2025-07-31 19:08:34,896 - main - [32mINFO[0m - 👤 [CHAT: chat_1_1753988914] Usuário: 1
+2025-07-31 19:08:34,900 - main - [32mINFO[0m - 🤖 [CHAT: chat_1_1753988914] Agente: 1
+2025-07-31 19:08:34,901 - main - [32mINFO[0m - 📝 [CHAT: chat_1_1753988914] Mensagem: 'Tenho dores...'
+2025-07-31 19:08:34,903 - main - [32mINFO[0m - 📏 [CHAT: chat_1_1753988914] Tamanho da mensagem: 11 chars
+2025-07-31 19:08:34,904 - main - [32mINFO[0m - 📡 [CHAT: chat_1_1753988914] Retornando StreamingResponse
+2025-07-31 19:08:34,906 - main - [32mINFO[0m - 🌊 [CHAT: chat_1_1753988914] Iniciando stream generator
+2025-07-31 19:08:34,907 - main.MockAgnoService - [32mINFO[0m - 🚀 [SESSION: chat_1_1_1753988914] === INICIANDO CHAT COM AGENTE ===
+2025-07-31 19:08:34,908 - main.MockAgnoService - [32mINFO[0m - 👤 [SESSION: chat_1_1_1753988914] Usuário: 1
+2025-07-31 19:08:34,909 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: chat_1_1_1753988914] Agente: 1
+2025-07-31 19:08:34,910 - main.MockAgnoService - [32mINFO[0m - 📝 [SESSION: chat_1_1_1753988914] Mensagem (11 chars): Tenho dores...
+2025-07-31 19:08:34,911 - main.MockAgnoService - [32mINFO[0m - 🕐 [SESSION: chat_1_1_1753988914] Timestamp: 2025-07-31T19:08:34.911728
+2025-07-31 19:08:34,913 - main.MockAgnoService - [32mINFO[0m - 🎯 [SESSION: chat_1_1_1753988914] Agente encontrado: Assistente Geral
+2025-07-31 19:08:34,914 - main.MockAgnoService - [32mINFO[0m - 🏷️  [SESSION: chat_1_1_1753988914] Papel: Assistente virtual para tarefas gerais e atendimento
+2025-07-31 19:08:34,915 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: chat_1_1_1753988914] Modelo: openai/gpt-4o-mini
+2025-07-31 19:08:34,920 - main.MockAgnoService - [32mINFO[0m - 🛠️  [SESSION: chat_1_1_1753988914] Ferramentas: ['web_search', 'code_interpreter']
+2025-07-31 19:08:34,921 - main.MockAgnoService - [32mINFO[0m - ⏳ [SESSION: chat_1_1_1753988914] Iniciando processamento...
+2025-07-31 19:08:34,925 - main - [32mINFO[0m - 🌊 [REQ: req_1753988914_7256] 200 - 0.076s - POST /api/agents/1/chat
+2025-07-31 19:08:35,226 - main.MockAgnoService - [32mINFO[0m - 📤 [SESSION: chat_1_1_1753988914] Iniciando streaming de 105 palavras
+2025-07-31 19:08:35,226 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753988914] Velocidade: ~30ms por palavra
+2025-07-31 19:08:35,986 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753988914] Progresso: 25/105 palavras (23.8%)
+2025-07-31 19:08:36,749 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753988914] Progresso: 50/105 palavras (47.6%)
+2025-07-31 19:08:37,514 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753988914] Progresso: 75/105 palavras (71.4%)
+2025-07-31 19:08:38,278 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753988914] Progresso: 100/105 palavras (95.2%)
+2025-07-31 19:08:38,431 - main.MockAgnoService - [32mINFO[0m - ✅ [SESSION: chat_1_1_1753988914] Streaming concluído com SUCESSO
+2025-07-31 19:08:38,432 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753988914] Total de palavras enviadas: 105
+2025-07-31 19:08:38,433 - main.MockAgnoService - [32mINFO[0m - 📏 [SESSION: chat_1_1_1753988914] Total de caracteres: 847
+2025-07-31 19:08:38,433 - main.MockAgnoService - [32mINFO[0m - ⏱️  [SESSION: chat_1_1_1753988914] Duração estimada: 3.15 segundos
+2025-07-31 19:08:38,434 - main.MockAgnoService - [32mINFO[0m - 🏁 [SESSION: chat_1_1_1753988914] === CHAT FINALIZADO ===
+2025-07-31 19:08:38,435 - main - [32mINFO[0m - 🏁 [CHAT: chat_1_1753988914] Stream generator finalizado - 106 chunks enviados
+2025-07-31 19:09:03,422 - main - [32mINFO[0m - 📥 [REQ: req_1753988943_4272] GET http://localhost:8000/api/health
+2025-07-31 19:09:03,435 - main - [32mINFO[0m - 🌐 [REQ: req_1753988943_4272] IP: 127.0.0.1
+2025-07-31 19:09:03,454 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:09:03,455 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:09:03,457 - main - [32mINFO[0m - ✅ [REQ: req_1753988943_4272] 200 - 0.035s - GET /api/health
+2025-07-31 19:09:33,516 - main - [32mINFO[0m - 📥 [REQ: req_1753988973_4272] GET http://localhost:8000/api/health
+2025-07-31 19:09:33,517 - main - [32mINFO[0m - 🌐 [REQ: req_1753988973_4272] IP: 127.0.0.1
+2025-07-31 19:09:33,518 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:09:33,520 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:09:33,521 - main - [32mINFO[0m - ✅ [REQ: req_1753988973_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:10:03,587 - main - [32mINFO[0m - 📥 [REQ: req_1753989003_4272] GET http://localhost:8000/api/health
+2025-07-31 19:10:03,588 - main - [32mINFO[0m - 🌐 [REQ: req_1753989003_4272] IP: 127.0.0.1
+2025-07-31 19:10:03,588 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:10:03,590 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:10:03,592 - main - [32mINFO[0m - ✅ [REQ: req_1753989003_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:10:33,666 - main - [32mINFO[0m - 📥 [REQ: req_1753989033_4272] GET http://localhost:8000/api/health
+2025-07-31 19:10:33,666 - main - [32mINFO[0m - 🌐 [REQ: req_1753989033_4272] IP: 127.0.0.1
+2025-07-31 19:10:33,667 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:10:33,668 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:10:33,670 - main - [32mINFO[0m - ✅ [REQ: req_1753989033_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:11:03,759 - main - [32mINFO[0m - 📥 [REQ: req_1753989063_4272] GET http://localhost:8000/api/health
+2025-07-31 19:11:03,760 - main - [32mINFO[0m - 🌐 [REQ: req_1753989063_4272] IP: 127.0.0.1
+2025-07-31 19:11:03,762 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:11:03,763 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:11:03,764 - main - [32mINFO[0m - ✅ [REQ: req_1753989063_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:11:33,857 - main - [32mINFO[0m - 📥 [REQ: req_1753989093_4272] GET http://localhost:8000/api/health
+2025-07-31 19:11:33,858 - main - [32mINFO[0m - 🌐 [REQ: req_1753989093_4272] IP: 127.0.0.1
+2025-07-31 19:11:33,859 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:11:33,860 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:11:33,861 - main - [32mINFO[0m - ✅ [REQ: req_1753989093_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:12:03,952 - main - [32mINFO[0m - 📥 [REQ: req_1753989123_4272] GET http://localhost:8000/api/health
+2025-07-31 19:12:03,953 - main - [32mINFO[0m - 🌐 [REQ: req_1753989123_4272] IP: 127.0.0.1
+2025-07-31 19:12:03,954 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:12:03,955 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:12:03,956 - main - [32mINFO[0m - ✅ [REQ: req_1753989123_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:12:34,034 - main - [32mINFO[0m - 📥 [REQ: req_1753989154_4272] GET http://localhost:8000/api/health
+2025-07-31 19:12:34,034 - main - [32mINFO[0m - 🌐 [REQ: req_1753989154_4272] IP: 127.0.0.1
+2025-07-31 19:12:34,035 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:12:34,036 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:12:34,037 - main - [32mINFO[0m - ✅ [REQ: req_1753989154_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:13:04,102 - main - [32mINFO[0m - 📥 [REQ: req_1753989184_4272] GET http://localhost:8000/api/health
+2025-07-31 19:13:04,103 - main - [32mINFO[0m - 🌐 [REQ: req_1753989184_4272] IP: 127.0.0.1
+2025-07-31 19:13:04,104 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:13:04,105 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:13:04,106 - main - [32mINFO[0m - ✅ [REQ: req_1753989184_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:13:34,179 - main - [32mINFO[0m - 📥 [REQ: req_1753989214_4272] GET http://localhost:8000/api/health
+2025-07-31 19:13:34,179 - main - [32mINFO[0m - 🌐 [REQ: req_1753989214_4272] IP: 127.0.0.1
+2025-07-31 19:13:34,180 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:13:34,181 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:13:34,184 - main - [32mINFO[0m - ✅ [REQ: req_1753989214_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:14:04,257 - main - [32mINFO[0m - 📥 [REQ: req_1753989244_4272] GET http://localhost:8000/api/health
+2025-07-31 19:14:04,257 - main - [32mINFO[0m - 🌐 [REQ: req_1753989244_4272] IP: 127.0.0.1
+2025-07-31 19:14:04,258 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:14:04,260 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:14:04,261 - main - [32mINFO[0m - ✅ [REQ: req_1753989244_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:14:34,347 - main - [32mINFO[0m - 📥 [REQ: req_1753989274_4272] GET http://localhost:8000/api/health
+2025-07-31 19:14:34,348 - main - [32mINFO[0m - 🌐 [REQ: req_1753989274_4272] IP: 127.0.0.1
+2025-07-31 19:14:34,349 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:14:34,350 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:14:34,352 - main - [32mINFO[0m - ✅ [REQ: req_1753989274_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:15:04,521 - main - [32mINFO[0m - 📥 [REQ: req_1753989304_4272] GET http://localhost:8000/api/health
+2025-07-31 19:15:04,522 - main - [32mINFO[0m - 🌐 [REQ: req_1753989304_4272] IP: 127.0.0.1
+2025-07-31 19:15:04,523 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:15:04,524 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:15:04,525 - main - [32mINFO[0m - ✅ [REQ: req_1753989304_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:15:34,615 - main - [32mINFO[0m - 📥 [REQ: req_1753989334_4272] GET http://localhost:8000/api/health
+2025-07-31 19:15:34,616 - main - [32mINFO[0m - 🌐 [REQ: req_1753989334_4272] IP: 127.0.0.1
+2025-07-31 19:15:34,618 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:15:34,619 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:15:34,621 - main - [32mINFO[0m - ✅ [REQ: req_1753989334_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:16:04,775 - main - [32mINFO[0m - 📥 [REQ: req_1753989364_4272] GET http://localhost:8000/api/health
+2025-07-31 19:16:04,775 - main - [32mINFO[0m - 🌐 [REQ: req_1753989364_4272] IP: 127.0.0.1
+2025-07-31 19:16:04,776 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:16:04,777 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:16:04,779 - main - [32mINFO[0m - ✅ [REQ: req_1753989364_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:16:34,852 - main - [32mINFO[0m - 📥 [REQ: req_1753989394_4272] GET http://localhost:8000/api/health
+2025-07-31 19:16:34,853 - main - [32mINFO[0m - 🌐 [REQ: req_1753989394_4272] IP: 127.0.0.1
+2025-07-31 19:16:34,855 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:16:34,857 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:16:34,858 - main - [32mINFO[0m - ✅ [REQ: req_1753989394_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:17:04,948 - main - [32mINFO[0m - 📥 [REQ: req_1753989424_4272] GET http://localhost:8000/api/health
+2025-07-31 19:17:04,948 - main - [32mINFO[0m - 🌐 [REQ: req_1753989424_4272] IP: 127.0.0.1
+2025-07-31 19:17:04,949 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:17:04,950 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:17:04,953 - main - [32mINFO[0m - ✅ [REQ: req_1753989424_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:17:35,059 - main - [32mINFO[0m - 📥 [REQ: req_1753989455_4272] GET http://localhost:8000/api/health
+2025-07-31 19:17:35,060 - main - [32mINFO[0m - 🌐 [REQ: req_1753989455_4272] IP: 127.0.0.1
+2025-07-31 19:17:35,061 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:17:35,062 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:17:35,063 - main - [32mINFO[0m - ✅ [REQ: req_1753989455_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:17:49,197 - main - [32mINFO[0m - 📥 [REQ: req_1753989469_2212] GET http://localhost:8000/
+2025-07-31 19:17:49,200 - main - [32mINFO[0m - 🌐 [REQ: req_1753989469_2212] IP: 172.18.0.1
+2025-07-31 19:17:49,208 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:17:49,217 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:17:49,230 - main - [32mINFO[0m - ✅ [REQ: req_1753989469_2212] 200 - 0.034s - GET /
+2025-07-31 19:17:49,258 - main - [32mINFO[0m - 📥 [REQ: req_1753989469_3782] OPTIONS http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:17:49,270 - main - [32mINFO[0m - 🌐 [REQ: req_1753989469_3782] IP: 172.18.0.1
+2025-07-31 19:17:49,275 - main - [32mINFO[0m - 🌊 [REQ: req_1753989469_3782] 200 - 0.017s - OPTIONS /api/agents
+2025-07-31 19:17:49,285 - main - [32mINFO[0m - 📥 [REQ: req_1753989469_1903] OPTIONS http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:17:49,286 - main - [32mINFO[0m - 🌐 [REQ: req_1753989469_1903] IP: 172.18.0.1
+2025-07-31 19:17:49,288 - main - [32mINFO[0m - 🌊 [REQ: req_1753989469_1903] 200 - 0.003s - OPTIONS /api/workflows
+2025-07-31 19:17:49,312 - main - [32mINFO[0m - 📥 [REQ: req_1753989469_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:17:49,323 - main - [32mINFO[0m - 🌐 [REQ: req_1753989469_3782] IP: 172.18.0.1
+2025-07-31 19:17:49,336 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989469] Listagem de agentes solicitada
+2025-07-31 19:17:49,341 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989469] Usuário: 1
+2025-07-31 19:17:49,342 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989469] Encontrados 3 agentes
+2025-07-31 19:17:49,346 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989469] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:17:49,349 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989469] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:17:49,356 - main - [32mINFO[0m - ✅ [REQ: req_1753989469_3782] 200 - 0.044s - GET /api/agents
+2025-07-31 19:17:49,359 - main - [32mINFO[0m - 📥 [REQ: req_1753989469_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:17:49,368 - main - [32mINFO[0m - 🌐 [REQ: req_1753989469_1903] IP: 172.18.0.1
+2025-07-31 19:17:49,377 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989469] Listagem solicitada por usuário 1
+2025-07-31 19:17:49,378 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989469] Retornando 1 workflows
+2025-07-31 19:17:49,380 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989469] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:17:49,383 - main - [32mINFO[0m - ✅ [REQ: req_1753989469_1903] 200 - 0.024s - GET /api/workflows
+2025-07-31 19:18:05,161 - main - [32mINFO[0m - 📥 [REQ: req_1753989485_4272] GET http://localhost:8000/api/health
+2025-07-31 19:18:05,162 - main - [32mINFO[0m - 🌐 [REQ: req_1753989485_4272] IP: 127.0.0.1
+2025-07-31 19:18:05,165 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:18:05,169 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:18:05,178 - main - [32mINFO[0m - ✅ [REQ: req_1753989485_4272] 200 - 0.018s - GET /api/health
+2025-07-31 19:18:35,276 - main - [32mINFO[0m - 📥 [REQ: req_1753989515_4272] GET http://localhost:8000/api/health
+2025-07-31 19:18:35,277 - main - [32mINFO[0m - 🌐 [REQ: req_1753989515_4272] IP: 127.0.0.1
+2025-07-31 19:18:35,279 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:18:35,280 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:18:35,282 - main - [32mINFO[0m - ✅ [REQ: req_1753989515_4272] 200 - 0.007s - GET /api/health
+2025-07-31 19:19:05,439 - main - [32mINFO[0m - 📥 [REQ: req_1753989545_4272] GET http://localhost:8000/api/health
+2025-07-31 19:19:05,440 - main - [32mINFO[0m - 🌐 [REQ: req_1753989545_4272] IP: 127.0.0.1
+2025-07-31 19:19:05,442 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:19:05,444 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:19:05,445 - main - [32mINFO[0m - ✅ [REQ: req_1753989545_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:19:35,552 - main - [32mINFO[0m - 📥 [REQ: req_1753989575_4272] GET http://localhost:8000/api/health
+2025-07-31 19:19:35,553 - main - [32mINFO[0m - 🌐 [REQ: req_1753989575_4272] IP: 127.0.0.1
+2025-07-31 19:19:35,556 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:19:35,559 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:19:35,561 - main - [32mINFO[0m - ✅ [REQ: req_1753989575_4272] 200 - 0.009s - GET /api/health
+2025-07-31 19:20:05,665 - main - [32mINFO[0m - 📥 [REQ: req_1753989605_4272] GET http://localhost:8000/api/health
+2025-07-31 19:20:05,665 - main - [32mINFO[0m - 🌐 [REQ: req_1753989605_4272] IP: 127.0.0.1
+2025-07-31 19:20:05,668 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:20:05,670 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:20:05,679 - main - [32mINFO[0m - ✅ [REQ: req_1753989605_4272] 200 - 0.014s - GET /api/health
+2025-07-31 19:20:35,768 - main - [32mINFO[0m - 📥 [REQ: req_1753989635_4272] GET http://localhost:8000/api/health
+2025-07-31 19:20:35,769 - main - [32mINFO[0m - 🌐 [REQ: req_1753989635_4272] IP: 127.0.0.1
+2025-07-31 19:20:35,770 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:20:35,771 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:20:35,772 - main - [32mINFO[0m - ✅ [REQ: req_1753989635_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:20:55,739 - main - [32mINFO[0m - 📥 [REQ: req_1753989655_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:20:55,742 - main - [32mINFO[0m - 🌐 [REQ: req_1753989655_1903] IP: 172.18.0.1
+2025-07-31 19:20:55,746 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989655] Listagem solicitada por usuário 1
+2025-07-31 19:20:55,767 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989655] Retornando 1 workflows
+2025-07-31 19:20:55,769 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989655] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:20:55,772 - main - [32mINFO[0m - 📥 [REQ: req_1753989655_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:55,774 - main - [32mINFO[0m - 🌐 [REQ: req_1753989655_3782] IP: 172.18.0.1
+2025-07-31 19:20:55,775 - main - [32mINFO[0m - ✅ [REQ: req_1753989655_1903] 200 - 0.036s - GET /api/workflows
+2025-07-31 19:20:55,777 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989655] Listagem de agentes solicitada
+2025-07-31 19:20:55,779 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989655] Usuário: 1
+2025-07-31 19:20:55,781 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989655] Encontrados 3 agentes
+2025-07-31 19:20:55,784 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989655] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:55,787 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989655] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:55,789 - main - [32mINFO[0m - ✅ [REQ: req_1753989655_3782] 200 - 0.017s - GET /api/agents
+2025-07-31 19:20:55,797 - main - [32mINFO[0m - 📥 [REQ: req_1753989655_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:20:55,798 - main - [32mINFO[0m - 🌐 [REQ: req_1753989655_1903] IP: 172.18.0.1
+2025-07-31 19:20:55,801 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989655] Listagem solicitada por usuário 1
+2025-07-31 19:20:55,807 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989655] Retornando 1 workflows
+2025-07-31 19:20:55,809 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989655] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:20:55,814 - main - [32mINFO[0m - ✅ [REQ: req_1753989655_1903] 200 - 0.017s - GET /api/workflows
+2025-07-31 19:20:55,817 - main - [32mINFO[0m - 📥 [REQ: req_1753989655_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:55,821 - main - [32mINFO[0m - 🌐 [REQ: req_1753989655_3782] IP: 172.18.0.1
+2025-07-31 19:20:55,822 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989655] Listagem de agentes solicitada
+2025-07-31 19:20:55,825 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989655] Usuário: 1
+2025-07-31 19:20:55,826 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989655] Encontrados 3 agentes
+2025-07-31 19:20:55,827 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989655] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:55,829 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989655] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:55,831 - main - [32mINFO[0m - ✅ [REQ: req_1753989655_3782] 200 - 0.014s - GET /api/agents
+2025-07-31 19:20:56,461 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_6322] OPTIONS http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:20:56,467 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_6322] IP: 172.18.0.1
+2025-07-31 19:20:56,480 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7040] OPTIONS http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:56,482 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7040] IP: 172.18.0.1
+2025-07-31 19:20:56,488 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7680] OPTIONS http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:20:56,493 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7680] IP: 172.18.0.1
+2025-07-31 19:20:56,498 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_6322] OPTIONS http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:20:56,500 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_6322] IP: 172.18.0.1
+2025-07-31 19:20:56,502 - main - [32mINFO[0m - 🌊 [REQ: req_1753989656_6322] 200 - 0.040s - OPTIONS /api/metrics
+2025-07-31 19:20:56,504 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7040] OPTIONS http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:56,505 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7040] IP: 172.18.0.1
+2025-07-31 19:20:56,506 - main - [32mINFO[0m - 🌊 [REQ: req_1753989656_7040] 200 - 0.027s - OPTIONS /api/performance
+2025-07-31 19:20:56,508 - main - [32mINFO[0m - 🌊 [REQ: req_1753989656_7680] 200 - 0.020s - OPTIONS /api/sessions
+2025-07-31 19:20:56,510 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7680] OPTIONS http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:20:56,518 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7680] IP: 172.18.0.1
+2025-07-31 19:20:56,522 - main - [32mINFO[0m - 🌊 [REQ: req_1753989656_6322] 200 - 0.023s - OPTIONS /api/metrics
+2025-07-31 19:20:56,535 - main - [32mINFO[0m - 🌊 [REQ: req_1753989656_7040] 200 - 0.031s - OPTIONS /api/performance
+2025-07-31 19:20:56,543 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:56,545 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_3782] IP: 172.18.0.1
+2025-07-31 19:20:56,553 - main - [32mINFO[0m - 🌊 [REQ: req_1753989656_7680] 200 - 0.043s - OPTIONS /api/sessions
+2025-07-31 19:20:56,557 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989656] Listagem de agentes solicitada
+2025-07-31 19:20:56,564 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989656] Usuário: 1
+2025-07-31 19:20:56,567 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989656] Encontrados 3 agentes
+2025-07-31 19:20:56,568 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989656] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:56,570 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989656] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:56,573 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:20:56,574 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_1903] IP: 172.18.0.1
+2025-07-31 19:20:56,577 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989656] Listagem solicitada por usuário 1
+2025-07-31 19:20:56,578 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989656] Retornando 1 workflows
+2025-07-31 19:20:56,579 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989656] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:20:56,581 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:20:56,583 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_6322] IP: 172.18.0.1
+2025-07-31 19:20:56,585 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_3782] 200 - 0.043s - GET /api/agents
+2025-07-31 19:20:56,587 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753989656] Métricas solicitadas por usuário 1
+2025-07-31 19:20:56,589 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753989656] Métricas calculadas e retornadas
+2025-07-31 19:20:56,593 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:56,593 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7040] IP: 172.18.0.1
+2025-07-31 19:20:56,594 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_1903] 200 - 0.021s - GET /api/workflows
+2025-07-31 19:20:56,597 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:20:56,599 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7680] IP: 172.18.0.1
+2025-07-31 19:20:56,603 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_6322] 200 - 0.022s - GET /api/metrics
+2025-07-31 19:20:56,612 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753989656] Listagem de sessões - usuário 1
+2025-07-31 19:20:56,616 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753989656] Retornando 5 sessões
+2025-07-31 19:20:56,619 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753989656_7040] 405 - 0.026s - GET /api/performance
+2025-07-31 19:20:56,622 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:20:56,623 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_1903] IP: 172.18.0.1
+2025-07-31 19:20:56,626 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_7680] 200 - 0.029s - GET /api/sessions
+2025-07-31 19:20:56,634 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989656] Listagem solicitada por usuário 1
+2025-07-31 19:20:56,636 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989656] Retornando 1 workflows
+2025-07-31 19:20:56,638 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989656] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:20:56,640 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:56,642 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_3782] IP: 172.18.0.1
+2025-07-31 19:20:56,645 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989656] Listagem de agentes solicitada
+2025-07-31 19:20:56,647 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989656] Usuário: 1
+2025-07-31 19:20:56,649 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989656] Encontrados 3 agentes
+2025-07-31 19:20:56,651 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989656] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:56,652 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989656] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:56,654 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:20:56,655 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_6322] IP: 172.18.0.1
+2025-07-31 19:20:56,660 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:56,662 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7040] IP: 172.18.0.1
+2025-07-31 19:20:56,667 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_1903] 200 - 0.045s - GET /api/workflows
+2025-07-31 19:20:56,669 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753989656] Métricas solicitadas por usuário 1
+2025-07-31 19:20:56,671 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753989656] Métricas calculadas e retornadas
+2025-07-31 19:20:56,674 - main - [32mINFO[0m - 📥 [REQ: req_1753989656_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:20:56,675 - main - [32mINFO[0m - 🌐 [REQ: req_1753989656_7680] IP: 172.18.0.1
+2025-07-31 19:20:56,680 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_3782] 200 - 0.039s - GET /api/agents
+2025-07-31 19:20:56,682 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753989656] Listagem de sessões - usuário 1
+2025-07-31 19:20:56,685 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753989656] Retornando 5 sessões
+2025-07-31 19:20:56,687 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_6322] 200 - 0.033s - GET /api/metrics
+2025-07-31 19:20:56,689 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753989656_7040] 405 - 0.030s - GET /api/performance
+2025-07-31 19:20:56,696 - main - [32mINFO[0m - ✅ [REQ: req_1753989656_7680] 200 - 0.022s - GET /api/sessions
+2025-07-31 19:20:57,654 - main - [32mINFO[0m - 📥 [REQ: req_1753989657_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:57,656 - main - [32mINFO[0m - 🌐 [REQ: req_1753989657_7040] IP: 172.18.0.1
+2025-07-31 19:20:57,660 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753989657_7040] 405 - 0.005s - GET /api/performance
+2025-07-31 19:20:57,726 - main - [32mINFO[0m - 📥 [REQ: req_1753989657_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:57,727 - main - [32mINFO[0m - 🌐 [REQ: req_1753989657_7040] IP: 172.18.0.1
+2025-07-31 19:20:57,729 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753989657_7040] 405 - 0.004s - GET /api/performance
+2025-07-31 19:20:58,390 - main - [32mINFO[0m - 📥 [REQ: req_1753989658_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:58,390 - main - [32mINFO[0m - 🌐 [REQ: req_1753989658_3782] IP: 172.18.0.1
+2025-07-31 19:20:58,391 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989658] Listagem de agentes solicitada
+2025-07-31 19:20:58,395 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989658] Usuário: 1
+2025-07-31 19:20:58,396 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989658] Encontrados 3 agentes
+2025-07-31 19:20:58,398 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989658] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:58,399 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989658] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:58,401 - main - [32mINFO[0m - ✅ [REQ: req_1753989658_3782] 200 - 0.012s - GET /api/agents
+2025-07-31 19:20:58,408 - main - [32mINFO[0m - 📥 [REQ: req_1753989658_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:58,411 - main - [32mINFO[0m - 🌐 [REQ: req_1753989658_3782] IP: 172.18.0.1
+2025-07-31 19:20:58,417 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989658] Listagem de agentes solicitada
+2025-07-31 19:20:58,419 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989658] Usuário: 1
+2025-07-31 19:20:58,421 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989658] Encontrados 3 agentes
+2025-07-31 19:20:58,424 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989658] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:58,425 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989658] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:58,428 - main - [32mINFO[0m - ✅ [REQ: req_1753989658_3782] 200 - 0.020s - GET /api/agents
+2025-07-31 19:20:59,031 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_2212] GET http://localhost:8000/
+2025-07-31 19:20:59,034 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_2212] IP: 172.18.0.1
+2025-07-31 19:20:59,036 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:20:59,039 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:20:59,041 - main - [32mINFO[0m - ✅ [REQ: req_1753989659_2212] 200 - 0.011s - GET /
+2025-07-31 19:20:59,049 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_2212] GET http://localhost:8000/
+2025-07-31 19:20:59,051 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_2212] IP: 172.18.0.1
+2025-07-31 19:20:59,055 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:20:59,057 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:20:59,063 - main - [32mINFO[0m - ✅ [REQ: req_1753989659_2212] 200 - 0.014s - GET /
+2025-07-31 19:20:59,071 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:59,071 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_3782] IP: 172.18.0.1
+2025-07-31 19:20:59,075 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989659] Listagem de agentes solicitada
+2025-07-31 19:20:59,076 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989659] Usuário: 1
+2025-07-31 19:20:59,081 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989659] Encontrados 3 agentes
+2025-07-31 19:20:59,083 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989659] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:59,084 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989659] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:59,086 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:20:59,091 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_1903] IP: 172.18.0.1
+2025-07-31 19:20:59,094 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989659] Listagem solicitada por usuário 1
+2025-07-31 19:20:59,095 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989659] Retornando 1 workflows
+2025-07-31 19:20:59,095 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989659] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:20:59,097 - main - [32mINFO[0m - ✅ [REQ: req_1753989659_3782] 200 - 0.026s - GET /api/agents
+2025-07-31 19:20:59,099 - main - [32mINFO[0m - ✅ [REQ: req_1753989659_1903] 200 - 0.013s - GET /api/workflows
+2025-07-31 19:20:59,117 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:20:59,119 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_3782] IP: 172.18.0.1
+2025-07-31 19:20:59,121 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989659] Listagem de agentes solicitada
+2025-07-31 19:20:59,124 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989659] Usuário: 1
+2025-07-31 19:20:59,125 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989659] Encontrados 3 agentes
+2025-07-31 19:20:59,126 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989659] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:20:59,127 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989659] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:20:59,128 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:20:59,129 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_1903] IP: 172.18.0.1
+2025-07-31 19:20:59,130 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989659] Listagem solicitada por usuário 1
+2025-07-31 19:20:59,131 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989659] Retornando 1 workflows
+2025-07-31 19:20:59,133 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989659] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:20:59,136 - main - [32mINFO[0m - ✅ [REQ: req_1753989659_3782] 200 - 0.019s - GET /api/agents
+2025-07-31 19:20:59,140 - main - [32mINFO[0m - ✅ [REQ: req_1753989659_1903] 200 - 0.011s - GET /api/workflows
+2025-07-31 19:20:59,681 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:59,682 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_7040] IP: 172.18.0.1
+2025-07-31 19:20:59,683 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753989659_7040] 405 - 0.002s - GET /api/performance
+2025-07-31 19:20:59,750 - main - [32mINFO[0m - 📥 [REQ: req_1753989659_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:20:59,752 - main - [32mINFO[0m - 🌐 [REQ: req_1753989659_7040] IP: 172.18.0.1
+2025-07-31 19:20:59,754 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753989659_7040] 405 - 0.004s - GET /api/performance
+2025-07-31 19:21:05,856 - main - [32mINFO[0m - 📥 [REQ: req_1753989665_4272] GET http://localhost:8000/api/health
+2025-07-31 19:21:05,857 - main - [32mINFO[0m - 🌐 [REQ: req_1753989665_4272] IP: 127.0.0.1
+2025-07-31 19:21:05,859 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:21:05,860 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:21:05,862 - main - [32mINFO[0m - ✅ [REQ: req_1753989665_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:21:35,988 - main - [32mINFO[0m - 📥 [REQ: req_1753989695_4272] GET http://localhost:8000/api/health
+2025-07-31 19:21:35,990 - main - [32mINFO[0m - 🌐 [REQ: req_1753989695_4272] IP: 127.0.0.1
+2025-07-31 19:21:35,993 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:21:35,998 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:21:36,003 - main - [32mINFO[0m - ✅ [REQ: req_1753989695_4272] 200 - 0.015s - GET /api/health
+2025-07-31 19:22:06,271 - main - [32mINFO[0m - 📥 [REQ: req_1753989726_4272] GET http://localhost:8000/api/health
+2025-07-31 19:22:06,306 - main - [32mINFO[0m - 🌐 [REQ: req_1753989726_4272] IP: 127.0.0.1
+2025-07-31 19:22:06,315 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:22:06,318 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:22:06,320 - main - [32mINFO[0m - ✅ [REQ: req_1753989726_4272] 200 - 0.049s - GET /api/health
+2025-07-31 19:22:36,167 - main - [32mINFO[0m - 📥 [REQ: req_1753989756_7256] OPTIONS http://localhost:8000/api/agents/1/chat?user_id=1
+2025-07-31 19:22:36,168 - main - [32mINFO[0m - 🌐 [REQ: req_1753989756_7256] IP: 172.18.0.1
+2025-07-31 19:22:36,169 - main - [32mINFO[0m - 🌊 [REQ: req_1753989756_7256] 200 - 0.002s - OPTIONS /api/agents/1/chat
+2025-07-31 19:22:36,178 - main - [32mINFO[0m - 📥 [REQ: req_1753989756_7256] POST http://localhost:8000/api/agents/1/chat?user_id=1
+2025-07-31 19:22:36,181 - main - [32mINFO[0m - 🌐 [REQ: req_1753989756_7256] IP: 172.18.0.1
+2025-07-31 19:22:36,223 - main - [32mINFO[0m - 💬 [CHAT: chat_1_1753989756] === CHAT INICIADO ===
+2025-07-31 19:22:36,224 - main - [32mINFO[0m - 👤 [CHAT: chat_1_1753989756] Usuário: 1
+2025-07-31 19:22:36,225 - main - [32mINFO[0m - 🤖 [CHAT: chat_1_1753989756] Agente: 1
+2025-07-31 19:22:36,249 - main - [32mINFO[0m - 📝 [CHAT: chat_1_1753989756] Mensagem: 'me ajuda...'
+2025-07-31 19:22:36,254 - main - [32mINFO[0m - 📏 [CHAT: chat_1_1753989756] Tamanho da mensagem: 8 chars
+2025-07-31 19:22:36,255 - main - [32mINFO[0m - 📡 [CHAT: chat_1_1753989756] Retornando StreamingResponse
+2025-07-31 19:22:36,256 - main - [32mINFO[0m - 🌊 [CHAT: chat_1_1753989756] Iniciando stream generator
+2025-07-31 19:22:36,258 - main.MockAgnoService - [32mINFO[0m - 🚀 [SESSION: chat_1_1_1753989756] === INICIANDO CHAT COM AGENTE ===
+2025-07-31 19:22:36,270 - main.MockAgnoService - [32mINFO[0m - 👤 [SESSION: chat_1_1_1753989756] Usuário: 1
+2025-07-31 19:22:36,272 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: chat_1_1_1753989756] Agente: 1
+2025-07-31 19:22:36,273 - main.MockAgnoService - [32mINFO[0m - 📝 [SESSION: chat_1_1_1753989756] Mensagem (8 chars): me ajuda...
+2025-07-31 19:22:36,274 - main.MockAgnoService - [32mINFO[0m - 🕐 [SESSION: chat_1_1_1753989756] Timestamp: 2025-07-31T19:22:36.274615
+2025-07-31 19:22:36,275 - main.MockAgnoService - [32mINFO[0m - 🎯 [SESSION: chat_1_1_1753989756] Agente encontrado: Assistente Geral
+2025-07-31 19:22:36,276 - main.MockAgnoService - [32mINFO[0m - 🏷️  [SESSION: chat_1_1_1753989756] Papel: Assistente virtual para tarefas gerais e atendimento
+2025-07-31 19:22:36,276 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: chat_1_1_1753989756] Modelo: openai/gpt-4o-mini
+2025-07-31 19:22:36,279 - main.MockAgnoService - [32mINFO[0m - 🛠️  [SESSION: chat_1_1_1753989756] Ferramentas: ['web_search', 'code_interpreter']
+2025-07-31 19:22:36,286 - main.MockAgnoService - [32mINFO[0m - ⏳ [SESSION: chat_1_1_1753989756] Iniciando processamento...
+2025-07-31 19:22:36,290 - main - [32mINFO[0m - 🌊 [REQ: req_1753989756_7256] 200 - 0.112s - POST /api/agents/1/chat
+2025-07-31 19:22:36,477 - main - [32mINFO[0m - 📥 [REQ: req_1753989756_4272] GET http://localhost:8000/api/health
+2025-07-31 19:22:36,480 - main - [32mINFO[0m - 🌐 [REQ: req_1753989756_4272] IP: 127.0.0.1
+2025-07-31 19:22:36,481 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:22:36,482 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:22:36,484 - main - [32mINFO[0m - ✅ [REQ: req_1753989756_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:22:36,591 - main.MockAgnoService - [32mINFO[0m - 📤 [SESSION: chat_1_1_1753989756] Iniciando streaming de 105 palavras
+2025-07-31 19:22:36,591 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753989756] Velocidade: ~30ms por palavra
+2025-07-31 19:22:37,361 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753989756] Progresso: 25/105 palavras (23.8%)
+2025-07-31 19:22:38,124 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753989756] Progresso: 50/105 palavras (47.6%)
+2025-07-31 19:22:38,887 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753989756] Progresso: 75/105 palavras (71.4%)
+2025-07-31 19:22:39,711 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753989756] Progresso: 100/105 palavras (95.2%)
+2025-07-31 19:22:39,868 - main.MockAgnoService - [32mINFO[0m - ✅ [SESSION: chat_1_1_1753989756] Streaming concluído com SUCESSO
+2025-07-31 19:22:39,873 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: chat_1_1_1753989756] Total de palavras enviadas: 105
+2025-07-31 19:22:39,907 - main.MockAgnoService - [32mINFO[0m - 📏 [SESSION: chat_1_1_1753989756] Total de caracteres: 844
+2025-07-31 19:22:39,976 - main.MockAgnoService - [32mINFO[0m - ⏱️  [SESSION: chat_1_1_1753989756] Duração estimada: 3.15 segundos
+2025-07-31 19:22:40,016 - main.MockAgnoService - [32mINFO[0m - 🏁 [SESSION: chat_1_1_1753989756] === CHAT FINALIZADO ===
+2025-07-31 19:22:40,029 - main - [32mINFO[0m - 🏁 [CHAT: chat_1_1753989756] Stream generator finalizado - 106 chunks enviados
+2025-07-31 19:23:05,321 - main - [32mINFO[0m - 📥 [REQ: req_1753989785_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:23:05,322 - main - [32mINFO[0m - 🌐 [REQ: req_1753989785_3782] IP: 172.18.0.1
+2025-07-31 19:23:05,324 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989785] Listagem de agentes solicitada
+2025-07-31 19:23:05,326 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989785] Usuário: 1
+2025-07-31 19:23:05,328 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989785] Encontrados 3 agentes
+2025-07-31 19:23:05,329 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989785] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:23:05,330 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989785] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:23:05,331 - main - [32mINFO[0m - ✅ [REQ: req_1753989785_3782] 200 - 0.010s - GET /api/agents
+2025-07-31 19:23:05,348 - main - [32mINFO[0m - 📥 [REQ: req_1753989785_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:23:05,349 - main - [32mINFO[0m - 🌐 [REQ: req_1753989785_3782] IP: 172.18.0.1
+2025-07-31 19:23:05,351 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989785] Listagem de agentes solicitada
+2025-07-31 19:23:05,352 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989785] Usuário: 1
+2025-07-31 19:23:05,355 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989785] Encontrados 3 agentes
+2025-07-31 19:23:05,356 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989785] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro']
+2025-07-31 19:23:05,362 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989785] 3 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:23:05,365 - main - [32mINFO[0m - ✅ [REQ: req_1753989785_3782] 200 - 0.017s - GET /api/agents
+2025-07-31 19:23:06,636 - main - [32mINFO[0m - 📥 [REQ: req_1753989786_4272] GET http://localhost:8000/api/health
+2025-07-31 19:23:06,638 - main - [32mINFO[0m - 🌐 [REQ: req_1753989786_4272] IP: 127.0.0.1
+2025-07-31 19:23:06,648 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:23:06,650 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:23:06,651 - main - [32mINFO[0m - ✅ [REQ: req_1753989786_4272] 200 - 0.015s - GET /api/health
+2025-07-31 19:23:07,858 - main - [32mINFO[0m - 📥 [REQ: req_1753989787_3711] OPTIONS http://localhost:8000/api/agents/create
+2025-07-31 19:23:07,864 - main - [32mINFO[0m - 🌐 [REQ: req_1753989787_3711] IP: 172.18.0.1
+2025-07-31 19:23:07,874 - main - [32mINFO[0m - 🌊 [REQ: req_1753989787_3711] 200 - 0.016s - OPTIONS /api/agents/create
+2025-07-31 19:23:07,886 - main - [32mINFO[0m - 📥 [REQ: req_1753989787_3711] POST http://localhost:8000/api/agents/create
+2025-07-31 19:23:07,897 - main - [32mINFO[0m - 🌐 [REQ: req_1753989787_3711] IP: 172.18.0.1
+2025-07-31 19:23:07,955 - main - [32mINFO[0m - 🎯 [CREATE: create_agent_1753989787] === CRIAÇÃO DE AGENTE INICIADA ===
+2025-07-31 19:23:07,989 - main - [32mINFO[0m - 👤 [CREATE: create_agent_1753989787] Usuário: 1
+2025-07-31 19:23:08,058 - main - [32mINFO[0m - 📝 [CREATE: create_agent_1753989787] Nome: 'Assistente de Pesquisa Acadêmica'
+2025-07-31 19:23:08,065 - main - [32mINFO[0m - 🎭 [CREATE: create_agent_1753989787] Papel: 'Você é um assistente de pesquisa acadêmica especializado.'
+2025-07-31 19:23:08,074 - main - [32mINFO[0m - 🤖 [CREATE: create_agent_1753989787] Modelo: openai/gpt-4o
+2025-07-31 19:23:08,082 - main - [32mINFO[0m - 🛠️  [CREATE: create_agent_1753989787] Ferramentas: ['duckduckgo', 'reasoning']
+2025-07-31 19:23:08,093 - main - [32mINFO[0m - 💭 [CREATE: create_agent_1753989787] Memória: True
+2025-07-31 19:23:08,102 - main - [32mINFO[0m - 🔍 [CREATE: create_agent_1753989787] RAG: True
+2025-07-31 19:23:08,108 - main - [32mINFO[0m - 📋 [CREATE: create_agent_1753989787] Instruções (4): ['Você é um assistente de pesquisa acadêmica especializado.', 'Sempre cite suas fontes e forneça análise crítica.']
+2025-07-31 19:23:08,111 - main - [32mINFO[0m - ✅ [CREATE: create_agent_1753989787] Validação passou
+2025-07-31 19:23:08,114 - main.MockAgnoService - [32mINFO[0m - 🎯 [SESSION: create_agent_1_1753989788] Iniciando criação de agente
+2025-07-31 19:23:08,124 - main.MockAgnoService - [32mINFO[0m - 👤 [SESSION: create_agent_1_1753989788] Usuário: 1
+2025-07-31 19:23:08,129 - main.MockAgnoService - [32mINFO[0m - 📝 [SESSION: create_agent_1_1753989788] Nome: Assistente de Pesquisa Acadêmica
+2025-07-31 19:23:08,134 - main.MockAgnoService - [32mINFO[0m - 🎭 [SESSION: create_agent_1_1753989788] Papel: Você é um assistente de pesquisa acadêmica especializado.
+2025-07-31 19:23:08,143 - main.MockAgnoService - [32mINFO[0m - 🤖 [SESSION: create_agent_1_1753989788] Modelo: openai/gpt-4o
+2025-07-31 19:23:08,150 - main.MockAgnoService - [32mINFO[0m - 🛠️  [SESSION: create_agent_1_1753989788] Ferramentas: ['duckduckgo', 'reasoning']
+2025-07-31 19:23:08,155 - main.MockAgnoService - [32mINFO[0m - 📋 [SESSION: create_agent_1_1753989788] Instruções: 4 itens
+2025-07-31 19:23:08,162 - main.MockAgnoService - [32mINFO[0m - ⏳ [SESSION: create_agent_1_1753989788] Processando criação...
+2025-07-31 19:23:08,664 - main.MockAgnoService - [32mINFO[0m - ✅ [SESSION: create_agent_1_1753989788] Agente criado com sucesso
+2025-07-31 19:23:08,677 - main.MockAgnoService - [32mINFO[0m - 🆔 [SESSION: create_agent_1_1753989788] ID do agente: 4
+2025-07-31 19:23:08,680 - main.MockAgnoService - [32mINFO[0m - 📊 [SESSION: create_agent_1_1753989788] Total de agentes: 4
+2025-07-31 19:23:08,681 - main - [32mINFO[0m - 🎉 [CREATE: create_agent_1753989787] === AGENTE CRIADO COM SUCESSO ===
+2025-07-31 19:23:08,682 - main - [32mINFO[0m - 🆔 [CREATE: create_agent_1753989787] ID do agente: 4
+2025-07-31 19:23:08,683 - main - [32mINFO[0m - 📊 [CREATE: create_agent_1753989787] Total de agentes no sistema: 4
+2025-07-31 19:23:08,684 - main - [32mINFO[0m - ✅ [REQ: req_1753989787_3711] 200 - 0.798s - POST /api/agents/create
+2025-07-31 19:23:09,890 - main - [32mINFO[0m - 📥 [REQ: req_1753989789_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:23:09,893 - main - [32mINFO[0m - 🌐 [REQ: req_1753989789_3782] IP: 172.18.0.1
+2025-07-31 19:23:09,898 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989789] Listagem de agentes solicitada
+2025-07-31 19:23:09,900 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989789] Usuário: 1
+2025-07-31 19:23:09,903 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989789] Encontrados 4 agentes
+2025-07-31 19:23:09,904 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989789] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:23:09,907 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989789] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:23:09,909 - main - [32mINFO[0m - ✅ [REQ: req_1753989789_3782] 200 - 0.019s - GET /api/agents
+2025-07-31 19:23:10,593 - main - [32mINFO[0m - 📥 [REQ: req_1753989790_2212] GET http://localhost:8000/
+2025-07-31 19:23:10,599 - main - [32mINFO[0m - 🌐 [REQ: req_1753989790_2212] IP: 172.18.0.1
+2025-07-31 19:23:10,600 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:23:10,601 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:23:10,603 - main - [32mINFO[0m - ✅ [REQ: req_1753989790_2212] 200 - 0.010s - GET /
+2025-07-31 19:23:10,617 - main - [32mINFO[0m - 📥 [REQ: req_1753989790_2212] GET http://localhost:8000/
+2025-07-31 19:23:10,620 - main - [32mINFO[0m - 🌐 [REQ: req_1753989790_2212] IP: 172.18.0.1
+2025-07-31 19:23:10,622 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:23:10,625 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:23:10,628 - main - [32mINFO[0m - 📥 [REQ: req_1753989790_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:23:10,630 - main - [32mINFO[0m - 🌐 [REQ: req_1753989790_3782] IP: 172.18.0.1
+2025-07-31 19:23:10,636 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989790] Listagem de agentes solicitada
+2025-07-31 19:23:10,641 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989790] Usuário: 1
+2025-07-31 19:23:10,642 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989790] Encontrados 4 agentes
+2025-07-31 19:23:10,643 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989790] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:23:10,643 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989790] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:23:10,647 - main - [32mINFO[0m - ✅ [REQ: req_1753989790_2212] 200 - 0.030s - GET /
+2025-07-31 19:23:10,649 - main - [32mINFO[0m - 📥 [REQ: req_1753989790_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:23:10,658 - main - [32mINFO[0m - 🌐 [REQ: req_1753989790_1903] IP: 172.18.0.1
+2025-07-31 19:23:10,668 - main - [32mINFO[0m - ✅ [REQ: req_1753989790_3782] 200 - 0.040s - GET /api/agents
+2025-07-31 19:23:10,671 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989790] Listagem solicitada por usuário 1
+2025-07-31 19:23:10,676 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989790] Retornando 1 workflows
+2025-07-31 19:23:10,684 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989790] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:23:10,688 - main - [32mINFO[0m - ✅ [REQ: req_1753989790_1903] 200 - 0.039s - GET /api/workflows
+2025-07-31 19:23:10,704 - main - [32mINFO[0m - 📥 [REQ: req_1753989790_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:23:10,705 - main - [32mINFO[0m - 🌐 [REQ: req_1753989790_3782] IP: 172.18.0.1
+2025-07-31 19:23:10,707 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989790] Listagem de agentes solicitada
+2025-07-31 19:23:10,711 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989790] Usuário: 1
+2025-07-31 19:23:10,712 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989790] Encontrados 4 agentes
+2025-07-31 19:23:10,724 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989790] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:23:10,725 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989790] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:23:10,727 - main - [32mINFO[0m - 📥 [REQ: req_1753989790_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:23:10,728 - main - [32mINFO[0m - 🌐 [REQ: req_1753989790_1903] IP: 172.18.0.1
+2025-07-31 19:23:10,730 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989790] Listagem solicitada por usuário 1
+2025-07-31 19:23:10,731 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989790] Retornando 1 workflows
+2025-07-31 19:23:10,733 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989790] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:23:10,735 - main - [32mINFO[0m - ✅ [REQ: req_1753989790_3782] 200 - 0.031s - GET /api/agents
+2025-07-31 19:23:10,737 - main - [32mINFO[0m - ✅ [REQ: req_1753989790_1903] 200 - 0.010s - GET /api/workflows
+2025-07-31 19:23:36,784 - main - [32mINFO[0m - 📥 [REQ: req_1753989816_4272] GET http://localhost:8000/api/health
+2025-07-31 19:23:36,785 - main - [32mINFO[0m - 🌐 [REQ: req_1753989816_4272] IP: 127.0.0.1
+2025-07-31 19:23:36,785 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:23:36,787 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:23:36,788 - main - [32mINFO[0m - ✅ [REQ: req_1753989816_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:24:06,905 - main - [32mINFO[0m - 📥 [REQ: req_1753989846_4272] GET http://localhost:8000/api/health
+2025-07-31 19:24:06,906 - main - [32mINFO[0m - 🌐 [REQ: req_1753989846_4272] IP: 127.0.0.1
+2025-07-31 19:24:06,907 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:24:06,909 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:24:06,911 - main - [32mINFO[0m - ✅ [REQ: req_1753989846_4272] 200 - 0.007s - GET /api/health
+2025-07-31 19:24:37,131 - main - [32mINFO[0m - 📥 [REQ: req_1753989877_4272] GET http://localhost:8000/api/health
+2025-07-31 19:24:37,133 - main - [32mINFO[0m - 🌐 [REQ: req_1753989877_4272] IP: 127.0.0.1
+2025-07-31 19:24:37,135 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:24:37,138 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:24:37,141 - main - [32mINFO[0m - ✅ [REQ: req_1753989877_4272] 200 - 0.009s - GET /api/health
+2025-07-31 19:25:07,242 - main - [32mINFO[0m - 📥 [REQ: req_1753989907_4272] GET http://localhost:8000/api/health
+2025-07-31 19:25:07,243 - main - [32mINFO[0m - 🌐 [REQ: req_1753989907_4272] IP: 127.0.0.1
+2025-07-31 19:25:07,245 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:25:07,247 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:25:07,248 - main - [32mINFO[0m - ✅ [REQ: req_1753989907_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:25:12,159 - main - [32mINFO[0m - 📥 [REQ: req_1753989912_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:25:12,164 - main - [32mINFO[0m - 🌐 [REQ: req_1753989912_1903] IP: 172.18.0.1
+2025-07-31 19:25:12,174 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989912] Listagem solicitada por usuário 1
+2025-07-31 19:25:12,175 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989912] Retornando 1 workflows
+2025-07-31 19:25:12,179 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989912] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:25:12,187 - main - [32mINFO[0m - 📥 [REQ: req_1753989912_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:25:12,190 - main - [32mINFO[0m - 🌐 [REQ: req_1753989912_3782] IP: 172.18.0.1
+2025-07-31 19:25:12,194 - main - [32mINFO[0m - ✅ [REQ: req_1753989912_1903] 200 - 0.035s - GET /api/workflows
+2025-07-31 19:25:12,203 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989912] Listagem de agentes solicitada
+2025-07-31 19:25:12,204 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989912] Usuário: 1
+2025-07-31 19:25:12,205 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989912] Encontrados 4 agentes
+2025-07-31 19:25:12,206 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989912] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:25:12,207 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989912] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:25:12,210 - main - [32mINFO[0m - ✅ [REQ: req_1753989912_3782] 200 - 0.023s - GET /api/agents
+2025-07-31 19:25:12,220 - main - [32mINFO[0m - 📥 [REQ: req_1753989912_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:25:12,221 - main - [32mINFO[0m - 🌐 [REQ: req_1753989912_1903] IP: 172.18.0.1
+2025-07-31 19:25:12,223 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753989912] Listagem solicitada por usuário 1
+2025-07-31 19:25:12,223 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753989912] Retornando 1 workflows
+2025-07-31 19:25:12,228 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753989912] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:25:12,244 - main - [32mINFO[0m - ✅ [REQ: req_1753989912_1903] 200 - 0.024s - GET /api/workflows
+2025-07-31 19:25:12,253 - main - [32mINFO[0m - 📥 [REQ: req_1753989912_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:25:12,256 - main - [32mINFO[0m - 🌐 [REQ: req_1753989912_3782] IP: 172.18.0.1
+2025-07-31 19:25:12,258 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753989912] Listagem de agentes solicitada
+2025-07-31 19:25:12,270 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753989912] Usuário: 1
+2025-07-31 19:25:12,276 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753989912] Encontrados 4 agentes
+2025-07-31 19:25:12,284 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753989912] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:25:12,285 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753989912] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:25:12,292 - main - [32mINFO[0m - ✅ [REQ: req_1753989912_3782] 200 - 0.039s - GET /api/agents
+2025-07-31 19:25:37,344 - main - [32mINFO[0m - 📥 [REQ: req_1753989937_4272] GET http://localhost:8000/api/health
+2025-07-31 19:25:37,345 - main - [32mINFO[0m - 🌐 [REQ: req_1753989937_4272] IP: 127.0.0.1
+2025-07-31 19:25:37,345 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:25:37,346 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:25:37,348 - main - [32mINFO[0m - ✅ [REQ: req_1753989937_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:26:07,532 - main - [32mINFO[0m - 📥 [REQ: req_1753989967_4272] GET http://localhost:8000/api/health
+2025-07-31 19:26:07,534 - main - [32mINFO[0m - 🌐 [REQ: req_1753989967_4272] IP: 127.0.0.1
+2025-07-31 19:26:07,538 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:26:07,540 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:26:07,542 - main - [32mINFO[0m - ✅ [REQ: req_1753989967_4272] 200 - 0.010s - GET /api/health
+2025-07-31 19:26:37,660 - main - [32mINFO[0m - 📥 [REQ: req_1753989997_4272] GET http://localhost:8000/api/health
+2025-07-31 19:26:37,661 - main - [32mINFO[0m - 🌐 [REQ: req_1753989997_4272] IP: 127.0.0.1
+2025-07-31 19:26:37,663 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:26:37,667 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:26:37,670 - main - [32mINFO[0m - ✅ [REQ: req_1753989997_4272] 200 - 0.010s - GET /api/health
+2025-07-31 19:27:07,763 - main - [32mINFO[0m - 📥 [REQ: req_1753990027_4272] GET http://localhost:8000/api/health
+2025-07-31 19:27:07,765 - main - [32mINFO[0m - 🌐 [REQ: req_1753990027_4272] IP: 127.0.0.1
+2025-07-31 19:27:07,769 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:27:07,771 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:27:07,773 - main - [32mINFO[0m - ✅ [REQ: req_1753990027_4272] 200 - 0.010s - GET /api/health
+2025-07-31 19:27:37,970 - main - [32mINFO[0m - 📥 [REQ: req_1753990057_4272] GET http://localhost:8000/api/health
+2025-07-31 19:27:37,975 - main - [32mINFO[0m - 🌐 [REQ: req_1753990057_4272] IP: 127.0.0.1
+2025-07-31 19:27:37,979 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:27:38,016 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:27:38,041 - main - [32mINFO[0m - ✅ [REQ: req_1753990057_4272] 200 - 0.071s - GET /api/health
+2025-07-31 19:28:08,230 - main - [32mINFO[0m - 📥 [REQ: req_1753990088_4272] GET http://localhost:8000/api/health
+2025-07-31 19:28:08,232 - main - [32mINFO[0m - 🌐 [REQ: req_1753990088_4272] IP: 127.0.0.1
+2025-07-31 19:28:08,235 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:28:08,237 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:28:08,241 - main - [32mINFO[0m - ✅ [REQ: req_1753990088_4272] 200 - 0.012s - GET /api/health
+2025-07-31 19:28:38,369 - main - [32mINFO[0m - 📥 [REQ: req_1753990118_4272] GET http://localhost:8000/api/health
+2025-07-31 19:28:38,371 - main - [32mINFO[0m - 🌐 [REQ: req_1753990118_4272] IP: 127.0.0.1
+2025-07-31 19:28:38,381 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:28:38,382 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:28:38,384 - main - [32mINFO[0m - ✅ [REQ: req_1753990118_4272] 200 - 0.014s - GET /api/health
+2025-07-31 19:29:08,496 - main - [32mINFO[0m - 📥 [REQ: req_1753990148_4272] GET http://localhost:8000/api/health
+2025-07-31 19:29:08,500 - main - [32mINFO[0m - 🌐 [REQ: req_1753990148_4272] IP: 127.0.0.1
+2025-07-31 19:29:08,503 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:29:08,508 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:29:08,513 - main - [32mINFO[0m - ✅ [REQ: req_1753990148_4272] 200 - 0.017s - GET /api/health
+2025-07-31 19:29:10,489 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:29:10,500 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_6322] IP: 172.18.0.1
+2025-07-31 19:29:10,502 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753990150] Métricas solicitadas por usuário 1
+2025-07-31 19:29:10,503 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753990150] Métricas calculadas e retornadas
+2025-07-31 19:29:10,509 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_6322] 200 - 0.021s - GET /api/metrics
+2025-07-31 19:29:10,526 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_3782] OPTIONS http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:10,529 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_3782] IP: 172.18.0.1
+2025-07-31 19:29:10,532 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:29:10,535 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_7680] IP: 172.18.0.1
+2025-07-31 19:29:10,558 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753990150] Listagem de sessões - usuário 1
+2025-07-31 19:29:10,566 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753990150] Retornando 5 sessões
+2025-07-31 19:29:10,573 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:29:10,574 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_7040] IP: 172.18.0.1
+2025-07-31 19:29:10,580 - main - [32mINFO[0m - 🌊 [REQ: req_1753990150_3782] 200 - 0.054s - OPTIONS /api/agents
+2025-07-31 19:29:10,582 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_1903] OPTIONS http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:29:10,584 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_1903] IP: 172.18.0.1
+2025-07-31 19:29:10,586 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_1903] OPTIONS http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:29:10,587 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_1903] IP: 172.18.0.1
+2025-07-31 19:29:10,589 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_7680] 200 - 0.056s - GET /api/sessions
+2025-07-31 19:29:10,592 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_3782] OPTIONS http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:10,597 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_3782] IP: 172.18.0.1
+2025-07-31 19:29:10,611 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753990150_7040] 405 - 0.038s - GET /api/performance
+2025-07-31 19:29:10,615 - main - [32mINFO[0m - 🌊 [REQ: req_1753990150_1903] 200 - 0.032s - OPTIONS /api/workflows
+2025-07-31 19:29:10,620 - main - [32mINFO[0m - 🌊 [REQ: req_1753990150_1903] 200 - 0.034s - OPTIONS /api/workflows
+2025-07-31 19:29:10,624 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_6322] GET http://localhost:8000/api/metrics?user_id=1
+2025-07-31 19:29:10,625 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_6322] IP: 172.18.0.1
+2025-07-31 19:29:10,628 - main - [32mINFO[0m - 🌊 [REQ: req_1753990150_3782] 200 - 0.036s - OPTIONS /api/agents
+2025-07-31 19:29:10,632 - main - [32mINFO[0m - 📊 [METRICS: metrics_1753990150] Métricas solicitadas por usuário 1
+2025-07-31 19:29:10,661 - main - [32mINFO[0m - ✅ [METRICS: metrics_1753990150] Métricas calculadas e retornadas
+2025-07-31 19:29:10,663 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:10,666 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_3782] IP: 172.18.0.1
+2025-07-31 19:29:10,670 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753990150] Listagem de agentes solicitada
+2025-07-31 19:29:10,675 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753990150] Usuário: 1
+2025-07-31 19:29:10,682 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753990150] Encontrados 4 agentes
+2025-07-31 19:29:10,683 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753990150] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:29:10,686 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753990150] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:29:10,690 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_7680] GET http://localhost:8000/api/sessions?user_id=1
+2025-07-31 19:29:10,696 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_7680] IP: 172.18.0.1
+2025-07-31 19:29:10,699 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_6322] 200 - 0.075s - GET /api/metrics
+2025-07-31 19:29:10,701 - main - [32mINFO[0m - 📋 [SESSIONS: list_sessions_1753990150] Listagem de sessões - usuário 1
+2025-07-31 19:29:10,702 - main - [32mINFO[0m - 📊 [SESSIONS: list_sessions_1753990150] Retornando 5 sessões
+2025-07-31 19:29:10,704 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:29:10,705 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_7040] IP: 172.18.0.1
+2025-07-31 19:29:10,708 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_3782] 200 - 0.044s - GET /api/agents
+2025-07-31 19:29:10,709 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:29:10,713 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_1903] IP: 172.18.0.1
+2025-07-31 19:29:10,727 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_7680] 200 - 0.036s - GET /api/sessions
+2025-07-31 19:29:10,734 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753990150] Listagem solicitada por usuário 1
+2025-07-31 19:29:10,739 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753990150] Retornando 1 workflows
+2025-07-31 19:29:10,742 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753990150] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:29:10,745 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753990150_7040] 405 - 0.041s - GET /api/performance
+2025-07-31 19:29:10,751 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:10,768 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_3782] IP: 172.18.0.1
+2025-07-31 19:29:10,776 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_1903] 200 - 0.067s - GET /api/workflows
+2025-07-31 19:29:10,783 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753990150] Listagem de agentes solicitada
+2025-07-31 19:29:10,785 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753990150] Usuário: 1
+2025-07-31 19:29:10,787 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753990150] Encontrados 4 agentes
+2025-07-31 19:29:10,788 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753990150] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:29:10,795 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753990150] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:29:10,802 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_3782] 200 - 0.051s - GET /api/agents
+2025-07-31 19:29:10,810 - main - [32mINFO[0m - 📥 [REQ: req_1753990150_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:29:10,814 - main - [32mINFO[0m - 🌐 [REQ: req_1753990150_1903] IP: 172.18.0.1
+2025-07-31 19:29:10,817 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753990150] Listagem solicitada por usuário 1
+2025-07-31 19:29:10,819 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753990150] Retornando 1 workflows
+2025-07-31 19:29:10,820 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753990150] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:29:10,821 - main - [32mINFO[0m - ✅ [REQ: req_1753990150_1903] 200 - 0.011s - GET /api/workflows
+2025-07-31 19:29:11,651 - main - [32mINFO[0m - 📥 [REQ: req_1753990151_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:29:11,653 - main - [32mINFO[0m - 🌐 [REQ: req_1753990151_7040] IP: 172.18.0.1
+2025-07-31 19:29:11,656 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753990151_7040] 405 - 0.004s - GET /api/performance
+2025-07-31 19:29:11,820 - main - [32mINFO[0m - 📥 [REQ: req_1753990151_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:29:11,822 - main - [32mINFO[0m - 🌐 [REQ: req_1753990151_7040] IP: 172.18.0.1
+2025-07-31 19:29:11,824 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753990151_7040] 405 - 0.004s - GET /api/performance
+2025-07-31 19:29:12,994 - main - [32mINFO[0m - 📥 [REQ: req_1753990152_2212] GET http://localhost:8000/
+2025-07-31 19:29:12,997 - main - [32mINFO[0m - 🌐 [REQ: req_1753990152_2212] IP: 172.18.0.1
+2025-07-31 19:29:13,003 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:29:13,004 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:29:13,008 - main - [32mINFO[0m - ✅ [REQ: req_1753990152_2212] 200 - 0.014s - GET /
+2025-07-31 19:29:13,023 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_2212] GET http://localhost:8000/
+2025-07-31 19:29:13,024 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_2212] IP: 172.18.0.1
+2025-07-31 19:29:13,026 - main - [32mINFO[0m - 🏠 Endpoint raiz acessado
+2025-07-31 19:29:13,028 - main - [32mINFO[0m - ✅ Informações do sistema retornadas
+2025-07-31 19:29:13,030 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:13,031 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_3782] IP: 172.18.0.1
+2025-07-31 19:29:13,034 - main - [32mINFO[0m - ✅ [REQ: req_1753990153_2212] 200 - 0.011s - GET /
+2025-07-31 19:29:13,039 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753990153] Listagem de agentes solicitada
+2025-07-31 19:29:13,041 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753990153] Usuário: 1
+2025-07-31 19:29:13,046 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753990153] Encontrados 4 agentes
+2025-07-31 19:29:13,052 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753990153] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:29:13,053 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753990153] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:29:13,055 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:29:13,056 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_1903] IP: 172.18.0.1
+2025-07-31 19:29:13,058 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753990153] Listagem solicitada por usuário 1
+2025-07-31 19:29:13,062 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753990153] Retornando 1 workflows
+2025-07-31 19:29:13,063 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753990153] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:29:13,064 - main - [32mINFO[0m - ✅ [REQ: req_1753990153_3782] 200 - 0.034s - GET /api/agents
+2025-07-31 19:29:13,066 - main - [32mINFO[0m - ✅ [REQ: req_1753990153_1903] 200 - 0.012s - GET /api/workflows
+2025-07-31 19:29:13,090 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_1903] GET http://localhost:8000/api/workflows?user_id=1
+2025-07-31 19:29:13,093 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_1903] IP: 172.18.0.1
+2025-07-31 19:29:13,095 - main - [32mINFO[0m - 📋 [WORKFLOWS: list_workflows_1753990153] Listagem solicitada por usuário 1
+2025-07-31 19:29:13,103 - main - [32mINFO[0m - 📊 [WORKFLOWS: list_workflows_1753990153] Retornando 1 workflows
+2025-07-31 19:29:13,110 - main - [32mINFO[0m - 🏷️  [WORKFLOWS: list_workflows_1753990153] Workflows: ['Análise de Dados Completa']
+2025-07-31 19:29:13,113 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:13,115 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_3782] IP: 172.18.0.1
+2025-07-31 19:29:13,124 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753990153] Listagem de agentes solicitada
+2025-07-31 19:29:13,135 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753990153] Usuário: 1
+2025-07-31 19:29:13,135 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753990153] Encontrados 4 agentes
+2025-07-31 19:29:13,136 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753990153] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:29:13,144 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753990153] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:29:13,159 - main - [32mINFO[0m - ✅ [REQ: req_1753990153_1903] 200 - 0.069s - GET /api/workflows
+2025-07-31 19:29:13,163 - main - [32mINFO[0m - ✅ [REQ: req_1753990153_3782] 200 - 0.050s - GET /api/agents
+2025-07-31 19:29:13,682 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:29:13,682 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_7040] IP: 172.18.0.1
+2025-07-31 19:29:13,684 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753990153_7040] 405 - 0.002s - GET /api/performance
+2025-07-31 19:29:13,842 - main - [32mINFO[0m - 📥 [REQ: req_1753990153_7040] GET http://localhost:8000/api/performance?hours=24&user_id=1
+2025-07-31 19:29:13,845 - main - [32mINFO[0m - 🌐 [REQ: req_1753990153_7040] IP: 172.18.0.1
+2025-07-31 19:29:13,860 - main - [33mWARNING[0m - ⚠️ [REQ: req_1753990153_7040] 405 - 0.018s - GET /api/performance
+2025-07-31 19:29:18,282 - main - [32mINFO[0m - 📥 [REQ: req_1753990158_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:18,283 - main - [32mINFO[0m - 🌐 [REQ: req_1753990158_3782] IP: 172.18.0.1
+2025-07-31 19:29:18,286 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753990158] Listagem de agentes solicitada
+2025-07-31 19:29:18,287 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753990158] Usuário: 1
+2025-07-31 19:29:18,288 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753990158] Encontrados 4 agentes
+2025-07-31 19:29:18,289 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753990158] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:29:18,289 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753990158] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:29:18,291 - main - [32mINFO[0m - ✅ [REQ: req_1753990158_3782] 200 - 0.009s - GET /api/agents
+2025-07-31 19:29:18,297 - main - [32mINFO[0m - 📥 [REQ: req_1753990158_3782] GET http://localhost:8000/api/agents?user_id=1
+2025-07-31 19:29:18,298 - main - [32mINFO[0m - 🌐 [REQ: req_1753990158_3782] IP: 172.18.0.1
+2025-07-31 19:29:18,300 - main - [32mINFO[0m - 📋 [LIST: list_agents_1753990158] Listagem de agentes solicitada
+2025-07-31 19:29:18,304 - main - [32mINFO[0m - 👤 [LIST: list_agents_1753990158] Usuário: 1
+2025-07-31 19:29:18,308 - main - [32mINFO[0m - 📊 [LIST: list_agents_1753990158] Encontrados 4 agentes
+2025-07-31 19:29:18,311 - main - [32mINFO[0m - 🏷️  [LIST: list_agents_1753990158] Agentes: ['Assistente Geral', 'Especialista em Código', 'Analista Financeiro Pro', 'Assistente de Pesquisa Acadêmica']
+2025-07-31 19:29:18,313 - main - [32mINFO[0m - ✅ [LIST: list_agents_1753990158] 4 ativos, providers: ['openai', 'anthropic']
+2025-07-31 19:29:18,318 - main - [32mINFO[0m - ✅ [REQ: req_1753990158_3782] 200 - 0.022s - GET /api/agents
+2025-07-31 19:29:38,677 - main - [32mINFO[0m - 📥 [REQ: req_1753990178_4272] GET http://localhost:8000/api/health
+2025-07-31 19:29:38,680 - main - [32mINFO[0m - 🌐 [REQ: req_1753990178_4272] IP: 127.0.0.1
+2025-07-31 19:29:38,682 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:29:38,683 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:29:38,685 - main - [32mINFO[0m - ✅ [REQ: req_1753990178_4272] 200 - 0.008s - GET /api/health
+2025-07-31 19:30:08,838 - main - [32mINFO[0m - 📥 [REQ: req_1753990208_4272] GET http://localhost:8000/api/health
+2025-07-31 19:30:08,842 - main - [32mINFO[0m - 🌐 [REQ: req_1753990208_4272] IP: 127.0.0.1
+2025-07-31 19:30:08,848 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:30:08,849 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:30:08,850 - main - [32mINFO[0m - ✅ [REQ: req_1753990208_4272] 200 - 0.012s - GET /api/health
+2025-07-31 19:30:38,970 - main - [32mINFO[0m - 📥 [REQ: req_1753990238_4272] GET http://localhost:8000/api/health
+2025-07-31 19:30:38,971 - main - [32mINFO[0m - 🌐 [REQ: req_1753990238_4272] IP: 127.0.0.1
+2025-07-31 19:30:38,972 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:30:38,975 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:30:38,982 - main - [32mINFO[0m - ✅ [REQ: req_1753990238_4272] 200 - 0.012s - GET /api/health
+2025-07-31 19:31:09,138 - main - [32mINFO[0m - 📥 [REQ: req_1753990269_4272] GET http://localhost:8000/api/health
+2025-07-31 19:31:09,138 - main - [32mINFO[0m - 🌐 [REQ: req_1753990269_4272] IP: 127.0.0.1
+2025-07-31 19:31:09,140 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:31:09,141 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:31:09,143 - main - [32mINFO[0m - ✅ [REQ: req_1753990269_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:31:39,230 - main - [32mINFO[0m - 📥 [REQ: req_1753990299_4272] GET http://localhost:8000/api/health
+2025-07-31 19:31:39,232 - main - [32mINFO[0m - 🌐 [REQ: req_1753990299_4272] IP: 127.0.0.1
+2025-07-31 19:31:39,234 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:31:39,236 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:31:39,237 - main - [32mINFO[0m - ✅ [REQ: req_1753990299_4272] 200 - 0.007s - GET /api/health
+2025-07-31 19:32:09,385 - main - [32mINFO[0m - 📥 [REQ: req_1753990329_4272] GET http://localhost:8000/api/health
+2025-07-31 19:32:09,387 - main - [32mINFO[0m - 🌐 [REQ: req_1753990329_4272] IP: 127.0.0.1
+2025-07-31 19:32:09,388 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:32:09,389 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:32:09,391 - main - [32mINFO[0m - ✅ [REQ: req_1753990329_4272] 200 - 0.005s - GET /api/health
+2025-07-31 19:32:39,475 - main - [32mINFO[0m - 📥 [REQ: req_1753990359_4272] GET http://localhost:8000/api/health
+2025-07-31 19:32:39,475 - main - [32mINFO[0m - 🌐 [REQ: req_1753990359_4272] IP: 127.0.0.1
+2025-07-31 19:32:39,476 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:32:39,477 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:32:39,478 - main - [32mINFO[0m - ✅ [REQ: req_1753990359_4272] 200 - 0.003s - GET /api/health
+2025-07-31 19:33:09,637 - main - [32mINFO[0m - 📥 [REQ: req_1753990389_4272] GET http://localhost:8000/api/health
+2025-07-31 19:33:09,638 - main - [32mINFO[0m - 🌐 [REQ: req_1753990389_4272] IP: 127.0.0.1
+2025-07-31 19:33:09,639 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:33:09,641 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:33:09,642 - main - [32mINFO[0m - ✅ [REQ: req_1753990389_4272] 200 - 0.006s - GET /api/health
+2025-07-31 19:33:39,750 - main - [32mINFO[0m - 📥 [REQ: req_1753990419_4272] GET http://localhost:8000/api/health
+2025-07-31 19:33:39,751 - main - [32mINFO[0m - 🌐 [REQ: req_1753990419_4272] IP: 127.0.0.1
+2025-07-31 19:33:39,752 - main - [32mINFO[0m - 🏥 Health check solicitado
+2025-07-31 19:33:39,753 - main - [32mINFO[0m - ✅ Health check passou - todos os sistemas operacionais
+2025-07-31 19:33:39,754 - main - [32mINFO[0m - ✅ [REQ: req_1753990419_4272] 200 - 0.004s - GET /api/health
+2025-07-31 19:33:44,147 - main - [32mINFO[0m - 🛑 =====================================
+2025-07-31 19:33:44,148 - main - [32mINFO[0m - 🛑 ENCERRANDO AGNO PLATFORM BACKEND
+2025-07-31 19:33:44,152 - main - [32mINFO[0m - 🛑 =====================================

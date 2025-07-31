@@ -1,4 +1,5 @@
-// agnoClient_fixed.js - Cliente Agno Corrigido com Tratamento de Erros Aprimorado
+// agnoClient.js - Cliente Agno Corrigido v3.0
+// Corrige problemas de streaming e adiciona logs detalhados
 
 import { useState, useEffect } from 'react';
 
@@ -8,21 +9,57 @@ class AgnoClient {
     this.userId = 1;
     this.eventListeners = new Map();
     this.requestQueue = new Map();
-    this.connectionTimeout = 15000; // 15 segundos
+    this.connectionTimeout = 30000; // 30 segundos
+    this.streamingTimeout = 60000;  // 60 segundos para streaming
+    this.debugMode = true;
   }
 
   setUserId(userId) {
     this.userId = userId;
-    console.log(`🔧 User ID configurado para: ${userId}`);
+    this.log('info', `User ID configurado para: ${userId}`);
   }
 
-  // Função helper para formatar erros de forma consistente
+  setDebugMode(enabled) {
+    this.debugMode = enabled;
+    this.log('info', `Debug mode ${enabled ? 'ativado' : 'desativado'}`);
+  }
+
+  // Sistema de logging melhorado
+  log(level, message, data = null) {
+    if (!this.debugMode && level === 'debug') return;
+
+    const timestamp = new Date().toLocaleTimeString();
+    const emoji = {
+      debug: '🔍',
+      info: '📝',
+      warn: '⚠️',
+      error: '❌',
+      success: '✅',
+      stream: '🌊'
+    }[level] || '📝';
+
+    console.log(`${emoji} [${timestamp}] AgnoClient.${level.toUpperCase()}: ${message}`);
+
+    if (data) {
+      console.log('📊 Data:', data);
+    }
+
+    // Emitir evento de log para o frontend
+    this.emit('log', { level, message, data, timestamp });
+  }
+
+  // Função helper para formatar erros
   formatError(error, context = '') {
     if (typeof error === 'string') {
       return error;
     }
 
     if (error && typeof error === 'object') {
+      // Se é um AbortError (timeout)
+      if (error.name === 'AbortError') {
+        return `Timeout: ${context || 'Operação'} cancelada por tempo limite`;
+      }
+
       // Se é um objeto Response
       if (error.status) {
         return `HTTP ${error.status}: ${error.statusText || 'Unknown error'}`;
@@ -49,7 +86,7 @@ class AgnoClient {
     return `Unknown error${context ? ` in ${context}` : ''}`;
   }
 
-  // Fazer requisições HTTP com retry automático e melhor tratamento de erros
+  // Fazer requisições HTTP com retry automático
   async makeRequest(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
     const requestId = `${endpoint}_${Date.now()}`;
@@ -76,11 +113,13 @@ class AgnoClient {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        console.log(`🌐 [Tentativa ${attempt}/${maxRetries}] ${options.method || 'GET'}: ${urlWithUser.toString()}`);
+        this.log('debug', `[Tentativa ${attempt}/${maxRetries}] ${options.method || 'GET'}: ${urlWithUser.toString()}`);
 
-        // Create timeout promise
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), this.connectionTimeout);
+        const timeoutId = setTimeout(() => {
+          this.log('warn', `Request timeout após ${this.connectionTimeout}ms`);
+          controller.abort();
+        }, this.connectionTimeout);
 
         try {
           const response = await fetch(urlWithUser.toString(), {
@@ -90,102 +129,60 @@ class AgnoClient {
 
           clearTimeout(timeoutId);
 
-          console.log(`📡 Resposta recebida: ${response.status} ${response.statusText}`);
+          this.log('debug', `Resposta recebida: ${response.status} ${response.statusText}`);
 
           if (!response.ok) {
             let errorData;
             try {
-              const contentType = response.headers.get('content-type');
-              if (contentType && contentType.includes('application/json')) {
-                errorData = await response.json();
-              } else {
-                const text = await response.text();
-                errorData = { message: text || `HTTP ${response.status}: ${response.statusText}` };
-              }
-            } catch (parseError) {
-              console.warn('Erro ao parsear resposta de erro:', parseError);
-              errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+              errorData = await response.json();
+            } catch {
+              errorData = {
+                detail: `HTTP ${response.status}: ${response.statusText}`,
+                status: response.status
+              };
             }
-
-            const errorMessage = this.formatError(errorData, `${options.method || 'GET'} ${endpoint}`);
-            const error = new Error(errorMessage);
-            error.status = response.status;
-            error.response = response;
-            throw error;
+            throw errorData;
           }
 
-          const contentType = response.headers.get('content-type');
-          let data;
-
-          try {
-            if (contentType && contentType.includes('application/json')) {
-              data = await response.json();
-            } else {
-              data = await response.text();
-            }
-          } catch (parseError) {
-            console.warn('Erro ao parsear resposta:', parseError);
-            data = await response.text();
-          }
-
-          console.log(`✅ Dados recebidos:`, data);
+          const data = await response.json();
+          this.log('success', `Requisição bem-sucedida para ${endpoint}`);
           return data;
 
-        } catch (fetchError) {
+        } catch (error) {
           clearTimeout(timeoutId);
-
-          if (fetchError.name === 'AbortError') {
-            throw new Error(`Request timeout after ${this.connectionTimeout}ms`);
-          }
-
-          throw fetchError;
+          throw error;
         }
 
       } catch (error) {
         lastError = error;
-        const errorMessage = this.formatError(error, `attempt ${attempt}/${maxRetries}`);
-        console.error(`❌ [Tentativa ${attempt}/${maxRetries}] Erro: "${errorMessage}"`);
+        const errorMessage = this.formatError(error, `${endpoint} (tentativa ${attempt})`);
 
-        // Se é erro de rede, timeout, ou server error, tentar novamente
-        if (attempt < maxRetries && (
-          error.name === 'TypeError' ||
-          error.name === 'AbortError' ||
-          error.message.includes('timeout') ||
-          error.message.includes('fetch') ||
-          error.message.includes('network') ||
-          (error.status && error.status >= 500)
-        )) {
-          const delayMs = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
-          console.log(`⏳ Aguardando ${delayMs}ms antes da próxima tentativa...`);
-          await new Promise(resolve => setTimeout(resolve, delayMs));
-          continue;
+        if (attempt === maxRetries) {
+          this.log('error', `Falha definitiva após ${maxRetries} tentativas: ${errorMessage}`);
+        } else {
+          this.log('warn', `Tentativa ${attempt} falhou: ${errorMessage}. Tentando novamente...`);
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
         }
-
-        break;
       }
     }
 
-    // Se chegou aqui, todas as tentativas falharam
-    const finalErrorMessage = this.formatError(lastError, 'all retry attempts failed');
-    console.error('❌ Todas as tentativas falharam:', finalErrorMessage);
-
-    if (lastError && (lastError.name === 'TypeError' || lastError.message.includes('fetch'))) {
-      throw new Error(`Não foi possível conectar com o servidor em ${this.baseURL}. Verifique se o backend está rodando na porta 8000.`);
-    }
-
+    const finalErrorMessage = this.formatError(lastError, endpoint);
     throw new Error(finalErrorMessage);
   }
 
-  // Fazer requisição de streaming com melhor tratamento de erros
+  // STREAMING CORRIGIDO - Esta é a função principal que estava com problema
   async makeStreamingRequest(endpoint, data, onChunk, onComplete, onError) {
     const url = `${this.baseURL}${endpoint}?user_id=${this.userId}`;
+    const requestId = `stream_${Date.now()}`;
 
     try {
-      console.log(`🌊 Iniciando streaming para: ${url}`);
-      console.log(`📤 Dados enviados:`, data);
+      this.log('stream', `Iniciando streaming para: ${url}`, data);
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), this.connectionTimeout);
+      const timeoutId = setTimeout(() => {
+        this.log('error', `Streaming timeout após ${this.streamingTimeout}ms`);
+        controller.abort();
+      }, this.streamingTimeout);
 
       const response = await fetch(url, {
         method: 'POST',
@@ -202,7 +199,7 @@ class AgnoClient {
 
       clearTimeout(timeoutId);
 
-      console.log(`📡 Status do streaming: ${response.status}`);
+      this.log('stream', `Status do streaming: ${response.status}`);
 
       if (!response.ok) {
         let errorMessage;
@@ -223,15 +220,16 @@ class AgnoClient {
       const decoder = new TextDecoder();
       let buffer = '';
       let chunkCount = 0;
+      let totalContent = '';
 
-      console.log('🔄 Iniciando leitura do stream...');
+      this.log('stream', 'Iniciando leitura do stream...');
 
       try {
         while (true) {
           const { done, value } = await reader.read();
 
           if (done) {
-            console.log(`✅ Stream concluído após ${chunkCount} chunks`);
+            this.log('stream', `Stream concluído após ${chunkCount} chunks`);
             break;
           }
 
@@ -239,48 +237,64 @@ class AgnoClient {
           const chunk = decoder.decode(value, { stream: true });
           buffer += chunk;
 
+          // Processar linhas completas
           const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
+          buffer = lines.pop() || ''; // Manter a última linha incompleta no buffer
 
           for (const line of lines) {
             if (line.trim() === '') continue;
+
+            this.log('debug', `Processando linha: ${line.substring(0, 100)}...`);
 
             if (line.startsWith('data: ')) {
               try {
                 const jsonData = line.slice(6);
                 const parsed = JSON.parse(jsonData);
 
-                console.log(`📨 Chunk recebido:`, parsed);
+                this.log('stream', `Chunk estruturado recebido:`, parsed);
 
                 if (parsed.type === 'chunk' && parsed.content) {
+                  totalContent += parsed.content;
                   onChunk(parsed.content);
                 } else if (parsed.type === 'complete') {
-                  console.log('🏁 Stream marcado como completo');
+                  this.log('success', 'Stream marcado como completo');
                   onComplete(parsed);
                   return;
                 } else if (parsed.type === 'error') {
                   const errorMessage = this.formatError(parsed, 'stream error');
-                  console.error('❌ Erro no stream:', errorMessage);
+                  this.log('error', `Erro no stream: ${errorMessage}`);
                   onError(new Error(errorMessage));
                   return;
                 }
               } catch (parseError) {
-                console.warn('⚠️ Erro ao parsear chunk JSON:', parseError);
+                this.log('warn', `Erro ao parsear chunk JSON: ${parseError.message}`);
+                // Se não conseguir parsear como JSON, tratar como texto simples
                 const content = line.startsWith('data: ') ? line.slice(6) : line;
                 if (content.trim() && !content.includes('{')) {
+                  totalContent += content;
                   onChunk(content);
                 }
               }
             } else if (line.trim() && !line.startsWith(':')) {
-              console.log(`📄 Linha não-SSE:`, line);
+              // Linha de texto simples (não SSE)
+              this.log('stream', `Linha não-SSE: ${line.substring(0, 50)}...`);
+              totalContent += line + '\n';
               onChunk(line + '\n');
             }
           }
         }
 
+        // Se recebemos chunks mas não houve sinal explícito de completion
         if (chunkCount > 0) {
-          console.log('🏁 Stream finalizado implicitamente');
-          onComplete({ session_id: `session_${Date.now()}` });
+          this.log('success', 'Stream finalizado implicitamente');
+          onComplete({
+            session_id: `session_${Date.now()}`,
+            total_chunks: chunkCount,
+            total_content: totalContent
+          });
+        } else {
+          this.log('warn', 'Stream finalizado sem chunks recebidos');
+          onError(new Error('Stream finalizado sem receber dados'));
         }
 
       } finally {
@@ -289,14 +303,14 @@ class AgnoClient {
 
     } catch (error) {
       const errorMessage = this.formatError(error, 'streaming');
-      console.error('❌ Erro no streaming:', errorMessage);
+      this.log('error', `Erro no streaming: ${errorMessage}`);
       onError(new Error(errorMessage));
     }
   }
 
   // AGENTS API
   async createAgent(agentData) {
-    console.log('🤖 Criando agente:', agentData);
+    this.log('info', 'Criando agente:', agentData);
 
     if (!agentData.name || !agentData.role) {
       throw new Error('Nome e papel são obrigatórios');
@@ -314,34 +328,41 @@ class AgnoClient {
   }
 
   async listAgents() {
-    console.log('📋 Listando agentes...');
+    this.log('info', 'Listando agentes...');
     return this.makeRequest('/api/agents');
   }
 
   async chatWithAgent(agentId, message, onChunk, onComplete, onError) {
-    console.log(`💬 Iniciando chat com agente ${agentId}:`, message);
+    this.log('info', `Iniciando chat com agente ${agentId}:`, { message: message.substring(0, 100) + '...' });
 
     if (!agentId || !message.trim()) {
       const error = new Error('ID do agente e mensagem são obrigatórios');
+      this.log('error', error.message);
       if (onError) onError(error);
       return;
     }
 
+    // Wrappers seguros para os callbacks
+    const safeOnChunk = (chunk) => {
+      this.log('stream', `Chunk recebido: "${chunk.substring(0, 50)}..."`);
+      if (onChunk) onChunk(chunk);
+    };
+
     const safeOnComplete = (data) => {
-      console.log('✅ Chat com agente concluído:', data);
+      this.log('success', 'Chat com agente concluído:', data);
       if (onComplete) onComplete(data);
     };
 
     const safeOnError = (error) => {
       const errorMessage = this.formatError(error, 'agent chat');
-      console.error('❌ Erro no chat com agente:', errorMessage);
+      this.log('error', `Erro no chat com agente: ${errorMessage}`);
       if (onError) onError(new Error(errorMessage));
     };
 
     return this.makeStreamingRequest(
       `/api/agents/${agentId}/chat`,
       { message: message.trim() },
-      onChunk,
+      safeOnChunk,
       safeOnComplete,
       safeOnError
     );
@@ -349,7 +370,7 @@ class AgnoClient {
 
   // WORKFLOWS API
   async createWorkflow(workflowData) {
-    console.log('🔄 Criando workflow:', workflowData);
+    this.log('info', 'Criando workflow:', workflowData);
 
     if (!workflowData.name) {
       throw new Error('Nome do workflow é obrigatório');
@@ -362,37 +383,20 @@ class AgnoClient {
   }
 
   async listWorkflows() {
-    console.log('📋 Listando workflows...');
+    this.log('info', 'Listando workflows...');
     return this.makeRequest('/api/workflows');
-  }
-
-  // SESSIONS API
-  async listSessions() {
-    console.log('📋 Listando sessões...');
-    return this.makeRequest('/api/sessions');
-  }
-
-  // METRICS API
-  async getMetrics() {
-    console.log('📊 Buscando métricas...');
-    return this.makeRequest('/api/metrics');
-  }
-
-  async getPerformanceData(hours = 24) {
-    console.log(`📈 Buscando dados de performance (${hours}h)...`);
-    return this.makeRequest(`/api/performance?hours=${hours}`);
   }
 
   // HEALTH CHECK
   async healthCheck() {
-    console.log('🏥 Verificando saúde do sistema...');
+    this.log('info', 'Verificando saúde do sistema...');
     try {
-      const result = await this.makeRequest('/api/health');
-      console.log('✅ Sistema saudável:', result);
+      const result = await this.makeRequest('/');
+      this.log('success', 'Sistema saudável:', result);
       return result;
     } catch (error) {
       const errorMessage = this.formatError(error, 'health check');
-      console.error('❌ Sistema com problemas:', errorMessage);
+      this.log('error', `Sistema com problemas: ${errorMessage}`);
       throw new Error(errorMessage);
     }
   }
@@ -400,7 +404,7 @@ class AgnoClient {
   // Testar conectividade básica
   async testConnection() {
     try {
-      console.log('🧪 Testando conectividade básica...');
+      this.log('info', 'Testando conectividade básica...');
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
@@ -416,15 +420,15 @@ class AgnoClient {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('✅ Backend acessível:', data);
+        this.log('success', 'Backend acessível:', data);
         return true;
       } else {
-        console.log(`⚠️ Backend respondeu com erro: ${response.status}`);
+        this.log('warn', `Backend respondeu com erro: ${response.status}`);
         return false;
       }
     } catch (error) {
       const errorMessage = this.formatError(error, 'connection test');
-      console.error('❌ Backend inaccessível:', errorMessage);
+      this.log('error', `Backend inacessível: ${errorMessage}`);
       return false;
     }
   }
@@ -435,7 +439,7 @@ class AgnoClient {
       this.eventListeners.set(event, []);
     }
     this.eventListeners.get(event).push(callback);
-    console.log(`📡 Listener adicionado para evento: ${event}`);
+    this.log('debug', `Listener adicionado para evento: ${event}`);
   }
 
   off(event, callback) {
@@ -444,20 +448,20 @@ class AgnoClient {
       const index = listeners.indexOf(callback);
       if (index > -1) {
         listeners.splice(index, 1);
-        console.log(`📡 Listener removido para evento: ${event}`);
+        this.log('debug', `Listener removido para evento: ${event}`);
       }
     }
   }
 
   emit(event, data) {
     if (this.eventListeners.has(event)) {
-      console.log(`📡 Emitindo evento: ${event}`, data);
+      this.log('debug', `Emitindo evento: ${event}`, data);
       this.eventListeners.get(event).forEach(callback => {
         try {
           callback(data);
         } catch (error) {
           const errorMessage = this.formatError(error, `event listener for ${event}`);
-          console.error(`❌ Erro no listener do evento ${event}:`, errorMessage);
+          this.log('error', `Erro no listener do evento ${event}: ${errorMessage}`);
         }
       });
     }
@@ -468,9 +472,20 @@ class AgnoClient {
       baseURL: this.baseURL,
       userId: this.userId,
       connectionTimeout: this.connectionTimeout,
+      streamingTimeout: this.streamingTimeout,
+      debugMode: this.debugMode,
       activeListeners: Array.from(this.eventListeners.keys()),
       queuedRequests: this.requestQueue.size
     };
+  }
+
+  // Método para configurar callbacks de log global
+  setLogCallback(callback) {
+    this.on('log', callback);
+  }
+
+  removeLogCallback(callback) {
+    this.off('log', callback);
   }
 }
 
@@ -500,14 +515,14 @@ export const useAgnoClient = () => {
               await client.healthCheck();
               setConnectionStatus('healthy');
             } catch (healthError) {
-              console.warn('Health check falhou:', healthError);
+              client.log('warn', 'Health check falhou:', healthError);
               setConnectionStatus('connected');
             }
           }
         }
       } catch (error) {
         const errorMessage = client.formatError(error, 'connection check');
-        console.error('Erro no check de conexão:', errorMessage);
+        client.log('error', `Erro no check de conexão: ${errorMessage}`);
         if (mounted) {
           setIsConnected(false);
           setConnectionStatus('error');
@@ -517,7 +532,6 @@ export const useAgnoClient = () => {
     };
 
     checkConnection();
-
     const interval = setInterval(checkConnection, 30000);
 
     return () => {
@@ -549,6 +563,6 @@ export const useAgnoClient = () => {
 export const agnoClientGlobal = new AgnoClient();
 
 // Log de inicialização
-console.log('🚀 AgnoClient v2.0 inicializado:', agnoClientGlobal.getConnectionInfo());
+agnoClientGlobal.log('success', 'AgnoClient v3.0 inicializado', agnoClientGlobal.getConnectionInfo());
 
 export default AgnoClient;
