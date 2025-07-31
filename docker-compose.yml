@@ -24,8 +24,8 @@ services:
   # Backend FastAPI
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./backend        # ✅ Correto
+      dockerfile: Dockerfile    # ✅ Correto
     container_name: agno_backend
     environment:
       - DATABASE_URL=postgresql://agno_user:agno_password@postgres:5432/agno_db
@@ -41,18 +41,18 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - .:/app
+      - ./backend:/app          # ✅ Volume específico do backend
       - ./logs:/app/logs
     networks:
       - agno_network
-    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     restart: unless-stopped
 
-  # Frontend Next.js
+  # Frontend Next.js - 🔧 CORREÇÃO AQUI
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ./agno-frontend  # ✅ Contexto correto
+      dockerfile: Dockerfile    # ✅ Nome correto do arquivo
     container_name: agno_frontend
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
@@ -62,9 +62,9 @@ services:
     depends_on:
       - backend
     volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
+      - ./agno-frontend:/app    # ✅ Volume específico do frontend
+      - /app/node_modules       # ✅ Preservar node_modules
+      - /app/.next              # ✅ Preservar cache do Next.js
     networks:
       - agno_network
     restart: unless-stopped
