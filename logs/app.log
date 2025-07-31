@@ -1,0 +1,34 @@
+2025-07-31 20:42:04,586 - app - INFO - Sistema de logging configurado com sucesso
+2025-07-31 20:42:04,587 - app - INFO - Criando cliente Supabase...
+2025-07-31 20:42:04,755 - app - INFO - Cliente Supabase criado com sucesso
+2025-07-31 20:42:04,757 - app - INFO - Cliente Supabase inicializado com sucesso
+2025-07-31 20:42:04,762 - agno_service - INFO - 🚀 AgnoService REAL inicializado
+2025-07-31 20:42:04,763 - agno_service - INFO - 🚀 AgnoService REAL exportado e pronto para uso!
+2025-07-31 20:42:04,869 - agno_service - INFO - 🚀 AgnoService REAL inicializado
+2025-07-31 20:42:04,875 - main - INFO - 🚀 ===== AGNO SERVICE REAL INICIALIZADO =====
+2025-07-31 20:42:04,877 - main - INFO - ✅ Usando biblioteca Agno VERDADEIRA
+2025-07-31 20:42:04,884 - main - INFO - 🚀 =====================================
+2025-07-31 20:42:04,885 - main - INFO - 🚀 INICIANDO COM AGNO REAL!
+2025-07-31 20:42:04,886 - main - INFO - 🚀 =====================================
+2025-07-31 20:42:04,887 - main - INFO - ✅ AgnoService real carregado
+2025-07-31 20:42:04,889 - main - INFO - 🔑 Verificando API keys...
+2025-07-31 20:42:04,890 - main - INFO - ✅ OPENAI_API_KEY encontrada
+2025-07-31 20:42:04,892 - main - INFO - ✅ ANTHROPIC_API_KEY encontrada
+2025-07-31 20:42:04,936 - main - INFO - ✅ Database connection successful
+2025-07-31 20:42:04,937 - main - INFO - ✅ Sistema pronto!
+2025-07-31 20:42:07,636 - main - INFO - 📥 [REQ: req_1753994527_9741] GET http://localhost:8000/api/health
+2025-07-31 20:42:07,637 - main - INFO - 🌐 [REQ: req_1753994527_9741] IP: 127.0.0.1
+2025-07-31 20:42:07,638 - main - INFO - 🏥 Health check solicitado
+2025-07-31 20:42:07,639 - main - INFO - ✅ Health check passou - sistema operacional com Agno REAL
+2025-07-31 20:42:07,642 - main - INFO - ✅ [REQ: req_1753994527_9741] 200 - 0.006s - GET http://localhost:8000/api/health
+2025-07-31 20:42:37,705 - main - INFO - 📥 [REQ: req_1753994557_9741] GET http://localhost:8000/api/health
+2025-07-31 20:42:37,707 - main - INFO - 🌐 [REQ: req_1753994557_9741] IP: 127.0.0.1
+2025-07-31 20:42:37,709 - main - INFO - 🏥 Health check solicitado
+2025-07-31 20:42:37,710 - main - INFO - ✅ Health check passou - sistema operacional com Agno REAL
+2025-07-31 20:42:37,712 - main - INFO - ✅ [REQ: req_1753994557_9741] 200 - 0.007s - GET http://localhost:8000/api/health
+2025-07-31 20:43:07,790 - main - INFO - 📥 [REQ: req_1753994587_9741] GET http://localhost:8000/api/health
+2025-07-31 20:43:07,791 - main - INFO - 🌐 [REQ: req_1753994587_9741] IP: 127.0.0.1
+2025-07-31 20:43:07,793 - main - INFO - 🏥 Health check solicitado
+2025-07-31 20:43:07,795 - main - INFO - ✅ Health check passou - sistema operacional com Agno REAL
+2025-07-31 20:43:07,796 - main - INFO - ✅ [REQ: req_1753994587_9741] 200 - 0.007s - GET http://localhost:8000/api/health
+2025-07-31 20:43:31,279 - main - INFO - 🛑 Encerrando sistema...

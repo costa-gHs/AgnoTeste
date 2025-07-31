@@ -33,3 +33,4 @@ isort
 flake8
 gunicorn
 asyncpg
+agno

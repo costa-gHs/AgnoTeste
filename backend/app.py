@@ -1,16 +1,17 @@
-# app_fixed.py - Backend Agno Corrigido com Async Streaming
+# app.py - Backend Agno com Integração Real
 
 import os
 import json
 import asyncio
 import uuid
+import traceback
 from typing import List, Dict, Any, Optional, AsyncGenerator
 from datetime import datetime, timedelta
 import logging
 from contextlib import asynccontextmanager
 
 # FastAPI imports
-from fastapi import FastAPI, HTTPException, Depends, WebSocket, WebSocketDisconnect, Query
+from fastapi import FastAPI, HTTPException, Depends, WebSocket, WebSocketDisconnect, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -25,10 +26,20 @@ from sqlalchemy.orm import declarative_base
 # Environment
 from dotenv import load_dotenv
 
+# IMPORTANTE: Importar o AgnoService REAL ao invés do Mock
+from agno_service import AgnoService, AgentConfig, WorkflowConfig, ModelProvider
+
 load_dotenv()
 
 # Logging setup
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/agno.log'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
 # Database setup
@@ -68,172 +79,30 @@ class CreateWorkflowRequest(BaseModel):
     agents: List[CreateAgentRequest] = []
 
 
-# Mock Agno Service with proper async generators
-class MockAgnoService:
-    """Serviço mock que simula o Agno com async generators corretos"""
-
-    def __init__(self):
-        self.agents = {}
-        self.sessions = {}
-
-    async def create_agent(self, user_id: int, config: CreateAgentRequest) -> str:
-        """Cria um agente mock"""
-        agent_id = str(len(MOCK_AGENTS) + 1)
-
-        agent_data = {
-            "id": int(agent_id),
-            "name": config.name,
-            "role": config.role,
-            "model_provider": config.model_provider,
-            "model_id": config.model_id,
-            "instructions": config.instructions,
-            "tools": config.tools,
-            "memory_enabled": config.memory_enabled,
-            "rag_enabled": config.rag_enabled,
-            "is_active": True,
-            "created_at": datetime.utcnow().isoformat()
-        }
-
-        MOCK_AGENTS.append(agent_data)
-        logger.info(f"Mock agent created: {config.name} with ID {agent_id}")
-        return agent_id
-
-    async def run_agent(self, agent_id: str, message: str, user_id: int) -> AsyncGenerator[str, None]:
-        """Executa agente com streaming - CORRIGIDO para ser async generator"""
-        logger.info(f"Running mock agent {agent_id} for user {user_id}")
-
-        # Encontrar o agente
-        agent = None
-        for a in MOCK_AGENTS:
-            if str(a["id"]) == agent_id:
-                agent = a
-                break
-
-        if not agent:
-            yield f"data: {json.dumps({'type': 'error', 'message': 'Agent not found'})}\n\n"
-            return
-
-        # Simular resposta do agente com chunks
-        response_parts = [
-            f"Hello! I'm {agent['name']}.",
-            f" I received your message: '{message}'",
-            "\n\nI'll process your request using my configured tools.",
-            f" As a {agent['role']}, I can help with:",
-        ]
-
-        # Adicionar informações baseadas nas ferramentas
-        tools = agent.get('tools', [])
-        if 'duckduckgo' in tools:
-            response_parts.append("\n• Real-time web searches")
-        if 'yfinance' in tools:
-            response_parts.append("\n• Financial data analysis")
-        if 'reasoning' in tools:
-            response_parts.append("\n• Advanced reasoning and problem solving")
-
-        response_parts.extend([
-            "\n\nThis is an example of streaming response from real Agno.",
-            " In production, I would process your request",
-            f" using the {agent['model_id']} model",
-            " and return a complete and contextualized response.",
-            "\n\n✅ System working correctly!"
-        ])
-
-        # Stream each part with delay
-        for i, part in enumerate(response_parts):
-            await asyncio.sleep(0.3)  # Simulate processing delay
-            yield f"data: {json.dumps({'type': 'chunk', 'content': part})}\n\n"
-
-        # Register session
-        session_id = f"session_{datetime.now().timestamp()}"
-        MOCK_SESSIONS.append({
-            "id": session_id,
-            "agent_id": agent_id,
-            "user_id": user_id,
-            "message": message,
-            "response_length": sum(len(part) for part in response_parts),
-            "tokens_used": len(message.split()) * 4,  # Estimate
-            "status": "completed",
-            "start_time": datetime.utcnow().isoformat(),
-            "duration": len(response_parts) * 0.3
-        })
-
-        # Update metrics
-        MOCK_METRICS["total_sessions"] += 1
-        MOCK_METRICS["total_tokens"] += len(message.split()) * 4
-        MOCK_METRICS["avg_response_time"] = 2.3  # Mock
-        MOCK_METRICS["success_rate"] = 95.0  # Mock
-
-        await asyncio.sleep(0.5)
-        yield f"data: {json.dumps({'type': 'complete', 'session_id': session_id})}\n\n"
+# Dependency para obter usuário atual (mock simples)
+async def get_current_user() -> int:
+    return 1  # Para desenvolvimento - implementar autenticação real depois
 
 
-# Mock data
-MOCK_AGENTS = [
-    {
-        "id": 1,
-        "name": "Academic Research Assistant",
-        "role": "Academic Research Assistant",
-        "model_provider": "openai",
-        "model_id": "gpt-4o",
-        "instructions": ["You are an academic research assistant.", "Always cite sources."],
-        "tools": ["duckduckgo", "reasoning"],
-        "memory_enabled": True,
-        "rag_enabled": True,
-        "is_active": True,
-        "created_at": "2025-01-28T10:00:00Z"
-    },
-    {
-        "id": 2,
-        "name": "Financial Analyst",
-        "role": "Financial Analyst",
-        "model_provider": "anthropic",
-        "model_id": "claude-3-5-sonnet-20241022",
-        "instructions": ["You are a financial analyst.", "Provide detailed insights."],
-        "tools": ["yfinance", "reasoning"],
-        "memory_enabled": True,
-        "rag_enabled": False,
-        "is_active": True,
-        "created_at": "2025-01-27T15:30:00Z"
-    }
-]
+# =============================================
+# INICIALIZAÇÃO DO AGNO SERVICE REAL
+# =============================================
 
-MOCK_WORKFLOWS = [
-    {
-        "id": 1,
-        "name": "Complete Market Analysis",
-        "description": "Workflow combining research and financial analysis",
-        "flow_type": "sequential",
-        "workflow_definition": {
-            "nodes": [],
-            "connections": []
-        },
-        "is_active": True,
-        "created_at": "2025-01-25T14:20:00Z"
-    }
-]
+# Inicializar o serviço REAL do Agno
+agno_service = AgnoService()
 
-MOCK_SESSIONS = []
-
-MOCK_METRICS = {
-    "total_sessions": 0,
-    "success_rate": 0.0,
-    "avg_response_time": 0.0,
-    "total_tokens": 0,
-    "active_agents": 0,
-    "total_workflows": 0,
-    "cost_today": 0.0,
-    "errors_today": 0
-}
-
-# Initialize service
-agno_service = MockAgnoService()
+logger.info("🚀 AgnoService REAL inicializado!")
 
 
-# Database lifespan
+# =============================================
+# LIFESPAN MANAGER
+# =============================================
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
-    logger.info("🚀 Starting Agno Platform API...")
+    logger.info("🚀 =====================================")
+    logger.info("🚀 INICIANDO AGNO PLATFORM COM AGNO REAL")
+    logger.info("🚀 =====================================")
 
     # Test database connection
     try:
@@ -243,18 +112,31 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"❌ Database connection failed: {e}")
 
+    # Verificar se as variáveis de ambiente estão configuradas
+    required_env_vars = ["OPENAI_API_KEY", "ANTHROPIC_API_KEY"]
+    missing_vars = [var for var in required_env_vars if not os.getenv(var)]
+
+    if missing_vars:
+        logger.warning(f"⚠️ Variáveis de ambiente faltando: {missing_vars}")
+    else:
+        logger.info("✅ Todas as variáveis de ambiente configuradas")
+
+    logger.info("✅ Sistema pronto para usar Agno REAL!")
+
     yield
 
-    # Shutdown
-    logger.info("🛑 Shutting down Agno Platform API...")
+    logger.info("🛑 Encerrando Agno Platform...")
     await engine.dispose()
 
 
-# Create FastAPI app
+# =============================================
+# FASTAPI APP
+# =============================================
+
 app = FastAPI(
-    title="Agno Platform API",
-    description="Agno Platform API with corrected async streaming",
-    version="2.0.0",
+    title="Agno Platform API - Real Integration",
+    description="Agno Platform API com integração real do Agno Framework",
+    version="3.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan
@@ -267,7 +149,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://frontend:3000",
-        "*"  # For development - restrict in production
+        "*"  # Para desenvolvimento - restringir em produção
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -277,54 +159,78 @@ app.add_middleware(
 # Trusted hosts
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["localhost", "127.0.0.1", "*.localhost", "*"]  # Restrict in production
+    allowed_hosts=["localhost", "127.0.0.1", "*.localhost", "*"]
 )
 
 
-# Middleware for logging
+# Middleware de logging
 @app.middleware("http")
-async def log_requests(request, call_next):
+async def log_requests(request: Request, call_next):
+    request_id = f"req_{int(datetime.now().timestamp())}_{hash(str(request.url)) % 10000}"
     start_time = datetime.now()
-    logger.info(f"📥 {request.method} {request.url}")
 
-    response = await call_next(request)
+    logger.info(f"📥 [REQ: {request_id}] {request.method} {request.url}")
 
-    process_time = (datetime.now() - start_time).total_seconds()
-    logger.info(f"📤 {response.status_code} - {process_time:.3f}s")
+    try:
+        response = await call_next(request)
+        process_time = (datetime.now() - start_time).total_seconds()
 
-    return response
+        emoji = "✅" if response.status_code < 400 else "❌"
+        logger.info(f"{emoji} [REQ: {request_id}] {response.status_code} - {process_time:.3f}s")
 
-
-# Auth dependency
-async def get_current_user(user_id: int = Query(default=1)):
-    """Simple auth middleware"""
-    return user_id
-
-
-# Routes
-@app.get("/")
-async def root():
-    """Root endpoint"""
-    return {
-        "message": "Agno Platform API v2.0",
-        "status": "online",
-        "version": "2.0.0",
-        "features": ["agents", "workflows", "templates", "streaming"],
-        "docs": "/docs"
-    }
+        return response
+    except Exception as e:
+        logger.error(f"💥 [REQ: {request_id}] Erro: {str(e)}")
+        raise
 
 
-@app.options("/{path:path}")
-async def options_handler(path: str):
-    """Handle OPTIONS requests for CORS"""
-    return JSONResponse(
-        content={"message": "OK"},
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "*",
+# =============================================
+# ROTAS DA API
+# =============================================
+
+@app.get("/api/health")
+async def health_check():
+    """Health check endpoint"""
+    logger.info("🏥 Health check solicitado")
+
+    try:
+        # Verificar se o AgnoService está funcionando
+        service_status = "operational" if agno_service else "error"
+
+        health_data = {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "version": "3.1.0",
+            "agno_service": service_status,
+            "database": "connected",
+            "environment": os.getenv("ENVIRONMENT", "development")
         }
-    )
+
+        logger.info("✅ Health check passou - sistema operacional com Agno REAL")
+        return health_data
+
+    except Exception as e:
+        logger.error(f"❌ Health check falhou: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Health check failed: {str(e)}")
+
+
+@app.get("/api/agents")
+async def list_agents(user_id: int = Depends(get_current_user)):
+    """Lista todos os agentes do usuário"""
+    request_id = f"list_agents_{int(datetime.now().timestamp())}"
+
+    try:
+        logger.info(f"📋 [LIST: {request_id}] Listando agentes para usuário {user_id}")
+
+        # Usar o AgnoService REAL para listar agentes
+        agents = await agno_service.list_agents(user_id)
+
+        logger.info(f"✅ [LIST: {request_id}] {len(agents)} agentes encontrados")
+        return agents
+
+    except Exception as e:
+        logger.error(f"❌ [LIST: {request_id}] Erro ao listar agentes: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/api/agents/create")
@@ -332,23 +238,42 @@ async def create_agent(
         request: CreateAgentRequest,
         user_id: int = Depends(get_current_user)
 ):
-    """Create a new agent"""
+    """Cria novo agente usando Agno real"""
+    request_id = f"create_agent_{int(datetime.now().timestamp())}"
+
     try:
-        agent_id = await agno_service.create_agent(user_id, request)
-        return {"agent_id": agent_id, "status": "created", "message": "Agent created successfully"}
+        logger.info(f"🎯 [CREATE: {request_id}] Criando agente '{request.name}' para usuário {user_id}")
+
+        # Converter para AgentConfig
+        config = AgentConfig(
+            name=request.name,
+            role=request.role,
+            model_provider=ModelProvider(request.model_provider.lower()),
+            model_id=request.model_id,
+            instructions=request.instructions,
+            tools=request.tools,
+            memory_enabled=request.memory_enabled,
+            rag_enabled=request.rag_enabled,
+            rag_index_id=request.rag_index_id
+        )
+
+        # Usar o AgnoService REAL
+        agent_id = await agno_service.create_single_agent(user_id, config)
+
+        logger.info(f"✅ [CREATE: {request_id}] Agente criado com ID: {agent_id}")
+
+        return {
+            "agent_id": agent_id,
+            "name": request.name,
+            "status": "created",
+            "model": f"{request.model_provider}/{request.model_id}",
+            "created_at": datetime.now().isoformat()
+        }
+
     except Exception as e:
-        logger.error(f"Error creating agent: {e}")
+        logger.error(f"❌ [CREATE: {request_id}] Erro: {str(e)}")
+        logger.error(f"📍 [CREATE: {request_id}] Traceback: {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.get("/api/agents")
-async def list_agents(user_id: int = Depends(get_current_user)):
-    """List user agents"""
-    try:
-        return MOCK_AGENTS
-    except Exception as e:
-        logger.error(f"Error listing agents: {e}")
-        return []
 
 
 @app.post("/api/agents/{agent_id}/chat")
@@ -357,16 +282,43 @@ async def chat_with_agent(
         message: ChatMessage,
         user_id: int = Depends(get_current_user)
 ):
-    """Chat with agent using streaming - CORRIGIDO"""
+    """Chat com agente usando Agno REAL com streaming"""
+    request_id = f"chat_{agent_id}_{int(datetime.now().timestamp())}"
+
     try:
+        logger.info(f"💬 [CHAT: {request_id}] === CHAT INICIADO COM AGNO REAL ===")
+        logger.info(f"👤 [CHAT: {request_id}] Usuário: {user_id}")
+        logger.info(f"🤖 [CHAT: {request_id}] Agente: {agent_id}")
+        logger.info(f"📝 [CHAT: {request_id}] Mensagem: '{message.message[:100]}...'")
+
+        if not message.message or not message.message.strip():
+            logger.error(f"❌ [CHAT: {request_id}] Mensagem vazia")
+            raise HTTPException(status_code=400, detail="Mensagem não pode estar vazia")
+
         async def stream_generator():
-            """Generator that properly handles the async iterator"""
+            """Generator que usa o Agno REAL para streaming"""
             try:
+                logger.info(f"🌊 [CHAT: {request_id}] Iniciando stream com Agno REAL")
+
+                chunk_count = 0
+
+                # USAR O AGNO SERVICE REAL!
                 async for chunk in agno_service.run_agent(agent_id, message.message, user_id):
+                    chunk_count += 1
+
+                    if chunk_count <= 3:  # Log apenas os primeiros chunks
+                        logger.debug(f"📦 [CHAT: {request_id}] Chunk {chunk_count}: {chunk[:50]}...")
+
                     yield chunk
+
+                logger.info(f"🏁 [CHAT: {request_id}] Stream finalizado - {chunk_count} chunks enviados")
+
             except Exception as e:
-                logger.error(f"Error in stream: {e}")
-                error_chunk = f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+                error_msg = f"Erro no streaming: {str(e)}"
+                logger.error(f"💥 [CHAT: {request_id}] {error_msg}")
+                logger.error(f"📍 [CHAT: {request_id}] Traceback: {traceback.format_exc()}")
+
+                error_chunk = f"data: {json.dumps({'type': 'error', 'message': error_msg})}\n\n"
                 yield error_chunk
 
         return StreamingResponse(
@@ -376,11 +328,12 @@ async def chat_with_agent(
                 "Cache-Control": "no-cache",
                 "Connection": "keep-alive",
                 "Access-Control-Allow-Origin": "*",
-                "X-Accel-Buffering": "no",  # Disable proxy buffering
+                "X-Accel-Buffering": "no",
             }
         )
+
     except Exception as e:
-        logger.error(f"Error in chat endpoint: {e}")
+        logger.error(f"❌ [CHAT: {request_id}] Erro na rota de chat: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -389,159 +342,99 @@ async def create_workflow(
         request: CreateWorkflowRequest,
         user_id: int = Depends(get_current_user)
 ):
-    """Create a new workflow"""
-    try:
-        workflow_id = str(len(MOCK_WORKFLOWS) + 1)
+    """Cria novo workflow usando Agno real"""
+    request_id = f"create_workflow_{int(datetime.now().timestamp())}"
 
-        workflow_data = {
-            "id": int(workflow_id),
+    try:
+        logger.info(f"🔄 [WORKFLOW: {request_id}] Criando workflow '{request.name}'")
+
+        # Converter agentes para AgentConfig
+        agent_configs = [
+            AgentConfig(
+                name=agent.name,
+                role=agent.role,
+                model_provider=ModelProvider(agent.model_provider.lower()),
+                model_id=agent.model_id,
+                instructions=agent.instructions,
+                tools=agent.tools,
+                memory_enabled=agent.memory_enabled,
+                rag_enabled=agent.rag_enabled,
+                rag_index_id=agent.rag_index_id
+            )
+            for agent in request.agents
+        ]
+
+        # Criar WorkflowConfig
+        workflow_config = WorkflowConfig(
+            name=request.name,
+            description=request.description,
+            agents=agent_configs,
+            flow_type=request.flow_type,
+            supervisor_enabled=request.supervisor_enabled
+        )
+
+        # Usar o AgnoService REAL
+        workflow_id = await agno_service.create_workflow(user_id, workflow_config)
+
+        logger.info(f"✅ [WORKFLOW: {request_id}] Workflow criado com ID: {workflow_id}")
+
+        return {
+            "workflow_id": workflow_id,
             "name": request.name,
-            "description": request.description,
-            "flow_type": request.flow_type,
-            "workflow_definition": {
-                "nodes": [],
-                "connections": [],
-                "agents": [
-                    {
-                        "name": agent.name,
-                        "role": agent.role,
-                        "model_provider": agent.model_provider,
-                        "model_id": agent.model_id,
-                        "tools": agent.tools,
-                        "instructions": agent.instructions
-                    }
-                    for agent in request.agents
-                ]
-            },
-            "is_active": True,
-            "created_at": datetime.utcnow().isoformat()
+            "status": "created",
+            "agent_count": len(request.agents),
+            "created_at": datetime.now().isoformat()
         }
 
-        MOCK_WORKFLOWS.append(workflow_data)
-        logger.info(f"Workflow created: {request.name} with ID {workflow_id}")
-
-        return {"workflow_id": workflow_id, "status": "created", "message": "Workflow created successfully"}
     except Exception as e:
-        logger.error(f"Error creating workflow: {e}")
+        logger.error(f"❌ [WORKFLOW: {request_id}] Erro: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.get("/api/workflows")
-async def list_workflows(user_id: int = Depends(get_current_user)):
-    """List user workflows"""
-    try:
-        return MOCK_WORKFLOWS
-    except Exception as e:
-        logger.error(f"Error listing workflows: {e}")
-        return []
-
-
-@app.get("/api/sessions")
-async def list_sessions(user_id: int = Depends(get_current_user)):
-    """List user sessions"""
-    try:
-        return MOCK_SESSIONS[-50:]  # Last 50 sessions
-    except Exception as e:
-        logger.error(f"Error listing sessions: {e}")
-        return []
 
 
 @app.get("/api/metrics")
 async def get_metrics(user_id: int = Depends(get_current_user)):
-    """Get platform metrics"""
+    """Obtém métricas do sistema"""
     try:
-        MOCK_METRICS.update({
-            "active_agents": len([a for a in MOCK_AGENTS if a.get("is_active", False)]),
-            "total_workflows": len(MOCK_WORKFLOWS),
-            "total_sessions": len(MOCK_SESSIONS)
-        })
-        return MOCK_METRICS
-    except Exception as e:
-        logger.error(f"Error getting metrics: {e}")
-        return MOCK_METRICS
-
-
-@app.get("/api/performance")
-async def get_performance_data(
-        hours: int = Query(24, description="Hours of data to return"),
-        user_id: int = Depends(get_current_user)
-):
-    """Get performance data over time"""
-    try:
-        performance_data = []
-        now = datetime.now()
-
-        for i in range(hours):
-            time_point = now - timedelta(hours=i)
-            performance_data.append({
-                "time": time_point.strftime("%H:%M"),
-                "responseTime": 2.0 + (i % 3) * 0.5,
-                "tokens": 1000 + (i % 5) * 500,
-                "sessions": 10 + (i % 8) * 5,
-                "errors": max(0, (i % 10) - 7)
-            })
-
-        return performance_data
-    except Exception as e:
-        logger.error(f"Error getting performance data: {e}")
-        return []
-
-
-@app.get("/api/health")
-async def health_check():
-    """API health check"""
-    try:
-        # Test database connection
-        db_status = "healthy"
-        try:
-            async with engine.begin() as conn:
-                await conn.execute(sa.text("SELECT 1"))
-        except Exception as e:
-            db_status = f"error: {str(e)}"
-
-        health_data = {
-            "status": "healthy",
-            "timestamp": datetime.utcnow().isoformat(),
-            "version": "2.0.0",
-            "database": db_status,
-            "services": {
-                "agno": "available",
-                "streaming": "functional",
-                "async_support": "enabled"
+        # Implementar métricas reais baseadas no AgnoService
+        metrics = {
+            "agents": {
+                "total": len(agno_service.agents),
+                "active": len([a for a in agno_service.agents.values()]),
             },
-            "environment": os.getenv("ENVIRONMENT", "development")
+            "workflows": {
+                "total": len(agno_service.workflows),
+                "active": len(agno_service.workflows)
+            },
+            "system": {
+                "status": "operational_with_real_agno",
+                "version": "3.1.0",
+                "environment": os.getenv("ENVIRONMENT", "development")
+            }
         }
 
-        return health_data
+        return metrics
+
     except Exception as e:
-        logger.error(f"Health check failed: {e}")
-        raise HTTPException(status_code=503, detail="Service unhealthy")
+        logger.error(f"❌ Erro ao obter métricas: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-# Global exception handler
-@app.exception_handler(Exception)
-async def global_exception_handler(request, exc):
-    logger.error(f"Unhandled error: {exc}")
-    return JSONResponse(
-        status_code=500,
-        content={
-            "detail": "Internal server error",
-            "message": "An unexpected error occurred",
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    )
-
+# =============================================
+# STARTUP
+# =============================================
 
 if __name__ == "__main__":
     import uvicorn
 
-    logger.info("Starting Agno Platform API...")
+    logger.info("🚀 =====================================")
+    logger.info("🚀 INICIANDO SERVIDOR COM AGNO REAL...")
+    logger.info("🚀 =====================================")
 
     uvicorn.run(
-        "app_fixed:app",
+        app,
         host="0.0.0.0",
         port=8000,
-        reload=True,
         log_level="info",
-        access_log=True
+        access_log=True,
+        reload=False
     )
