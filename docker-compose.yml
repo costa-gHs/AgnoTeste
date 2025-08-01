@@ -16,13 +16,13 @@ services:
       - ./agno-frontend/src:/app/src:ro
       - ./agno-frontend/public:/app/public:ro
       - ./agno-frontend/package.json:/app/package.json:ro
-      - ./agno-frontend/next.config.js:/app/next.config.js:ro
       - ./agno-frontend/tailwind.config.js:/app/tailwind.config.js:ro
       - ./agno-frontend/tsconfig.json:/app/tsconfig.json:ro
     environment:
       - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
       - WATCHPACK_POLLING=true
+      - NEXT_CONFIG_WATCH=false
     # Corrigir usuário para evitar problemas de permissão
     user: "1001:1001"
     depends_on:
