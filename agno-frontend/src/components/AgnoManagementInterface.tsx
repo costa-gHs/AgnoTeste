@@ -27,275 +27,90 @@ import {
   Database,
   FileText,
   Mail,
-  Calendar
+  Calendar,
+  Clock,
+  Zap,
+  TrendingUp
 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+const [sessionId, setSessionId] = useState(null);
+// Importar o AgnoClient corrigido
+import AgnoClient from './agnoClient.js';
 
-// Cliente Agno CORRIGIDO
-class AgnoClient {
-  constructor(baseURL = 'http://localhost:8000') {
-    this.baseURL = baseURL;
-    this.userId = 1;
-    this.eventListeners = new Map();
-    this.debugMode = true;
-  }
+// =============================================
+// COMPONENTES AUXILIARES
+// =============================================
 
-  log(level, message, data = null) {
-    const timestamp = new Date().toLocaleTimeString();
-    const emoji = {
-      debug: '🔍',
-      info: '📝',
-      warn: '⚠️',
-      error: '❌',
-      success: '✅',
-      stream: '🌊'
-    }[level] || '📝';
+// Indicador de typing animado
+const TypingIndicator = () => (
+  <div className="flex items-center gap-2 px-3 py-2">
+    <div className="flex gap-1">
+      <div
+        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+        style={{ animationDelay: '0ms' }}
+      />
+      <div
+        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+        style={{ animationDelay: '150ms' }}
+      />
+      <div
+        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+        style={{ animationDelay: '300ms' }}
+      />
+    </div>
+    <span className="text-sm text-gray-500">Pensando...</span>
+  </div>
+);
 
-    console.log(`${emoji} [${timestamp}] AgnoClient.${level.toUpperCase()}: ${message}`);
-    if (data) console.log('📊 Data:', data);
-    this.emit('log', { level, message, data, timestamp });
-  }
+// Badge de status do agente
+const AgentStatusBadge = ({ status }) => {
+  const statusConfig = {
+    active: { color: 'bg-green-400', text: 'Ativo' },
+    idle: { color: 'bg-yellow-400', text: 'Inativo' },
+    error: { color: 'bg-red-400', text: 'Erro' },
+    loading: { color: 'bg-blue-400 animate-pulse', text: 'Carregando' }
+  };
 
-  emit(event, data) {
-    if (this.eventListeners.has(event)) {
-      this.eventListeners.get(event).forEach(callback => {
-        try {
-          callback(data);
-        } catch (error) {
-          console.error('Error in event listener:', error);
-        }
-      });
-    }
-  }
+  const config = statusConfig[status] || statusConfig.idle;
 
-  setLogCallback(callback) {
-    if (!this.eventListeners.has('log')) {
-      this.eventListeners.set('log', []);
-    }
-    this.eventListeners.get('log').push(callback);
-  }
+  return (
+    <span className={`inline-flex items-center gap-1 text-xs`}>
+      <span className={`w-2 h-2 rounded-full ${config.color}`} />
+      <span className="text-gray-500">{config.text}</span>
+    </span>
+  );
+};
 
-  removeLogCallback(callback) {
-    if (this.eventListeners.has('log')) {
-      const listeners = this.eventListeners.get('log');
-      const index = listeners.indexOf(callback);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
-    }
-  }
+// Componente de estatísticas de streaming
+const StreamingStats = ({ stats, isStreaming }) => {
+  if (!isStreaming && stats.chunksReceived === 0) return null;
 
-  async makeRequest(endpoint, options = {}) {
-    const url = `${this.baseURL}${endpoint}`;
+  const duration = stats.startTime ? Date.now() - stats.startTime : 0;
+  const wpm = duration > 0 ? Math.round((stats.totalChars / 5) / (duration / 60000)) : 0;
 
-    try {
-      this.log('info', `Fazendo requisição: ${options.method || 'GET'} ${url}`);
+  return (
+    <div className="text-xs text-gray-500 flex items-center gap-3 mt-1">
+      <span className="flex items-center gap-1">
+        <Activity className="w-3 h-3" />
+        {stats.chunksReceived} chunks
+      </span>
+      <span className="flex items-center gap-1">
+        <Clock className="w-3 h-3" />
+        {Math.round(duration / 1000)}s
+      </span>
+      {wpm > 0 && (
+        <span className="flex items-center gap-1">
+          <TrendingUp className="w-3 h-3" />
+          ~{wpm} WPM
+        </span>
+      )}
+    </div>
+  );
+};
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          ...options.headers,
-        },
-        mode: 'cors',
-        credentials: 'omit',
-        ...options,
-      };
-
-      // Adicionar user_id como query parameter se não for POST com body
-      const urlWithUser = new URL(url);
-      if (!options.body) {
-        urlWithUser.searchParams.append('user_id', this.userId);
-      }
-
-      const response = await fetch(urlWithUser.toString(), config);
-
-      this.log('debug', `Resposta recebida: ${response.status} ${response.statusText}`);
-
-      if (!response.ok) {
-        let errorData;
-        try {
-          errorData = await response.json();
-          this.log('error', 'Erro na resposta:', errorData);
-        } catch {
-          errorData = { detail: `HTTP ${response.status}: ${response.statusText}` };
-        }
-        throw new Error(errorData.detail || errorData.message || `HTTP ${response.status}`);
-      }
-
-      const data = await response.json();
-      this.log('success', 'Requisição bem-sucedida');
-      return data;
-
-    } catch (error) {
-      this.log('error', `Erro na requisição: ${error.message}`);
-      throw error;
-    }
-  }
-
-  async testConnection() {
-    try {
-      this.log('info', 'Testando conexão...');
-      const response = await fetch(this.baseURL, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'omit'
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        this.log('success', 'Backend acessível:', data);
-        return true;
-      } else {
-        this.log('warn', `Backend respondeu com erro: ${response.status}`);
-        return false;
-      }
-    } catch (error) {
-      this.log('error', `Backend inacessível: ${error.message}`);
-      return false;
-    }
-  }
-
-  async listAgents() {
-    this.log('info', 'Listando agentes...');
-    return this.makeRequest('/api/agents');
-  }
-
-  async listWorkflows() {
-    this.log('info', 'Listando workflows...');
-    return this.makeRequest('/api/workflows');
-  }
-
-  async createAgent(agentData) {
-    this.log('info', 'Criando agente:', agentData);
-
-    if (!agentData.name || !agentData.role) {
-      throw new Error('Nome e papel são obrigatórios');
-    }
-
-    // Garantir que instructions seja um array
-    if (typeof agentData.instructions === 'string') {
-      agentData.instructions = [agentData.instructions];
-    }
-
-    return this.makeRequest('/api/agents/create', {
-      method: 'POST',
-      body: JSON.stringify(agentData),
-    });
-  }
-
-  async chatWithAgent(agentId, message, onChunk, onComplete, onError) {
-    const url = `${this.baseURL}/api/agents/${agentId}/chat?user_id=${this.userId}`;
-
-    try {
-      this.log('stream', `Iniciando streaming para agente ${agentId}`);
-      this.log('debug', `URL: ${url}`);
-      this.log('debug', `Mensagem: ${message}`);
-
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'text/plain, application/json',
-          'Cache-Control': 'no-cache',
-        },
-        mode: 'cors',
-        credentials: 'omit',
-        body: JSON.stringify({ message: message.trim() })
-      });
-
-      this.log('stream', `Status do streaming: ${response.status}`);
-
-      if (!response.ok) {
-        let errorMessage;
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.detail || errorData.message || `HTTP ${response.status}`;
-        } catch {
-          errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-        }
-        throw new Error(errorMessage);
-      }
-
-      if (!response.body) {
-        throw new Error('Streaming não suportado - resposta sem body');
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-      let chunkCount = 0;
-
-      this.log('stream', 'Iniciando leitura do stream...');
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-
-          if (done) {
-            this.log('stream', `Stream concluído após ${chunkCount} chunks`);
-            break;
-          }
-
-          chunkCount++;
-          const chunk = decoder.decode(value, { stream: true });
-          buffer += chunk;
-
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-
-          for (const line of lines) {
-            if (line.trim() === '') continue;
-
-            if (line.startsWith('data: ')) {
-              try {
-                const jsonData = line.slice(6);
-                const parsed = JSON.parse(jsonData);
-
-                this.log('debug', `Chunk recebido:`, parsed);
-
-                if (parsed.type === 'chunk' && parsed.content) {
-                  onChunk(parsed.content);
-                } else if (parsed.type === 'complete') {
-                  this.log('success', 'Stream marcado como completo');
-                  onComplete(parsed);
-                  return;
-                } else if (parsed.type === 'error') {
-                  this.log('error', `Erro no stream: ${parsed.message}`);
-                  onError(new Error(parsed.message));
-                  return;
-                }
-              } catch (parseError) {
-                this.log('warn', `Erro ao parsear chunk JSON: ${parseError.message}`);
-                const content = line.startsWith('data: ') ? line.slice(6) : line;
-                if (content.trim() && !content.includes('{')) {
-                  onChunk(content);
-                }
-              }
-            } else if (line.trim() && !line.startsWith(':')) {
-              onChunk(line + '\n');
-            }
-          }
-        }
-
-        if (chunkCount > 0) {
-          this.log('success', 'Stream finalizado implicitamente');
-          onComplete({ session_id: `session_${Date.now()}`, total_chunks: chunkCount });
-        } else {
-          this.log('warn', 'Stream finalizado sem chunks recebidos');
-          onError(new Error('Stream finalizado sem receber dados'));
-        }
-
-      } finally {
-        reader.releaseLock();
-      }
-
-    } catch (error) {
-      this.log('error', `Erro no streaming: ${error.message}`);
-      onError(error);
-    }
-  }
-}
-
+// =============================================
+// COMPONENTE PRINCIPAL
+// =============================================
 const AgnoManagementInterface = () => {
   // Estados principais
   const [activeTab, setActiveTab] = useState('agents');
@@ -304,11 +119,18 @@ const AgnoManagementInterface = () => {
   const [selectedAgent, setSelectedAgent] = useState(null);
   const [selectedWorkflow, setSelectedWorkflow] = useState(null);
 
-  // Estados do chat - SIMPLIFICADOS
+  // Estados do chat
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [sessionId, setSessionId] = useState(null);
+
+  // Estados de streaming
+  const [streamingStats, setStreamingStats] = useState({
+    chunksReceived: 0,
+    startTime: null,
+    totalChars: 0
+  });
 
   // Estados de sistema
   const [logs, setLogs] = useState([]);
@@ -319,15 +141,22 @@ const AgnoManagementInterface = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showCreateAgent, setShowCreateAgent] = useState(false);
 
-  // Cliente Agno
-  const [agnoClient] = useState(() => new AgnoClient());
+  // Cliente Agno com configuração melhorada
+  const [agnoClient] = useState(() => {
+    const client = new AgnoClient('http://localhost:8000');
+    client.setDebugMode(true);
+    client.setTimeout(300000); // 5 minutos
+    return client;
+  });
 
   // Refs
   const messagesEndRef = useRef(null);
   const logsEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Auto-scroll
+  // =============================================
+  // FUNÇÕES DE AUTO-SCROLL
+  // =============================================
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
@@ -346,7 +175,9 @@ const AgnoManagementInterface = () => {
     scrollLogsToBottom();
   }, [logs, scrollLogsToBottom]);
 
-  // Adicionar log
+  // =============================================
+  // SISTEMA DE LOGS
+  // =============================================
   const addLog = useCallback((type, message, data = null) => {
     const logEntry = {
       id: Date.now() + Math.random(),
@@ -355,10 +186,12 @@ const AgnoManagementInterface = () => {
       message,
       data
     };
-    setLogs(prev => [...prev.slice(-99), logEntry]);
+    setLogs(prev => [...prev.slice(-199), logEntry]); // Manter últimos 200 logs
   }, []);
 
-  // Setup do cliente
+  // =============================================
+  // SETUP DO CLIENTE E CONEXÃO INICIAL
+  // =============================================
   useEffect(() => {
     const handleClientLog = (logData) => {
       addLog(logData.level, logData.message, logData.data);
@@ -369,39 +202,54 @@ const AgnoManagementInterface = () => {
     const checkInitialConnection = async () => {
       try {
         setConnectionStatus('connecting');
+        addLog('info', '🔄 Verificando conexão inicial...');
+
         const connected = await agnoClient.testConnection();
         setConnectionStatus(connected ? 'connected' : 'disconnected');
 
         if (connected) {
           await loadInitialData();
+        } else {
+          addLog('error', '❌ Não foi possível conectar ao backend');
         }
       } catch (error) {
         setConnectionStatus('error');
-        addLog('error', `Erro de conexão: ${error.message}`);
+        addLog('error', `💥 Erro de conexão: ${error.message}`);
       }
     };
 
     checkInitialConnection();
 
+    // Cleanup
     return () => {
       agnoClient.removeLogCallback(handleClientLog);
     };
   }, [agnoClient, addLog]);
 
-  // Carregar dados iniciais
+  // =============================================
+  // CARREGAR DADOS INICIAIS
+  // =============================================
   const loadInitialData = useCallback(async () => {
     try {
       setLoading(true);
-      addLog('info', 'Carregando dados iniciais...');
+      addLog('info', '📥 Carregando dados iniciais...');
 
       const [agentsList, workflowsList] = await Promise.all([
-        agnoClient.listAgents(),
-        agnoClient.listWorkflows()
+        agnoClient.listAgents().catch(err => {
+          addLog('warn', `⚠️ Erro ao carregar agentes: ${err.message}`);
+          return [];
+        }),
+        agnoClient.listWorkflows().catch(err => {
+          addLog('warn', `⚠️ Erro ao carregar workflows: ${err.message}`);
+          return [];
+        })
       ]);
 
       setAgents(agentsList || []);
       setWorkflows(workflowsList || []);
-      addLog('success', `Carregados ${agentsList?.length || 0} agentes e ${workflowsList?.length || 0} workflows`);
+
+      addLog('success', `✅ Dados carregados: ${agentsList?.length || 0} agentes, ${workflowsList?.length || 0} workflows`);
+
     } catch (error) {
       const errorMsg = `Erro ao carregar dados: ${error.message}`;
       setError(errorMsg);
@@ -411,7 +259,9 @@ const AgnoManagementInterface = () => {
     }
   }, [agnoClient, addLog]);
 
-  // FUNÇÃO DE ENVIAR MENSAGEM CORRIGIDA
+  // =============================================
+  // FUNÇÃO DE ENVIAR MENSAGEM CORRIGIDA! 🎯
+  // =============================================
   const handleSendMessage = useCallback(async () => {
     if (!inputMessage.trim() || isStreaming || (!selectedAgent && !selectedWorkflow)) return;
 
@@ -419,6 +269,13 @@ const AgnoManagementInterface = () => {
     setInputMessage('');
     setError(null);
     setIsStreaming(true);
+
+    // Reset streaming stats
+    setStreamingStats({
+      chunksReceived: 0,
+      startTime: Date.now(),
+      totalChars: 0
+    });
 
     // Adicionar mensagem do usuário
     const newUserMessage = {
@@ -428,9 +285,9 @@ const AgnoManagementInterface = () => {
       timestamp: new Date().toLocaleTimeString()
     };
     setMessages(prev => [...prev, newUserMessage]);
-    addLog('info', `Enviando mensagem: "${userMessage.substring(0, 50)}..."`);
+    addLog('info', `🚀 Enviando mensagem: "${userMessage.substring(0, 50)}..."`);
 
-    // Preparar mensagem do agente
+    // Preparar mensagem do agente com typing indicator
     const agentMessageId = Date.now() + 1;
     const agentMessage = {
       id: agentMessageId,
@@ -438,65 +295,136 @@ const AgnoManagementInterface = () => {
       content: '',
       timestamp: new Date().toLocaleTimeString(),
       agentName: selectedAgent?.name || selectedWorkflow?.name,
-      isStreaming: true
+      isStreaming: true,
+      showTyping: true // ← Mostrar indicador de typing inicial
     };
     setMessages(prev => [...prev, agentMessage]);
 
     try {
       if (selectedAgent) {
+        let hasReceivedFirstChunk = false;
+
         await agnoClient.chatWithAgent(
           selectedAgent.id,
           userMessage,
-          // onChunk - CORRIGIDO: Atualizar mensagem diretamente
+
           (chunk) => {
+            // Atualizar estatísticas
+            sessionId
+            setStreamingStats(prev => ({
+              ...prev,
+              chunksReceived: prev.chunksReceived + 1,
+              totalChars: prev.totalChars + chunk.length
+            }));
+
+            // Atualizar mensagem
             setMessages(prev => prev.map(msg =>
               msg.id === agentMessageId
-                ? { ...msg, content: msg.content + chunk }
+                ? {
+                    ...msg,
+                    content: msg.content + chunk,
+                    showTyping: false, // Remove typing indicator no primeiro chunk
+                    isStreaming: true
+                  }
                 : msg
             ));
+
+            if (!hasReceivedFirstChunk) {
+              hasReceivedFirstChunk = true;
+              addLog('success', '🎉 Primeiro chunk recebido - streaming iniciado!');
+            }
           },
-          // onComplete - CORRIGIDO: Apenas marcar como finalizado
+
+          // onComplete - Finalizar streaming
           (data) => {
+            const duration = Date.now() - streamingStats.startTime;
+            const finalStats = {
+              ...streamingStats,
+              duration
+            };
+
+            addLog('success', '🎉 Chat concluído com sucesso!', {
+              session_id: data.session_id,
+              chunks: finalStats.chunksReceived,
+              characters: finalStats.totalChars,
+              duration: `${Math.round(duration / 1000)}s`,
+              metrics: data.metrics
+            });
+
+            // Finalizar mensagem
             setMessages(prev => prev.map(msg =>
               msg.id === agentMessageId
-                ? { ...msg, isStreaming: false }
+                ? {
+                    ...msg,
+                    isStreaming: false,
+                    showTyping: false,
+                    finalStats
+                  }
                 : msg
             ));
+
             setIsStreaming(false);
-            setSessionId(data.session_id);
-            addLog('success', `Chat concluído. Session: ${data.session_id}`);
+            setSessionId(data.session_id || `session_${Date.now()}`);
+
+            // Reset stats
+            setStreamingStats({
+              chunksReceived: 0,
+              startTime: null,
+              totalChars: 0
+            });
           },
-          // onError
+
+          // onError - Tratar erros
           (error) => {
-            setError(error.message);
+            addLog('error', `💥 Erro no chat: ${error.message}`);
+            setError(`Erro no chat: ${error.message}`);
             setIsStreaming(false);
+
+            // Remover mensagem do agente em caso de erro
             setMessages(prev => prev.filter(msg => msg.id !== agentMessageId));
-            addLog('error', `Erro no chat: ${error.message}`);
+
+            // Reset stats
+            setStreamingStats({
+              chunksReceived: 0,
+              startTime: null,
+              totalChars: 0
+            });
           }
         );
       } else if (selectedWorkflow) {
+        // TODO: Implementar chat com workflows
         throw new Error('Chat com workflows ainda não implementado');
       }
 
     } catch (error) {
-      setError(error.message);
+      addLog('error', `💥 Erro de conexão: ${error.message}`);
+      setError(`Erro de conexão: ${error.message}`);
       setIsStreaming(false);
       setMessages(prev => prev.filter(msg => msg.id !== agentMessageId));
-      addLog('error', `Erro de conexão: ${error.message}`);
-    }
-  }, [inputMessage, isStreaming, selectedAgent, selectedWorkflow, agnoClient, addLog]);
 
-  // Criar agente
+      // Reset stats
+      setStreamingStats({
+        chunksReceived: 0,
+        startTime: null,
+        totalChars: 0
+      });
+    }
+  }, [inputMessage, isStreaming, selectedAgent, selectedWorkflow, agnoClient, addLog, streamingStats.startTime]);
+
+  // =============================================
+  // CRIAR AGENTE
+  // =============================================
   const handleCreateAgent = useCallback(async (agentData) => {
     try {
       setLoading(true);
-      addLog('info', 'Criando novo agente...', agentData);
+      addLog('info', '🤖 Criando novo agente...', agentData);
 
       const result = await agnoClient.createAgent(agentData);
-      addLog('success', `Agente criado: ${result.agent_id}`);
+      addLog('success', `✅ Agente criado com sucesso! ID: ${result.agent_id}`);
 
       await loadInitialData();
       setShowCreateAgent(false);
+
     } catch (error) {
       const errorMsg = `Erro ao criar agente: ${error.message}`;
       setError(errorMsg);
@@ -506,7 +434,9 @@ const AgnoManagementInterface = () => {
     }
   }, [agnoClient, addLog, loadInitialData]);
 
-  // Funções auxiliares
+  // =============================================
+  // FUNÇÕES AUXILIARES
+  // =============================================
   const handleKeyPress = useCallback((e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -516,18 +446,23 @@ const AgnoManagementInterface = () => {
 
   const copyMessage = useCallback((content) => {
     navigator.clipboard.writeText(content);
-    addLog('info', 'Mensagem copiada para a área de transferência');
+    addLog('info', '📋 Mensagem copiada para a área de transferência');
   }, [addLog]);
 
   const clearLogs = useCallback(() => {
     setLogs([]);
-    addLog('info', 'Logs limpos');
+    addLog('info', '🧹 Logs limpos');
   }, [addLog]);
 
   const clearChat = useCallback(() => {
     setMessages([]);
     setSessionId(null);
-    addLog('info', 'Chat limpo');
+    setStreamingStats({
+      chunksReceived: 0,
+      startTime: null,
+      totalChars: 0
+    });
+    addLog('info', '🧹 Chat limpo');
   }, [addLog]);
 
   const exportChat = useCallback(() => {
@@ -538,7 +473,9 @@ const AgnoManagementInterface = () => {
       messages: messages.map(msg => ({
         type: msg.type,
         content: msg.content,
-        timestamp: msg.timestamp
+        timestamp: msg.timestamp,
+        agentName: msg.agentName,
+        finalStats: msg.finalStats
       }))
     };
 
@@ -550,10 +487,12 @@ const AgnoManagementInterface = () => {
     a.click();
     URL.revokeObjectURL(url);
 
-    addLog('success', 'Chat exportado com sucesso');
+    addLog('success', '💾 Chat exportado com sucesso');
   }, [messages, selectedAgent, selectedWorkflow, sessionId, addLog]);
 
-  // Filtrar agentes/workflows
+  // =============================================
+  // FILTROS
+  // =============================================
   const filteredAgents = agents.filter(agent =>
     agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     agent.role.toLowerCase().includes(searchTerm.toLowerCase())
@@ -564,7 +503,9 @@ const AgnoManagementInterface = () => {
     workflow.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Renderizar ícones e status
+  // =============================================
+  // RENDERIZAÇÃO DE COMPONENTES
+  // =============================================
   const renderLogIcon = (type) => {
     switch (type) {
       case 'error': return <AlertCircle className="w-4 h-4 text-red-500" />;
@@ -591,6 +532,11 @@ const AgnoManagementInterface = () => {
       <div className={`flex items-center gap-2 ${config.color}`}>
         <IconComponent className={`w-4 h-4 ${config.spin ? 'animate-spin' : ''}`} />
         <span className="text-sm font-medium">{config.text}</span>
+        {connectionStatus === 'connected' && (
+          <span className="text-xs text-gray-500">
+            ({agents.length + workflows.length} recursos)
+          </span>
+        )}
       </div>
     );
   };
@@ -604,7 +550,9 @@ const AgnoManagementInterface = () => {
     });
   };
 
-  // Formulário de criação de agente SIMPLIFICADO
+  // =============================================
+  // FORMULÁRIO DE CRIAÇÃO DE AGENTE
+  // =============================================
   const CreateAgentForm = () => {
     const [formData, setFormData] = useState({
       name: '',
@@ -764,14 +712,20 @@ const AgnoManagementInterface = () => {
     );
   };
 
+  // =============================================
+  // RENDER PRINCIPAL
+  // =============================================
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
+      {/* ===== SIDEBAR ===== */}
       <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
         {/* Header */}
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-bold text-gray-900">Agno Platform</h1>
+            <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <Zap className="w-6 h-6 text-blue-500" />
+              Agno Platform
+            </h1>
             {renderConnectionStatus()}
           </div>
 
@@ -853,7 +807,7 @@ const AgnoManagementInterface = () => {
                       onClick={() => setSelectedAgent(agent)}
                       className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 ${
                         selectedAgent?.id === agent.id
-                          ? 'border-blue-300 bg-blue-50 shadow-sm'
+                          ? 'border-blue-300 bg-blue-50 shadow-sm ring-1 ring-blue-200'
                           : 'border-gray-200 hover:border-gray-300 bg-white hover:shadow-sm'
                       }`}
                     >
@@ -861,17 +815,15 @@ const AgnoManagementInterface = () => {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="font-medium text-gray-900">{agent.name}</h3>
-                            <span className={`w-2 h-2 rounded-full ${
-                              agent.status === 'active' ? 'bg-green-400' : 'bg-gray-400'
-                            }`} />
+                            <AgentStatusBadge status={agent.status || 'active'} />
                           </div>
                           <p className="text-sm text-gray-600 mb-2">{agent.role}</p>
                           <div className="flex items-center gap-2 text-xs text-gray-500">
                             <span className="bg-gray-100 px-2 py-1 rounded">
-                              {agent.modelProvider}
+                              {agent.modelProvider || agent.model_provider}
                             </span>
                             <span className="bg-gray-100 px-2 py-1 rounded">
-                              {agent.modelId}
+                              {agent.modelId || agent.model_id}
                             </span>
                           </div>
                           {agent.tools && agent.tools.length > 0 && (
@@ -892,7 +844,7 @@ const AgnoManagementInterface = () => {
                             </div>
                           )}
                           <p className="text-xs text-gray-400 mt-2">
-                            Última utilização: {formatDate(agent.lastUsed)}
+                            Última utilização: {formatDate(agent.lastUsed || agent.created_at || new Date())}
                           </p>
                         </div>
                       </div>
@@ -909,7 +861,10 @@ const AgnoManagementInterface = () => {
                 <h2 className="font-semibold text-gray-900">
                   Workflows ({filteredWorkflows.length})
                 </h2>
-                <button className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                <button
+                  className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  title="Criar novo workflow"
+                >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
@@ -937,21 +892,19 @@ const AgnoManagementInterface = () => {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="font-medium text-gray-900">{workflow.name}</h3>
-                            <span className={`w-2 h-2 rounded-full ${
-                              workflow.status === 'active' ? 'bg-green-400' : 'bg-gray-400'
-                            }`} />
+                            <AgentStatusBadge status={workflow.status || 'active'} />
                           </div>
                           <p className="text-sm text-gray-600 mb-2">{workflow.description}</p>
                           <div className="flex items-center gap-2 text-xs text-gray-500">
                             <span className="bg-gray-100 px-2 py-1 rounded">
-                              {workflow.agentCount} agentes
+                              {workflow.agentCount || 0} agentes
                             </span>
                             <span className="bg-gray-100 px-2 py-1 rounded">
-                              {workflow.flowType}
+                              {workflow.flowType || 'sequential'}
                             </span>
                           </div>
                           <p className="text-xs text-gray-400 mt-2">
-                            Última utilização: {formatDate(workflow.lastUsed)}
+                            Última utilização: {formatDate(workflow.lastUsed || workflow.created_at || new Date())}
                           </p>
                         </div>
                       </div>
@@ -964,7 +917,7 @@ const AgnoManagementInterface = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* ===== MAIN CONTENT ===== */}
       <div className="flex-1 flex">
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
@@ -974,17 +927,41 @@ const AgnoManagementInterface = () => {
               <div className="flex items-center gap-3">
                 {selectedAgent || selectedWorkflow ? (
                   <>
-                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
                       {selectedAgent ? <Bot className="w-6 h-6 text-white" /> : <GitBranch className="w-6 h-6 text-white" />}
                     </div>
                     <div>
                       <h1 className="text-lg font-semibold text-gray-900">
                         {selectedAgent?.name || selectedWorkflow?.name}
                       </h1>
-                      <p className="text-sm text-gray-500">
-                        {selectedAgent && `${selectedAgent.modelId} • ${selectedAgent.modelProvider}`}
-                        {selectedWorkflow && `${selectedWorkflow.agentCount} agentes • ${selectedWorkflow.flowType}`}
-                        {sessionId && ` • Session: ${sessionId.slice(-8)}`}
+                      <p className="text-sm text-gray-500 flex items-center gap-2">
+                        {selectedAgent && (
+                          <>
+                            <span>{selectedAgent.modelId || selectedAgent.model_id}</span>
+                            <span>•</span>
+                            <span>{selectedAgent.modelProvider || selectedAgent.model_provider}</span>
+                          </>
+                        )}
+                        {selectedWorkflow && (
+                          <>
+                            <span>{selectedWorkflow.agentCount || 0} agentes</span>
+                            <span>•</span>
+                            <span>{selectedWorkflow.flowType || 'sequential'}</span>
+                          </>
+                        )}
+                        {sessionId && (
+                          <>
+                            <span>•</span>
+                            <span>Session: {sessionId.slice(-8)}</span>
+                          </>
+                        )}
+                        {isStreaming && (
+                          <>
+                            <span>•</span>
+                            <Activity className="w-3 h-3 text-blue-500 animate-pulse" />
+                            <span className="text-blue-500">Streaming...</span>
+                          </>
+                        )}
                       </p>
                     </div>
                   </>
@@ -1069,95 +1046,134 @@ const AgnoManagementInterface = () => {
               </div>
             ) : (
               messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex gap-3 ${message.type === 'user' ? 'flex-row-reverse' : ''}`}
-                >
-                  {/* Avatar */}
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    message.type === 'user' 
-                      ? 'bg-blue-500' 
-                      : 'bg-gray-600'
-                  }`}>
-                    {message.type === 'user' ? (
-                      <User className="w-4 h-4 text-white" />
-                    ) : (
-                      <Bot className="w-4 h-4 text-white" />
-                    )}
-                  </div>
-
-                  {/* Message */}
-                  <div className={`flex-1 max-w-[80%] ${message.type === 'user' ? 'text-right' : ''}`}>
-                    <div className={`inline-block p-3 rounded-lg shadow-sm ${
-                      message.type === 'user'
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-white text-gray-800 border border-gray-200'
+                  <div
+                      key={message.id}
+                      className={`flex gap-3 ${message.type === 'user' ? 'flex-row-reverse' : ''}`}
+                  >
+                    {/* Avatar */}
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        message.type === 'user'
+                            ? 'bg-gradient-to-br from-blue-500 to-blue-600'
+                            : 'bg-gradient-to-br from-gray-600 to-gray-700'
                     }`}>
-                      <div className="whitespace-pre-wrap break-words">
-                        {message.content}
-                        {message.isStreaming && (
-                          <span className="inline-block w-2 h-5 bg-gray-400 ml-1 animate-pulse" />
-                        )}
-                      </div>
+                      {message.type === 'user' ? (
+                          <User className="w-4 h-4 text-white"/>
+                      ) : (
+                          <Bot className="w-4 h-4 text-white"/>
+                      )}
                     </div>
 
-                    {/* Metadata */}
-                    <div className={`flex items-center gap-2 mt-1 text-xs text-gray-500 ${
-                      message.type === 'user' ? 'justify-end' : ''
-                    }`}>
-                      <span>{message.timestamp}</span>
-                      {message.agentName && <span>• {message.agentName}</span>}
-                      {message.content && (
-                        <button
-                          onClick={() => copyMessage(message.content)}
-                          className="hover:text-gray-700 transition-colors"
-                          title="Copiar mensagem"
-                        >
-                          <Copy className="w-3 h-3" />
-                        </button>
+                    {/* Message */}
+                    <div className={`flex-1 max-w-[80%] ${message.type === 'user' ? 'text-right' : ''}`}>
+                      <div className={`inline-block p-3 rounded-lg shadow-sm ${
+                          message.type === 'user'
+                              ? 'bg-blue-500 text-white'
+                              : 'bg-white text-gray-800 border border-gray-200'
+                      }`}>
+                        {/* ✅ SUBSTITUIR ESTA PARTE: */}
+                        {message.type === 'user' ? (
+                            // Usuário - texto simples
+                            <div className="whitespace-pre-wrap break-words">
+                              {message.content}
+                            </div>
+                        ) : (
+                            // ✅ AGENTE - renderizar markdown
+                            <div className="prose prose-sm max-w-none">
+                              <ReactMarkdown
+                                  className="text-gray-800"
+                                  components={{
+                                    // Quebras de linha funcionam
+                                    br: () => <br/>,
+                                    // Links seguros
+                                    a: ({href, children}) => (
+                                        <a href={href} target="_blank" rel="noopener noreferrer"
+                                           className="text-blue-600 hover:underline">
+                                          {children}
+                                        </a>
+                                    ),
+                                    // Código inline
+                                    code: ({inline, children}) => (
+                                        inline ? (
+                                            <code className="bg-gray-100 px-1 py-0.5 rounded text-sm">
+                                              {children}
+                                            </code>
+                                        ) : (
+                                            <pre className="bg-gray-100 p-3 rounded overflow-x-auto">
+                                              <code>{children}</code>
+                                            </pre>
+                                        )
+                                    ),
+                                    // Listas com espaçamento
+                                    ul: ({children}) => (
+                                        <ul className="list-disc ml-4 space-y-1">{children}</ul>
+                                    ),
+                                    ol: ({children}) => (
+                                        <ol className="list-decimal ml-4 space-y-1">{children}</ol>
+                                    ),
+                                  }}
+                              >
+                                {message.content}
+                              </ReactMarkdown>
+                              {message.isStreaming && (
+                                  <span className="inline-block w-0.5 h-5 bg-gray-400 ml-1 animate-pulse"/>
+                              )}
+                            </div>
+                        )}
+                      </div>
+
+                      {/* Streaming Stats */}
+                      {message.type === 'agent' && (message.isStreaming || message.finalStats) && (
+                          <StreamingStats
+                              stats={message.finalStats || streamingStats}
+                              isStreaming={message.isStreaming}
+                          />
                       )}
                     </div>
                   </div>
-                </div>
               ))
             )}
-            <div ref={messagesEndRef} />
+            <div ref={messagesEndRef}/>
           </div>
 
           {/* Input Area */}
           {(selectedAgent || selectedWorkflow) && (
-            <div className="bg-white border-t border-gray-200 p-4">
-              <div className="flex gap-3">
-                <div className="flex-1 relative">
+              <div className="bg-white border-t border-gray-200 p-4">
+                <div className="flex gap-3">
+                  <div className="flex-1 relative">
                   <textarea
-                    ref={inputRef}
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Digite sua mensagem... (Enter para enviar, Shift+Enter para nova linha)"
-                    className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    rows={1}
-                    style={{ minHeight: '44px', maxHeight: '120px' }}
-                    disabled={isStreaming}
+                      ref={inputRef}
+                      value={inputMessage}
+                      onChange={(e) => setInputMessage(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Digite sua mensagem... (Enter para enviar, Shift+Enter para nova linha)"
+                      className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      rows={1}
+                      style={{minHeight: '44px', maxHeight: '120px'}}
+                      disabled={isStreaming}
                   />
+                    {isStreaming && (
+                        <div className="absolute bottom-2 right-2">
+                          <Loader className="w-4 h-4 animate-spin text-blue-500"/>
+                        </div>
+                    )}
+                  </div>
+                  <button
+                      onClick={handleSendMessage}
+                      disabled={!inputMessage.trim() || isStreaming}
+                      className="px-4 py-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                  >
+                    {isStreaming ? (
+                        <Loader className="w-4 h-4 animate-spin"/>
+                    ) : (
+                        <Send className="w-4 h-4"/>
+                    )}
+                  </button>
                 </div>
-                <button
-                  onClick={handleSendMessage}
-                  disabled={!inputMessage.trim() || isStreaming}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors"
-                >
-                  {isStreaming ? (
-                    <Loader className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Send className="w-4 h-4" />
-                  )}
-                </button>
               </div>
-            </div>
           )}
         </div>
 
-        {/* Logs Panel */}
+        {/* ===== LOGS PANEL ===== */}
         {showLogs && (
           <div className="w-96 bg-white border-l border-gray-200 flex flex-col">
             {/* Logs Header */}
@@ -1165,8 +1181,12 @@ const AgnoManagementInterface = () => {
               <h2 className="font-semibold text-gray-900 flex items-center gap-2">
                 <Terminal className="w-5 h-5" />
                 Logs de Execução
+                {isStreaming && <Activity className="w-4 h-4 text-blue-500 animate-pulse" />}
               </h2>
               <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500">
+                  {logs.length}/200
+                </span>
                 <button
                   onClick={clearLogs}
                   className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
@@ -1188,12 +1208,13 @@ const AgnoManagementInterface = () => {
                 <div className="text-center text-gray-500 py-8">
                   <Activity className="w-8 h-8 mx-auto mb-2 opacity-50" />
                   <p className="text-sm">Nenhum log ainda</p>
+                  <p className="text-xs">Logs aparecem aqui durante as operações</p>
                 </div>
               ) : (
                 logs.map((log) => (
                   <div
                     key={log.id}
-                    className="p-2 bg-gray-50 rounded-lg text-xs border border-gray-100"
+                    className="p-2 bg-gray-50 rounded-lg text-xs border border-gray-100 hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       {renderLogIcon(log.type)}
@@ -1212,9 +1233,14 @@ const AgnoManagementInterface = () => {
                     <div className="text-gray-700 ml-6">
                       {log.message}
                       {log.data && (
-                        <pre className="mt-1 text-xs bg-gray-100 p-1 rounded overflow-x-auto">
-                          {JSON.stringify(log.data, null, 2)}
-                        </pre>
+                        <details className="mt-1">
+                          <summary className="cursor-pointer text-gray-500 hover:text-gray-700">
+                            Ver detalhes
+                          </summary>
+                          <pre className="mt-1 text-xs bg-gray-100 p-2 rounded overflow-x-auto border">
+                            {JSON.stringify(log.data, null, 2)}
+                          </pre>
+                        </details>
                       )}
                     </div>
                   </div>

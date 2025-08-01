@@ -206,13 +206,11 @@ class AgnoService:
             raise
 
     async def run_agent(self, agent_id: str, message: str, user_id: int) -> AsyncGenerator[str, None]:
-        """Executa agente REAL com streaming usando Agno"""
+        """Executa agente REAL com streaming corrigido"""
         session_id = f"run_agent_{agent_id}_{int(datetime.now().timestamp())}"
 
         try:
-            logger.info(f"🚀 [SESSION: {session_id}] === EXECUTANDO AGENTE REAL ===")
-            logger.info(f"👤 [SESSION: {session_id}] Usuário: {user_id}")
-            logger.info(f"🤖 [SESSION: {session_id}] Agente: {agent_id}")
+            logger.info(f"🎯 [SESSION: {session_id}] Agente: {agent_id}")
             logger.info(f"📝 [SESSION: {session_id}] Mensagem: '{message[:100]}...'")
 
             # Encontrar agente
@@ -234,66 +232,108 @@ class AgnoService:
             # Executar agente REAL
             logger.info(f"⏳ [SESSION: {session_id}] Iniciando execução do Agno...")
 
-            # Usar o método run do Agno com streaming
-            response_chunks = []
-
             try:
-                # Executar agente - o Agno pode não ter streaming nativo,
-                # então vamos simular streaming com a resposta completa
+                # ====== FIX PRINCIPAL: Executar agente e extrair APENAS o content ======
                 response = agent.run(message)
 
-                if response:
-                    # Converter resposta em chunks para streaming
-                    response_text = str(response)
-                    words = response_text.split(' ')
+                if response and hasattr(response, 'content') and response.content:
+                    # CORRIGIDO: Usar apenas o content da resposta, não o objeto inteiro
+                    response_text = response.content.strip()
 
-                    logger.info(f"📤 [SESSION: {session_id}] Iniciando streaming de {len(words)} palavras")
+                    logger.info(f"📤 [SESSION: {session_id}] Resposta recebida: {len(response_text)} caracteres")
+                    logger.info(f"🔍 [SESSION: {session_id}] Início da resposta: '{response_text[:100]}...'")
 
-                    current_chunk = ""
-                    chunk_count = 0
+                    # Converter resposta em chunks para streaming natural
+                    # Estratégia: dividir por sentenças primeiro, depois por palavras se necessário
+                    sentences = []
 
-                    for i, word in enumerate(words):
-                        current_chunk += word + " "
-                        chunk_count += 1
+                    # Dividir por pontos, mas manter formatação
+                    for part in response_text.split('.'):
+                        if part.strip():
+                            sentences.append(part.strip() + '.')
 
-                        # Enviar chunk a cada 3-5 palavras
-                        if chunk_count >= 3 or i == len(words) - 1:
-                            chunk_data = {
-                                "type": "text",
-                                "content": current_chunk,
-                                "session_id": session_id,
-                                "agent_id": agent_id,
-                                "timestamp": datetime.now().isoformat()
-                            }
+                    # Se não tiver pontos, dividir por quebras de linha
+                    if len(sentences) <= 1:
+                        sentences = [line.strip() for line in response_text.split('\n') if line.strip()]
 
-                            yield f'data: {json.dumps(chunk_data)}\n\n'
+                    # Se ainda for muito pouco, dividir em chunks de palavras
+                    if len(sentences) <= 2:
+                        words = response_text.split(' ')
+                        sentences = []
+                        current_chunk = ""
 
-                            # Reset para próximo chunk
-                            current_chunk = ""
-                            chunk_count = 0
+                        for word in words:
+                            current_chunk += word + " "
+                            if len(current_chunk) >= 50:  # Chunk de ~50 caracteres
+                                sentences.append(current_chunk.strip())
+                                current_chunk = ""
 
-                            # Pequeno delay para simular streaming natural
-                            await asyncio.sleep(0.05)
+                        if current_chunk.strip():
+                            sentences.append(current_chunk.strip())
+
+                    total_chunks = 0
+
+                    for sentence_idx, sentence in enumerate(sentences):
+                        if not sentence.strip():
+                            continue
+
+                        # Preparar chunk para envio
+                        chunk_data = {
+                            "type": "text",  # Formato que o frontend espera
+                            "content": sentence + " ",
+                            "session_id": session_id,
+                            "agent_id": agent_id,
+                            "timestamp": datetime.now().isoformat(),
+                            "chunk_index": total_chunks
+                        }
+
+                        yield f'data: {json.dumps(chunk_data)}\n\n'
+                        total_chunks += 1
+
+                        # Log apenas dos primeiros chunks para não poluir
+                        if total_chunks <= 3:
+                            logger.debug(f"📦 [SESSION: {session_id}] Chunk {total_chunks}: '{sentence[:50]}...'")
+
+                        # Delay natural para simular streaming realista
+                        await asyncio.sleep(0.15)  # 150ms entre chunks
 
                     # Enviar sinal de finalização
                     final_data = {
-                        "type": "done",
+                        "type": "done",  # Formato que o frontend aceita
                         "session_id": session_id,
                         "agent_id": agent_id,
                         "timestamp": datetime.now().isoformat(),
-                        "total_words": len(words)
+                        "total_chunks": total_chunks,
+                        "total_characters": len(response_text),
+                        "metrics": {
+                            "input_tokens": getattr(response, 'metrics', {}).get('input_tokens', [0])[0] if hasattr(
+                                response, 'metrics') else 0,
+                            "output_tokens": getattr(response, 'metrics', {}).get('output_tokens', [0])[0] if hasattr(
+                                response, 'metrics') else 0,
+                            "total_tokens": getattr(response, 'metrics', {}).get('total_tokens', [0])[0] if hasattr(
+                                response, 'metrics') else 0,
+                        }
                     }
 
                     yield f'data: {json.dumps(final_data)}\n\n'
 
-                    logger.info(f"✅ [SESSION: {session_id}] Execução REAL concluída - {len(words)} palavras")
+                    logger.info(f"✅ [SESSION: {session_id}] Execução REAL concluída - {total_chunks} chunks enviados")
 
                 else:
-                    # Caso a resposta seja vazia
+                    # Caso a resposta seja vazia ou inválida
+                    logger.warning(f"⚠️ [SESSION: {session_id}] Resposta vazia ou inválida: {type(response)}")
+                    logger.warning(f"🔍 [SESSION: {session_id}] Response object: {response}")
+
                     error_data = {
                         "type": "error",
-                        "message": "Agente não gerou resposta",
-                        "session_id": session_id
+                        "message": "Agente não gerou resposta válida",
+                        "session_id": session_id,
+                        "debug_info": {
+                            "response_type": str(type(response)),
+                            "has_content": hasattr(response, 'content') if response else False,
+                            "content_value": str(response.content) if response and hasattr(response,
+                                                                                           'content') else None
+                        }
                     }
                     yield f'data: {json.dumps(error_data)}\n\n'
 
@@ -307,7 +347,8 @@ class AgnoService:
                     "type": "error",
                     "message": error_msg,
                     "session_id": session_id,
-                    "error_type": "agno_execution_error"
+                    "error_type": "agno_execution_error",
+                    "traceback": traceback.format_exc()
                 }
                 yield f'data: {json.dumps(error_data)}\n\n'
 
@@ -320,7 +361,8 @@ class AgnoService:
                 "type": "error",
                 "message": error_msg,
                 "session_id": session_id,
-                "error_type": "general_error"
+                "error_type": "general_error",
+                "traceback": traceback.format_exc()
             }
             yield f'data: {json.dumps(error_data)}\n\n'
 
