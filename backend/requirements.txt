@@ -34,3 +34,6 @@ flake8
 gunicorn
 asyncpg
 agno
+psutil
+prometheus_client
+ddgs

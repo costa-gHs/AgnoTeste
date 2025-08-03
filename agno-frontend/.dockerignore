@@ -1,6 +1,6 @@
-# Frontend .dockerignore
+# .dockerignore otimizado para Next.js/React
 
-# Dependencies
+# Node.js
 node_modules/
 npm-debug.log*
 yarn-debug.log*
@@ -14,18 +14,20 @@ out/
 build/
 dist/
 
-# Environment
+# Não ignorar package-lock.json - é importante para reprodutibilidade
+!package-lock.json
+
+# Environment files
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env.example
 
 # Git
 .git
 .gitignore
-.gitattributes
+README.md
 
 # IDE
 .vscode/
@@ -36,137 +38,39 @@ dist/
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
+
+# Testing
+coverage/
+.nyc_output
+jest-results.json
+test-results/
 
 # Logs
 logs/
 *.log
 
-# Testing
-coverage/
-.nyc_output
-.coverage
-.pytest_cache/
-jest-results.json
-test-results/
-
-# Storybook
-storybook-static/
+# Cache
+.cache/
+.npm
+.eslintcache
 
 # TypeScript
 *.tsbuildinfo
 
-# ESLint
-.eslintcache
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-.env.test
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# Temporary folders
+# Temporary
 tmp/
 temp/
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Firebase
-.firebase/
-firebase-debug.log
-.firebaserc
-
-# Vercel
-.vercel
-
-# Sentry
-.sentryclirc
-
-# Docker
-Dockerfile
-.dockerignore
-docker-compose*.yml
-
-# Python files (não necessários no frontend)
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-.Python
-
-# Documentation
-docs/
-
-# Backups
-*.backup
-*.bak
-
-# Local development
-.local
-
-# Husky
-.husky/_
-
-# Playwright
-test-results/
-playwright-report/
-playwright/.cache/
-
-# Turborepo
-.turbo
-
-# Package managers
-yarn.lock
-pnpm-lock.yaml
-
-# Generated types
-types/generated/
-.next.config.js
-# Cache directories
-.cache/
-.parcel-cache/
-.next/cache/
-
-# Build artifacts
-*.map
-*.d.ts.map
-
-# Temporary
 *.tmp
 *.temp
+
+# Documentation que não precisa no container
+docs/
+*.md
+!package.json
+!package-lock.json
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore

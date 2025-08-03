@@ -42,7 +42,8 @@ class AgnoToolsManager:
                 config={
                     "max_results": 10,
                     "region": "pt-br",
-                    "safesearch": "moderate"
+                    "safesearch": "moderate",
+                    "timelimit": "d"
                 }
             ),
 
@@ -214,11 +215,11 @@ class AgnoToolsManager:
         return creator(tool_config)
 
     def _create_duckduckgo(self, config: ToolConfig):
-        """Cria instância do DuckDuckGo"""
         return DuckDuckGoTools(
             max_results=config.config.get("max_results", 10),
             region=config.config.get("region", "pt-br"),
-            safesearch=config.config.get("safesearch", "moderate")
+            safesearch=config.config.get("safesearch", "moderate"),
+            timelimit=config.config.get("timelimit", None)
         )
 
     def _create_yfinance(self, config: ToolConfig):
