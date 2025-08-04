@@ -2678,3 +2678,372 @@ To install, run: pip install email-validator
 2025-08-03 22:09:21 - app - INFO - 🏥 Health check solicitado
 2025-08-03 22:09:21 - app - INFO - ✅ Health check passou - sistema operacional
 2025-08-03 22:09:21 - requests - INFO - ✅ [REQ:req_1754258961_1226] 200 SUCCESS - 0.059s - GET /api/health
+2025-08-03 22:09:51 - requests - INFO - 📥 [REQ:req_1754258991_1226] GET http://localhost:8000/api/health
+2025-08-03 22:09:51 - requests - INFO - 🌐 [REQ:req_1754258991_1226] IP: 127.0.0.1
+2025-08-03 22:09:51 - app - INFO - 🏥 Health check solicitado
+2025-08-03 22:09:51 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-03 22:09:51 - requests - INFO - ✅ [REQ:req_1754258991_1226] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-03 22:10:21 - requests - INFO - 📥 [REQ:req_1754259021_1226] GET http://localhost:8000/api/health
+2025-08-03 22:10:21 - requests - INFO - 🌐 [REQ:req_1754259021_1226] IP: 127.0.0.1
+2025-08-03 22:10:21 - app - INFO - 🏥 Health check solicitado
+2025-08-03 22:10:21 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-03 22:10:21 - requests - INFO - ✅ [REQ:req_1754259021_1226] 200 SUCCESS - 0.007s - GET /api/health
+2025-08-03 22:10:34 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-03 22:10:34 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-03 22:10:34 - app - INFO - ⏱️ Tempo total de execução: 135.60s
+2025-08-03 22:10:34 - app - INFO - 👋 Agno Platform encerrado
+2025-08-04 04:31:57 - app - INFO - 🎯 Sistema de logging avançado configurado com sucesso
+2025-08-04 04:31:57 - app - INFO - 🗄️ Configurando conexão com banco: postgres:5432/agno_db
+2025-08-04 04:31:57 - agno_service - INFO - 🚀 AgnoService REAL inicializado
+2025-08-04 04:31:57 - app - INFO - 🚀 ===== AGNO SERVICE REAL INICIALIZADO =====
+2025-08-04 04:31:57 - app - INFO - ✅ Usando biblioteca Agno VERDADEIRA
+2025-08-04 04:31:57 - app - INFO - 🚀==================================================
+2025-08-04 04:31:57 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 04:31:57 - app - INFO - 🚀==================================================
+2025-08-04 04:31:57 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 04:31:57 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 04:31:57 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 04:31:57 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 04:31:57 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 04:31:57 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 04:31:57 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 04:31:57 - app - INFO - ⏱️ Tempo de inicialização: 0.09s
+2025-08-04 04:31:57 - app - INFO - 🚀==================================================
+2025-08-04 04:31:58 - requests - INFO - 📥 [REQ:req_1754281918_8439] GET http://localhost:8000/api/health
+2025-08-04 04:31:58 - requests - INFO - 🌐 [REQ:req_1754281918_8439] IP: 127.0.0.1
+2025-08-04 04:31:58 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:31:58 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:31:58 - requests - INFO - ✅ [REQ:req_1754281918_8439] 200 SUCCESS - 0.005s - GET /api/health
+2025-08-04 04:32:25 - requests - INFO - 📥 [REQ:req_1754281945_1956] GET http://localhost:8000/docs
+2025-08-04 04:32:25 - requests - INFO - 🌐 [REQ:req_1754281945_1956] IP: 172.18.0.1
+2025-08-04 04:32:25 - requests - INFO - ✅ [REQ:req_1754281945_1956] 200 SUCCESS - 0.007s - GET /docs
+2025-08-04 04:32:25 - requests - INFO - 📥 [REQ:req_1754281945_9319] GET http://localhost:8000/openapi.json
+2025-08-04 04:32:25 - requests - INFO - 🌐 [REQ:req_1754281945_9319] IP: 172.18.0.1
+2025-08-04 04:32:25 - fastapi - WARNING - email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2025-08-04 04:32:25 - requests - INFO - ✅ [REQ:req_1754281945_9319] 200 SUCCESS - 0.021s - GET /openapi.json
+2025-08-04 04:32:28 - requests - INFO - 📥 [REQ:req_1754281948_8439] GET http://localhost:8000/api/health
+2025-08-04 04:32:28 - requests - INFO - 🌐 [REQ:req_1754281948_8439] IP: 127.0.0.1
+2025-08-04 04:32:28 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:32:28 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:32:28 - requests - INFO - ✅ [REQ:req_1754281948_8439] 200 SUCCESS - 0.007s - GET /api/health
+2025-08-04 04:32:40 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 04:32:40 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 04:32:40 - app - INFO - ⏱️ Tempo total de execução: 42.66s
+2025-08-04 04:32:40 - app - INFO - 👋 Agno Platform encerrado
+2025-08-04 04:32:50 - app - INFO - 🎯 Sistema de logging avançado configurado com sucesso
+2025-08-04 04:32:50 - app - INFO - 🗄️ Configurando conexão com banco: postgres:5432/agno_db
+2025-08-04 04:32:50 - agno_service - INFO - 🚀 AgnoService REAL inicializado
+2025-08-04 04:32:50 - app - INFO - 🚀 ===== AGNO SERVICE REAL INICIALIZADO =====
+2025-08-04 04:32:50 - app - INFO - ✅ Usando biblioteca Agno VERDADEIRA
+2025-08-04 04:32:50 - app - INFO - 🚀==================================================
+2025-08-04 04:32:50 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 04:32:50 - app - INFO - 🚀==================================================
+2025-08-04 04:32:50 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 04:32:50 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 04:32:50 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 04:32:50 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 04:32:50 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 04:32:50 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 04:32:50 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 04:32:50 - app - INFO - ⏱️ Tempo de inicialização: 0.06s
+2025-08-04 04:32:50 - app - INFO - 🚀==================================================
+2025-08-04 04:32:55 - requests - INFO - 📥 [REQ:req_1754281975_6800] GET http://localhost:8000/api/health
+2025-08-04 04:32:55 - requests - INFO - 🌐 [REQ:req_1754281975_6800] IP: 127.0.0.1
+2025-08-04 04:32:55 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:32:55 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:32:55 - requests - INFO - ✅ [REQ:req_1754281975_6800] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_6800] GET http://localhost:8000/api/health
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_6800] IP: 172.18.0.1
+2025-08-04 04:33:04 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:33:04 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_6800] 200 SUCCESS - 0.011s - GET /api/health
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_6800] GET http://localhost:8000/api/health
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_6800] IP: 172.18.0.1
+2025-08-04 04:33:04 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_2496] OPTIONS http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_2496] IP: 172.18.0.1
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_2461] OPTIONS http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_2461] IP: 172.18.0.1
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_2496] 200 SUCCESS - 0.006s - OPTIONS /api/agents
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_2461] 200 SUCCESS - 0.005s - OPTIONS /api/workflows
+2025-08-04 04:33:04 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_6800] 200 SUCCESS - 0.021s - GET /api/health
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_2496] IP: 172.18.0.1
+2025-08-04 04:33:04 - app - INFO - 📋 [LIST:list_agents_1754281984] Listagem de agentes solicitada
+2025-08-04 04:33:04 - app - INFO - 👤 [LIST:list_agents_1754281984] Usuário: 1
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_2461] GET http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_2461] IP: 172.18.0.1
+2025-08-04 04:33:04 - app - INFO - 📋 [WORKFLOWS:list_workflows_1754281984] Listagem solicitada por usuário 1
+2025-08-04 04:33:04 - app - INFO - 📊 [LIST:list_agents_1754281984] Encontrados 3 agentes no banco
+2025-08-04 04:33:04 - app - INFO - 🏷️  [LIST:list_agents_1754281984] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:04 - app - INFO - ✅ [LIST:list_agents_1754281984] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_2496] 200 SUCCESS - 0.049s - GET /api/agents
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_2496] IP: 172.18.0.1
+2025-08-04 04:33:04 - app - INFO - 📋 [LIST:list_agents_1754281984] Listagem de agentes solicitada
+2025-08-04 04:33:04 - app - INFO - 👤 [LIST:list_agents_1754281984] Usuário: 1
+2025-08-04 04:33:04 - app - INFO - 📊 [LIST:list_agents_1754281984] Encontrados 3 agentes no banco
+2025-08-04 04:33:04 - app - INFO - 🏷️  [LIST:list_agents_1754281984] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:04 - app - INFO - ✅ [LIST:list_agents_1754281984] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:04 - app - INFO - 📊 [WORKFLOWS:list_workflows_1754281984] Encontrados 1 workflows no banco
+2025-08-04 04:33:04 - app - INFO - 🏷️  [WORKFLOWS:list_workflows_1754281984] Workflows: ['Análise de Dados Completa']
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_2496] 200 SUCCESS - 0.010s - GET /api/agents
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_2461] 200 SUCCESS - 0.061s - GET /api/workflows
+2025-08-04 04:33:04 - requests - INFO - 📥 [REQ:req_1754281984_2461] GET http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:04 - requests - INFO - 🌐 [REQ:req_1754281984_2461] IP: 172.18.0.1
+2025-08-04 04:33:04 - app - INFO - 📋 [WORKFLOWS:list_workflows_1754281984] Listagem solicitada por usuário 1
+2025-08-04 04:33:04 - app - INFO - 📊 [WORKFLOWS:list_workflows_1754281984] Encontrados 1 workflows no banco
+2025-08-04 04:33:04 - app - INFO - 🏷️  [WORKFLOWS:list_workflows_1754281984] Workflows: ['Análise de Dados Completa']
+2025-08-04 04:33:04 - requests - INFO - ✅ [REQ:req_1754281984_2461] 200 SUCCESS - 0.010s - GET /api/workflows
+2025-08-04 04:33:10 - requests - INFO - 📥 [REQ:req_1754281990_8700] OPTIONS http://localhost:8000/api/agents/3/chat?user_id=1
+2025-08-04 04:33:10 - requests - INFO - 🌐 [REQ:req_1754281990_8700] IP: 172.18.0.1
+2025-08-04 04:33:10 - requests - INFO - ✅ [REQ:req_1754281990_8700] 200 SUCCESS - 0.002s - OPTIONS /api/agents/3/chat
+2025-08-04 04:33:10 - requests - INFO - 📥 [REQ:req_1754281990_8700] POST http://localhost:8000/api/agents/3/chat?user_id=1
+2025-08-04 04:33:10 - requests - INFO - 🌐 [REQ:req_1754281990_8700] IP: 172.18.0.1
+2025-08-04 04:33:10 - app - INFO - 💬 [CHAT:chat_3_1754281990] Chat iniciado com agente 3
+2025-08-04 04:33:10 - app - INFO - 👤 [CHAT:chat_3_1754281990] Usuário: 1
+2025-08-04 04:33:10 - app - INFO - 💭 [CHAT:chat_3_1754281990] Mensagem: 'test3e'
+2025-08-04 04:33:10 - app - INFO - 🤖 [CHAT:chat_3_1754281990] Agente encontrado: 'Analista Financeiro'
+2025-08-04 04:33:10 - app - INFO - 🧠 [CHAT:chat_3_1754281990] Modelo: openai/gpt-4o
+2025-08-04 04:33:10 - app - INFO - 🔄 [CHAT:chat_3_1754281990] Sincronizando agente com AgnoService...
+2025-08-04 04:33:10 - agno_service - INFO - 🎯 [SESSION: create_agent_1_1754281990] Criando agente REAL: Analista Financeiro
+2025-08-04 04:33:10 - agno_service - INFO - 👤 [SESSION: create_agent_1_1754281990] Usuário: 1
+2025-08-04 04:33:10 - agno_service - INFO - 🤖 [SESSION: create_agent_1_1754281990] Modelo: ModelProvider.OPENAI/gpt-4o
+2025-08-04 04:33:10 - agno_service - WARNING - ⚠️ Ferramenta não reconhecida: calculations
+2025-08-04 04:33:10 - agno_service - INFO - ✅ [SESSION: create_agent_1_1754281990] Agente REAL criado com ID: da4535d1-1236-4150-a4b0-25f8db057c70
+2025-08-04 04:33:10 - app - INFO - ✅ [CHAT:chat_3_1754281990] Agente sincronizado - AgnoService ID: da4535d1-1236-4150-a4b0-25f8db057c70
+2025-08-04 04:33:10 - app - INFO - 🚀 [CHAT:chat_3_1754281990] Iniciando execução com AgnoService...
+2025-08-04 04:33:10 - app - INFO - 🎯 [CHAT:chat_3_1754281990] Executando agente ID: da4535d1-1236-4150-a4b0-25f8db057c70
+2025-08-04 04:33:10 - agno_service - INFO - 🎯 [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Agente: da4535d1-1236-4150-a4b0-25f8db057c70
+2025-08-04 04:33:10 - agno_service - INFO - 📝 [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Mensagem: 'test3e...'
+2025-08-04 04:33:10 - agno_service - INFO - 🎯 [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Agente encontrado: Analista Financeiro
+2025-08-04 04:33:10 - agno_service - INFO - ⏳ [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Iniciando execução do Agno...
+2025-08-04 04:33:12 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 04:33:13 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 04:33:13 - agno_service - INFO - 📤 [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Resposta recebida: 188 caracteres
+2025-08-04 04:33:13 - agno_service - INFO - 🔍 [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Início da resposta: 'It seems that your message might be incomplete or not specific to a financial analysis query. Could ...'
+2025-08-04 04:33:13 - requests - INFO - ✅ [REQ:req_1754281990_8700] 200 SUCCESS - 3.051s - POST /api/agents/3/chat
+2025-08-04 04:33:13 - app - WARNING - 🐌 [REQ:req_1754281990_8700] Resposta lenta: 3.051s para POST /api/agents/3/chat
+2025-08-04 04:33:14 - agno_service - INFO - ✅ [SESSION: run_agent_da4535d1-1236-4150-a4b0-25f8db057c70_1754281990] Execução REAL concluída - 4 chunks enviados
+2025-08-04 04:33:14 - app - INFO - ✅ [CHAT:chat_3_1754281990] AgnoService concluído - 5 chunks enviados
+2025-08-04 04:33:17 - requests - INFO - 📥 [REQ:req_1754281997_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:17 - requests - INFO - 🌐 [REQ:req_1754281997_2496] IP: 172.18.0.1
+2025-08-04 04:33:17 - app - INFO - 📋 [LIST:list_agents_1754281997] Listagem de agentes solicitada
+2025-08-04 04:33:17 - app - INFO - 👤 [LIST:list_agents_1754281997] Usuário: 1
+2025-08-04 04:33:17 - app - INFO - 📊 [LIST:list_agents_1754281997] Encontrados 3 agentes no banco
+2025-08-04 04:33:17 - app - INFO - 🏷️  [LIST:list_agents_1754281997] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:17 - app - INFO - ✅ [LIST:list_agents_1754281997] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:17 - requests - INFO - ✅ [REQ:req_1754281997_2496] 200 SUCCESS - 0.017s - GET /api/agents
+2025-08-04 04:33:17 - requests - INFO - 📥 [REQ:req_1754281997_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:17 - requests - INFO - 🌐 [REQ:req_1754281997_2496] IP: 172.18.0.1
+2025-08-04 04:33:17 - app - INFO - 📋 [LIST:list_agents_1754281997] Listagem de agentes solicitada
+2025-08-04 04:33:17 - app - INFO - 👤 [LIST:list_agents_1754281997] Usuário: 1
+2025-08-04 04:33:17 - app - INFO - 📊 [LIST:list_agents_1754281997] Encontrados 3 agentes no banco
+2025-08-04 04:33:17 - app - INFO - 🏷️  [LIST:list_agents_1754281997] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:17 - app - INFO - ✅ [LIST:list_agents_1754281997] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:17 - requests - INFO - ✅ [REQ:req_1754281997_2496] 200 SUCCESS - 0.021s - GET /api/agents
+2025-08-04 04:33:17 - requests - INFO - 📥 [REQ:req_1754281997_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:17 - requests - INFO - 🌐 [REQ:req_1754281997_2496] IP: 172.18.0.1
+2025-08-04 04:33:17 - app - INFO - 📋 [LIST:list_agents_1754281997] Listagem de agentes solicitada
+2025-08-04 04:33:17 - app - INFO - 👤 [LIST:list_agents_1754281997] Usuário: 1
+2025-08-04 04:33:17 - requests - INFO - 📥 [REQ:req_1754281997_2461] GET http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:17 - requests - INFO - 🌐 [REQ:req_1754281997_2461] IP: 172.18.0.1
+2025-08-04 04:33:17 - app - INFO - 📋 [WORKFLOWS:list_workflows_1754281997] Listagem solicitada por usuário 1
+2025-08-04 04:33:17 - app - INFO - 📊 [LIST:list_agents_1754281997] Encontrados 3 agentes no banco
+2025-08-04 04:33:17 - app - INFO - 🏷️  [LIST:list_agents_1754281997] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:17 - app - INFO - ✅ [LIST:list_agents_1754281997] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:17 - app - INFO - 📊 [WORKFLOWS:list_workflows_1754281997] Encontrados 1 workflows no banco
+2025-08-04 04:33:17 - app - INFO - 🏷️  [WORKFLOWS:list_workflows_1754281997] Workflows: ['Análise de Dados Completa']
+2025-08-04 04:33:17 - requests - INFO - ✅ [REQ:req_1754281997_2496] 200 SUCCESS - 0.034s - GET /api/agents
+2025-08-04 04:33:17 - requests - INFO - ✅ [REQ:req_1754281997_2461] 200 SUCCESS - 0.024s - GET /api/workflows
+2025-08-04 04:33:17 - requests - INFO - 📥 [REQ:req_1754281997_2461] GET http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:17 - requests - INFO - 🌐 [REQ:req_1754281997_2461] IP: 172.18.0.1
+2025-08-04 04:33:17 - app - INFO - 📋 [WORKFLOWS:list_workflows_1754281997] Listagem solicitada por usuário 1
+2025-08-04 04:33:17 - requests - INFO - 📥 [REQ:req_1754281997_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:17 - requests - INFO - 🌐 [REQ:req_1754281997_2496] IP: 172.18.0.1
+2025-08-04 04:33:17 - app - INFO - 📋 [LIST:list_agents_1754281997] Listagem de agentes solicitada
+2025-08-04 04:33:17 - app - INFO - 👤 [LIST:list_agents_1754281997] Usuário: 1
+2025-08-04 04:33:17 - app - INFO - 📊 [WORKFLOWS:list_workflows_1754281997] Encontrados 1 workflows no banco
+2025-08-04 04:33:17 - app - INFO - 🏷️  [WORKFLOWS:list_workflows_1754281997] Workflows: ['Análise de Dados Completa']
+2025-08-04 04:33:17 - app - INFO - 📊 [LIST:list_agents_1754281997] Encontrados 3 agentes no banco
+2025-08-04 04:33:17 - app - INFO - 🏷️  [LIST:list_agents_1754281997] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:17 - app - INFO - ✅ [LIST:list_agents_1754281997] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:17 - requests - INFO - ✅ [REQ:req_1754281997_2461] 200 SUCCESS - 0.020s - GET /api/workflows
+2025-08-04 04:33:17 - requests - INFO - ✅ [REQ:req_1754281997_2496] 200 SUCCESS - 0.021s - GET /api/agents
+2025-08-04 04:33:19 - requests - INFO - 📥 [REQ:req_1754281999_6800] GET http://localhost:8000/api/health
+2025-08-04 04:33:19 - requests - INFO - 🌐 [REQ:req_1754281999_6800] IP: 172.18.0.1
+2025-08-04 04:33:19 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:33:19 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:33:19 - requests - INFO - ✅ [REQ:req_1754281999_6800] 200 SUCCESS - 0.007s - GET /api/health
+2025-08-04 04:33:19 - requests - INFO - 📥 [REQ:req_1754281999_6800] GET http://localhost:8000/api/health
+2025-08-04 04:33:19 - requests - INFO - 🌐 [REQ:req_1754281999_6800] IP: 172.18.0.1
+2025-08-04 04:33:19 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:33:19 - requests - INFO - 📥 [REQ:req_1754281999_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:19 - requests - INFO - 🌐 [REQ:req_1754281999_2496] IP: 172.18.0.1
+2025-08-04 04:33:19 - app - INFO - 📋 [LIST:list_agents_1754281999] Listagem de agentes solicitada
+2025-08-04 04:33:19 - app - INFO - 👤 [LIST:list_agents_1754281999] Usuário: 1
+2025-08-04 04:33:19 - requests - INFO - 📥 [REQ:req_1754281999_2461] GET http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:19 - requests - INFO - 🌐 [REQ:req_1754281999_2461] IP: 172.18.0.1
+2025-08-04 04:33:19 - app - INFO - 📋 [WORKFLOWS:list_workflows_1754281999] Listagem solicitada por usuário 1
+2025-08-04 04:33:19 - app - INFO - 📊 [LIST:list_agents_1754281999] Encontrados 3 agentes no banco
+2025-08-04 04:33:19 - app - INFO - 🏷️  [LIST:list_agents_1754281999] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:19 - app - INFO - ✅ [LIST:list_agents_1754281999] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:19 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:33:19 - requests - INFO - ✅ [REQ:req_1754281999_6800] 200 SUCCESS - 0.020s - GET /api/health
+2025-08-04 04:33:19 - requests - INFO - ✅ [REQ:req_1754281999_2496] 200 SUCCESS - 0.040s - GET /api/agents
+2025-08-04 04:33:19 - requests - INFO - 📥 [REQ:req_1754281999_2496] GET http://localhost:8000/api/agents?user_id=1
+2025-08-04 04:33:19 - requests - INFO - 🌐 [REQ:req_1754281999_2496] IP: 172.18.0.1
+2025-08-04 04:33:19 - app - INFO - 📋 [LIST:list_agents_1754281999] Listagem de agentes solicitada
+2025-08-04 04:33:19 - app - INFO - 👤 [LIST:list_agents_1754281999] Usuário: 1
+2025-08-04 04:33:19 - app - INFO - 📊 [LIST:list_agents_1754281999] Encontrados 3 agentes no banco
+2025-08-04 04:33:19 - app - INFO - 🏷️  [LIST:list_agents_1754281999] Agentes: ['Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 04:33:19 - app - INFO - ✅ [LIST:list_agents_1754281999] 3 ativos, providers: ['anthropic', 'openai']
+2025-08-04 04:33:19 - requests - INFO - ✅ [REQ:req_1754281999_2496] 200 SUCCESS - 0.009s - GET /api/agents
+2025-08-04 04:33:19 - app - INFO - 📊 [WORKFLOWS:list_workflows_1754281999] Encontrados 1 workflows no banco
+2025-08-04 04:33:19 - app - INFO - 🏷️  [WORKFLOWS:list_workflows_1754281999] Workflows: ['Análise de Dados Completa']
+2025-08-04 04:33:19 - requests - INFO - ✅ [REQ:req_1754281999_2461] 200 SUCCESS - 0.052s - GET /api/workflows
+2025-08-04 04:33:19 - requests - INFO - 📥 [REQ:req_1754281999_2461] GET http://localhost:8000/api/workflows?user_id=1
+2025-08-04 04:33:19 - requests - INFO - 🌐 [REQ:req_1754281999_2461] IP: 172.18.0.1
+2025-08-04 04:33:19 - app - INFO - 📋 [WORKFLOWS:list_workflows_1754281999] Listagem solicitada por usuário 1
+2025-08-04 04:33:19 - app - INFO - 📊 [WORKFLOWS:list_workflows_1754281999] Encontrados 1 workflows no banco
+2025-08-04 04:33:19 - app - INFO - 🏷️  [WORKFLOWS:list_workflows_1754281999] Workflows: ['Análise de Dados Completa']
+2025-08-04 04:33:19 - requests - INFO - ✅ [REQ:req_1754281999_2461] 200 SUCCESS - 0.008s - GET /api/workflows
+2025-08-04 04:33:25 - requests - INFO - 📥 [REQ:req_1754282005_6800] GET http://localhost:8000/api/health
+2025-08-04 04:33:25 - requests - INFO - 🌐 [REQ:req_1754282005_6800] IP: 127.0.0.1
+2025-08-04 04:33:25 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:33:25 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:33:25 - requests - INFO - ✅ [REQ:req_1754282005_6800] 200 SUCCESS - 0.008s - GET /api/health
+2025-08-04 04:33:55 - requests - INFO - 📥 [REQ:req_1754282035_6800] GET http://localhost:8000/api/health
+2025-08-04 04:33:55 - requests - INFO - 🌐 [REQ:req_1754282035_6800] IP: 127.0.0.1
+2025-08-04 04:33:55 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:33:55 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:33:55 - requests - INFO - ✅ [REQ:req_1754282035_6800] 200 SUCCESS - 0.007s - GET /api/health
+2025-08-04 04:34:25 - requests - INFO - 📥 [REQ:req_1754282065_6800] GET http://localhost:8000/api/health
+2025-08-04 04:34:25 - requests - INFO - 🌐 [REQ:req_1754282065_6800] IP: 127.0.0.1
+2025-08-04 04:34:25 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:34:25 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:34:25 - requests - INFO - ✅ [REQ:req_1754282065_6800] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-04 04:34:55 - requests - INFO - 📥 [REQ:req_1754282095_6800] GET http://localhost:8000/api/health
+2025-08-04 04:34:55 - requests - INFO - 🌐 [REQ:req_1754282095_6800] IP: 127.0.0.1
+2025-08-04 04:34:55 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:34:55 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:34:55 - requests - INFO - ✅ [REQ:req_1754282095_6800] 200 SUCCESS - 0.005s - GET /api/health
+2025-08-04 04:35:25 - requests - INFO - 📥 [REQ:req_1754282125_6800] GET http://localhost:8000/api/health
+2025-08-04 04:35:25 - requests - INFO - 🌐 [REQ:req_1754282125_6800] IP: 127.0.0.1
+2025-08-04 04:35:25 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:35:25 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:35:25 - requests - INFO - ✅ [REQ:req_1754282125_6800] 200 SUCCESS - 0.005s - GET /api/health
+2025-08-04 04:35:29 - requests - INFO - 📥 [REQ:req_1754282129_8700] POST http://localhost:8000/api/agents/3/chat?user_id=1
+2025-08-04 04:35:29 - requests - INFO - 🌐 [REQ:req_1754282129_8700] IP: 172.18.0.1
+2025-08-04 04:35:29 - app - INFO - 💬 [CHAT:chat_3_1754282129] Chat iniciado com agente 3
+2025-08-04 04:35:29 - app - INFO - 👤 [CHAT:chat_3_1754282129] Usuário: 1
+2025-08-04 04:35:29 - app - INFO - 💭 [CHAT:chat_3_1754282129] Mensagem: 'QUANTO TA O DOLAR HOJE?'
+2025-08-04 04:35:29 - app - INFO - 🤖 [CHAT:chat_3_1754282129] Agente encontrado: 'Analista Financeiro'
+2025-08-04 04:35:29 - app - INFO - 🧠 [CHAT:chat_3_1754282129] Modelo: openai/gpt-4o
+2025-08-04 04:35:29 - app - INFO - 🔄 [CHAT:chat_3_1754282129] Sincronizando agente com AgnoService...
+2025-08-04 04:35:29 - agno_service - INFO - 🎯 [SESSION: create_agent_1_1754282129] Criando agente REAL: Analista Financeiro
+2025-08-04 04:35:29 - agno_service - INFO - 👤 [SESSION: create_agent_1_1754282129] Usuário: 1
+2025-08-04 04:35:29 - agno_service - INFO - 🤖 [SESSION: create_agent_1_1754282129] Modelo: ModelProvider.OPENAI/gpt-4o
+2025-08-04 04:35:29 - agno_service - WARNING - ⚠️ Ferramenta não reconhecida: calculations
+2025-08-04 04:35:29 - agno_service - INFO - ✅ [SESSION: create_agent_1_1754282129] Agente REAL criado com ID: de201340-7d7d-4d54-a7ca-b34dc50ec355
+2025-08-04 04:35:29 - app - INFO - ✅ [CHAT:chat_3_1754282129] Agente sincronizado - AgnoService ID: de201340-7d7d-4d54-a7ca-b34dc50ec355
+2025-08-04 04:35:29 - app - INFO - 🚀 [CHAT:chat_3_1754282129] Iniciando execução com AgnoService...
+2025-08-04 04:35:29 - app - INFO - 🎯 [CHAT:chat_3_1754282129] Executando agente ID: de201340-7d7d-4d54-a7ca-b34dc50ec355
+2025-08-04 04:35:29 - agno_service - INFO - 🎯 [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Agente: de201340-7d7d-4d54-a7ca-b34dc50ec355
+2025-08-04 04:35:29 - agno_service - INFO - 📝 [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Mensagem: 'QUANTO TA O DOLAR HOJE?...'
+2025-08-04 04:35:29 - agno_service - INFO - 🎯 [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Agente encontrado: Analista Financeiro
+2025-08-04 04:35:29 - agno_service - INFO - ⏳ [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Iniciando execução do Agno...
+2025-08-04 04:35:31 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 04:35:31 - primp - INFO - response: https://www.bing.com/search?q=cota%C3%A7%C3%A3o+do+d%C3%B3lar+hoje 200
+2025-08-04 04:35:34 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 04:35:35 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 04:35:35 - agno_service - INFO - 📤 [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Resposta recebida: 423 caracteres
+2025-08-04 04:35:35 - agno_service - INFO - 🔍 [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Início da resposta: 'Para obter a cotação atualizada do dólar, você pode visitar a página da [UOL Economia](https://econo...'
+2025-08-04 04:35:35 - requests - INFO - ✅ [REQ:req_1754282129_8700] 200 SUCCESS - 5.957s - POST /api/agents/3/chat
+2025-08-04 04:35:35 - app - WARNING - 🐌 [REQ:req_1754282129_8700] Resposta lenta: 5.957s para POST /api/agents/3/chat
+2025-08-04 04:35:36 - agno_service - INFO - ✅ [SESSION: run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129] Execução REAL concluída - 6 chunks enviados
+2025-08-04 04:35:36 - app - INFO - ✅ [CHAT:chat_3_1754282129] AgnoService concluído - 7 chunks enviados
+2025-08-04 04:35:55 - requests - INFO - 📥 [REQ:req_1754282155_6800] GET http://localhost:8000/api/health
+2025-08-04 04:35:55 - requests - INFO - 🌐 [REQ:req_1754282155_6800] IP: 127.0.0.1
+2025-08-04 04:35:55 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:35:55 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:35:55 - requests - INFO - ✅ [REQ:req_1754282155_6800] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-04 04:36:25 - requests - INFO - 📥 [REQ:req_1754282185_6800] GET http://localhost:8000/api/health
+2025-08-04 04:36:25 - requests - INFO - 🌐 [REQ:req_1754282185_6800] IP: 127.0.0.1
+2025-08-04 04:36:25 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:36:25 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:36:25 - requests - INFO - ✅ [REQ:req_1754282185_6800] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-04 04:36:55 - requests - INFO - 📥 [REQ:req_1754282215_6800] GET http://localhost:8000/api/health
+2025-08-04 04:36:55 - requests - INFO - 🌐 [REQ:req_1754282215_6800] IP: 127.0.0.1
+2025-08-04 04:36:55 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:36:55 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:36:55 - requests - INFO - ✅ [REQ:req_1754282215_6800] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-04 04:37:25 - requests - INFO - 📥 [REQ:req_1754282245_6800] GET http://localhost:8000/api/health
+2025-08-04 04:37:25 - requests - INFO - 🌐 [REQ:req_1754282245_6800] IP: 127.0.0.1
+2025-08-04 04:37:25 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:37:25 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:37:25 - requests - INFO - ✅ [REQ:req_1754282245_6800] 200 SUCCESS - 0.005s - GET /api/health
+2025-08-04 04:37:34 - requests - INFO - 📥 [REQ:req_1754282254_8523] OPTIONS http://localhost:8000/api/agents/3/chat?user_id=1&session_id=run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129
+2025-08-04 04:37:34 - requests - INFO - 🌐 [REQ:req_1754282254_8523] IP: 172.18.0.1
+2025-08-04 04:37:34 - requests - INFO - ✅ [REQ:req_1754282254_8523] 200 SUCCESS - 0.003s - OPTIONS /api/agents/3/chat
+2025-08-04 04:37:34 - requests - INFO - 📥 [REQ:req_1754282254_8523] POST http://localhost:8000/api/agents/3/chat?user_id=1&session_id=run_agent_de201340-7d7d-4d54-a7ca-b34dc50ec355_1754282129
+2025-08-04 04:37:34 - requests - INFO - 🌐 [REQ:req_1754282254_8523] IP: 172.18.0.1
+2025-08-04 04:37:34 - app - INFO - 💬 [CHAT:chat_3_1754282254] Chat iniciado com agente 3
+2025-08-04 04:37:34 - app - INFO - 👤 [CHAT:chat_3_1754282254] Usuário: 1
+2025-08-04 04:37:34 - app - INFO - 💭 [CHAT:chat_3_1754282254] Mensagem: 'cambio dolar hoje'
+2025-08-04 04:37:34 - app - INFO - 🤖 [CHAT:chat_3_1754282254] Agente encontrado: 'Analista Financeiro'
+2025-08-04 04:37:34 - app - INFO - 🧠 [CHAT:chat_3_1754282254] Modelo: openai/gpt-4o
+2025-08-04 04:37:34 - app - INFO - 🔄 [CHAT:chat_3_1754282254] Sincronizando agente com AgnoService...
+2025-08-04 04:37:34 - agno_service - INFO - 🎯 [SESSION: create_agent_1_1754282254] Criando agente REAL: Analista Financeiro
+2025-08-04 04:37:34 - agno_service - INFO - 👤 [SESSION: create_agent_1_1754282254] Usuário: 1
+2025-08-04 04:37:34 - agno_service - INFO - 🤖 [SESSION: create_agent_1_1754282254] Modelo: ModelProvider.OPENAI/gpt-4o
+2025-08-04 04:37:34 - agno_service - WARNING - ⚠️ Ferramenta não reconhecida: calculations
+2025-08-04 04:37:34 - agno_service - INFO - ✅ [SESSION: create_agent_1_1754282254] Agente REAL criado com ID: 579e7b85-0e00-4b22-9dd5-ed0ca43670e2
+2025-08-04 04:37:34 - app - INFO - ✅ [CHAT:chat_3_1754282254] Agente sincronizado - AgnoService ID: 579e7b85-0e00-4b22-9dd5-ed0ca43670e2
+2025-08-04 04:37:34 - app - INFO - 🚀 [CHAT:chat_3_1754282254] Iniciando execução com AgnoService...
+2025-08-04 04:37:34 - app - INFO - 🎯 [CHAT:chat_3_1754282254] Executando agente ID: 579e7b85-0e00-4b22-9dd5-ed0ca43670e2
+2025-08-04 04:37:34 - agno_service - INFO - 🎯 [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Agente: 579e7b85-0e00-4b22-9dd5-ed0ca43670e2
+2025-08-04 04:37:34 - agno_service - INFO - 📝 [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Mensagem: 'cambio dolar hoje...'
+2025-08-04 04:37:34 - agno_service - INFO - 🎯 [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Agente encontrado: Analista Financeiro
+2025-08-04 04:37:34 - agno_service - INFO - ⏳ [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Iniciando execução do Agno...
+2025-08-04 04:37:36 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 04:37:36 - primp - INFO - response: https://www.bing.com/search?q=taxa+de+c%C3%A2mbio+do+d%C3%B3lar+hoje 200
+2025-08-04 04:37:38 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 04:37:39 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 04:37:39 - agno_service - INFO - 📤 [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Resposta recebida: 430 caracteres
+2025-08-04 04:37:39 - agno_service - INFO - 🔍 [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Início da resposta: 'Parece que não consegui obter a taxa de câmbio do dólar atual. Para informações atualizadas sobre a ...'
+2025-08-04 04:37:39 - requests - INFO - ✅ [REQ:req_1754282254_8523] 200 SUCCESS - 5.106s - POST /api/agents/3/chat
+2025-08-04 04:37:39 - app - WARNING - 🐌 [REQ:req_1754282254_8523] Resposta lenta: 5.106s para POST /api/agents/3/chat
+2025-08-04 04:37:40 - agno_service - INFO - ✅ [SESSION: run_agent_579e7b85-0e00-4b22-9dd5-ed0ca43670e2_1754282254] Execução REAL concluída - 4 chunks enviados
+2025-08-04 04:37:40 - app - INFO - ✅ [CHAT:chat_3_1754282254] AgnoService concluído - 5 chunks enviados
+2025-08-04 04:37:56 - requests - INFO - 📥 [REQ:req_1754282276_6800] GET http://localhost:8000/api/health
+2025-08-04 04:37:56 - requests - INFO - 🌐 [REQ:req_1754282276_6800] IP: 127.0.0.1
+2025-08-04 04:37:56 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:37:56 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:37:56 - requests - INFO - ✅ [REQ:req_1754282276_6800] 200 SUCCESS - 0.006s - GET /api/health
+2025-08-04 04:38:26 - requests - INFO - 📥 [REQ:req_1754282306_6800] GET http://localhost:8000/api/health
+2025-08-04 04:38:26 - requests - INFO - 🌐 [REQ:req_1754282306_6800] IP: 127.0.0.1
+2025-08-04 04:38:26 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:38:26 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:38:26 - requests - INFO - ✅ [REQ:req_1754282306_6800] 200 SUCCESS - 0.005s - GET /api/health
+2025-08-04 04:38:56 - requests - INFO - 📥 [REQ:req_1754282336_6800] GET http://localhost:8000/api/health
+2025-08-04 04:38:56 - requests - INFO - 🌐 [REQ:req_1754282336_6800] IP: 127.0.0.1
+2025-08-04 04:38:56 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:38:56 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:38:56 - requests - INFO - ✅ [REQ:req_1754282336_6800] 200 SUCCESS - 0.009s - GET /api/health
+2025-08-04 04:39:26 - requests - INFO - 📥 [REQ:req_1754282366_6800] GET http://localhost:8000/api/health
+2025-08-04 04:39:26 - requests - INFO - 🌐 [REQ:req_1754282366_6800] IP: 127.0.0.1
+2025-08-04 04:39:26 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:39:26 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:39:26 - requests - INFO - ✅ [REQ:req_1754282366_6800] 200 SUCCESS - 0.009s - GET /api/health
+2025-08-04 04:39:56 - requests - INFO - 📥 [REQ:req_1754282396_6800] GET http://localhost:8000/api/health
+2025-08-04 04:39:56 - requests - INFO - 🌐 [REQ:req_1754282396_6800] IP: 127.0.0.1
+2025-08-04 04:39:56 - app - INFO - 🏥 Health check solicitado
+2025-08-04 04:39:56 - app - INFO - ✅ Health check passou - sistema operacional
+2025-08-04 04:39:56 - requests - INFO - ✅ [REQ:req_1754282396_6800] 200 SUCCESS - 0.011s - GET /api/health
+2025-08-04 04:40:14 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 04:40:14 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 04:40:14 - app - INFO - ⏱️ Tempo total de execução: 443.19s
+2025-08-04 04:40:14 - app - INFO - 👋 Agno Platform encerrado

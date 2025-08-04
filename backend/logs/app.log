@@ -148,3 +148,15 @@
 2025-08-03 22:08:18,442 - app - INFO - Cliente Supabase inicializado com sucesso
 2025-08-03 22:08:18,447 - agno_service - INFO - 🚀 AgnoService REAL inicializado
 2025-08-03 22:08:18,449 - agno_service - INFO - 🚀 AgnoService REAL exportado e pronto para uso!
+2025-08-04 04:31:57,578 - app - INFO - Sistema de logging configurado com sucesso
+2025-08-04 04:31:57,579 - app - INFO - Criando cliente Supabase...
+2025-08-04 04:31:57,659 - app - INFO - Cliente Supabase criado com sucesso
+2025-08-04 04:31:57,660 - app - INFO - Cliente Supabase inicializado com sucesso
+2025-08-04 04:31:57,663 - agno_service - INFO - 🚀 AgnoService REAL inicializado
+2025-08-04 04:31:57,665 - agno_service - INFO - 🚀 AgnoService REAL exportado e pronto para uso!
+2025-08-04 04:32:50,659 - app - INFO - Sistema de logging configurado com sucesso
+2025-08-04 04:32:50,660 - app - INFO - Criando cliente Supabase...
+2025-08-04 04:32:50,789 - app - INFO - Cliente Supabase criado com sucesso
+2025-08-04 04:32:50,792 - app - INFO - Cliente Supabase inicializado com sucesso
+2025-08-04 04:32:50,797 - agno_service - INFO - 🚀 AgnoService REAL inicializado
+2025-08-04 04:32:50,799 - agno_service - INFO - 🚀 AgnoService REAL exportado e pronto para uso!

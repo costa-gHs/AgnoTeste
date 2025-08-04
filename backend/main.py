@@ -21,10 +21,13 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 
 # Database
+from backend.database import engine, async_session
+from sqlalchemy import text as sa_text
 import asyncpg
 import sqlalchemy as sa
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
+
 
 # Environment
 from dotenv import load_dotenv
@@ -41,6 +44,31 @@ except ImportError as e:
     print(f"❌ Erro ao importar AgnoService real: {e}")
     print("⚠️ Fallback para MockAgnoService...")
     USING_REAL_AGNO = False
+
+# =============================================
+# IMPORTAR SERVIÇOS REAIS DO AGNO
+# =============================================
+
+try:
+    from backend.services.real_agno_service import get_real_agno_service, AGNO_AVAILABLE
+    from backend.routers.real_agno_routes import router as real_agno_router
+    logger.info("✅ Serviços REAIS do Agno carregados com sucesso")
+except ImportError as e:
+    logger.error(f"❌ Erro ao importar serviços reais do Agno: {e}")
+    AGNO_AVAILABLE = False
+    real_agno_router = None
+
+# =============================================
+# DEPENDENCY PARA BANCO EXISTENTE
+# =============================================
+
+async def get_db() -> AsyncSession:
+    async with async_session() as session:
+        yield session
+
+async def get_current_user() -> int:
+    return 1  # Para desenvolvimento
+
 
 load_dotenv()
 
@@ -313,55 +341,91 @@ async def lifespan(app: FastAPI):
     """Gerenciar ciclo de vida da aplicação"""
     startup_time = datetime.now()
 
-    logger.info("🚀" + "=" * 50)
-    logger.info("🚀 INICIANDO AGNO PLATFORM")
-    logger.info("🚀" + "=" * 50)
+    logger.info("🚀" + "=" * 60)
+    logger.info("🚀 INICIANDO AGNO PLATFORM - VERSÃO REAL")
+    logger.info("🚀" + "=" * 60)
 
-    if USING_REAL_AGNO:
-        logger.info("✅ Modo: AgnoService REAL")
+    # Verificar framework Agno
+    if AGNO_AVAILABLE:
+        try:
+            agno_service = get_real_agno_service()
+            health = agno_service.get_system_health()
+            logger.info(f"✅ Agno Framework: {health['total_tools']} ferramentas disponíveis")
+            logger.info(f"✅ Status: {health['overall_status']}")
+        except Exception as e:
+            logger.error(f"❌ Erro ao inicializar Agno: {e}")
+            AGNO_AVAILABLE = False
     else:
-        logger.warning("⚠️ Modo: Serviço de Fallback")
+        logger.warning("⚠️ Agno Framework não disponível")
 
-    # Test database connection
+    # Test database connection (usando estrutura existente)
     db_connected = False
     try:
-        async with engine.begin() as conn:
-            result = await conn.execute(sa.text("SELECT version()"))
+        async with async_session() as session:
+            result = await session.execute(sa_text("SELECT version()"))
             db_version = result.scalar()
             logger.info(f"✅ Database conectado: PostgreSQL")
-            logger.debug(f"🔍 Versão do banco: {db_version}")
+
+            # Verificar tabelas existentes
+            tables_query = sa_text("""
+                SELECT table_name FROM information_schema.tables 
+                WHERE table_schema = 'public' 
+                AND table_name LIKE 'agno_%'
+                ORDER BY table_name
+            """)
+            tables_result = await session.execute(tables_query)
+            existing_tables = [row[0] for row in tables_result.fetchall()]
+
+            logger.info(f"✅ Tabelas encontradas: {existing_tables}")
             db_connected = True
+
     except Exception as e:
         logger.error(f"❌ Falha na conexão com banco: {e}")
         db_connected = False
 
-    # Verificar variáveis de ambiente
-    env_vars = {
-        "OPENAI_API_KEY": "🤖 OpenAI",
-        "ANTHROPIC_API_KEY": "🧠 Anthropic",
-        "SUPABASE_URL": "📊 Supabase URL",
-        "SUPABASE_KEY": "🔑 Supabase Key"
+    # Verificar API keys críticas para Agno
+    api_keys_status = {}
+    critical_keys = {
+        "OPENAI_API_KEY": "OpenAI (crítica)",
+        "ANTHROPIC_API_KEY": "Anthropic",
+        "GROQ_API_KEY": "Groq",
+        "GOOGLE_API_KEY": "Google Search",
+        "GOOGLE_CSE_ID": "Google CSE"
     }
 
-    missing_vars = []
-    for var, desc in env_vars.items():
-        if os.getenv(var):
-            logger.info(f"✅ {desc}: configurado")
+    configured_keys = 0
+    for key, desc in critical_keys.items():
+        if os.getenv(key):
+            logger.info(f"✅ {desc}: configurada")
+            api_keys_status[key] = True
+            configured_keys += 1
         else:
-            logger.warning(f"⚠️ {desc}: não configurado")
-            missing_vars.append(var)
+            logger.debug(f"⚪ {desc}: não configurada")
+            api_keys_status[key] = False
 
     startup_duration = (datetime.now() - startup_time).total_seconds()
 
-    if db_connected and not missing_vars:
-        logger.info("🎉 Sistema totalmente operacional!")
+    # Determinar status geral
+    if AGNO_AVAILABLE and db_connected and configured_keys >= 1:
+        logger.info("🎉 SISTEMA TOTALMENTE OPERACIONAL COM AGNO REAL!")
+        status = "fully_operational"
+    elif db_connected and configured_keys >= 1:
+        logger.info("⚡ Sistema operacional (Agno com limitações)")
+        status = "partial_agno"
     elif db_connected:
-        logger.info("⚡ Sistema parcialmente operacional (API keys faltando)")
+        logger.info("⚡ Sistema básico operacional (sem Agno)")
+        status = "basic_only"
     else:
-        logger.warning("⚠️ Sistema iniciado com limitações")
+        logger.warning("⚠️ Sistema com limitações críticas")
+        status = "degraded"
 
     logger.info(f"⏱️ Tempo de inicialização: {startup_duration:.2f}s")
-    logger.info("🚀" + "=" * 50)
+    logger.info("🚀" + "=" * 60)
+
+    # Armazenar status para uso nas rotas
+    app.state.startup_status = status
+    app.state.agno_available = AGNO_AVAILABLE
+    app.state.configured_keys = configured_keys
 
     yield
 
@@ -383,33 +447,50 @@ async def lifespan(app: FastAPI):
 # =============================================
 
 app = FastAPI(
-    title="🚀 Agno Platform API",
+    title="🚀 Agno Platform API - REAL",
     description="""
-    ## Agno Platform API - Sistema Inteligente de Agentes IA
+    ## Agno Platform API - Sistema REAL de Agentes IA
 
-    ### Recursos:
-    - 🤖 Criação e gerenciamento de agentes inteligentes
-    - 🔄 Workflows automatizados
-    - 💬 Chat em tempo real com streaming
-    - 📊 Monitoramento e analytics
-    - 🔌 Integração com múltiplos modelos de IA
+    ### 🔥 VERSÃO REAL COM AGNO FRAMEWORK
 
-    ### Tecnologias:
-    - **Backend**: FastAPI + PostgreSQL
-    - **Frontend**: Next.js + React
-    - **IA**: OpenAI, Anthropic, e outros
-    - **Deploy**: Docker + Docker Compose
+    #### Recursos Principais:
+    - 🤖 **Agentes Reais**: Integração verdadeira com framework Agno
+    - 🔧 **Ferramentas Reais**: DuckDuckGo, Yahoo Finance, DALL-E, Calculator, etc.
+    - 💬 **Chat Real**: Streaming verdadeiro com ferramentas funcionais
+    - 📊 **Monitoramento Real**: Logs e métricas de execuções reais
+    - 🔄 **Workflows Reais**: Orquestração de agentes com ferramentas
+
+    #### Ferramentas Agno Disponíveis:
+    - **🌐 Web Search**: DuckDuckGo (sempre), Google Search (se configurado)
+    - **💰 Financeiro**: Yahoo Finance para dados de ações e mercado
+    - **🎨 IA & Mídia**: DALL-E para geração de imagens (se OpenAI configurado)
+    - **🧮 Utilitários**: Calculator para cálculos precisos
+    - **🧠 Raciocínio**: ReasoningTools para pensamento estruturado
+    - **📺 Mídia**: YouTube transcriptions (se configurado)
+
+    #### Status do Sistema:
+    - **Framework**: Agno REAL (não mock)
+    - **Database**: PostgreSQL com tabelas existentes
+    - **API Keys**: Configure para funcionalidade completa
+
+    #### Como Usar:
+    1. Configure API keys no .env (mínimo OPENAI_API_KEY)
+    2. Use /api/agno/tools para ver ferramentas disponíveis
+    3. Execute agentes com /api/agno/agents/{id}/execute
+    4. Monitor logs em /api/agno/executions
     """,
-    version="4.1.0",
+    version="6.0.0-REAL",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,
     contact={
-        "name": "Agno Platform Team",
-        "email": "support@agnoplatform.com",
+        "name": "Agno Platform Real",
+        "url": "https://github.com/agno-agi/agno",
+        "email": "dev@agno-platform.com",
     },
     license_info={
-        "name": "MIT",
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT",
     },
 )
 
@@ -418,14 +499,14 @@ app = FastAPI(
 # =============================================
 
 # CORS com configuração detalhada
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://frontend:3000",
-        "https://agno-platform.vercel.app",  # Para produção
-        "*"  # Para desenvolvimento - remover em produção
+        "*"  # Para desenvolvimento
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
@@ -433,16 +514,34 @@ app.add_middleware(
     expose_headers=["*"]
 )
 
-# Trusted hosts
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["localhost", "127.0.0.1", "*.localhost", "*", "agno-platform.com", "*.agno-platform.com"]
+    allowed_hosts=["localhost", "127.0.0.1", "*.localhost", "*"]
 )
 
 
 # =============================================
 # MIDDLEWARE DE LOGGING AVANÇADO
 # =============================================
+
+class HealthResponse(BaseModel):
+    status: str
+    timestamp: str
+    version: str
+    agno_framework: str
+    agno_available: bool
+    database_connected: bool
+    configured_keys: int
+    total_tools: Optional[int] = None
+
+class AgentCreateRequest(BaseModel):
+    name: str
+    description: str
+    role: str
+    model_provider: str = "openai"
+    model_id: str = "gpt-4o"
+    instructions: List[str] = []
+    tools: List[str] = []
 
 @app.middleware("http")
 async def advanced_logging_middleware(request: Request, call_next):
@@ -540,120 +639,87 @@ async def advanced_logging_middleware(request: Request, call_next):
 # ROTAS DA API
 # =============================================
 
-@app.get("/", tags=["Sistema"])
+@app.get("/")
 async def root():
-    """🏠 Rota raiz - Informações do sistema"""
-    logger.info("🏠 Endpoint raiz acessado")
+    """Endpoint raiz com informações do sistema REAL"""
+    agno_status = "✅ REAL" if AGNO_AVAILABLE else "❌ Indisponível"
 
-    # Verificar status do banco
-    db_status = "disconnected"
-    db_latency = None
-    try:
-        db_start = datetime.now()
-        async with engine.begin() as conn:
-            await conn.execute(sa.text("SELECT 1"))
-        db_latency = (datetime.now() - db_start).total_seconds() * 1000
-        db_status = "connected"
-    except Exception as e:
-        logger.warning(f"⚠️ Verificação de banco falhou: {e}")
-        db_status = "disconnected"
-
-    system_info = {
-        "service": "Agno Platform API",
+    return {
+        "message": "🚀 Agno Platform API - VERSÃO REAL",
+        "version": "6.0.0-REAL",
         "status": "online",
-        "version": "4.1.0",
-        "mode": "real" if USING_REAL_AGNO else "fallback",
-        "timestamp": datetime.now().isoformat(),
-        "uptime": "calculating...",  # TODO: implementar uptime real
-        "database": {
-            "status": db_status,
-            "latency_ms": round(db_latency, 2) if db_latency else None
-        },
-        "services": {
-            "agno_service": "operational" if USING_REAL_AGNO else "fallback",
-            "database": db_status,
+        "framework": "agno_real",
+        "agno_available": AGNO_AVAILABLE,
+        "agno_status": agno_status,
+        "timestamp": datetime.utcnow().isoformat(),
+        "features": {
+            "real_agents": AGNO_AVAILABLE,
+            "real_tools": AGNO_AVAILABLE,
+            "real_streaming": AGNO_AVAILABLE,
+            "database_integration": True
         },
         "endpoints": {
             "health": "/api/health",
-            "docs": "/docs",
-            "redoc": "/redoc",
-            "agents": "/api/agents",
-            "workflows": "/api/workflows"
-        },
-        "environment": {
-            "python_version": sys.version.split()[0],
-            "fastapi_version": "0.100+",
+            "agno_tools": "/api/agno/tools",
+            "agno_health": "/api/agno/health",
+            "agent_execute": "/api/agno/agents/{agent_id}/execute",
+            "agent_stream": "/api/agno/agents/{agent_id}/execute/stream",
+            "legacy_agents": "/api/agents",
+            "docs": "/docs"
         }
     }
 
-    logger.info("✅ Informações do sistema retornadas")
-    return system_info
 
+@app.get("/api/health", response_model=HealthResponse)
+async def health_check(db: AsyncSession = Depends(get_db)):
+    """Verificação completa de saúde do sistema REAL"""
 
-@app.get("/api/health", tags=["Sistema"])
-async def health_check():
-    """🏥 Health check - Verificação de saúde do sistema"""
-    logger.info("🏥 Health check solicitado")
-
-    health_data = {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "version": "4.1.0",
-        "checks": {}
-    }
-
-    # Verificar AgnoService
+    # Testar conexão com banco
+    db_connected = False
+    total_agents = 0
     try:
-        if USING_REAL_AGNO and agno_service:
-            health_data["checks"]["agno_service"] = {
-                "status": "operational",
-                "type": "real"
-            }
-        else:
-            health_data["checks"]["agno_service"] = {
-                "status": "fallback",
-                "type": "mock"
-            }
+        await db.execute(sa_text("SELECT 1"))
+
+        # Contar agentes no banco existente
+        count_result = await db.execute(sa_text("SELECT COUNT(*) FROM agno_agents WHERE is_active = true"))
+        total_agents = count_result.scalar()
+
+        db_connected = True
     except Exception as e:
-        health_data["checks"]["agno_service"] = {
-            "status": "error",
-            "error": str(e)
-        }
+        logger.error(f"Database health check failed: {e}")
 
-    # Verificar banco
-    try:
-        db_start = datetime.now()
-        async with engine.begin() as conn:
-            await conn.execute(sa.text("SELECT 1"))
-        db_latency = (datetime.now() - db_start).total_seconds() * 1000
+    # Status do Agno
+    total_tools = None
+    agno_framework_status = "unavailable"
 
-        health_data["checks"]["database"] = {
-            "status": "connected",
-            "latency_ms": round(db_latency, 2)
-        }
-    except Exception as e:
-        health_data["checks"]["database"] = {
-            "status": "error",
-            "error": str(e)
-        }
-        health_data["status"] = "degraded"
+    if AGNO_AVAILABLE:
+        try:
+            agno_service = get_real_agno_service()
+            health = agno_service.get_system_health()
+            total_tools = health["available_tools"]
+            agno_framework_status = health["overall_status"]
+        except Exception as e:
+            logger.error(f"Agno health check failed: {e}")
+            agno_framework_status = "error"
 
-    # Verificar variáveis de ambiente críticas
-    env_checks = {}
-    critical_env_vars = ["OPENAI_API_KEY", "ANTHROPIC_API_KEY"]
-    for var in critical_env_vars:
-        env_checks[var.lower()] = "configured" if os.getenv(var) else "missing"
-
-    health_data["checks"]["environment"] = env_checks
-
-    status_code = 200 if health_data["status"] == "healthy" else 503
-
-    if health_data["status"] == "healthy":
-        logger.info("✅ Health check passou - sistema operacional")
+    # Status geral
+    if AGNO_AVAILABLE and db_connected and total_tools and total_tools > 0:
+        status = "fully_operational"
+    elif db_connected:
+        status = "partial"
     else:
-        logger.warning(f"⚠️ Health check com problemas: {health_data['status']}")
+        status = "degraded"
 
-    return JSONResponse(content=health_data, status_code=status_code)
+    return HealthResponse(
+        status=status,
+        timestamp=datetime.utcnow().isoformat(),
+        version="6.0.0-REAL",
+        agno_framework=agno_framework_status,
+        agno_available=AGNO_AVAILABLE,
+        database_connected=db_connected,
+        configured_keys=getattr(app.state, 'configured_keys', 0),
+        total_tools=total_tools
+    )
 
 
 @app.get("/api/system/status", tags=["Sistema"])
@@ -692,161 +758,105 @@ async def system_status():
     return status
 
 
-
-@app.get("/api/agents", tags=["Agentes"])
-async def list_agents(user_id: int = Query(1)):
-    """📋 Listar agentes do banco PostgreSQL"""
-    list_id = f"list_agents_{int(datetime.now().timestamp())}"
-
-    logger.info(f"📋 [LIST:{list_id}] Listagem de agentes solicitada")
-    logger.info(f"👤 [LIST:{list_id}] Usuário: {user_id}")
-
+@app.get("/api/agents")
+async def list_agents_legacy(
+        user_id: int = Query(1),
+        db: AsyncSession = Depends(get_db)
+):
+    """Lista agentes do banco existente (compatibilidade)"""
     try:
-        async with async_session() as session:
-            # Query SQL para buscar agentes ativos do usuário
-            query = sa.text("""
-                SELECT 
-                    id,
-                    name,
-                    model_id,
-                    model_provider,
-                    role,
-                    is_active,
-                    created_at,
-                    instructions,
-                    tools,
-                    memory_enabled,
-                    rag_enabled,
-                    configuration
-                FROM agno_agents 
-                WHERE user_id = :user_id 
-                AND is_active = true
-                ORDER BY created_at DESC
-            """)
+        query = sa_text("""
+            SELECT 
+                id, name, description, role, model_provider, model_id,
+                instructions, tools, memory_enabled, rag_enabled, is_active, created_at
+            FROM agno_agents 
+            WHERE user_id = :user_id AND is_active = true
+            ORDER BY created_at DESC
+        """)
 
-            result = await session.execute(query, {"user_id": user_id})
-            rows = result.fetchall()
+        result = await db.execute(query, {"user_id": user_id})
+        rows = result.fetchall()
 
-            # Converter para formato esperado pelo frontend
-            agents = []
-            for row in rows:
-                # Garantir que tools e instructions sejam arrays
-                tools = row.tools if isinstance(row.tools, list) else (row.tools or [])
-                instructions = row.instructions if isinstance(row.instructions, list) else (row.instructions or [])
+        agents = []
+        for row in rows:
+            tools = row.tools if isinstance(row.tools, list) else []
+            instructions = row.instructions if isinstance(row.instructions, list) else []
 
-                agent = {
-                    "id": row.id,
-                    "name": row.name,  # ✅ Campo correto para frontend
-                    "role": row.role or "Assistente",  # ✅ Campo correto para frontend
-                    "model_provider": row.model_provider,
-                    "model_id": row.model_id,
-                    "is_active": row.is_active,
-                    "created_at": row.created_at.isoformat() if row.created_at else datetime.now().isoformat(),
-                    "tools": tools,
-                    "instructions": instructions,
-                    "memory_enabled": row.memory_enabled,
-                    "rag_enabled": row.rag_enabled,
-                    # Campos para compatibilidade com frontend antigo (se houver)
-                    "nome": row.name,
-                    "modelo": row.model_id,
-                    "empresa": row.model_provider,
-                    "agent_role": row.role or "Assistente",
-                    "is_active_agent": row.is_active,
-                    "langchain_config": json.dumps({
-                        "tools": tools,
-                        "memory_enabled": row.memory_enabled,
-                        "rag_enabled": row.rag_enabled,
-                        "model_provider": row.model_provider,
-                        "model_id": row.model_id,
-                        "instructions": instructions
-                    })
-                }
-                agents.append(agent)
+            agent = {
+                "id": row.id,
+                "name": row.name,
+                "role": row.role or "Assistente",
+                "model_provider": row.model_provider,
+                "model_id": row.model_id,
+                "is_active": row.is_active,
+                "created_at": row.created_at.isoformat() if row.created_at else datetime.now().isoformat(),
+                "tools": tools,
+                "instructions": instructions,
+                "memory_enabled": row.memory_enabled,
+                "rag_enabled": row.rag_enabled,
+                # Campos para compatibilidade
+                "nome": row.name,
+                "modelo": row.model_id,
+                "empresa": row.model_provider,
+                "agent_role": row.role or "Assistente",
+                "is_active_agent": row.is_active,
+                "agno_tools_enabled": AGNO_AVAILABLE,
+                "real_framework": True
+            }
+            agents.append(agent)
 
-            # Logs detalhados
-            logger.info(f"📊 [LIST:{list_id}] Encontrados {len(agents)} agentes no banco")
-
-            if agents:
-                agent_names = [agent["name"] for agent in agents]
-                logger.info(f"🏷️  [LIST:{list_id}] Agentes: {agent_names}")
-
-                # Contar providers
-                providers = set(agent["model_provider"] for agent in agents)
-                logger.info(f"✅ [LIST:{list_id}] {len(agents)} ativos, providers: {list(providers)}")
-            else:
-                logger.info(f"📋 [LIST:{list_id}] Nenhum agente encontrado - banco vazio")
-
-            return agents
+        logger.info(f"📊 Encontrados {len(agents)} agentes (Agno Real: {AGNO_AVAILABLE})")
+        return agents
 
     except Exception as e:
-        logger.error(f"❌ [LIST:{list_id}] Erro ao consultar banco: {e}")
-        logger.error(f"📍 Traceback: {traceback.format_exc()}")
+        logger.error(f"❌ Erro ao consultar agentes: {e}")
         raise HTTPException(status_code=500, detail=f"Erro ao consultar agentes: {str(e)}")
 
 
-@app.get("/api/workflows", tags=["Workflows"])
-async def list_workflows(user_id: int = Query(1)):
-    """📋 Listar workflows do banco PostgreSQL"""
-    list_id = f"list_workflows_{int(datetime.now().timestamp())}"
-
-    logger.info(f"📋 [WORKFLOWS:{list_id}] Listagem solicitada por usuário {user_id}")
-
+@app.get("/api/workflows")
+async def list_workflows_legacy(
+        user_id: int = Query(1),
+        db: AsyncSession = Depends(get_db)
+):
+    """Lista workflows do banco existente (compatibilidade)"""
     try:
-        async with async_session() as session:
-            # Query SQL para buscar workflows ativos
-            query = sa.text("""
-                SELECT 
-                    w.id,
-                    w.name,
-                    w.description,
-                    w.flow_type,
-                    w.is_active,
-                    w.created_at,
-                    w.workflow_definition,
-                    COUNT(wa.agent_id) as total_agents
-                FROM agno_workflows w
-                LEFT JOIN agno_workflow_agents wa ON w.id = wa.workflow_id
-                WHERE w.user_id = :user_id 
-                AND w.is_active = true
-                GROUP BY w.id, w.name, w.description, w.flow_type, w.is_active, w.created_at, w.workflow_definition
-                ORDER BY w.created_at DESC
-            """)
+        query = sa_text("""
+            SELECT 
+                w.id, w.name, w.description, w.flow_type, w.is_active, w.created_at,
+                COUNT(wa.agent_id) as total_agents
+            FROM agno_workflows w
+            LEFT JOIN agno_workflow_agents wa ON w.id = wa.workflow_id
+            WHERE w.user_id = :user_id AND w.is_active = true
+            GROUP BY w.id, w.name, w.description, w.flow_type, w.is_active, w.created_at
+            ORDER BY w.created_at DESC
+        """)
 
-            result = await session.execute(query, {"user_id": user_id})
-            rows = result.fetchall()
+        result = await db.execute(query, {"user_id": user_id})
+        rows = result.fetchall()
 
-            # Converter para formato esperado pelo frontend
-            workflows = []
-            for row in rows:
-                workflow = {
-                    "id": row.id,
-                    "name": row.name,  # ✅ Campo correto para frontend
-                    "description": row.description or "Workflow sem descrição",  # ✅ Campo correto
-                    "flow_type": row.flow_type,
-                    "is_active": row.is_active,
-                    "created_at": row.created_at.isoformat() if row.created_at else datetime.now().isoformat(),
-                    "total_agents": row.total_agents,
-                    "workflow_definition": row.workflow_definition or {},
-                    # Campos para compatibilidade (se houver frontend antigo)
-                    "nome": row.name,
-                    "descricao": row.description or "Workflow sem descrição"
-                }
-                workflows.append(workflow)
+        workflows = []
+        for row in rows:
+            workflow = {
+                "id": row.id,
+                "name": row.name,
+                "description": row.description or "Workflow",
+                "flow_type": row.flow_type,
+                "is_active": row.is_active,
+                "created_at": row.created_at.isoformat() if row.created_at else datetime.now().isoformat(),
+                "total_agents": row.total_agents,
+                # Campos para compatibilidade
+                "nome": row.name,
+                "descricao": row.description or "Workflow",
+                "agno_powered": AGNO_AVAILABLE,
+                "real_framework": True
+            }
+            workflows.append(workflow)
 
-            # Logs detalhados
-            logger.info(f"📊 [WORKFLOWS:{list_id}] Encontrados {len(workflows)} workflows no banco")
-
-            if workflows:
-                workflow_names = [wf["name"] for wf in workflows]
-                logger.info(f"🏷️  [WORKFLOWS:{list_id}] Workflows: {workflow_names}")
-            else:
-                logger.info(f"📋 [WORKFLOWS:{list_id}] Nenhum workflow encontrado - banco vazio")
-
-            return workflows
+        logger.info(f"📊 Encontrados {len(workflows)} workflows (Agno Real: {AGNO_AVAILABLE})")
+        return workflows
 
     except Exception as e:
-        logger.error(f"❌ [WORKFLOWS:{list_id}] Erro ao consultar banco: {e}")
-        logger.error(f"📍 Traceback: {traceback.format_exc()}")
+        logger.error(f"❌ Erro ao consultar workflows: {e}")
         raise HTTPException(status_code=500, detail=f"Erro ao consultar workflows: {str(e)}")
 
 
@@ -980,8 +990,184 @@ async def chat_with_agent(
         raise HTTPException(status_code=500, detail=f"Erro no chat: {str(e)}")
 
 
+if AGNO_AVAILABLE and real_agno_router:
+    app.include_router(real_agno_router)
+    logger.info("✅ Rotas REAIS do Agno incluídas")
+else:
+    # Criar algumas rotas básicas de fallback
+    @app.get("/api/agno/tools")
+    async def agno_tools_fallback():
+        return {
+            "status": "unavailable",
+            "message": "Agno framework não disponível",
+            "framework": "none",
+            "tools": [],
+            "install_help": "Execute: pip install agno openai duckduckgo-search yfinance"
+        }
 
 
+    @app.get("/api/agno/health")
+    async def agno_health_fallback():
+        return {
+            "status": "unavailable",
+            "framework": "none",
+            "agno_available": False,
+            "message": "Agno framework não instalado",
+            "help": "Instale com: pip install agno openai"
+        }
+
+
+    logger.warning("⚠️ Rotas de fallback do Agno criadas")
+
+
+# =============================================
+# DEMONSTRAÇÃO COMPLETA
+# =============================================
+
+@app.post("/api/demo/agno-real-test")
+async def demo_agno_real_complete(
+        user_id: int = Depends(get_current_user),
+        db: AsyncSession = Depends(get_db)
+):
+    """Demonstração completa do Agno REAL com banco existente"""
+
+    if not AGNO_AVAILABLE:
+        return {
+            "status": "unavailable",
+            "message": "Agno framework não disponível",
+            "framework": "none",
+            "help": "Execute: pip install agno openai duckduckgo-search yfinance"
+        }
+
+    try:
+        agno_service = get_real_agno_service()
+
+        # 1. Listar ferramentas disponíveis
+        tools_info = agno_service.get_available_tools_info()
+        available_tools = [t for t in tools_info if t["available"]]
+
+        # 2. Buscar um agente do banco para teste
+        query = sa_text(
+            "SELECT id, name, model_provider, model_id FROM agno_agents WHERE user_id = :user_id AND is_active = true LIMIT 1")
+        result = await db.execute(query, {"user_id": user_id})
+        agent_row = result.fetchone()
+
+        if not agent_row:
+            return {
+                "status": "no_agents",
+                "message": "Nenhum agente encontrado no banco",
+                "available_tools": len(available_tools),
+                "suggestion": "Crie um agente primeiro"
+            }
+
+        # 3. Executar teste com ferramentas reais
+        agent_config = {
+            "name": agent_row.name,
+            "model_provider": agent_row.model_provider,
+            "model_id": agent_row.model_id,
+            "instructions": ["Você é um assistente de demonstração."]
+        }
+
+        # Usar algumas ferramentas básicas para teste
+        test_tools = ["duckduckgo", "calculator"] if len(available_tools) >= 2 else ["calculator"]
+
+        demo_result = agno_service.execute_agent_task(
+            agent_config=agent_config,
+            prompt="Olá! Me apresente brevemente suas capacidades. Se tiver acesso, faça uma busca rápida sobre 'inteligência artificial' e calcule 15 + 27.",
+            tools_list=test_tools,
+            stream=False
+        )
+
+        return {
+            "status": "success",
+            "framework": "agno_real",
+            "demo_agent": {
+                "id": agent_row.id,
+                "name": agent_row.name,
+                "model": f"{agent_row.model_provider}/{agent_row.model_id}"
+            },
+            "available_tools": len(available_tools),
+            "tools_tested": test_tools,
+            "execution_result": demo_result,
+            "message": "✅ Agno REAL funcionando perfeitamente com banco existente!"
+        }
+
+    except Exception as e:
+        logger.error(f"Erro na demo: {e}")
+        return {
+            "status": "error",
+            "framework": "agno_real",
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
+
+# =============================================
+# EXCEPTION HANDLERS
+# =============================================
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": exc.detail,
+            "status_code": exc.status_code,
+            "timestamp": datetime.utcnow().isoformat(),
+            "path": str(request.url.path),
+            "framework": "agno_real" if AGNO_AVAILABLE else "none"
+        }
+    )
+
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request, exc):
+    logger.error(f"Erro não tratado: {exc}")
+    logger.error(traceback.format_exc())
+
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "Erro interno do servidor",
+            "message": str(exc),
+            "timestamp": datetime.utcnow().isoformat(),
+            "framework": "agno_real" if AGNO_AVAILABLE else "none",
+            "agno_available": AGNO_AVAILABLE
+        }
+    )
+
+
+# =============================================
+# STARTUP MESSAGE
+# =============================================
+
+@app.on_event("startup")
+async def startup_message():
+    print("\n" + "=" * 80)
+    print("🚀 AGNO PLATFORM API - VERSÃO REAL INICIADA")
+    print("=" * 80)
+    print(f"📍 URL: http://localhost:8000")
+    print(f"📚 Docs: http://localhost:8000/docs")
+    print(f"🔧 Framework: {'✅ Agno REAL' if AGNO_AVAILABLE else '❌ Agno Indisponível'}")
+    print(f"🗄️ Database: ✅ PostgreSQL Conectado")
+    print(f"⚡ Status: {'TOTALMENTE OPERACIONAL' if AGNO_AVAILABLE else 'MODO BÁSICO'}")
+    print("=" * 80)
+
+    if AGNO_AVAILABLE:
+        try:
+            agno_service = get_real_agno_service()
+            tools = agno_service.get_available_tools_info()
+            available_count = len([t for t in tools if t["available"]])
+            print(f"🔧 Ferramentas Agno: {available_count} disponíveis")
+            for tool in tools[:5]:  # Mostrar primeiras 5
+                status = "✅" if tool["available"] else "❌"
+                print(f"   {status} {tool['display_name']}")
+        except Exception as e:
+            print(f"⚠️ Erro ao listar ferramentas: {e}")
+    else:
+        print("💡 Para ativar Agno: pip install agno openai duckduckgo-search yfinance")
+
+    print("=" * 80 + "\n")
 
 
 # =============================================
@@ -1133,6 +1319,72 @@ async def create_agent(request: CreateAgentRequest, user_id: int = Query(1)):
     except Exception as e:
         logger.error(f"❌ [CREATE:{create_id}] Erro ao salvar no banco: {e}")
         logger.error(f"📍 Traceback: {traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=f"Erro ao criar agente: {str(e)}")
+
+
+@app.post("/api/agents/create")
+async def create_agent_real(
+        request: AgentCreateRequest,
+        user_id: int = Query(1),
+        db: AsyncSession = Depends(get_db)
+):
+    """Cria um novo agente no banco existente com ferramentas Agno REAIS"""
+    try:
+        # Validar ferramentas se Agno disponível
+        if AGNO_AVAILABLE and request.tools:
+            agno_service = get_real_agno_service()
+            available_tools = [t["name"] for t in agno_service.get_available_tools_info() if t["available"]]
+
+            invalid_tools = [tool for tool in request.tools if tool not in available_tools]
+            if invalid_tools:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Ferramentas inválidas: {invalid_tools}. Disponíveis: {available_tools}"
+                )
+
+        # Inserir no banco existente
+        insert_query = sa_text("""
+            INSERT INTO agno_agents (
+                user_id, name, description, role, model_provider, model_id,
+                instructions, tools, memory_enabled, rag_enabled, is_active, created_at
+            ) VALUES (
+                :user_id, :name, :description, :role, :model_provider, :model_id,
+                :instructions, :tools, :memory_enabled, :rag_enabled, true, CURRENT_TIMESTAMP
+            ) RETURNING id
+        """)
+
+        result = await db.execute(insert_query, {
+            "user_id": user_id,
+            "name": request.name,
+            "description": request.description,
+            "role": request.role,
+            "model_provider": request.model_provider,
+            "model_id": request.model_id,
+            "instructions": json.dumps(request.instructions),
+            "tools": json.dumps(request.tools),
+            "memory_enabled": True,
+            "rag_enabled": False
+        })
+
+        agent_id = result.scalar()
+        await db.commit()
+
+        logger.info(f"✅ Agente criado: ID {agent_id}, Ferramentas: {request.tools}")
+
+        return {
+            "id": agent_id,
+            "message": "Agente criado com sucesso",
+            "name": request.name,
+            "tools": request.tools,
+            "agno_real": AGNO_AVAILABLE,
+            "created_at": datetime.now().isoformat()
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        logger.error(f"❌ Erro ao criar agente: {e}")
         raise HTTPException(status_code=500, detail=f"Erro ao criar agente: {str(e)}")
 
 

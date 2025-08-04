@@ -1,6 +1,9 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Configurações essenciais
+  reactStrictMode: true,
+  swcMinify: true,
 
-const nextConfig: NextConfig = {
   // Configurações de build mais permissivas
   eslint: {
     // Permitir warnings durante o build de produção
@@ -20,9 +23,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', 'recharts'],
   },
 
-  // Output configuration
-  output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
-
   // Headers para CORS durante desenvolvimento
   async headers() {
     return [
@@ -39,20 +39,15 @@ const nextConfig: NextConfig = {
 
   // Configurações de imagem
   images: {
-    domains: [],
     unoptimized: true, // Simplificar para desenvolvimento
   },
-
-  // Configurações de build
-  poweredByHeader: false,
-  compress: true,
 
   // Variables de ambiente públicas
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
   },
 
-  // Redirects e rewrites
+  // Redirects e rewrites para API
   async rewrites() {
     return [
       {
@@ -61,6 +56,12 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // Configurações do Webpack (se necessário)
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Configurações adicionais do webpack se necessário
+    return config;
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
