@@ -14,7 +14,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 # FastAPI imports
-from fastapi import FastAPI, HTTPException, Depends, WebSocket, WebSocketDisconnect, Query, Request, Response
+from fastapi import FastAPI, HTTPException, Depends, WebSocket, WebSocketDisconnect, Query, Request, Response, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -25,6 +25,9 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import text as sa_text
 import sqlalchemy as sa
+
+from routers.agno_services import get_real_agno_service  # garante import do Real Agno
+import json
 
 # Environment
 from dotenv import load_dotenv
@@ -118,7 +121,7 @@ AGNO_AVAILABLE = False
 USING_REAL_AGNO = False
 
 try:
-    from services.agno_services import get_real_agno_service, AGNO_AVAILABLE
+    from routers.agno_services import get_real_agno_service, AGNO_AVAILABLE
 
     if AGNO_AVAILABLE:
         logger.info("✅ Agno framework detectado e disponível")
@@ -164,6 +167,10 @@ class CreateAgentRequest(BaseModel):
     tools: List[str] = []
     memory_enabled: bool = True
     rag_enabled: bool = False
+
+
+class ChatMessage(BaseModel):
+    message: str
 
 
 # =============================================
@@ -360,129 +367,144 @@ async def health_check(db: AsyncSession = Depends(get_db)):
 # =============================================
 # ROTAS DE AGENTES (EXISTENTES)
 # =============================================
-@app.post("/api/agents/{agent_id}/chat", tags=["Chat"])
+
+
+@app.post("/api/agents/{agent_identifier}/chat", tags=["Chat"])
 async def chat_with_agent(
-        agent_id: int,
-        message: ChatMessage,
-        user_id: int = Query(1)
+        agent_identifier: str,
+        body: Any = Body(...),
+        user_id: int = Query(1),
 ):
-    """💬 Conversar com um agente específico usando AgnoService REAL"""
-    chat_id = f"chat_{agent_id}_{int(datetime.now().timestamp())}"
+    """💬 Conversar com um agente específico usando AgnoService REAL
 
-    logger.info(f"💬 [CHAT:{chat_id}] Chat iniciado com agente {agent_id}")
+    Este endpoint aceita tanto IDs numéricos quanto nomes de agentes como
+    identificadores na URL. Quando o parâmetro `agent_identifier` contém
+    apenas dígitos, ele é tratado como ID numérico. Caso contrário, uma
+    busca por nome (case-insensitive) é realizada. O corpo da requisição
+    pode conter a mensagem em diferentes formatos:
+
+    - `{ "message": "Olá" }`, `{ "content": "Olá" }`, `{ "prompt": "Olá" }` ou `{ "text": "Olá" }`
+    - Um corpo string simples: `"Olá"`
+
+    Se nenhum texto puder ser identificado, o endpoint retornará erro 400.
+    """
+    # Determinar a mensagem a partir do corpo, aceitando diferentes formatos
+    message: Optional[str] = None
+    if isinstance(body, dict):
+        for key in ("message", "content", "prompt", "text"):
+            if key in body and body[key] is not None:
+                message = str(body[key])
+                break
+    elif isinstance(body, str):
+        message = body
+    else:
+        try:
+            message = str(body)
+        except Exception:
+            message = None
+    if not message:
+        raise HTTPException(status_code=400, detail="Nenhuma mensagem válida encontrada no corpo da requisição.")
+    chat_id = f"chat_{agent_identifier}_{int(datetime.now().timestamp())}"
+    logger.info(f"💬 [CHAT:{chat_id}] Chat iniciado com agente {agent_identifier}")
     logger.info(f"👤 [CHAT:{chat_id}] Usuário: {user_id}")
-    logger.info(f"💭 [CHAT:{chat_id}] Mensagem: '{message.message}'")
-
-    if not USING_REAL_AGNO or not agno_service:
+    logger.info(f"💭 [CHAT:{chat_id}] Mensagem: '{message}'")
+    if not AGNO_AVAILABLE:
         logger.error(f"❌ [CHAT:{chat_id}] AgnoService não disponível")
         raise HTTPException(status_code=503, detail="AgnoService não disponível")
-
-    try:
-        # Buscar dados do agente no banco PostgreSQL
-        async with async_session() as session:
-            agent_query = sa.text("""
-                SELECT id, name, role, model_provider, model_id, instructions, tools, memory_enabled, rag_enabled
-                FROM agno_agents 
-                WHERE id = :agent_id AND user_id = :user_id AND is_active = true
-            """)
-
-            result = await session.execute(agent_query, {
-                "agent_id": agent_id,
-                "user_id": user_id
-            })
-            agent_row = result.fetchone()
-
-            if not agent_row:
-                logger.warning(f"⚠️ [CHAT:{chat_id}] Agente {agent_id} não encontrado no banco")
-                raise HTTPException(status_code=404, detail=f"Agente {agent_id} não encontrado")
-
-            logger.info(f"🤖 [CHAT:{chat_id}] Agente encontrado: '{agent_row.name}'")
-            logger.info(f"🧠 [CHAT:{chat_id}] Modelo: {agent_row.model_provider}/{agent_row.model_id}")
-
-        # Criar/sincronizar agente no AgnoService
-        logger.info(f"🔄 [CHAT:{chat_id}] Sincronizando agente com AgnoService...")
-
-        try:
-            # Preparar configuração do agente
-            instructions = agent_row.instructions if isinstance(agent_row.instructions, list) else [
-                agent_row.instructions or "Você é um assistente útil."]
-            tools = agent_row.tools if isinstance(agent_row.tools, list) else []
-
-            agent_config = AgentConfig(
-                name=agent_row.name,
-                role=agent_row.role or "Assistente",
-                model_provider=ModelProvider(agent_row.model_provider),
-                model_id=agent_row.model_id,
-                instructions=instructions,
-                tools=tools,
-                memory_enabled=agent_row.memory_enabled or True,
-                rag_enabled=agent_row.rag_enabled or False
-            )
-
-            # Criar agente no AgnoService
-            agno_agent_id = await agno_service.create_single_agent(user_id, agent_config)
-            logger.info(f"✅ [CHAT:{chat_id}] Agente sincronizado - AgnoService ID: {agno_agent_id}")
-
-        except Exception as sync_error:
-            logger.error(f"❌ [CHAT:{chat_id}] Erro ao sincronizar agente: {sync_error}")
-            # Tentar usar ID original como string
-            agno_agent_id = str(agent_id)
-            logger.info(f"🔄 [CHAT:{chat_id}] Usando ID original: {agno_agent_id}")
-
-        # Executar chat com AgnoService
-        logger.info(f"🚀 [CHAT:{chat_id}] Iniciando execução com AgnoService...")
-
-        async def stream_agno_response():
+    agno_service = get_real_agno_service()
+    agent_row = None
+    async with async_session() as session:
+        if agent_identifier.isdigit():
             try:
-                chunk_count = 0
-                logger.info(f"🎯 [CHAT:{chat_id}] Executando agente ID: {agno_agent_id}")
+                agent_id_int = int(agent_identifier)
+            except ValueError:
+                agent_id_int = None
+            if agent_id_int is not None:
+                query = sa.text(
+                    """
+                    SELECT id, name, description, role, model_provider, model_id,
+                           instructions, tools, memory_enabled, rag_enabled
+                    FROM agno_agents
+                    WHERE id = :agent_id AND user_id = :user_id AND is_active = true
+                    """
+                )
+                result = await session.execute(query, {"agent_id": agent_id_int, "user_id": user_id})
+                agent_row = result.fetchone()
+        if not agent_row:
+            query = sa.text(
+                """
+                SELECT id, name, description, role, model_provider, model_id,
+                       instructions, tools, memory_enabled, rag_enabled
+                FROM agno_agents
+                WHERE lower(name) = lower(:agent_name) AND user_id = :user_id AND is_active = true
+                LIMIT 1
+                """
+            )
+            result = await session.execute(query, {"agent_name": agent_identifier, "user_id": user_id})
+            agent_row = result.fetchone()
+        if not agent_row:
+            logger.warning(f"⚠️ [CHAT:{chat_id}] Agente '{agent_identifier}' não encontrado no banco")
+            raise HTTPException(status_code=404, detail=f"Agente '{agent_identifier}' não encontrado")
+    logger.info(f"🤖 [CHAT:{chat_id}] Agente encontrado: '{agent_row.name}' (ID {agent_row.id})")
+    logger.info(f"🧠 [CHAT:{chat_id}] Modelo: {agent_row.model_provider}/{agent_row.model_id}")
+    instructions_list = (
+        agent_row.instructions
+        if isinstance(agent_row.instructions, list)
+        else [str(agent_row.instructions) if agent_row.instructions else "Você é um assistente útil."]
+    )
+    agent_config = {
+        "name": agent_row.name,
+        "description": agent_row.description or "",
+        "role": agent_row.role or "Assistente",
+        "model_provider": agent_row.model_provider,
+        "model_id": agent_row.model_id,
+        "instructions": instructions_list,
+    }
+    tools_to_use: List[str] = []
+    if agent_row.tools:
+        db_tools = agent_row.tools if isinstance(agent_row.tools, list) else []
+        mapping = {
+            "web_search": "duckduckgo",
+            "financial": "yfinance",
+            "calculations": "calculator",
+            "reasoning": "reasoning",
+            "image_generation": "dalle",
+            "code_interpreter": "reasoning",
+        }
+        tools_to_use = [mapping.get(t, t) for t in db_tools]
+    stream_info = agno_service.execute_agent_task(
+        agent_config=agent_config,
+        prompt=message,
+        tools_list=tools_to_use,
+        stream=True,
+    )
+    if stream_info.get("status") != "ready_for_stream":
+        logger.error(f"❌ [CHAT:{chat_id}] Erro ao preparar streaming: {stream_info}")
+        raise HTTPException(status_code=500, detail="Erro ao preparar streaming")
+    agent_instance = stream_info["agent"]
+    prompt_val = stream_info["prompt"]
 
-                async for chunk in agno_service.run_agent(
-                        agent_id=agno_agent_id,
-                        message=message.message,
-                        user_id=user_id
-                ):
-                    chunk_count += 1
-                    if chunk_count <= 3:  # Log apenas primeiros chunks para não spammar
-                        logger.debug(f"📦 [CHAT:{chat_id}] Chunk {chunk_count}: {chunk[:100]}...")
-                    yield chunk
+    async def generate_stream():
+        try:
+            for chunk_data in agno_service.create_streaming_generator(agent_instance, prompt_val):
+                yield f"data: {json.dumps(chunk_data)}\n\n"
+            logger.info(f"✅ [CHAT:{chat_id}] AgnoService concluído")
+        except Exception as e:
+            logger.error(f"❌ [CHAT:{chat_id}] Erro no streaming: {e}")
+            yield f"data: {json.dumps({'type': 'error', 'error': str(e)})}\n\n"
 
-                logger.info(f"✅ [CHAT:{chat_id}] AgnoService concluído - {chunk_count} chunks enviados")
-
-            except Exception as exec_error:
-                logger.error(f"❌ [CHAT:{chat_id}] Erro na execução: {exec_error}")
-                logger.error(f"📍 [CHAT:{chat_id}] Traceback: {traceback.format_exc()}")
-
-                # Enviar erro estruturado para o frontend
-                error_response = {
-                    "type": "error",
-                    "error": str(exec_error),
-                    "agent_id": agent_id,
-                    "agent_name": agent_row.name,
-                    "timestamp": datetime.now().isoformat()
-                }
-                yield f'data: {json.dumps(error_response)}\n\n'
-
-        # Retornar streaming response
-        return StreamingResponse(
-            stream_agno_response(),
-            media_type="text/event-stream",
-            headers={
-                "Cache-Control": "no-cache",
-                "Connection": "keep-alive",
-                "Content-Type": "text/event-stream",
-                "X-Agent-ID": str(agent_id),
-                "X-Agent-Name": agent_row.name,
-                "X-Chat-ID": chat_id
-            }
-        )
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"❌ [CHAT:{chat_id}] Erro geral: {e}")
-        logger.error(f"📍 [CHAT:{chat_id}] Traceback: {traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Erro no chat: {str(e)}")
+    return StreamingResponse(
+        generate_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Content-Type": "text/event-stream",
+            "X-Agent-ID": str(agent_row.id),
+            "X-Agent-Name": agent_row.name,
+            "X-Chat-ID": chat_id,
+        },
+    )
 
 
 @app.get("/api/agents")

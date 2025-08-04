@@ -10,7 +10,7 @@ import {
   RefreshCw, Filter, Cpu, Layers, Package, Link2, Hash, Command,
   BarChart3, Brain, Mail, Calculator, Image, Music, Video, ShoppingCart,
   CreditCard, Smartphone, Lock, Shield, MapPin, ChevronDown, ChevronUp,
-  Copy, Trash2, Monitor, Server, HardDrive, Headphones
+  Copy, Trash2, Monitor, Server, HardDrive, Headphones, Wrench
 } from 'lucide-react';
 
 // =============================================
@@ -146,10 +146,13 @@ interface Tool {
 }
 
 interface ChatMessage {
-  type: 'user' | 'assistant' | 'error';
+  type: 'user' | 'assistant' | 'error' | 'tool_call';
   content: string;
   timestamp: string;
   streaming?: boolean;
+  // Campos opcionais para mensagens de ferramenta
+  toolName?: string;
+  executionTime?: number;
 }
 
 interface LogEntry {
@@ -402,23 +405,45 @@ const AgnoTestingPage = () => {
               if (data.type === 'chunk' && data.content) {
                 assistantMessage += data.content;
 
-                // Atualizar última mensagem do assistente
+                // Atualizar conteúdo da última mensagem do assistente em streaming
                 setChatHistory(prev => {
                   const updated = [...prev];
                   const lastMsg = updated[updated.length - 1];
-                  if (lastMsg.type === 'assistant') {
+                  if (lastMsg && lastMsg.type === 'assistant') {
                     lastMsg.content = assistantMessage;
                   }
                   return updated;
                 });
               }
 
+              // Nova: tratar eventos de chamada de ferramenta
+              if (data.type === 'tool_call') {
+                const timestamp = new Date().toLocaleTimeString('pt-BR');
+                const toolName = data.tool_name || 'Ferramenta';
+                const params = data.params ? JSON.stringify(data.params, null, 2) : '';
+                const toolMessage: ChatMessage = {
+                  type: 'tool_call',
+                  content: `🔧 ${toolName}\n\n\`\`\`json\n${params}\n\`\`\``,
+                  timestamp,
+                  toolName: toolName,
+                  executionTime: data.execution_time
+                };
+                // Inserir a mensagem de ferramenta antes da última mensagem (assistente streaming)
+                setChatHistory(prev => {
+                  const updated = [...prev];
+                  // Inserir antes do último item (assistente streaming)
+                  const insertIndex = Math.max(updated.length - 1, 0);
+                  updated.splice(insertIndex, 0, toolMessage);
+                  return updated;
+                });
+              }
+
               if (data.type === 'done' || data.type === 'complete') {
-                // Finalizar streaming
+                // Finalizar streaming da última mensagem do assistente
                 setChatHistory(prev => {
                   const updated = [...prev];
                   const lastMsg = updated[updated.length - 1];
-                  if (lastMsg.type === 'assistant') {
+                  if (lastMsg && lastMsg.type === 'assistant') {
                     lastMsg.streaming = false;
                   }
                   return updated;
@@ -566,21 +591,46 @@ const AgnoTestingPage = () => {
         {chatHistory.length === 0 ? (
           <p className="text-gray-500 text-center">Inicie uma conversa selecionando um agente e enviando uma mensagem</p>
         ) : (
-          chatHistory.map((msg, index) => (
-            <div key={index} className={`mb-4 ${msg.type === 'user' ? 'text-right' : 'text-left'}`}>
-              <div className={`inline-block max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                msg.type === 'user' 
-                  ? 'bg-blue-500 text-white' 
-                  : msg.type === 'error'
-                  ? 'bg-red-100 text-red-800'
-                  : 'bg-white text-gray-800 border'
-              }`}>
-                {msg.streaming && <Loader className="w-3 h-3 animate-spin inline mr-2" />}
-                <span className="whitespace-pre-wrap">{msg.content}</span>
+          chatHistory.map((msg, index) => {
+            // Renderização customizada para chamadas de ferramentas
+            if (msg.type === 'tool_call') {
+              return (
+                <div key={index} className="mb-4 text-left">
+                  <details className="inline-block max-w-xs lg:max-w-md p-3 rounded-lg border bg-yellow-50 text-gray-800">
+                    <summary className="cursor-pointer flex items-center gap-2 font-medium">
+                      <Wrench className="w-4 h-4 text-yellow-600" />
+                      <span>{msg.toolName || 'Chamada de ferramenta'}</span>
+                      {msg.executionTime !== undefined && (
+                        <span className="ml-auto text-xs text-gray-500">{msg.executionTime}ms</span>
+                      )}
+                    </summary>
+                    <div className="mt-2 text-sm whitespace-pre-wrap">
+                      {msg.content}
+                    </div>
+                  </details>
+                  <div className="text-xs text-gray-500 mt-1">{msg.timestamp}</div>
+                </div>
+              );
+            }
+            // Caso padrão para usuário, assistente ou erro
+            return (
+              <div key={index} className={`mb-4 ${msg.type === 'user' ? 'text-right' : 'text-left'}`}>
+                <div
+                  className={`inline-block max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                    msg.type === 'user'
+                      ? 'bg-blue-500 text-white'
+                      : msg.type === 'error'
+                      ? 'bg-red-100 text-red-800'
+                      : 'bg-white text-gray-800 border'
+                  }`}
+                >
+                  {msg.streaming && <Loader className="w-3 h-3 animate-spin inline mr-2" />}
+                  <span className="whitespace-pre-wrap">{msg.content}</span>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">{msg.timestamp}</div>
               </div>
-              <div className="text-xs text-gray-500 mt-1">{msg.timestamp}</div>
-            </div>
-          ))
+            );
+          })
         )}
         <div ref={chatEndRef} />
       </div>

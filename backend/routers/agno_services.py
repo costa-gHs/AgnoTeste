@@ -333,48 +333,77 @@ class RealAgnoService:
             }
 
     def create_streaming_generator(self, agent: Agent, prompt: str):
-        """Gerador para streaming de resposta REAL"""
+        """Gerador para streaming de resposta REAL.
+
+        Esta implementação tenta usar a funcionalidade nativa de
+        streaming do Agno quando disponível e funcional. Caso o método
+        `stream` exista porém não seja chamável (por exemplo, esteja
+        definido como `None`), ela ignora e tenta utilizar outras
+        alternativas, como `run(..., stream=True)` ou um fallback que
+        divide a resposta completa em chunks simulados. Isso evita
+        erros como `'NoneType' object is not callable'.
+        """
         try:
             logger.info(f"🔄 Iniciando streaming para prompt: {prompt[:50]}...")
 
-            # ✅ CORREÇÃO: Usar método de streaming correto do Agno
-            if hasattr(agent, 'stream'):
-                # Método preferido para streaming
-                for chunk in agent.stream(prompt):
+            # Tentar método nativo de streaming se existir e for chamável
+            stream_method = getattr(agent, "stream", None)
+            if callable(stream_method):
+                for chunk in stream_method(prompt):
                     yield {
                         "type": "chunk",
                         "content": str(chunk),
                         "timestamp": datetime.utcnow().isoformat()
                     }
-            elif hasattr(agent, 'print_response'):
-                # Alternativa usando print_response com stream=True
-                response = agent.run(prompt, stream=True)
-                content = response.content if hasattr(response, 'content') else str(response)
+                # Após finalizar, emitir done
+                yield {
+                    "type": "done",
+                    "message": "Execução concluída com sucesso"
+                }
+                return
 
-                # Simular chunks
-                words = content.split()
-                for i, word in enumerate(words):
-                    yield {
-                        "type": "chunk",
-                        "content": word + " ",
-                        "progress": f"{i + 1}/{len(words)}"
-                    }
-                    time.sleep(0.05)  # Simular delay
+            # Se não há stream chamável, tentar `run` com stream=True
+            run_method = getattr(agent, "run", None)
+            if callable(run_method):
+                try:
+                    # Alguns agentes aceitam stream=True para retornar um iterável
+                    response = run_method(prompt, stream=True)
+                    # Se a resposta for iterável, iterar diretamente
+                    if hasattr(response, '__iter__') and not isinstance(response, (str, bytes)):
+                        for chunk in response:
+                            # chunk pode ser objeto com atributo content ou string
+                            chunk_content = getattr(chunk, 'content', None) or str(chunk)
+                            yield {
+                                "type": "chunk",
+                                "content": chunk_content,
+                                "timestamp": datetime.utcnow().isoformat()
+                            }
+                        yield {
+                            "type": "done",
+                            "message": "Execução concluída com sucesso"
+                        }
+                        return
+                    else:
+                        # Caso response não seja iterável, tratar como resposta completa
+                        content = response.content if hasattr(response, 'content') else str(response)
+                except TypeError:
+                    # Se run() não aceita stream=True, chamar normalmente
+                    response = run_method(prompt)
+                    content = response.content if hasattr(response, 'content') else str(response)
             else:
-                # Fallback: executar normal e simular streaming
-                response = agent.run(prompt)
-                content = response.content if hasattr(response, 'content') else str(response)
+                content = ""
 
-                # Simular chunks
+            # Se chegamos aqui, não foi possível stream real, então dividir resposta em chunks simulados
+            if content:
                 words = content.split()
+                total_words = len(words)
                 for i, word in enumerate(words):
                     yield {
                         "type": "chunk",
                         "content": word + " ",
-                        "progress": f"{i + 1}/{len(words)}"
+                        "progress": f"{i + 1}/{total_words}"
                     }
                     time.sleep(0.05)  # Simular delay
-
             yield {
                 "type": "done",
                 "message": "Execução concluída com sucesso"

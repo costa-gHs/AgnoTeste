@@ -10,6 +10,18 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+// (Opcional) Importar suporte a Markdown estendido (GFM) se disponível.
+// Caso `remark-gfm` não esteja instalado, a importação falhará e as
+// funcionalidades adicionais (como tabelas) não serão habilitadas.
+let remarkPlugins: any[] = [];
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const remarkGfm = require('remark-gfm');
+  remarkPlugins.push(remarkGfm);
+} catch {
+  // Plugin não encontrado – seguir sem suporte GFM
+}
+
 // Types
 interface ChatMessage {
   id: string;
@@ -21,6 +33,8 @@ interface ChatMessage {
     execution_time?: number;
     model_used?: string;
     tokens_used?: number;
+      /** Lista de ferramentas utilizadas na resposta completa */
+      tools_used?: string[];
   };
 }
 
@@ -132,7 +146,8 @@ const AgnoChatInterface: React.FC = () => {
       }
 
       let accumulatedContent = '';
-      let toolCalls: string[] = [];
+      // Conjunto para rastrear ferramentas únicas usadas durante esta conversa
+      const toolCallsSet = new Set<string>();
 
       while (true) {
         const { done, value } = await reader.read();
@@ -158,9 +173,12 @@ const AgnoChatInterface: React.FC = () => {
                     : msg
                 ));
               } else if (data.type === 'tool_call') {
-                // Adicionar indicador de chamada de ferramenta
-                toolCalls.push(`🔧 **${data.tool_name}**: ${data.method}`);
+                // Registrar nome de ferramenta em conjunto para metadados finais
+                if (typeof data.tool_name === 'string') {
+                  toolCallsSet.add(data.tool_name);
+                }
 
+                // Mensagem de chamada de ferramenta com parâmetros em JSON
                 const toolCallMessage: ChatMessage = {
                   id: `tool-${Date.now()}`,
                   type: 'tool_call',
@@ -173,14 +191,15 @@ const AgnoChatInterface: React.FC = () => {
                 };
 
                 setMessages(prev => {
-                  // Inserir antes da mensagem do assistente
+                  // Inserir mensagem de ferramenta imediatamente antes da mensagem do assistente
                   const index = prev.findIndex(msg => msg.id === assistantMessageId);
                   const newMessages = [...prev];
                   newMessages.splice(index, 0, toolCallMessage);
                   return newMessages;
                 });
               } else if (data.type === 'done') {
-                // Adicionar metadados finais
+                // Ao finalizar streaming, adicionar metadados finais incluindo ferramentas usadas
+                const toolsUsed = Array.from(toolCallsSet);
                 setMessages(prev => prev.map(msg =>
                   msg.id === assistantMessageId
                     ? {
@@ -189,7 +208,8 @@ const AgnoChatInterface: React.FC = () => {
                         metadata: {
                           model_used: agentConfig.model_id,
                           execution_time: data.execution_time,
-                          tokens_used: data.tokens_used
+                          tokens_used: data.tokens_used,
+                          tools_used: toolsUsed.length > 0 ? toolsUsed : undefined
                         }
                       }
                     : msg
@@ -260,54 +280,98 @@ const AgnoChatInterface: React.FC = () => {
     const isSystem = message.type === 'system';
     const isToolCall = message.type === 'tool_call';
 
+    // Mensagens de chamada de ferramenta serão renderizadas como um bloco colapsável
+    if (isToolCall) {
+      return (
+        <details
+          key={message.id}
+          className="mx-8 mb-4 bg-yellow-50 border border-yellow-200 rounded-lg p-3"
+        >
+          <summary className="cursor-pointer text-yellow-700 font-medium flex items-center gap-2">
+            <Wrench className="w-4 h-4" />
+            {message.metadata?.tool_name || 'Chamada de ferramenta'}
+            {message.metadata?.execution_time && (
+              <span className="ml-auto text-xs text-gray-500">⏱️ {message.metadata.execution_time}ms</span>
+            )}
+          </summary>
+          <div className="prose prose-sm max-w-none mt-2">
+            <ReactMarkdown
+              remarkPlugins={remarkPlugins}
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || '');
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      style={tomorrow}
+                      language={match[1]}
+                      PreTag="div"
+                      className="rounded-md"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                }
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
+          </div>
+        </details>
+      );
+    }
+
+    // Renderização padrão para mensagens de usuário, assistente e sistema
     return (
       <div
         key={message.id}
         className={`
           flex gap-3 p-4 rounded-lg mb-4
-          ${isUser 
-            ? 'bg-blue-50 border border-blue-200 ml-12' 
+          ${isUser
+            ? 'bg-blue-50 border border-blue-200 ml-12'
             : isSystem
             ? 'bg-gray-50 border border-gray-200'
-            : isToolCall
-            ? 'bg-yellow-50 border border-yellow-200 mx-8'
             : 'bg-white border border-gray-200 mr-12'
           }
         `}
       >
         {/* Avatar */}
-        <div className={`
-          flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-medium
-          ${isUser 
-            ? 'bg-blue-500' 
-            : isSystem
-            ? 'bg-gray-500'
-            : isToolCall
-            ? 'bg-yellow-500'
-            : 'bg-green-500'
-          }
-        `}>
-          {isUser ? <User className="w-4 h-4" /> :
-           isSystem ? <Settings className="w-4 h-4" /> :
-           isToolCall ? <Wrench className="w-4 h-4" /> :
-           <Bot className="w-4 h-4" />}
+        <div
+          className={`
+            flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-medium
+            ${isUser
+              ? 'bg-blue-500'
+              : isSystem
+              ? 'bg-gray-500'
+              : 'bg-green-500'
+            }
+          `}
+        >
+          {isUser ? (
+            <User className="w-4 h-4" />
+          ) : isSystem ? (
+            <Settings className="w-4 h-4" />
+          ) : (
+            <Bot className="w-4 h-4" />
+          )}
         </div>
 
         {/* Conteúdo */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 group">
           <div className="flex items-center gap-2 mb-2">
             <span className="font-medium text-gray-900">
-              {isUser ? 'Você' :
-               isSystem ? 'Sistema' :
-               isToolCall ? 'Ferramenta' :
-               'Assistente'}
+              {isUser ? 'Você' : isSystem ? 'Sistema' : 'Assistente'}
             </span>
             <span className="text-xs text-gray-500">
               {message.timestamp.toLocaleTimeString()}
             </span>
-            {message.metadata?.tool_name && (
+            {message.metadata?.model_used && (
               <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                {message.metadata.tool_name}
+                {message.metadata.model_used}
               </span>
             )}
           </div>
@@ -315,6 +379,7 @@ const AgnoChatInterface: React.FC = () => {
           {/* Conteúdo da mensagem */}
           <div className="prose prose-sm max-w-none">
             <ReactMarkdown
+              remarkPlugins={remarkPlugins}
               components={{
                 code({ node, inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || '');
@@ -343,15 +408,42 @@ const AgnoChatInterface: React.FC = () => {
           {/* Metadados */}
           {message.metadata && (
             <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
-              {message.metadata.execution_time && (
-                <span>⏱️ {message.metadata.execution_time}ms</span>
-              )}
-              {message.metadata.model_used && (
-                <span>🤖 {message.metadata.model_used}</span>
-              )}
-              {message.metadata.tokens_used && (
-                <span>🎯 {message.metadata.tokens_used} tokens</span>
-              )}
+              {message.metadata.execution_time && <span>⏱️ {message.metadata.execution_time}ms</span>}
+              {message.metadata.tokens_used && <span>🎯 {message.metadata.tokens_used} tokens</span>}
+            {/* Icones de ferramentas usadas */}
+            {message.metadata.tools_used && message.metadata.tools_used.length > 0 && (
+              <span className="flex items-center gap-1">
+                {message.metadata.tools_used.map((toolName, idx) => {
+                  const lower = toolName.toLowerCase();
+                  let IconComponent: React.ElementType;
+                  let iconColor = '';
+                  // Mapeamento simples de nomes de ferramentas para ícones
+                  if (lower.includes('duckduckgo') || lower.includes('search')) {
+                    IconComponent = Globe;
+                    iconColor = 'text-blue-500';
+                  } else if (lower.includes('yfinance') || lower.includes('stock') || lower.includes('price')) {
+                    IconComponent = DollarSign;
+                    iconColor = 'text-green-600';
+                  } else if (lower.includes('calculator') || lower.includes('reason')) {
+                    IconComponent = Brain;
+                    iconColor = 'text-purple-600';
+                  } else if (lower.includes('image') || lower.includes('dall')) {
+                    IconComponent = Image;
+                    iconColor = 'text-pink-600';
+                  } else {
+                    IconComponent = Wrench;
+                    iconColor = 'text-gray-600';
+                  }
+                  return (
+                    <IconComponent
+                      key={idx}
+                      className={`w-3 h-3 ${iconColor}`}
+                      title={toolName}
+                    />
+                  );
+                })}
+              </span>
+            )}
             </div>
           )}
 
