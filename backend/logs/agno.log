@@ -4862,3 +4862,428 @@ To install, run: pip install email-validator
 2025-08-04 20:07:39 - app - INFO - ✅ [CHAT:chat_7_1754338053] AgnoService concluído
 2025-08-04 20:07:56 - app - INFO - 🛑 Encerrando Agno Platform...
 2025-08-04 20:07:56 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:37:37 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:37:37 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:37:37 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:37:37 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:37:37 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:37:37 - app - INFO - 🚀==================================================
+2025-08-04 20:37:37 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:37:37 - app - INFO - 🚀==================================================
+2025-08-04 20:37:37 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:37:37 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:37:37 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:37:37 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:37:37 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:37:37 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:37:37 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:37:37 - app - INFO - ⏱️ Tempo de inicialização: 0.15s
+2025-08-04 20:37:37 - app - INFO - 🚀==================================================
+2025-08-04 20:38:37 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 20:38:37 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:38:52 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:38:52 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:38:53 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:38:53 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:38:53 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:38:53 - app - INFO - 🚀==================================================
+2025-08-04 20:38:53 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:38:53 - app - INFO - 🚀==================================================
+2025-08-04 20:38:53 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:38:53 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:38:53 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:38:53 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:38:53 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:38:53 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:38:53 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:38:53 - app - INFO - ⏱️ Tempo de inicialização: 0.19s
+2025-08-04 20:38:53 - app - INFO - 🚀==================================================
+2025-08-04 20:39:30 - app - INFO - 📋 [LIST:list_agents_1754339970676] Listagem de agentes solicitada
+2025-08-04 20:39:30 - app - INFO - 👤 [LIST:list_agents_1754339970677] Usuário: 1
+2025-08-04 20:39:30 - app - INFO - 📊 [LIST:list_agents_1754339970702] Encontrados 8 agentes no banco
+2025-08-04 20:39:30 - app - INFO - 🏷️  [LIST:list_agents_1754339970703] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:39:30 - app - INFO - ✅ [LIST:list_agents_1754339970704] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:39:30 - app - INFO - 📋 [LIST:list_agents_1754339970711] Listagem de agentes solicitada
+2025-08-04 20:39:30 - app - INFO - 👤 [LIST:list_agents_1754339970712] Usuário: 1
+2025-08-04 20:39:30 - app - INFO - 📊 [LIST:list_agents_1754339970716] Encontrados 8 agentes no banco
+2025-08-04 20:39:30 - app - INFO - 🏷️  [LIST:list_agents_1754339970717] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:39:30 - app - INFO - ✅ [LIST:list_agents_1754339970719] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:40:01 - app - INFO - 📋 [LIST:list_agents_1754340001770] Listagem de agentes solicitada
+2025-08-04 20:40:01 - app - INFO - 👤 [LIST:list_agents_1754340001816] Usuário: 1
+2025-08-04 20:40:01 - app - INFO - 📊 [LIST:list_agents_1754340001826] Encontrados 8 agentes no banco
+2025-08-04 20:40:01 - app - INFO - 🏷️  [LIST:list_agents_1754340001828] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:40:01 - app - INFO - ✅ [LIST:list_agents_1754340001830] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:40:01 - app - INFO - 📋 [LIST:list_agents_1754340001850] Listagem de agentes solicitada
+2025-08-04 20:40:01 - app - INFO - 👤 [LIST:list_agents_1754340001851] Usuário: 1
+2025-08-04 20:40:01 - app - INFO - 📊 [LIST:list_agents_1754340001869] Encontrados 8 agentes no banco
+2025-08-04 20:40:01 - app - INFO - 🏷️  [LIST:list_agents_1754340001883] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:40:01 - app - INFO - ✅ [LIST:list_agents_1754340001891] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:43:02 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 20:43:02 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:43:16 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:43:16 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:43:17 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:43:17 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:43:17 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:43:17 - app - INFO - 🚀==================================================
+2025-08-04 20:43:17 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:43:17 - app - INFO - 🚀==================================================
+2025-08-04 20:43:17 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:43:17 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:43:17 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:43:17 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:43:17 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:43:17 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:43:17 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:43:17 - app - INFO - ⏱️ Tempo de inicialização: 0.12s
+2025-08-04 20:43:17 - app - INFO - 🚀==================================================
+2025-08-04 20:43:38 - app - INFO - 📋 [LIST:list_agents_1754340218936] Listagem de agentes solicitada
+2025-08-04 20:43:38 - app - INFO - 👤 [LIST:list_agents_1754340218937] Usuário: 1
+2025-08-04 20:43:38 - app - INFO - 📊 [LIST:list_agents_1754340218954] Encontrados 8 agentes no banco
+2025-08-04 20:43:38 - app - INFO - 🏷️  [LIST:list_agents_1754340218954] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:43:38 - app - INFO - ✅ [LIST:list_agents_1754340218955] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:43:38 - app - INFO - 📋 [LIST:list_agents_1754340218962] Listagem de agentes solicitada
+2025-08-04 20:43:38 - app - INFO - 👤 [LIST:list_agents_1754340218963] Usuário: 1
+2025-08-04 20:43:38 - app - INFO - 📊 [LIST:list_agents_1754340218968] Encontrados 8 agentes no banco
+2025-08-04 20:43:38 - app - INFO - 🏷️  [LIST:list_agents_1754340218971] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:43:38 - app - INFO - ✅ [LIST:list_agents_1754340218973] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:43:39 - app - INFO - 📋 [LIST:list_agents_1754340219056] Listagem de agentes solicitada
+2025-08-04 20:43:39 - app - INFO - 👤 [LIST:list_agents_1754340219057] Usuário: 1
+2025-08-04 20:43:39 - app - INFO - 📊 [LIST:list_agents_1754340219128] Encontrados 8 agentes no banco
+2025-08-04 20:43:39 - app - INFO - 🏷️  [LIST:list_agents_1754340219130] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:43:39 - app - INFO - ✅ [LIST:list_agents_1754340219131] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:43:39 - app - INFO - 📋 [LIST:list_agents_1754340219140] Listagem de agentes solicitada
+2025-08-04 20:43:39 - app - INFO - 👤 [LIST:list_agents_1754340219141] Usuário: 1
+2025-08-04 20:43:39 - app - INFO - 📊 [LIST:list_agents_1754340219146] Encontrados 8 agentes no banco
+2025-08-04 20:43:39 - app - INFO - 🏷️  [LIST:list_agents_1754340219147] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:43:39 - app - INFO - ✅ [LIST:list_agents_1754340219147] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:43:55 - app - INFO - 📋 [LIST:list_agents_1754340235680] Listagem de agentes solicitada
+2025-08-04 20:43:55 - app - INFO - 👤 [LIST:list_agents_1754340235681] Usuário: 1
+2025-08-04 20:43:55 - app - INFO - 📊 [LIST:list_agents_1754340235685] Encontrados 8 agentes no banco
+2025-08-04 20:43:55 - app - INFO - 🏷️  [LIST:list_agents_1754340235686] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:43:55 - app - INFO - ✅ [LIST:list_agents_1754340235687] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:44:09 - app - INFO - 💬 [CHAT:chat_7_1754340249] Chat iniciado com agente 7
+2025-08-04 20:44:09 - app - INFO - 👤 [CHAT:chat_7_1754340249] Usuário: 1
+2025-08-04 20:44:09 - app - INFO - 💭 [CHAT:chat_7_1754340249] Mensagem: 'Quanto ta o PETR4? da petrobras?'
+2025-08-04 20:44:09 - app - INFO - 🤖 [CHAT:chat_7_1754340249] Agente encontrado: 'Assistente Multitarefas' (ID 7)
+2025-08-04 20:44:09 - app - INFO - 🧠 [CHAT:chat_7_1754340249] Modelo: openai/gpt-4o
+2025-08-04 20:44:11 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 20:44:13 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 20:44:14 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 20:44:14 - app - INFO - ✅ [CHAT:chat_7_1754340249] AgnoService concluído
+2025-08-04 20:48:04 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 20:48:04 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:48:20 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:48:20 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:48:20 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:48:20 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:48:20 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:48:20 - app - INFO - 🚀==================================================
+2025-08-04 20:48:20 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:48:20 - app - INFO - 🚀==================================================
+2025-08-04 20:48:20 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:48:20 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:48:20 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:48:20 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:48:20 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:48:20 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:48:20 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:48:20 - app - INFO - ⏱️ Tempo de inicialização: 0.10s
+2025-08-04 20:48:20 - app - INFO - 🚀==================================================
+2025-08-04 20:49:08 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 20:49:08 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:49:21 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:49:21 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:49:21 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:49:21 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:49:21 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:49:21 - app - INFO - 🚀==================================================
+2025-08-04 20:49:21 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:49:21 - app - INFO - 🚀==================================================
+2025-08-04 20:49:21 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:49:21 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:49:21 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:49:21 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:49:21 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:49:21 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:49:21 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:49:21 - app - INFO - ⏱️ Tempo de inicialização: 0.06s
+2025-08-04 20:49:21 - app - INFO - 🚀==================================================
+2025-08-04 20:50:02 - app - INFO - 📋 [LIST:list_agents_1754340602967] Listagem de agentes solicitada
+2025-08-04 20:50:02 - app - INFO - 👤 [LIST:list_agents_1754340602968] Usuário: 1
+2025-08-04 20:50:02 - app - INFO - 📊 [LIST:list_agents_1754340602986] Encontrados 8 agentes no banco
+2025-08-04 20:50:02 - app - INFO - 🏷️  [LIST:list_agents_1754340602990] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:50:02 - app - INFO - ✅ [LIST:list_agents_1754340602991] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:50:03 - app - INFO - 📋 [LIST:list_agents_1754340603001] Listagem de agentes solicitada
+2025-08-04 20:50:03 - app - INFO - 👤 [LIST:list_agents_1754340603002] Usuário: 1
+2025-08-04 20:50:03 - app - INFO - 📊 [LIST:list_agents_1754340603007] Encontrados 8 agentes no banco
+2025-08-04 20:50:03 - app - INFO - 🏷️  [LIST:list_agents_1754340603009] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:50:03 - app - INFO - ✅ [LIST:list_agents_1754340603011] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:50:03 - app - INFO - 📋 [LIST:list_agents_1754340603152] Listagem de agentes solicitada
+2025-08-04 20:50:03 - app - INFO - 👤 [LIST:list_agents_1754340603153] Usuário: 1
+2025-08-04 20:50:03 - app - INFO - 📊 [LIST:list_agents_1754340603158] Encontrados 8 agentes no banco
+2025-08-04 20:50:03 - app - INFO - 🏷️  [LIST:list_agents_1754340603167] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:50:03 - app - INFO - ✅ [LIST:list_agents_1754340603171] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:50:46 - app - INFO - 💬 [CHAT:chat_8_1754340646] Chat iniciado com agente 8
+2025-08-04 20:50:46 - app - INFO - 👤 [CHAT:chat_8_1754340646] Usuário: 1
+2025-08-04 20:50:46 - app - INFO - 💭 [CHAT:chat_8_1754340646] Mensagem: 'Quanto ta o PETR4? da petrobras?'
+2025-08-04 20:50:46 - app - INFO - 🤖 [CHAT:chat_8_1754340646] Agente encontrado: 'Pensador Estratégico' (ID 8)
+2025-08-04 20:50:46 - app - INFO - 🧠 [CHAT:chat_8_1754340646] Modelo: openai/gpt-4o
+2025-08-04 20:50:47 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 20:50:49 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 20:50:49 - app - INFO - ✅ [CHAT:chat_8_1754340646] AgnoService concluído
+2025-08-04 20:52:03 - app - INFO - 📋 [LIST:list_agents_1754340723064] Listagem de agentes solicitada
+2025-08-04 20:52:03 - app - INFO - 👤 [LIST:list_agents_1754340723065] Usuário: 1
+2025-08-04 20:52:03 - app - INFO - 📊 [LIST:list_agents_1754340723070] Encontrados 8 agentes no banco
+2025-08-04 20:52:03 - app - INFO - 🏷️  [LIST:list_agents_1754340723071] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:52:03 - app - INFO - ✅ [LIST:list_agents_1754340723074] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:52:03 - app - INFO - 📋 [LIST:list_agents_1754340723095] Listagem de agentes solicitada
+2025-08-04 20:52:03 - app - INFO - 👤 [LIST:list_agents_1754340723097] Usuário: 1
+2025-08-04 20:52:03 - app - INFO - 📊 [LIST:list_agents_1754340723103] Encontrados 8 agentes no banco
+2025-08-04 20:52:03 - app - INFO - 🏷️  [LIST:list_agents_1754340723104] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:52:03 - app - INFO - ✅ [LIST:list_agents_1754340723105] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:52:03 - app - INFO - 📋 [LIST:list_agents_1754340723202] Listagem de agentes solicitada
+2025-08-04 20:52:03 - app - INFO - 👤 [LIST:list_agents_1754340723203] Usuário: 1
+2025-08-04 20:52:03 - app - INFO - 📊 [LIST:list_agents_1754340723209] Encontrados 8 agentes no banco
+2025-08-04 20:52:03 - app - INFO - 🏷️  [LIST:list_agents_1754340723215] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:52:03 - app - INFO - ✅ [LIST:list_agents_1754340723217] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:52:03 - app - INFO - 📋 [LIST:list_agents_1754340723237] Listagem de agentes solicitada
+2025-08-04 20:52:03 - app - INFO - 👤 [LIST:list_agents_1754340723238] Usuário: 1
+2025-08-04 20:52:03 - app - INFO - 📊 [LIST:list_agents_1754340723243] Encontrados 8 agentes no banco
+2025-08-04 20:52:03 - app - INFO - 🏷️  [LIST:list_agents_1754340723245] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:52:03 - app - INFO - ✅ [LIST:list_agents_1754340723248] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 20:52:30 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 20:52:30 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:52:43 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:52:43 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:52:43 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:52:43 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:52:43 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:52:43 - app - INFO - 🚀==================================================
+2025-08-04 20:52:43 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:52:43 - app - INFO - 🚀==================================================
+2025-08-04 20:52:43 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:52:43 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:52:43 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:52:43 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:52:43 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:52:43 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:52:43 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:52:43 - app - INFO - ⏱️ Tempo de inicialização: 0.07s
+2025-08-04 20:52:43 - app - INFO - 🚀==================================================
+2025-08-04 20:53:00 - app - INFO - 📋 [LIST:list_agents_1754340780462] Listagem de agentes solicitada
+2025-08-04 20:53:00 - app - INFO - 👤 [LIST:list_agents_1754340780465] Usuário: 1
+2025-08-04 20:53:00 - app - INFO - 📊 [LIST:list_agents_1754340780503] Encontrados 8 agentes no banco
+2025-08-04 20:53:00 - app - INFO - 🏷️  [LIST:list_agents_1754340780504] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:53:00 - app - INFO - ✅ [LIST:list_agents_1754340780506] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:53:00 - app - INFO - 📋 [LIST:list_agents_1754340780603] Listagem de agentes solicitada
+2025-08-04 20:53:00 - app - INFO - 👤 [LIST:list_agents_1754340780606] Usuário: 1
+2025-08-04 20:53:00 - app - INFO - 📊 [LIST:list_agents_1754340780614] Encontrados 8 agentes no banco
+2025-08-04 20:53:00 - app - INFO - 🏷️  [LIST:list_agents_1754340780616] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 20:53:00 - app - INFO - ✅ [LIST:list_agents_1754340780626] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 20:53:08 - app - INFO - 💬 [CHAT:chat_7_1754340788] Chat iniciado com agente 7
+2025-08-04 20:53:08 - app - INFO - 👤 [CHAT:chat_7_1754340788] Usuário: 1
+2025-08-04 20:53:08 - app - INFO - 💭 [CHAT:chat_7_1754340788] Mensagem: 'Quanto ta o PETR4? da petrobras?'
+2025-08-04 20:53:08 - app - INFO - 🤖 [CHAT:chat_7_1754340788] Agente encontrado: 'Assistente Multitarefas' (ID 7)
+2025-08-04 20:53:08 - app - INFO - 🧠 [CHAT:chat_7_1754340788] Modelo: openai/gpt-4o
+2025-08-04 20:53:10 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 20:53:13 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 20:53:14 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 20:53:14 - app - INFO - ✅ [CHAT:chat_7_1754340788] AgnoService concluído
+2025-08-04 20:53:19 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 20:53:19 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 20:53:29 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 20:53:29 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 20:53:29 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 20:53:29 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 20:53:29 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 20:53:29 - app - INFO - 🚀==================================================
+2025-08-04 20:53:29 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 20:53:29 - app - INFO - 🚀==================================================
+2025-08-04 20:53:29 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 20:53:29 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 20:53:29 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 20:53:29 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 20:53:29 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 20:53:29 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 20:53:29 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 20:53:29 - app - INFO - ⏱️ Tempo de inicialização: 0.05s
+2025-08-04 20:53:29 - app - INFO - 🚀==================================================
+2025-08-04 21:05:18 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 21:05:18 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 21:05:31 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 21:05:31 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 21:05:31 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 21:05:32 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 21:05:32 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 21:05:32 - app - INFO - 🚀==================================================
+2025-08-04 21:05:32 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 21:05:32 - app - INFO - 🚀==================================================
+2025-08-04 21:05:32 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 21:05:32 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 21:05:32 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 21:05:32 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 21:05:32 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 21:05:32 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 21:05:32 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 21:05:32 - app - INFO - ⏱️ Tempo de inicialização: 0.11s
+2025-08-04 21:05:32 - app - INFO - 🚀==================================================
+2025-08-04 21:05:53 - app - INFO - 📋 [LIST:list_agents_1754341553865] Listagem de agentes solicitada
+2025-08-04 21:05:53 - app - INFO - 👤 [LIST:list_agents_1754341553868] Usuário: 1
+2025-08-04 21:05:53 - app - INFO - 📊 [LIST:list_agents_1754341553877] Encontrados 8 agentes no banco
+2025-08-04 21:05:53 - app - INFO - 🏷️  [LIST:list_agents_1754341553877] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:05:53 - app - INFO - ✅ [LIST:list_agents_1754341553878] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:05:53 - app - INFO - 📋 [LIST:list_agents_1754341553896] Listagem de agentes solicitada
+2025-08-04 21:05:53 - app - INFO - 👤 [LIST:list_agents_1754341553897] Usuário: 1
+2025-08-04 21:05:53 - app - INFO - 📊 [LIST:list_agents_1754341553900] Encontrados 8 agentes no banco
+2025-08-04 21:05:53 - app - INFO - 🏷️  [LIST:list_agents_1754341553901] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:05:53 - app - INFO - ✅ [LIST:list_agents_1754341553903] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:05:53 - app - INFO - 📋 [LIST:list_agents_1754341553988] Listagem de agentes solicitada
+2025-08-04 21:05:53 - app - INFO - 👤 [LIST:list_agents_1754341553988] Usuário: 1
+2025-08-04 21:05:53 - app - INFO - 📊 [LIST:list_agents_1754341553993] Encontrados 8 agentes no banco
+2025-08-04 21:05:53 - app - INFO - 🏷️  [LIST:list_agents_1754341553994] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:05:53 - app - INFO - ✅ [LIST:list_agents_1754341553995] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:05:54 - app - INFO - 📋 [LIST:list_agents_1754341554009] Listagem de agentes solicitada
+2025-08-04 21:05:54 - app - INFO - 👤 [LIST:list_agents_1754341554010] Usuário: 1
+2025-08-04 21:05:54 - app - INFO - 📊 [LIST:list_agents_1754341554014] Encontrados 8 agentes no banco
+2025-08-04 21:05:54 - app - INFO - 🏷️  [LIST:list_agents_1754341554015] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:05:54 - app - INFO - ✅ [LIST:list_agents_1754341554015] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:06:17 - app - INFO - 📋 [LIST:list_agents_1754341577444] Listagem de agentes solicitada
+2025-08-04 21:06:17 - app - INFO - 👤 [LIST:list_agents_1754341577445] Usuário: 1
+2025-08-04 21:06:17 - app - INFO - 📊 [LIST:list_agents_1754341577569] Encontrados 8 agentes no banco
+2025-08-04 21:06:17 - app - INFO - 🏷️  [LIST:list_agents_1754341577569] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:06:17 - app - INFO - ✅ [LIST:list_agents_1754341577570] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:06:17 - app - INFO - 📋 [LIST:list_agents_1754341577577] Listagem de agentes solicitada
+2025-08-04 21:06:17 - app - INFO - 👤 [LIST:list_agents_1754341577578] Usuário: 1
+2025-08-04 21:06:17 - app - INFO - 📊 [LIST:list_agents_1754341577583] Encontrados 8 agentes no banco
+2025-08-04 21:06:17 - app - INFO - 🏷️  [LIST:list_agents_1754341577584] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:06:17 - app - INFO - ✅ [LIST:list_agents_1754341577585] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:06:17 - app - INFO - 📋 [LIST:list_agents_1754341577630] Listagem de agentes solicitada
+2025-08-04 21:06:17 - app - INFO - 👤 [LIST:list_agents_1754341577631] Usuário: 1
+2025-08-04 21:06:17 - app - INFO - 📊 [LIST:list_agents_1754341577635] Encontrados 8 agentes no banco
+2025-08-04 21:06:17 - app - INFO - 🏷️  [LIST:list_agents_1754341577635] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:06:17 - app - INFO - ✅ [LIST:list_agents_1754341577636] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:06:17 - app - INFO - 📋 [LIST:list_agents_1754341577645] Listagem de agentes solicitada
+2025-08-04 21:06:17 - app - INFO - 👤 [LIST:list_agents_1754341577646] Usuário: 1
+2025-08-04 21:06:17 - app - INFO - 📊 [LIST:list_agents_1754341577650] Encontrados 8 agentes no banco
+2025-08-04 21:06:17 - app - INFO - 🏷️  [LIST:list_agents_1754341577651] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:06:17 - app - INFO - ✅ [LIST:list_agents_1754341577651] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:06:20 - app - INFO - 📋 [LIST:list_agents_1754341580492] Listagem de agentes solicitada
+2025-08-04 21:06:20 - app - INFO - 👤 [LIST:list_agents_1754341580493] Usuário: 1
+2025-08-04 21:06:20 - app - INFO - 📊 [LIST:list_agents_1754341580497] Encontrados 8 agentes no banco
+2025-08-04 21:06:20 - app - INFO - 🏷️  [LIST:list_agents_1754341580497] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:06:20 - app - INFO - ✅ [LIST:list_agents_1754341580498] 8 ativos, providers: ['openai', 'anthropic']
+2025-08-04 21:06:25 - app - INFO - 💬 [CHAT:chat_7_1754341585] Chat iniciado com agente 7
+2025-08-04 21:06:25 - app - INFO - 👤 [CHAT:chat_7_1754341585] Usuário: 1
+2025-08-04 21:06:25 - app - INFO - 💭 [CHAT:chat_7_1754341585] Mensagem: 'Quanto ta o PETR4? da petrobras?'
+2025-08-04 21:06:25 - app - INFO - 🤖 [CHAT:chat_7_1754341585] Agente encontrado: 'Assistente Multitarefas' (ID 7)
+2025-08-04 21:06:25 - app - INFO - 🧠 [CHAT:chat_7_1754341585] Modelo: openai/gpt-4o
+2025-08-04 21:06:27 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 21:06:29 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 21:06:30 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 21:06:30 - app - INFO - ✅ [CHAT:chat_7_1754341585] AgnoService concluído
+2025-08-04 21:18:11 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 21:18:11 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 21:18:21 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 21:18:21 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 21:18:21 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 21:18:21 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 21:18:21 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 21:18:21 - app - INFO - 🚀==================================================
+2025-08-04 21:18:21 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 21:18:21 - app - INFO - 🚀==================================================
+2025-08-04 21:18:21 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 21:18:22 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 21:18:22 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 21:18:22 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 21:18:22 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 21:18:22 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 21:18:22 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 21:18:22 - app - INFO - ⏱️ Tempo de inicialização: 0.08s
+2025-08-04 21:18:22 - app - INFO - 🚀==================================================
+2025-08-04 21:19:21 - app - INFO - 📋 [LIST:list_agents_1754342361944] Listagem de agentes solicitada
+2025-08-04 21:19:21 - app - INFO - 👤 [LIST:list_agents_1754342361988] Usuário: 1
+2025-08-04 21:19:22 - app - INFO - 📊 [LIST:list_agents_1754342362118] Encontrados 8 agentes no banco
+2025-08-04 21:19:22 - app - INFO - 🏷️  [LIST:list_agents_1754342362118] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:19:22 - app - INFO - ✅ [LIST:list_agents_1754342362119] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:19:22 - app - INFO - 📋 [LIST:list_agents_1754342362127] Listagem de agentes solicitada
+2025-08-04 21:19:22 - app - INFO - 👤 [LIST:list_agents_1754342362129] Usuário: 1
+2025-08-04 21:19:22 - app - INFO - 📊 [LIST:list_agents_1754342362137] Encontrados 8 agentes no banco
+2025-08-04 21:19:22 - app - INFO - 🏷️  [LIST:list_agents_1754342362137] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:19:22 - app - INFO - ✅ [LIST:list_agents_1754342362138] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:19:22 - app - INFO - 📋 [LIST:list_agents_1754342362182] Listagem de agentes solicitada
+2025-08-04 21:19:22 - app - INFO - 👤 [LIST:list_agents_1754342362183] Usuário: 1
+2025-08-04 21:19:22 - app - INFO - 📊 [LIST:list_agents_1754342362189] Encontrados 8 agentes no banco
+2025-08-04 21:19:22 - app - INFO - 🏷️  [LIST:list_agents_1754342362190] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:19:22 - app - INFO - ✅ [LIST:list_agents_1754342362191] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:19:22 - app - INFO - 📋 [LIST:list_agents_1754342362206] Listagem de agentes solicitada
+2025-08-04 21:19:22 - app - INFO - 👤 [LIST:list_agents_1754342362206] Usuário: 1
+2025-08-04 21:19:22 - app - INFO - 📊 [LIST:list_agents_1754342362211] Encontrados 8 agentes no banco
+2025-08-04 21:19:22 - app - INFO - 🏷️  [LIST:list_agents_1754342362212] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:19:22 - app - INFO - ✅ [LIST:list_agents_1754342362212] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:19:24 - app - INFO - 📋 [LIST:list_agents_1754342364392] Listagem de agentes solicitada
+2025-08-04 21:19:24 - app - INFO - 👤 [LIST:list_agents_1754342364393] Usuário: 1
+2025-08-04 21:19:24 - app - INFO - 📊 [LIST:list_agents_1754342364397] Encontrados 8 agentes no banco
+2025-08-04 21:19:24 - app - INFO - 🏷️  [LIST:list_agents_1754342364398] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:19:24 - app - INFO - ✅ [LIST:list_agents_1754342364399] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:19:26 - app - INFO - 💬 [CHAT:chat_7_1754342366] Chat iniciado com agente 7
+2025-08-04 21:19:26 - app - INFO - 👤 [CHAT:chat_7_1754342366] Usuário: 1
+2025-08-04 21:19:26 - app - INFO - 💭 [CHAT:chat_7_1754342366] Mensagem: 'Quanto ta o PETR4? da petrobras?'
+2025-08-04 21:19:26 - app - INFO - 🤖 [CHAT:chat_7_1754342366] Agente encontrado: 'Assistente Multitarefas' (ID 7)
+2025-08-04 21:19:26 - app - INFO - 🧠 [CHAT:chat_7_1754342366] Modelo: openai/gpt-4o
+2025-08-04 21:19:28 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 21:19:30 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 21:19:31 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 21:19:31 - app - INFO - ✅ [CHAT:chat_7_1754342366] AgnoService concluído
+2025-08-04 21:20:38 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 21:20:38 - app - INFO - ✅ Conexões de banco fechadas
+2025-08-04 21:23:45 - app - INFO - 🎯 Sistema de logging configurado
+2025-08-04 21:23:45 - app - INFO - 🗄️ Configurando banco: postgres:5432/agno_db
+2025-08-04 21:23:45 - app - INFO - ✅ Agno framework detectado e disponível
+2025-08-04 21:23:45 - app - INFO - ✅ Rotas do Agno importadas com sucesso
+2025-08-04 21:23:45 - app - INFO - ✅ Rotas REAIS do Agno incluídas
+2025-08-04 21:23:45 - app - INFO - 🚀==================================================
+2025-08-04 21:23:45 - app - INFO - 🚀 INICIANDO AGNO PLATFORM
+2025-08-04 21:23:45 - app - INFO - 🚀==================================================
+2025-08-04 21:23:45 - app - INFO - ✅ Modo: AgnoService REAL
+2025-08-04 21:23:45 - app - INFO - ✅ Database conectado: PostgreSQL
+2025-08-04 21:23:45 - app - INFO - ✅ 🤖 OpenAI: configurado
+2025-08-04 21:23:45 - app - INFO - ✅ 🧠 Anthropic: configurado
+2025-08-04 21:23:45 - app - INFO - ✅ 📊 Supabase URL: configurado
+2025-08-04 21:23:45 - app - INFO - ✅ 🔑 Supabase Key: configurado
+2025-08-04 21:23:45 - app - INFO - 🎉 Sistema totalmente operacional!
+2025-08-04 21:23:45 - app - INFO - ⏱️ Tempo de inicialização: 0.07s
+2025-08-04 21:23:45 - app - INFO - 🚀==================================================
+2025-08-04 21:24:41 - app - INFO - 📋 [LIST:list_agents_1754342681938] Listagem de agentes solicitada
+2025-08-04 21:24:41 - app - INFO - 👤 [LIST:list_agents_1754342681939] Usuário: 1
+2025-08-04 21:24:41 - app - INFO - 📊 [LIST:list_agents_1754342681946] Encontrados 8 agentes no banco
+2025-08-04 21:24:41 - app - INFO - 🏷️  [LIST:list_agents_1754342681948] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:24:41 - app - INFO - ✅ [LIST:list_agents_1754342681949] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:24:41 - app - INFO - 📋 [LIST:list_agents_1754342681955] Listagem de agentes solicitada
+2025-08-04 21:24:41 - app - INFO - 👤 [LIST:list_agents_1754342681956] Usuário: 1
+2025-08-04 21:24:41 - app - INFO - 📊 [LIST:list_agents_1754342681960] Encontrados 8 agentes no banco
+2025-08-04 21:24:41 - app - INFO - 🏷️  [LIST:list_agents_1754342681961] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:24:41 - app - INFO - ✅ [LIST:list_agents_1754342681961] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:24:42 - app - INFO - 📋 [LIST:list_agents_1754342682043] Listagem de agentes solicitada
+2025-08-04 21:24:42 - app - INFO - 👤 [LIST:list_agents_1754342682043] Usuário: 1
+2025-08-04 21:24:42 - app - INFO - 📊 [LIST:list_agents_1754342682047] Encontrados 8 agentes no banco
+2025-08-04 21:24:42 - app - INFO - 🏷️  [LIST:list_agents_1754342682047] Agentes: ['Pensador Estratégico', 'Assistente Multitarefas', 'Especialista Matemático', 'Pesquisador Web', 'Analista Financeiro', 'Analista Financeiro', 'Especialista em Código', 'Assistente Geral']
+2025-08-04 21:24:42 - app - INFO - ✅ [LIST:list_agents_1754342682048] 8 ativos, providers: ['anthropic', 'openai']
+2025-08-04 21:24:56 - app - INFO - 💬 [CHAT:chat_8_1754342696] Chat iniciado com agente 8
+2025-08-04 21:24:56 - app - INFO - 👤 [CHAT:chat_8_1754342696] Usuário: 1
+2025-08-04 21:24:56 - app - INFO - 💭 [CHAT:chat_8_1754342696] Mensagem: 'Quanto ta o PETR4? da petrobras?'
+2025-08-04 21:24:56 - app - INFO - 🤖 [CHAT:chat_8_1754342696] Agente encontrado: 'Pensador Estratégico' (ID 8)
+2025-08-04 21:24:56 - app - INFO - 🧠 [CHAT:chat_8_1754342696] Modelo: openai/gpt-4o
+2025-08-04 21:24:57 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 21:24:59 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 21:24:59 - app - INFO - ✅ [CHAT:chat_8_1754342696] AgnoService concluído
+2025-08-04 21:25:17 - app - INFO - 💬 [CHAT:chat_8_1754342717] Chat iniciado com agente 8
+2025-08-04 21:25:17 - app - INFO - 👤 [CHAT:chat_8_1754342717] Usuário: 1
+2025-08-04 21:25:17 - app - INFO - 💭 [CHAT:chat_8_1754342717] Mensagem: 'qual a cotação do dolar hoje?'
+2025-08-04 21:25:17 - app - INFO - 🤖 [CHAT:chat_8_1754342717] Agente encontrado: 'Pensador Estratégico' (ID 8)
+2025-08-04 21:25:17 - app - INFO - 🧠 [CHAT:chat_8_1754342717] Modelo: openai/gpt-4o
+2025-08-04 21:25:18 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-04 21:25:20 - httpx - INFO - HTTP Request: POST https://api.agno.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-08-04 21:25:20 - app - INFO - ✅ [CHAT:chat_8_1754342717] AgnoService concluído
+2025-08-04 21:26:19 - app - INFO - 🛑 Encerrando Agno Platform...
+2025-08-04 21:26:19 - app - INFO - ✅ Conexões de banco fechadas
