@@ -36,4 +36,4 @@ asyncpg
 agno
 psutil
 prometheus_client
-ddgs
+agno[anthropic,openai,groq,yfinance,ddg,reasoning]

@@ -1240,3 +1240,327 @@
 04:39:56 📥 [94m📥 [REQ:req_1754282396_6800] GET http://localhost:8000/api/health[0m
 04:39:56 🌐 [96m🌐 [REQ:req_1754282396_6800] IP: 127.0.0.1[0m
 04:39:56 ✅ [92m✅ [REQ:req_1754282396_6800] 200 SUCCESS - 0.011s - GET /api/health[0m
+14:43:04 📥 [94m📥 [REQ:req_1754318584_3218] GET http://localhost:8000/api/health[0m
+14:43:04 🌐 [96m🌐 [REQ:req_1754318584_3218] IP: 127.0.0.1[0m
+14:43:04 ✅ [92m✅ [REQ:req_1754318584_3218] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:43:34 📥 [94m📥 [REQ:req_1754318614_3218] GET http://localhost:8000/api/health[0m
+14:43:34 🌐 [96m🌐 [REQ:req_1754318614_3218] IP: 127.0.0.1[0m
+14:43:34 ✅ [92m✅ [REQ:req_1754318614_3218] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:44:05 📥 [94m📥 [REQ:req_1754318645_3218] GET http://localhost:8000/api/health[0m
+14:44:05 🌐 [96m🌐 [REQ:req_1754318645_3218] IP: 127.0.0.1[0m
+14:44:05 ✅ [92m✅ [REQ:req_1754318645_3218] 200 SUCCESS - 0.007s - GET /api/health[0m
+14:44:35 📥 [94m📥 [REQ:req_1754318675_3218] GET http://localhost:8000/api/health[0m
+14:44:35 🌐 [96m🌐 [REQ:req_1754318675_3218] IP: 127.0.0.1[0m
+14:44:35 ✅ [92m✅ [REQ:req_1754318675_3218] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:45:05 📥 [94m📥 [REQ:req_1754318705_3218] GET http://localhost:8000/api/health[0m
+14:45:05 🌐 [96m🌐 [REQ:req_1754318705_3218] IP: 127.0.0.1[0m
+14:45:05 ✅ [92m✅ [REQ:req_1754318705_3218] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:45:33 📥 [94m📥 [REQ:req_1754318733_3281] GET http://localhost:8000/api/health[0m
+14:45:33 🌐 [96m🌐 [REQ:req_1754318733_3281] IP: 127.0.0.1[0m
+14:45:33 ✅ [92m✅ [REQ:req_1754318733_3281] 200 SUCCESS - 0.017s - GET /api/health[0m
+14:46:03 📥 [94m📥 [REQ:req_1754318763_3281] GET http://localhost:8000/api/health[0m
+14:46:03 🌐 [96m🌐 [REQ:req_1754318763_3281] IP: 127.0.0.1[0m
+14:46:03 ✅ [92m✅ [REQ:req_1754318763_3281] 200 SUCCESS - 0.004s - GET /api/health[0m
+14:46:33 📥 [94m📥 [REQ:req_1754318793_3281] GET http://localhost:8000/api/health[0m
+14:46:33 🌐 [96m🌐 [REQ:req_1754318793_3281] IP: 127.0.0.1[0m
+14:46:33 ✅ [92m✅ [REQ:req_1754318793_3281] 200 SUCCESS - 0.007s - GET /api/health[0m
+14:47:03 📥 [94m📥 [REQ:req_1754318823_3281] GET http://localhost:8000/api/health[0m
+14:47:03 🌐 [96m🌐 [REQ:req_1754318823_3281] IP: 127.0.0.1[0m
+14:47:03 ✅ [92m✅ [REQ:req_1754318823_3281] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:47:33 📥 [94m📥 [REQ:req_1754318853_3281] GET http://localhost:8000/api/health[0m
+14:47:33 🌐 [96m🌐 [REQ:req_1754318853_3281] IP: 127.0.0.1[0m
+14:47:33 ✅ [92m✅ [REQ:req_1754318853_3281] 200 SUCCESS - 0.012s - GET /api/health[0m
+14:48:04 📥 [94m📥 [REQ:req_1754318884_3281] GET http://localhost:8000/api/health[0m
+14:48:04 🌐 [96m🌐 [REQ:req_1754318884_3281] IP: 127.0.0.1[0m
+14:48:04 ✅ [92m✅ [REQ:req_1754318884_3281] 200 SUCCESS - 0.248s - GET /api/health[0m
+14:48:52 📥 [94m📥 [REQ:req_1754318932_5634] GET http://localhost:8000/api/health[0m
+14:48:52 🌐 [96m🌐 [REQ:req_1754318932_5634] IP: 127.0.0.1[0m
+14:48:52 ✅ [92m✅ [REQ:req_1754318932_5634] 200 SUCCESS - 0.018s - GET /api/health[0m
+14:49:22 📥 [94m📥 [REQ:req_1754318962_5634] GET http://localhost:8000/api/health[0m
+14:49:22 🌐 [96m🌐 [REQ:req_1754318962_5634] IP: 127.0.0.1[0m
+14:49:22 ✅ [92m✅ [REQ:req_1754318962_5634] 200 SUCCESS - 0.008s - GET /api/health[0m
+14:49:52 📥 [94m📥 [REQ:req_1754318992_5634] GET http://localhost:8000/api/health[0m
+14:49:52 🌐 [96m🌐 [REQ:req_1754318992_5634] IP: 127.0.0.1[0m
+14:49:52 ✅ [92m✅ [REQ:req_1754318992_5634] 200 SUCCESS - 0.010s - GET /api/health[0m
+14:50:22 📥 [94m📥 [REQ:req_1754319022_5634] GET http://localhost:8000/api/health[0m
+14:50:22 🌐 [96m🌐 [REQ:req_1754319022_5634] IP: 127.0.0.1[0m
+14:50:22 ✅ [92m✅ [REQ:req_1754319022_5634] 200 SUCCESS - 0.007s - GET /api/health[0m
+14:50:52 📥 [94m📥 [REQ:req_1754319052_5634] GET http://localhost:8000/api/health[0m
+14:50:52 🌐 [96m🌐 [REQ:req_1754319052_5634] IP: 127.0.0.1[0m
+14:50:52 ✅ [92m✅ [REQ:req_1754319052_5634] 200 SUCCESS - 0.011s - GET /api/health[0m
+14:51:22 📥 [94m📥 [REQ:req_1754319082_5634] GET http://localhost:8000/api/health[0m
+14:51:22 🌐 [96m🌐 [REQ:req_1754319082_5634] IP: 127.0.0.1[0m
+14:51:22 ✅ [92m✅ [REQ:req_1754319082_5634] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:51:52 📥 [94m📥 [REQ:req_1754319112_5634] GET http://localhost:8000/api/health[0m
+14:51:52 🌐 [96m🌐 [REQ:req_1754319112_5634] IP: 127.0.0.1[0m
+14:51:52 ✅ [92m✅ [REQ:req_1754319112_5634] 200 SUCCESS - 0.008s - GET /api/health[0m
+14:52:23 📥 [94m📥 [REQ:req_1754319143_5634] GET http://localhost:8000/api/health[0m
+14:52:23 🌐 [96m🌐 [REQ:req_1754319143_5634] IP: 127.0.0.1[0m
+14:52:23 ✅ [92m✅ [REQ:req_1754319143_5634] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:52:53 📥 [94m📥 [REQ:req_1754319173_5634] GET http://localhost:8000/api/health[0m
+14:52:53 🌐 [96m🌐 [REQ:req_1754319173_5634] IP: 127.0.0.1[0m
+14:52:53 ✅ [92m✅ [REQ:req_1754319173_5634] 200 SUCCESS - 0.008s - GET /api/health[0m
+14:53:23 📥 [94m📥 [REQ:req_1754319203_5634] GET http://localhost:8000/api/health[0m
+14:53:23 🌐 [96m🌐 [REQ:req_1754319203_5634] IP: 127.0.0.1[0m
+14:53:23 ✅ [92m✅ [REQ:req_1754319203_5634] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:53:53 📥 [94m📥 [REQ:req_1754319233_5634] GET http://localhost:8000/api/health[0m
+14:53:53 🌐 [96m🌐 [REQ:req_1754319233_5634] IP: 127.0.0.1[0m
+14:53:53 ✅ [92m✅ [REQ:req_1754319233_5634] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:54:23 📥 [94m📥 [REQ:req_1754319263_5634] GET http://localhost:8000/api/health[0m
+14:54:23 🌐 [96m🌐 [REQ:req_1754319263_5634] IP: 127.0.0.1[0m
+14:54:23 ✅ [92m✅ [REQ:req_1754319263_5634] 200 SUCCESS - 0.004s - GET /api/health[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_2566] OPTIONS http://localhost:8000/api/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_2566] IP: 172.18.0.1[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_4498] OPTIONS http://localhost:8000/api/agents?user_id=1[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_4498] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_2566] 200 SUCCESS - 0.009s - OPTIONS /api/health[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_2566] OPTIONS http://localhost:8000/api/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_2566] IP: 172.18.0.1[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6748] OPTIONS http://localhost:8000/api/agno/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6748] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_4498] 200 SUCCESS - 0.012s - OPTIONS /api/agents[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_4498] OPTIONS http://localhost:8000/api/agents?user_id=1[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_4498] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_2566] 200 SUCCESS - 0.011s - OPTIONS /api/health[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6901] OPTIONS http://localhost:8000/api/agno/tools[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6901] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_6748] 200 SUCCESS - 0.015s - OPTIONS /api/agno/health[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6901] OPTIONS http://localhost:8000/api/agno/tools[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6901] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_4498] 200 SUCCESS - 0.015s - OPTIONS /api/agents[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6748] OPTIONS http://localhost:8000/api/agno/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6748] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_6901] 200 SUCCESS - 0.017s - OPTIONS /api/agno/tools[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_2566] GET http://localhost:8000/api/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_2566] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_6901] 200 SUCCESS - 0.017s - OPTIONS /api/agno/tools[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_4498] GET http://localhost:8000/api/agents?user_id=1[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_4498] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_6748] 200 SUCCESS - 0.015s - OPTIONS /api/agno/health[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6748] GET http://localhost:8000/api/agno/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6748] IP: 172.18.0.1[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6901] GET http://localhost:8000/api/agno/tools[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6901] IP: 172.18.0.1[0m
+14:55:04 ⚠️ [93m⚠️ [REQ:req_1754319304_6748] 404 CLIENT_ERROR - 0.007s - GET /api/agno/health[0m
+14:55:04 ⚠️ [93m⚠️ [REQ:req_1754319304_6901] 404 CLIENT_ERROR - 0.006s - GET /api/agno/tools[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6901] GET http://localhost:8000/api/agno/tools[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6901] IP: 172.18.0.1[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_6748] GET http://localhost:8000/api/agno/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_6748] IP: 172.18.0.1[0m
+14:55:04 ⚠️ [93m⚠️ [REQ:req_1754319304_6901] 404 CLIENT_ERROR - 0.037s - GET /api/agno/tools[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_2566] 200 SUCCESS - 0.069s - GET /api/health[0m
+14:55:04 ⚠️ [93m⚠️ [REQ:req_1754319304_6748] 404 CLIENT_ERROR - 0.008s - GET /api/agno/health[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_2566] GET http://localhost:8000/api/health[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_2566] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_2566] 200 SUCCESS - 0.009s - GET /api/health[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_4498] 200 SUCCESS - 0.090s - GET /api/agents[0m
+14:55:04 📥 [94m📥 [REQ:req_1754319304_4498] GET http://localhost:8000/api/agents?user_id=1[0m
+14:55:04 🌐 [96m🌐 [REQ:req_1754319304_4498] IP: 172.18.0.1[0m
+14:55:04 ✅ [92m✅ [REQ:req_1754319304_4498] 200 SUCCESS - 0.010s - GET /api/agents[0m
+14:55:24 📥 [94m📥 [REQ:req_1754319324_2566] GET http://localhost:8000/api/health[0m
+14:55:24 🌐 [96m🌐 [REQ:req_1754319324_2566] IP: 127.0.0.1[0m
+14:55:24 ✅ [92m✅ [REQ:req_1754319324_2566] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:55:54 📥 [94m📥 [REQ:req_1754319354_2566] GET http://localhost:8000/api/health[0m
+14:55:54 🌐 [96m🌐 [REQ:req_1754319354_2566] IP: 127.0.0.1[0m
+14:55:54 ✅ [92m✅ [REQ:req_1754319354_2566] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:56:24 📥 [94m📥 [REQ:req_1754319384_2566] GET http://localhost:8000/api/health[0m
+14:56:24 🌐 [96m🌐 [REQ:req_1754319384_2566] IP: 127.0.0.1[0m
+14:56:24 ✅ [92m✅ [REQ:req_1754319384_2566] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:56:54 📥 [94m📥 [REQ:req_1754319414_2566] GET http://localhost:8000/api/health[0m
+14:56:54 🌐 [96m🌐 [REQ:req_1754319414_2566] IP: 127.0.0.1[0m
+14:56:54 ✅ [92m✅ [REQ:req_1754319414_2566] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:56:54 📥 [94m📥 [REQ:req_1754319414_3197] OPTIONS http://localhost:8000/api/agents/3/chat?user_id=1[0m
+14:56:54 🌐 [96m🌐 [REQ:req_1754319414_3197] IP: 172.18.0.1[0m
+14:56:54 ✅ [92m✅ [REQ:req_1754319414_3197] 200 SUCCESS - 0.003s - OPTIONS /api/agents/3/chat[0m
+14:56:54 📥 [94m📥 [REQ:req_1754319414_3197] POST http://localhost:8000/api/agents/3/chat?user_id=1[0m
+14:56:54 🌐 [96m🌐 [REQ:req_1754319414_3197] IP: 172.18.0.1[0m
+14:56:54 ⚠️ [93m⚠️ [REQ:req_1754319414_3197] 422 CLIENT_ERROR - 0.044s - POST /api/agents/3/chat[0m
+14:57:24 📥 [94m📥 [REQ:req_1754319444_2566] GET http://localhost:8000/api/health[0m
+14:57:24 🌐 [96m🌐 [REQ:req_1754319444_2566] IP: 127.0.0.1[0m
+14:57:24 ✅ [92m✅ [REQ:req_1754319444_2566] 200 SUCCESS - 0.007s - GET /api/health[0m
+14:57:54 📥 [94m📥 [REQ:req_1754319474_2566] GET http://localhost:8000/api/health[0m
+14:57:54 🌐 [96m🌐 [REQ:req_1754319474_2566] IP: 127.0.0.1[0m
+14:57:54 ✅ [92m✅ [REQ:req_1754319474_2566] 200 SUCCESS - 0.007s - GET /api/health[0m
+14:58:24 📥 [94m📥 [REQ:req_1754319504_2566] GET http://localhost:8000/api/health[0m
+14:58:24 🌐 [96m🌐 [REQ:req_1754319504_2566] IP: 127.0.0.1[0m
+14:58:24 ✅ [92m✅ [REQ:req_1754319504_2566] 200 SUCCESS - 0.008s - GET /api/health[0m
+14:58:54 📥 [94m📥 [REQ:req_1754319534_2566] GET http://localhost:8000/api/health[0m
+14:58:54 🌐 [96m🌐 [REQ:req_1754319534_2566] IP: 127.0.0.1[0m
+14:58:54 ✅ [92m✅ [REQ:req_1754319534_2566] 200 SUCCESS - 0.005s - GET /api/health[0m
+14:59:24 📥 [94m📥 [REQ:req_1754319564_2566] GET http://localhost:8000/api/health[0m
+14:59:24 🌐 [96m🌐 [REQ:req_1754319564_2566] IP: 127.0.0.1[0m
+14:59:24 ✅ [92m✅ [REQ:req_1754319564_2566] 200 SUCCESS - 0.006s - GET /api/health[0m
+14:59:55 📥 [94m📥 [REQ:req_1754319595_2566] GET http://localhost:8000/api/health[0m
+14:59:55 🌐 [96m🌐 [REQ:req_1754319595_2566] IP: 127.0.0.1[0m
+14:59:55 ✅ [92m✅ [REQ:req_1754319595_2566] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:00:25 📥 [94m📥 [REQ:req_1754319625_2566] GET http://localhost:8000/api/health[0m
+15:00:25 🌐 [96m🌐 [REQ:req_1754319625_2566] IP: 127.0.0.1[0m
+15:00:25 ✅ [92m✅ [REQ:req_1754319625_2566] 200 SUCCESS - 0.008s - GET /api/health[0m
+15:00:55 📥 [94m📥 [REQ:req_1754319655_2566] GET http://localhost:8000/api/health[0m
+15:00:55 🌐 [96m🌐 [REQ:req_1754319655_2566] IP: 127.0.0.1[0m
+15:00:55 ✅ [92m✅ [REQ:req_1754319655_2566] 200 SUCCESS - 0.008s - GET /api/health[0m
+15:01:25 📥 [94m📥 [REQ:req_1754319685_2566] GET http://localhost:8000/api/health[0m
+15:01:25 🌐 [96m🌐 [REQ:req_1754319685_2566] IP: 127.0.0.1[0m
+15:01:25 ✅ [92m✅ [REQ:req_1754319685_2566] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:01:55 📥 [94m📥 [REQ:req_1754319715_2566] GET http://localhost:8000/api/health[0m
+15:01:55 🌐 [96m🌐 [REQ:req_1754319715_2566] IP: 127.0.0.1[0m
+15:01:55 ✅ [92m✅ [REQ:req_1754319715_2566] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:02:25 📥 [94m📥 [REQ:req_1754319745_2566] GET http://localhost:8000/api/health[0m
+15:02:25 🌐 [96m🌐 [REQ:req_1754319745_2566] IP: 127.0.0.1[0m
+15:02:25 ✅ [92m✅ [REQ:req_1754319745_2566] 200 SUCCESS - 0.005s - GET /api/health[0m
+15:02:55 📥 [94m📥 [REQ:req_1754319775_2566] GET http://localhost:8000/api/health[0m
+15:02:55 🌐 [96m🌐 [REQ:req_1754319775_2566] IP: 127.0.0.1[0m
+15:02:55 ✅ [92m✅ [REQ:req_1754319775_2566] 200 SUCCESS - 0.010s - GET /api/health[0m
+15:03:25 📥 [94m📥 [REQ:req_1754319805_2566] GET http://localhost:8000/api/health[0m
+15:03:25 🌐 [96m🌐 [REQ:req_1754319805_2566] IP: 127.0.0.1[0m
+15:03:25 ✅ [92m✅ [REQ:req_1754319805_2566] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:03:55 📥 [94m📥 [REQ:req_1754319835_2566] GET http://localhost:8000/api/health[0m
+15:03:55 🌐 [96m🌐 [REQ:req_1754319835_2566] IP: 127.0.0.1[0m
+15:03:55 ✅ [92m✅ [REQ:req_1754319835_2566] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:04:25 📥 [94m📥 [REQ:req_1754319865_2566] GET http://localhost:8000/api/health[0m
+15:04:25 🌐 [96m🌐 [REQ:req_1754319865_2566] IP: 127.0.0.1[0m
+15:04:25 ✅ [92m✅ [REQ:req_1754319865_2566] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:04:55 📥 [94m📥 [REQ:req_1754319895_2566] GET http://localhost:8000/api/health[0m
+15:04:55 🌐 [96m🌐 [REQ:req_1754319895_2566] IP: 127.0.0.1[0m
+15:04:55 ✅ [92m✅ [REQ:req_1754319895_2566] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:05:25 📥 [94m📥 [REQ:req_1754319925_2566] GET http://localhost:8000/api/health[0m
+15:05:25 🌐 [96m🌐 [REQ:req_1754319925_2566] IP: 127.0.0.1[0m
+15:05:25 ✅ [92m✅ [REQ:req_1754319925_2566] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:05:55 📥 [94m📥 [REQ:req_1754319955_2566] GET http://localhost:8000/api/health[0m
+15:05:55 🌐 [96m🌐 [REQ:req_1754319955_2566] IP: 127.0.0.1[0m
+15:05:56 ✅ [92m✅ [REQ:req_1754319955_2566] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:11:37 📥 [94m📥 [REQ:req_1754320297_3423] GET http://localhost:8000/api/health[0m
+15:11:37 🌐 [96m🌐 [REQ:req_1754320297_3423] IP: 127.0.0.1[0m
+15:11:37 ✅ [92m✅ [REQ:req_1754320297_3423] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:12:07 📥 [94m📥 [REQ:req_1754320327_3423] GET http://localhost:8000/api/health[0m
+15:12:07 🌐 [96m🌐 [REQ:req_1754320327_3423] IP: 127.0.0.1[0m
+15:12:07 ✅ [92m✅ [REQ:req_1754320327_3423] 200 SUCCESS - 0.020s - GET /api/health[0m
+15:13:02 📥 [94m📥 [REQ:req_1754320382_2896] GET http://localhost:8000/api/health[0m
+15:13:02 🌐 [96m🌐 [REQ:req_1754320382_2896] IP: 127.0.0.1[0m
+15:13:02 ✅ [92m✅ [REQ:req_1754320382_2896] 200 SUCCESS - 0.015s - GET /api/health[0m
+15:13:32 📥 [94m📥 [REQ:req_1754320412_2896] GET http://localhost:8000/api/health[0m
+15:13:32 🌐 [96m🌐 [REQ:req_1754320412_2896] IP: 127.0.0.1[0m
+15:13:32 ✅ [92m✅ [REQ:req_1754320412_2896] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:14:02 📥 [94m📥 [REQ:req_1754320442_2896] GET http://localhost:8000/api/health[0m
+15:14:02 🌐 [96m🌐 [REQ:req_1754320442_2896] IP: 127.0.0.1[0m
+15:14:02 ✅ [92m✅ [REQ:req_1754320442_2896] 200 SUCCESS - 0.009s - GET /api/health[0m
+15:14:32 📥 [94m📥 [REQ:req_1754320472_2896] GET http://localhost:8000/api/health[0m
+15:14:32 🌐 [96m🌐 [REQ:req_1754320472_2896] IP: 127.0.0.1[0m
+15:14:32 ✅ [92m✅ [REQ:req_1754320472_2896] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:15:02 📥 [94m📥 [REQ:req_1754320502_2896] GET http://localhost:8000/api/health[0m
+15:15:02 🌐 [96m🌐 [REQ:req_1754320502_2896] IP: 127.0.0.1[0m
+15:15:02 ✅ [92m✅ [REQ:req_1754320502_2896] 200 SUCCESS - 0.008s - GET /api/health[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_2896] OPTIONS http://localhost:8000/api/health[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_2896] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_2896] 200 SUCCESS - 0.006s - OPTIONS /api/health[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_9589] OPTIONS http://localhost:8000/api/agents?user_id=1[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_9589] IP: 172.18.0.1[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_9852] OPTIONS http://localhost:8000/api/agno/tools[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_9852] IP: 172.18.0.1[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_162] OPTIONS http://localhost:8000/api/agno/health[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_162] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_9589] 200 SUCCESS - 0.020s - OPTIONS /api/agents[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_2896] OPTIONS http://localhost:8000/api/health[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_2896] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_9852] 200 SUCCESS - 0.018s - OPTIONS /api/agno/tools[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_9589] OPTIONS http://localhost:8000/api/agents?user_id=1[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_9589] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_162] 200 SUCCESS - 0.016s - OPTIONS /api/agno/health[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_9852] OPTIONS http://localhost:8000/api/agno/tools[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_9852] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_2896] 200 SUCCESS - 0.018s - OPTIONS /api/health[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_9589] 200 SUCCESS - 0.016s - OPTIONS /api/agents[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_162] OPTIONS http://localhost:8000/api/agno/health[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_162] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_9852] 200 SUCCESS - 0.019s - OPTIONS /api/agno/tools[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_2896] GET http://localhost:8000/api/health[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_2896] IP: 172.18.0.1[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_9589] GET http://localhost:8000/api/agents?user_id=1[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_9589] IP: 172.18.0.1[0m
+15:15:29 ✅ [92m✅ [REQ:req_1754320529_162] 200 SUCCESS - 0.025s - OPTIONS /api/agno/health[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_9852] GET http://localhost:8000/api/agno/tools[0m
+15:15:29 🌐 [96m🌐 [REQ:req_1754320529_9852] IP: 172.18.0.1[0m
+15:15:29 📥 [94m📥 [REQ:req_1754320529_162] GET http://localhost:8000/api/agno/health[0m
+15:15:30 🌐 [96m🌐 [REQ:req_1754320529_162] IP: 172.18.0.1[0m
+15:15:30 ⚠️ [93m⚠️ [REQ:req_1754320529_9852] 404 CLIENT_ERROR - 0.007s - GET /api/agno/tools[0m
+15:15:30 ⚠️ [93m⚠️ [REQ:req_1754320529_162] 404 CLIENT_ERROR - 0.006s - GET /api/agno/health[0m
+15:15:30 📥 [94m📥 [REQ:req_1754320530_9852] GET http://localhost:8000/api/agno/tools[0m
+15:15:30 🌐 [96m🌐 [REQ:req_1754320530_9852] IP: 172.18.0.1[0m
+15:15:30 📥 [94m📥 [REQ:req_1754320530_162] GET http://localhost:8000/api/agno/health[0m
+15:15:30 🌐 [96m🌐 [REQ:req_1754320530_162] IP: 172.18.0.1[0m
+15:15:30 ⚠️ [93m⚠️ [REQ:req_1754320530_9852] 404 CLIENT_ERROR - 0.040s - GET /api/agno/tools[0m
+15:15:30 ⚠️ [93m⚠️ [REQ:req_1754320530_162] 404 CLIENT_ERROR - 0.007s - GET /api/agno/health[0m
+15:15:30 ✅ [92m✅ [REQ:req_1754320529_2896] 200 SUCCESS - 0.085s - GET /api/health[0m
+15:15:30 📥 [94m📥 [REQ:req_1754320530_2896] GET http://localhost:8000/api/health[0m
+15:15:30 🌐 [96m🌐 [REQ:req_1754320530_2896] IP: 172.18.0.1[0m
+15:15:30 ✅ [92m✅ [REQ:req_1754320530_2896] 200 SUCCESS - 0.013s - GET /api/health[0m
+15:15:30 ✅ [92m✅ [REQ:req_1754320529_9589] 200 SUCCESS - 0.109s - GET /api/agents[0m
+15:15:30 📥 [94m📥 [REQ:req_1754320530_9589] GET http://localhost:8000/api/agents?user_id=1[0m
+15:15:30 🌐 [96m🌐 [REQ:req_1754320530_9589] IP: 172.18.0.1[0m
+15:15:30 ✅ [92m✅ [REQ:req_1754320530_9589] 200 SUCCESS - 0.013s - GET /api/agents[0m
+15:15:32 📥 [94m📥 [REQ:req_1754320532_2896] GET http://localhost:8000/api/health[0m
+15:15:32 🌐 [96m🌐 [REQ:req_1754320532_2896] IP: 127.0.0.1[0m
+15:15:32 ✅ [92m✅ [REQ:req_1754320532_2896] 200 SUCCESS - 0.008s - GET /api/health[0m
+15:16:02 📥 [94m📥 [REQ:req_1754320562_2896] GET http://localhost:8000/api/health[0m
+15:16:02 🌐 [96m🌐 [REQ:req_1754320562_2896] IP: 127.0.0.1[0m
+15:16:02 ✅ [92m✅ [REQ:req_1754320562_2896] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:16:32 📥 [94m📥 [REQ:req_1754320592_2896] GET http://localhost:8000/api/health[0m
+15:16:32 🌐 [96m🌐 [REQ:req_1754320592_2896] IP: 127.0.0.1[0m
+15:16:32 ✅ [92m✅ [REQ:req_1754320592_2896] 200 SUCCESS - 0.008s - GET /api/health[0m
+15:17:02 📥 [94m📥 [REQ:req_1754320622_2896] GET http://localhost:8000/api/health[0m
+15:17:02 🌐 [96m🌐 [REQ:req_1754320622_2896] IP: 127.0.0.1[0m
+15:17:02 ✅ [92m✅ [REQ:req_1754320622_2896] 200 SUCCESS - 0.010s - GET /api/health[0m
+15:17:32 📥 [94m📥 [REQ:req_1754320652_2896] GET http://localhost:8000/api/health[0m
+15:17:32 🌐 [96m🌐 [REQ:req_1754320652_2896] IP: 127.0.0.1[0m
+15:17:32 ✅ [92m✅ [REQ:req_1754320652_2896] 200 SUCCESS - 0.005s - GET /api/health[0m
+15:18:02 📥 [94m📥 [REQ:req_1754320682_2896] GET http://localhost:8000/api/health[0m
+15:18:02 🌐 [96m🌐 [REQ:req_1754320682_2896] IP: 127.0.0.1[0m
+15:18:02 ✅ [92m✅ [REQ:req_1754320682_2896] 200 SUCCESS - 0.009s - GET /api/health[0m
+15:18:33 📥 [94m📥 [REQ:req_1754320713_2896] GET http://localhost:8000/api/health[0m
+15:18:33 🌐 [96m🌐 [REQ:req_1754320713_2896] IP: 127.0.0.1[0m
+15:18:33 ✅ [92m✅ [REQ:req_1754320713_2896] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:19:03 📥 [94m📥 [REQ:req_1754320743_2896] GET http://localhost:8000/api/health[0m
+15:19:03 🌐 [96m🌐 [REQ:req_1754320743_2896] IP: 127.0.0.1[0m
+15:19:03 ✅ [92m✅ [REQ:req_1754320743_2896] 200 SUCCESS - 0.007s - GET /api/health[0m
+15:19:33 📥 [94m📥 [REQ:req_1754320773_2896] GET http://localhost:8000/api/health[0m
+15:19:33 🌐 [96m🌐 [REQ:req_1754320773_2896] IP: 127.0.0.1[0m
+15:19:33 ✅ [92m✅ [REQ:req_1754320773_2896] 200 SUCCESS - 0.006s - GET /api/health[0m
+15:20:03 📥 [94m📥 [REQ:req_1754320803_2896] GET http://localhost:8000/api/health[0m
+15:20:03 🌐 [96m🌐 [REQ:req_1754320803_2896] IP: 127.0.0.1[0m
+15:20:03 ✅ [92m✅ [REQ:req_1754320803_2896] 200 SUCCESS - 0.009s - GET /api/health[0m
+15:20:33 📥 [94m📥 [REQ:req_1754320833_2896] GET http://localhost:8000/api/health[0m
+15:20:33 🌐 [96m🌐 [REQ:req_1754320833_2896] IP: 127.0.0.1[0m
+15:20:33 ✅ [92m✅ [REQ:req_1754320833_2896] 200 SUCCESS - 0.008s - GET /api/health[0m
+15:21:07 📥 [94m📥 [REQ:req_1754320867_7802] GET http://localhost:8000/api/health[0m
+15:21:07 🌐 [96m🌐 [REQ:req_1754320867_7802] IP: 127.0.0.1[0m
+15:21:07 ✅ [92m✅ [REQ:req_1754320867_7802] 200 SUCCESS - 0.011s - GET /api/health[0m
+15:21:30 📥 [94m📥 [REQ:req_1754320890_474] GET http://localhost:8000/api/health[0m
+15:21:30 🌐 [96m🌐 [REQ:req_1754320890_474] IP: 127.0.0.1[0m
+15:21:30 ✅ [92m✅ [REQ:req_1754320890_474] 200 SUCCESS - 0.023s - GET /api/health[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_474] GET http://localhost:8000/api/health[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_474] IP: 172.18.0.1[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_3454] GET http://localhost:8000/api/agents?user_id=1[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_3454] IP: 172.18.0.1[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_9893] GET http://localhost:8000/api/agno/health[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_9893] IP: 172.18.0.1[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_7544] GET http://localhost:8000/api/agno/tools[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_7544] IP: 172.18.0.1[0m
+15:21:35 ⚠️ [93m⚠️ [REQ:req_1754320895_9893] 404 CLIENT_ERROR - 0.020s - GET /api/agno/health[0m
+15:21:35 ⚠️ [93m⚠️ [REQ:req_1754320895_7544] 404 CLIENT_ERROR - 0.013s - GET /api/agno/tools[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_7544] GET http://localhost:8000/api/agno/tools[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_7544] IP: 172.18.0.1[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_9893] GET http://localhost:8000/api/agno/health[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_9893] IP: 172.18.0.1[0m
+15:21:35 ⚠️ [93m⚠️ [REQ:req_1754320895_7544] 404 CLIENT_ERROR - 0.092s - GET /api/agno/tools[0m
+15:21:35 ⚠️ [93m⚠️ [REQ:req_1754320895_9893] 404 CLIENT_ERROR - 0.088s - GET /api/agno/health[0m
+15:21:35 ✅ [92m✅ [REQ:req_1754320895_474] 200 SUCCESS - 0.200s - GET /api/health[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_474] GET http://localhost:8000/api/health[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_474] IP: 172.18.0.1[0m
+15:21:35 ✅ [92m✅ [REQ:req_1754320895_474] 200 SUCCESS - 0.016s - GET /api/health[0m
+15:21:35 ✅ [92m✅ [REQ:req_1754320895_3454] 200 SUCCESS - 0.223s - GET /api/agents[0m
+15:21:35 📥 [94m📥 [REQ:req_1754320895_3454] GET http://localhost:8000/api/agents?user_id=1[0m
+15:21:35 🌐 [96m🌐 [REQ:req_1754320895_3454] IP: 172.18.0.1[0m
+15:21:35 ✅ [92m✅ [REQ:req_1754320895_3454] 200 SUCCESS - 0.017s - GET /api/agents[0m
+15:22:00 📥 [94m📥 [REQ:req_1754320920_474] GET http://localhost:8000/api/health[0m
+15:22:00 🌐 [96m🌐 [REQ:req_1754320920_474] IP: 127.0.0.1[0m
+15:22:00 ✅ [92m✅ [REQ:req_1754320920_474] 200 SUCCESS - 0.007s - GET /api/health[0m

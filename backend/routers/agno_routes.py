@@ -1,4 +1,4 @@
-# backend/routers/real_agno_routes.py
+# backend/routers/agno_routes.py
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
@@ -9,11 +9,44 @@ import json
 import asyncio
 from datetime import datetime
 
-from backend.database import async_session
-from backend.services.agno_services import get_real_agno_service, AGNO_AVAILABLE
+# ✅ CORREÇÃO: Importação corrigida do database
+try:
+    from database import async_session, get_db
+except ImportError:
+    # Fallback para diferentes estruturas de projeto
+    try:
+        from ..database import async_session, get_db
+    except ImportError:
+        try:
+            from backend.database import async_session, get_db
+        except ImportError:
+            # Criar dependency function local se necessário
+            async def get_db():
+                """Dependency local para obter sessão do banco"""
+                # Esta será implementada se as outras importações falharem
+                raise HTTPException(status_code=500, detail="Database não configurado")
+
+# ✅ CORREÇÃO: Importação corrigida do agno_services
+try:
+    from agno_services import get_real_agno_service, AGNO_AVAILABLE
+except ImportError:
+    try:
+        from .agno_services import get_real_agno_service, AGNO_AVAILABLE
+    except ImportError:
+        try:
+            from backend.services.agno_services import get_real_agno_service, AGNO_AVAILABLE
+        except ImportError:
+            # Fallback se o serviço não estiver disponível
+            AGNO_AVAILABLE = False
+
+
+            def get_real_agno_service():
+                raise HTTPException(status_code=500, detail="Agno service não disponível")
+
 from pydantic import BaseModel
 
 router = APIRouter(prefix="/api/agno", tags=["Agno Tools Real"])
+
 
 # =============================================
 # MODELS
@@ -24,24 +57,34 @@ class AgentExecuteRequest(BaseModel):
     tools: List[str] = []
     stream: bool = False
 
+
 class ToolTestRequest(BaseModel):
     tool_name: str
     params: Dict[str, Any] = {}
+
 
 class AgentToolsUpdateRequest(BaseModel):
     agent_id: int
     tools: List[str]
 
+
 # =============================================
-# DEPENDENCY
+# DEPENDENCY FUNCTIONS
 # =============================================
 
-async def get_db() -> AsyncSession:
-    async with async_session() as session:
-        yield session
+async def get_database_session() -> AsyncSession:
+    """Dependency para obter sessão do banco de dados"""
+    try:
+        async with async_session() as session:
+            yield session
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro de conexão com banco: {str(e)}")
+
 
 def get_current_user() -> int:
-    return 1  # Para desenvolvimento
+    """Dependency para obter usuário atual (desenvolvimento)"""
+    return 1  # Para desenvolvimento - substituir por autenticação real
+
 
 # =============================================
 # ROTAS DE FERRAMENTAS
@@ -51,6 +94,14 @@ def get_current_user() -> int:
 async def list_available_tools():
     """Lista todas as ferramentas Agno disponíveis (REAIS)"""
     try:
+        if not AGNO_AVAILABLE:
+            return {
+                "status": "unavailable",
+                "framework": "agno_real",
+                "error": "Agno framework não instalado",
+                "install_command": "pip install agno anthropic openai groq yfinance duckduckgo-search"
+            }
+
         agno_service = get_real_agno_service()
         tools = agno_service.get_available_tools_info()
 
@@ -64,10 +115,14 @@ async def list_available_tools():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao listar ferramentas: {str(e)}")
 
+
 @router.post("/tools/test")
 async def test_tool(request: ToolTestRequest):
     """Testa uma ferramenta específica do Agno"""
     try:
+        if not AGNO_AVAILABLE:
+            raise HTTPException(status_code=503, detail="Agno framework não disponível")
+
         agno_service = get_real_agno_service()
         result = agno_service.test_tool(request.tool_name, request.params)
 
@@ -75,6 +130,7 @@ async def test_tool(request: ToolTestRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao testar ferramenta: {str(e)}")
+
 
 @router.get("/health")
 async def agno_health_check():
@@ -85,7 +141,7 @@ async def agno_health_check():
                 "status": "unavailable",
                 "framework": "agno_real",
                 "error": "Agno framework não instalado",
-                "install_command": "pip install agno openai duckduckgo-search yfinance"
+                "install_command": "pip install agno anthropic openai groq yfinance duckduckgo-search"
             }
 
         agno_service = get_real_agno_service()
@@ -105,6 +161,7 @@ async def agno_health_check():
             "error": str(e)
         }
 
+
 # =============================================
 # ROTAS DE EXECUÇÃO COM BANCO EXISTENTE
 # =============================================
@@ -114,10 +171,13 @@ async def execute_agent_with_real_tools(
         agent_id: int,
         request: AgentExecuteRequest,
         user_id: int = Depends(get_current_user),
-        db: AsyncSession = Depends(get_db)
+        db: AsyncSession = Depends(get_database_session)
 ):
     """Executa um agente REAL usando configurações do banco existente"""
     try:
+        if not AGNO_AVAILABLE:
+            raise HTTPException(status_code=503, detail="Agno framework não disponível")
+
         agno_service = get_real_agno_service()
 
         # Buscar configuração do agente no banco existente
@@ -142,7 +202,8 @@ async def execute_agent_with_real_tools(
             "role": agent_row.role,
             "model_provider": agent_row.model_provider,
             "model_id": agent_row.model_id,
-            "instructions": agent_row.instructions if isinstance(agent_row.instructions, list) else [str(agent_row.instructions)]
+            "instructions": agent_row.instructions if isinstance(agent_row.instructions, list) else [
+                str(agent_row.instructions)]
         }
 
         # Ferramentas: usar as do request ou as do banco
@@ -183,15 +244,19 @@ async def execute_agent_with_real_tools(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro na execução: {str(e)}")
 
+
 @router.post("/agents/{agent_id}/execute/stream")
 async def execute_agent_stream_real(
         agent_id: int,
         request: AgentExecuteRequest,
         user_id: int = Depends(get_current_user),
-        db: AsyncSession = Depends(get_db)
+        db: AsyncSession = Depends(get_database_session)
 ):
     """Executa agente REAL com streaming de resposta"""
     try:
+        if not AGNO_AVAILABLE:
+            raise HTTPException(status_code=503, detail="Agno framework não disponível")
+
         agno_service = get_real_agno_service()
 
         # Buscar configuração do agente (mesmo código acima)
@@ -215,7 +280,8 @@ async def execute_agent_stream_real(
             "role": agent_row.role,
             "model_provider": agent_row.model_provider,
             "model_id": agent_row.model_id,
-            "instructions": agent_row.instructions if isinstance(agent_row.instructions, list) else [str(agent_row.instructions)]
+            "instructions": agent_row.instructions if isinstance(agent_row.instructions, list) else [
+                str(agent_row.instructions)]
         }
 
         # Processar ferramentas
@@ -277,6 +343,7 @@ async def execute_agent_stream_real(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro no streaming: {str(e)}")
 
+
 # =============================================
 # ROTAS DE GERENCIAMENTO DE FERRAMENTAS
 # =============================================
@@ -286,7 +353,7 @@ async def update_agent_tools_real(
         agent_id: int,
         request: AgentToolsUpdateRequest,
         user_id: int = Depends(get_current_user),
-        db: AsyncSession = Depends(get_db)
+        db: AsyncSession = Depends(get_database_session)
 ):
     """Atualiza ferramentas de um agente no banco existente"""
     try:
@@ -330,11 +397,12 @@ async def update_agent_tools_real(
         await db.rollback()
         raise HTTPException(status_code=500, detail=f"Erro ao atualizar ferramentas: {str(e)}")
 
+
 @router.get("/agents/{agent_id}/tools")
 async def get_agent_tools_real(
         agent_id: int,
         user_id: int = Depends(get_current_user),
-        db: AsyncSession = Depends(get_db)
+        db: AsyncSession = Depends(get_database_session)
 ):
     """Lista ferramentas configuradas para um agente no banco existente"""
     try:
@@ -377,6 +445,7 @@ async def get_agent_tools_real(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao buscar ferramentas: {str(e)}")
 
+
 # =============================================
 # ROTAS DE LOGS E MONITORAMENTO
 # =============================================
@@ -386,7 +455,7 @@ async def get_execution_logs_real(
         agent_id: Optional[int] = Query(None),
         user_id: int = Depends(get_current_user),
         limit: int = Query(50, ge=1, le=200),
-        db: AsyncSession = Depends(get_db)
+        db: AsyncSession = Depends(get_database_session)
 ):
     """Recupera logs de execução do banco existente"""
     try:
@@ -436,7 +505,8 @@ async def get_execution_logs_real(
                 "id": row.id,
                 "agent_name": row.agent_name,
                 "user_prompt": user_message or "N/A",
-                "assistant_response": (assistant_message or "")[:200] + "..." if assistant_message and len(assistant_message) > 200 else assistant_message,
+                "assistant_response": (assistant_message or "")[:200] + "..." if assistant_message and len(
+                    assistant_message) > 200 else assistant_message,
                 "status": row.status or "completed",
                 "created_at": row.created_at.isoformat() if row.created_at else None,
                 "framework": "agno_real"
@@ -451,11 +521,12 @@ async def get_execution_logs_real(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao buscar logs: {str(e)}")
 
+
 @router.get("/stats")
 async def get_usage_statistics_real(
         days: int = Query(30, ge=1, le=365),
         user_id: int = Depends(get_current_user),
-        db: AsyncSession = Depends(get_db)
+        db: AsyncSession = Depends(get_database_session)
 ):
     """Estatísticas de uso do sistema Agno REAL"""
     try:
@@ -513,6 +584,7 @@ async def get_usage_statistics_real(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro ao obter estatísticas: {str(e)}")
 
+
 # =============================================
 # FUNÇÕES AUXILIARES
 # =============================================
@@ -565,3 +637,36 @@ async def _save_execution_log(
     except Exception as e:
         print(f"Erro ao salvar log: {e}")
         await db.rollback()
+
+
+# =============================================
+# ROTA DE TESTE SIMPLES
+# =============================================
+
+@router.get("/test")
+async def test_agno_simple():
+    """Rota de teste simples para verificar se o Agno está funcionando"""
+    try:
+        if not AGNO_AVAILABLE:
+            return {
+                "status": "error",
+                "message": "Agno framework não disponível",
+                "agno_available": False
+            }
+
+        agno_service = get_real_agno_service()
+
+        return {
+            "status": "success",
+            "message": "Agno framework está funcionando!",
+            "agno_available": True,
+            "tools_count": len(agno_service.available_tools),
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"Erro ao testar Agno: {str(e)}",
+            "agno_available": False
+        }

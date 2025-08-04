@@ -13,7 +13,7 @@ from loguru import logger
 try:
     from agno.agent import Agent
     from agno.models.openai import OpenAIChat
-    from agno.models.anthropic import AnthropicChat
+    from agno.models.anthropic import Claude  # ✅ CORREÇÃO: Era AnthropicChat, agora é Claude
     from agno.models.groq import Groq
     from agno.team import Team
 
@@ -60,17 +60,24 @@ class RealAgnoService:
         if not AGNO_AVAILABLE:
             raise ImportError("Agno framework não está disponível")
 
+        # ✅ CORREÇÃO: Mapear corretamente os modelos disponíveis
         self.available_models = {
             "openai": {
                 "gpt-4o": OpenAIChat,
                 "gpt-4o-mini": OpenAIChat,
                 "gpt-3.5-turbo": OpenAIChat,
-                "gpt-4": OpenAIChat
+                "gpt-4": OpenAIChat,
+                "o1": OpenAIChat,
+                "o1-mini": OpenAIChat,
+                "o1-preview": OpenAIChat,
+                "o3-mini": OpenAIChat
             },
             "anthropic": {
-                "claude-3-5-sonnet-20241022": AnthropicChat,
-                "claude-3-sonnet-20240229": AnthropicChat,
-                "claude-3-haiku-20240307": AnthropicChat
+                "claude-3-5-sonnet-20241022": Claude,
+                "claude-3-sonnet-20240229": Claude,
+                "claude-3-haiku-20240307": Claude,
+                "claude-sonnet-4-20250514": Claude,  # ✅ Modelo mais recente
+                "claude-3-7-sonnet-latest": Claude
             },
             "groq": {
                 "llama-3.3-70b-versatile": Groq,
@@ -171,6 +178,7 @@ class RealAgnoService:
             if not os.getenv("GROQ_API_KEY"):
                 raise ValueError("GROQ_API_KEY não configurada")
 
+        # ✅ CORREÇÃO: Usar parâmetro 'id' em vez de 'model' para todos os provedores
         return model_class(id=model_id, **model_kwargs)
 
     def create_tool_instance(self, tool_name: str, config: Dict[str, Any] = None) -> Any:
@@ -243,11 +251,11 @@ class RealAgnoService:
                 except Exception as e:
                     logger.warning(f"⚠️ Erro ao carregar ferramenta {tool_name}: {e}")
 
-        # Configurar agente
+        # ✅ CORREÇÃO: Configurar agente com parâmetros corretos do Agno
         agent_params = {
             "model": model,
             "tools": tool_instances,
-            "instructions": instructions if isinstance(instructions, list) else [instructions],
+            "instructions": instructions if isinstance(instructions, list) else [str(instructions)],
             "description": description,
             "name": name,
             "show_tool_calls": True,
@@ -288,6 +296,7 @@ class RealAgnoService:
                 # Executar tarefa
                 logger.info(f"🚀 Executando prompt: {prompt[:100]}...")
 
+                # ✅ CORREÇÃO: Usar método run() do Agno corretamente
                 response = agent.run(prompt)
                 execution_time = int((time.time() - start_time) * 1000)
 
@@ -328,14 +337,29 @@ class RealAgnoService:
         try:
             logger.info(f"🔄 Iniciando streaming para prompt: {prompt[:50]}...")
 
-            # Usar o método de streaming do Agno se disponível
-            if hasattr(agent, 'stream_run'):
-                for chunk in agent.stream_run(prompt):
+            # ✅ CORREÇÃO: Usar método de streaming correto do Agno
+            if hasattr(agent, 'stream'):
+                # Método preferido para streaming
+                for chunk in agent.stream(prompt):
                     yield {
                         "type": "chunk",
                         "content": str(chunk),
                         "timestamp": datetime.utcnow().isoformat()
                     }
+            elif hasattr(agent, 'print_response'):
+                # Alternativa usando print_response com stream=True
+                response = agent.run(prompt, stream=True)
+                content = response.content if hasattr(response, 'content') else str(response)
+
+                # Simular chunks
+                words = content.split()
+                for i, word in enumerate(words):
+                    yield {
+                        "type": "chunk",
+                        "content": word + " ",
+                        "progress": f"{i + 1}/{len(words)}"
+                    }
+                    time.sleep(0.05)  # Simular delay
             else:
                 # Fallback: executar normal e simular streaming
                 response = agent.run(prompt)
@@ -405,7 +429,7 @@ class RealAgnoService:
             if tool_name == "duckduckgo":
                 result = tool_instance.search("python programming")
             elif tool_name == "yfinance":
-                result = tool_instance.get_stock_price("AAPL")
+                result = tool_instance.get_current_stock_price("AAPL")
             elif tool_name == "calculator":
                 result = tool_instance.add(2, 3)
             elif tool_name == "reasoning":
