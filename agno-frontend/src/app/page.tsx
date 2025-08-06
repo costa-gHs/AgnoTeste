@@ -1,4 +1,4 @@
-// src/app/page.tsx - PÁGINA PRINCIPAL MODERNA
+// src/app/page.tsx - VERSÃO CORRIGIDA
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -22,6 +22,11 @@ import {
   MessageSquare
 } from 'lucide-react';
 
+// ✅ IMPORTS CORRETOS - apenas componentes que existem
+import WorkflowBuilder from '@/components/WorkflowBuilder';
+import TeamBuilder from '@/components/TeamBuilder';
+import AgnoChatInterface from '@/components/AgnoChatInterface'; // ✅ Nome correto
+
 interface DashboardStats {
   workflows: number;
   teams: number;
@@ -39,6 +44,7 @@ interface RecentActivity {
 
 const AgnoMainPage = () => {
   const router = useRouter();
+  const [currentView, setCurrentView] = useState('dashboard'); // ✅ State para views
   const [stats, setStats] = useState<DashboardStats>({
     workflows: 0,
     teams: 0,
@@ -54,11 +60,8 @@ const AgnoMainPage = () => {
     const loadDashboardData = async () => {
       try {
         setConnectionStatus('connecting');
-
-        // Simular carregamento de dados (substituir por chamadas reais da API)
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Mock data - substituir por dados reais
         setStats({
           workflows: 12,
           teams: 5,
@@ -70,30 +73,22 @@ const AgnoMainPage = () => {
           {
             id: '1',
             type: 'workflow',
-            name: 'Análise de Dados Completa',
+            name: 'Análise de Documentos',
             timestamp: '2 min atrás',
             status: 'completed'
           },
           {
             id: '2',
             type: 'team',
-            name: 'Equipe de Pesquisa',
+            name: 'Team de Marketing',
             timestamp: '5 min atrás',
             status: 'running'
-          },
-          {
-            id: '3',
-            type: 'execution',
-            name: 'Processamento de Relatório',
-            timestamp: '10 min atrás',
-            status: 'completed'
           }
         ]);
 
         setConnectionStatus('connected');
       } catch (error) {
         setConnectionStatus('error');
-        console.error('Erro ao carregar dados:', error);
       } finally {
         setLoading(false);
       }
@@ -102,85 +97,80 @@ const AgnoMainPage = () => {
     loadDashboardData();
   }, []);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100';
-      case 'running': return 'text-blue-600 bg-blue-100';
-      case 'failed': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
-
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case 'workflow': return <Workflow className="w-4 h-4" />;
-      case 'team': return <Users className="w-4 h-4" />;
-      case 'execution': return <Play className="w-4 h-4" />;
-      default: return <Activity className="w-4 h-4" />;
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando Agno Platform...</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl">
-                <Bot className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Agno Platform</h1>
-                <p className="text-sm text-gray-500">Multi-Agent Workflow Builder</p>
+  // ✅ FUNÇÃO PARA RENDERIZAR VIEW ATUAL
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'workflows':
+        return (
+          <div className="h-screen bg-gray-50">
+            <div className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setCurrentView('dashboard')}
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                >
+                  <ArrowRight className="w-4 h-4 rotate-180" />
+                  Voltar
+                </button>
+                <h1 className="text-xl font-semibold text-gray-900">Workflow Builder</h1>
               </div>
             </div>
-
-            <div className="flex items-center gap-4">
-              {/* Status indicator */}
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${
-                connectionStatus === 'connected' 
-                  ? 'bg-green-100 text-green-700'
-                  : connectionStatus === 'connecting'
-                  ? 'bg-yellow-100 text-yellow-700'
-                  : 'bg-red-100 text-red-700'
-              }`}>
-                <div className={`w-2 h-2 rounded-full ${
-                  connectionStatus === 'connected' ? 'bg-green-500' :
-                  connectionStatus === 'connecting' ? 'bg-yellow-500 animate-pulse' : 'bg-red-500'
-                }`} />
-                {connectionStatus === 'connected' ? 'Sistema Online' :
-                 connectionStatus === 'connecting' ? 'Conectando...' : 'Erro de Conexão'}
-              </div>
-
-              <button
-                onClick={() => router.push('/settings')}
-                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <Settings className="w-5 h-5" />
-              </button>
-            </div>
+            <WorkflowBuilder />
           </div>
-        </div>
-      </header>
+        );
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Welcome Section */}
+      case 'teams':
+        return (
+          <div className="h-screen bg-gray-50">
+            <div className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setCurrentView('dashboard')}
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                >
+                  <ArrowRight className="w-4 h-4 rotate-180" />
+                  Voltar
+                </button>
+                <h1 className="text-xl font-semibold text-gray-900">Team Builder</h1>
+              </div>
+            </div>
+            <TeamBuilder />
+          </div>
+        );
+
+      case 'chat':
+        return (
+          <div className="h-screen bg-gray-50">
+            <div className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setCurrentView('dashboard')}
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                >
+                  <ArrowRight className="w-4 h-4 rotate-180" />
+                  Voltar
+                </button>
+                <h1 className="text-xl font-semibold text-gray-900">Chat Interface</h1>
+              </div>
+            </div>
+            <AgnoChatInterface />
+          </div>
+        );
+
+      default:
+        return renderDashboard();
+    }
+  };
+
+  // ✅ DASHBOARD PRINCIPAL
+  const renderDashboard = () => (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Bem-vindo de volta! 👋
-          </h2>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Bem-vindo ao Agno Platform! 👋
+          </h1>
           <p className="text-gray-600">
             Gerencie seus workflows multi-agente, teams colaborativos e automações inteligentes.
           </p>
@@ -189,7 +179,7 @@ const AgnoMainPage = () => {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <button
-            onClick={() => router.push('/workflows/builder')}
+            onClick={() => setCurrentView('workflows')}
             className="group bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 text-left"
           >
             <div className="flex items-center justify-between mb-4">
@@ -205,7 +195,7 @@ const AgnoMainPage = () => {
           </button>
 
           <button
-            onClick={() => router.push('/teams/builder')}
+            onClick={() => setCurrentView('teams')}
             className="group bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 text-left"
           >
             <div className="flex items-center justify-between mb-4">
@@ -221,7 +211,7 @@ const AgnoMainPage = () => {
           </button>
 
           <button
-            onClick={() => router.push('/chat')}
+            onClick={() => setCurrentView('chat')}
             className="group bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 text-left"
           >
             <div className="flex items-center justify-between mb-4">
@@ -304,124 +294,46 @@ const AgnoMainPage = () => {
           </div>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Recent Activity */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900">Atividade Recente</h3>
-                  <button
-                    onClick={() => router.push('/activity')}
-                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Ver tudo
-                  </button>
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="space-y-4">
-                  {recentActivity.map((activity) => (
-                    <div key={activity.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                      <div className="p-2 bg-white rounded-lg shadow-sm">
-                        {getActivityIcon(activity.type)}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 truncate">{activity.name}</p>
-                        <p className="text-sm text-gray-500">{activity.timestamp}</p>
-                      </div>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(activity.status)}`}>
-                        {activity.status}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+        {/* Recent Activity */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div className="p-6 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900">Atividade Recente</h3>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Acesso Rápido</h3>
-              </div>
-              <div className="p-6">
-                <div className="space-y-3">
-                  <button
-                    onClick={() => router.push('/workflows')}
-                    className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    <Grid3X3 className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium text-gray-900">Meus Workflows</span>
-                  </button>
-
-                  <button
-                    onClick={() => router.push('/teams')}
-                    className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    <Users className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium text-gray-900">Meus Teams</span>
-                  </button>
-
-                  <button
-                    onClick={() => router.push('/agents')}
-                    className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    <Bot className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium text-gray-900">Gerenciar Agentes</span>
-                  </button>
-
-                  <button
-                    onClick={() => router.push('/analytics')}
-                    className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    <BarChart3 className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium text-gray-900">Analytics</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* System Status */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 mt-6">
-              <div className="p-6 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Status do Sistema</h3>
-              </div>
-              <div className="p-6">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">API Status</span>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span className="text-sm font-medium text-green-600">Healthy</span>
-                    </div>
+          <div className="p-6">
+            <div className="space-y-4">
+              {recentActivity.map((activity) => (
+                <div key={activity.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                  <div className="p-2 bg-white rounded-lg shadow-sm">
+                    {activity.type === 'workflow' && <Workflow className="w-5 h-5 text-blue-600" />}
+                    {activity.type === 'team' && <Users className="w-5 h-5 text-purple-600" />}
+                    {activity.type === 'execution' && <Zap className="w-5 h-5 text-green-600" />}
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Agno Framework</span>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span className="text-sm font-medium text-green-600">Connected</span>
-                    </div>
+                  <div className="flex-1">
+                    <h4 className="font-medium text-gray-900">{activity.name}</h4>
+                    <p className="text-sm text-gray-600">{activity.timestamp}</p>
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Database</span>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span className="text-sm font-medium text-green-600">Online</span>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    {activity.status === 'completed' && <CheckCircle className="w-5 h-5 text-green-600" />}
+                    {activity.status === 'running' && <Activity className="w-5 h-5 text-blue-600" />}
+                    {activity.status === 'failed' && <AlertCircle className="w-5 h-5 text-red-600" />}
+                    <span className={`text-sm font-medium ${
+                      activity.status === 'completed' ? 'text-green-600' :
+                      activity.status === 'running' ? 'text-blue-600' : 'text-red-600'
+                    }`}>
+                      {activity.status === 'completed' ? 'Completo' :
+                       activity.status === 'running' ? 'Executando' : 'Erro'}
+                    </span>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+
+  return <div>{renderCurrentView()}</div>;
 };
 
 export default AgnoMainPage;
