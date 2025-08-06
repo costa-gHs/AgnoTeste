@@ -20,7 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel, Field
-
+from backend.routes import agents
 # Database imports
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base

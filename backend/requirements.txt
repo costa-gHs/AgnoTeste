@@ -39,3 +39,9 @@ prometheus_client
 agno[anthropic,openai,groq,yfinance,ddg,reasoning]
 aiofiles
 slowapi
+chromadb
+PyPDF2
+python-docx
+python-magic
+tenacity
+numpy
