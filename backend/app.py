@@ -25,8 +25,9 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import text as sa_text
 import sqlalchemy as sa
-
-from routers.agno_services import get_real_agno_service  # garante import do Real Agno
+from routers.workflow_team_router import router as workflow_team_router
+from backend.services.workflow_team_service import workflow_team_service
+from backend.routers.agno_services import get_real_agno_service  # garante import do Real Agno
 import json
 
 # Environment
@@ -291,7 +292,11 @@ app.add_middleware(
     allowed_hosts=["localhost", "127.0.0.1", "*.localhost", "*"]
 )
 
-
+app.include_router(
+    workflow_team_router,
+    prefix="/api/v1",
+    tags=["Workflow & Team Builder"]
+)
 # =============================================
 # ROTAS PRINCIPAIS
 # =============================================
