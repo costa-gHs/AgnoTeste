@@ -5621,3 +5621,35 @@ To install, run: pip install email-validator
 2025-08-06 18:07:06,391 - app - [INFO] - 🚀============================================================
 2025-08-06 18:07:54,129 - app - [INFO] - 🛑 Encerrando Agno Platform...
 2025-08-06 18:07:54,133 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-06 18:47:32,866 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-06 18:47:38,099 - app - [INFO] - ✅ Agno framework disponível
+2025-08-06 18:47:38,144 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-06 18:47:38,194 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-06 18:47:38,197 - app - [INFO] - 🚀============================================================
+2025-08-06 18:47:38,197 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.0
+2025-08-06 18:47:38,199 - app - [INFO] - 🚀============================================================
+2025-08-06 18:47:38,199 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-06 18:47:38,367 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-06 18:47:38,368 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-06 18:47:38,369 - app - [INFO] - ⏱️ Inicialização completada em 0.17s
+2025-08-06 18:47:38,369 - app - [INFO] - 🚀============================================================
+2025-08-06 18:53:15,921 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-06 18:53:15,927 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-06 19:11:46,342 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-06 19:11:52,609 - app - [INFO] - ✅ Agno framework disponível
+2025-08-06 19:11:52,658 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-06 19:11:52,695 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-06 19:11:52,699 - app - [INFO] - 🚀============================================================
+2025-08-06 19:11:52,700 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.0
+2025-08-06 19:11:52,701 - app - [INFO] - 🚀============================================================
+2025-08-06 19:11:52,702 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-06 19:11:52,829 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-06 19:11:52,830 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-06 19:11:52,831 - app - [INFO] - ⏱️ Inicialização completada em 0.13s
+2025-08-06 19:11:52,831 - app - [INFO] - 🚀============================================================
+2025-08-06 19:13:33,911 - app - [WARNING] - 🐌 GET /api/workflows - 404 - 0.001s
+2025-08-06 19:13:33,916 - app - [WARNING] - 🐌 GET /api/workflows - 404 - 0.001s
+2025-08-06 19:13:33,930 - app - [INFO] - 📋 Listados 8 agentes (total: 8) para usuário 1
+2025-08-06 19:13:33,940 - app - [INFO] - 📋 Listados 8 agentes (total: 8) para usuário 1
+2025-08-06 20:57:26,081 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-06 20:57:26,185 - app - [INFO] - ✅ Conexões fechadas com sucesso

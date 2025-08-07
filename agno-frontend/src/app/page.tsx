@@ -1,423 +1,393 @@
-"use client";
-import React, { useState, useEffect } from 'react';
-import {
-  Bot,
-  Workflow,
-  Users,
-  Zap,
-  BarChart3,
-  Settings,
-  Play,
-  Plus,
-  ArrowRight,
-  Activity,
-  Clock,
-  CheckCircle,
-  TrendingUp,
-  Sparkles,
-  Grid3X3,
-  MessageSquare,
-  Brain,
-  Database,
-  Globe,
-  Shield,
-  Layers,
-  Target,
-  GitBranch,
-  FileText,
-  Search,
-  Mic,
-  Image,
-  Code,
-  Calendar,
-  Mail,
-  Phone,
-  Cpu
-} from 'lucide-react';
+ "use client";
 
-interface DashboardStats {
-  workflows: number;
-  teams: number;
-  agents: number;
-  executions_today: number;
-  success_rate: number;
-  avg_response_time: number;
-}
+ import React, { useState, useEffect } from 'react';
+ import {
+   Bot,
+   Workflow,
+   Users,
+   Zap,
+   BarChart3,
+   Settings,
+   Play,
+   Plus,
+   ArrowRight,
+   Activity,
+   Clock,
+   CheckCircle,
+   TrendingUp,
+   Sparkles,
+   Grid3X3,
+   MessageSquare,
+   Brain,
+   Database,
+   Globe,
+   Shield,
+   Layers,
+   Target,
+   GitBranch,
+   FileText,
+   Search,
+   Mic,
+   Image,
+   Code,
+   Calendar,
+   Mail,
+   Phone,
+   Cpu,
+   AlertCircle,
+   Download
+ } from 'lucide-react';
 
-interface RecentActivity {
-  id: string;
-  type: 'workflow' | 'team' | 'execution' | 'agent';
-  name: string;
-  timestamp: string;
-  status: 'completed' | 'running' | 'failed';
-  details?: string;
-}
+ import EnhancedWorkflowBuilder from '../components/EnhancedWorkflowBuilder';
+ import AgnoManagementInterface from '../components/AgnoManagementInterface';
+ import AgnoChatInterface from '../components/AgnoChatInterface';
 
-interface Tool {
-  name: string;
-  icon: React.ReactNode;
-  description: string;
-  category: string;
-}
+ interface DashboardStats {
+   workflows: number;
+   teams: number;
+   agents: number;
+   executions_today: number;
+   success_rate: number;
+   avg_response_time: number;
+ }
 
-const AgnoModernHomepage = () => {
-  const [currentView, setCurrentView] = useState('dashboard');
-  const [stats, setStats] = useState<DashboardStats>({
-    workflows: 24,
-    teams: 8,
-    agents: 45,
-    executions_today: 156,
-    success_rate: 94.2,
-    avg_response_time: 2.8
-  });
+ interface RecentActivity {
+   id: string;
+   type: 'workflow' | 'team' | 'execution' | 'agent';
+   name: string;
+   timestamp: string;
+   status: 'completed' | 'running' | 'failed';
+   details?: string;
+ }
 
-  const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([
-    {
-      id: '1',
-      type: 'workflow',
-      name: 'Análise de Sentimentos de Reviews',
-      timestamp: '2 min atrás',
-      status: 'completed',
-      details: 'Processou 2.3k reviews'
-    },
-    {
-      id: '2',
-      type: 'team',
-      name: 'Time de Customer Success',
-      timestamp: '15 min atrás',
-      status: 'running',
-      details: 'Atendendo 12 tickets'
-    },
-    {
-      id: '3',
-      type: 'agent',
-      name: 'Assistente de Vendas Pro',
-      timestamp: '1 hora atrás',
-      status: 'completed',
-      details: 'Lead qualificado com sucesso'
-    }
-  ]);
+ interface Tool {
+   name: string;
+   icon: React.ReactNode;
+   description: string;
+   category: string;
+ }
 
-  const [availableTools] = useState<Tool[]>([
-    { name: 'Web Search', icon: <Search className="w-5 h-5" />, description: 'Busca em tempo real na internet', category: 'data' },
-    { name: 'Database Query', icon: <Database className="w-5 h-5" />, description: 'Consultas SQL inteligentes', category: 'data' },
-    { name: 'Email Processing', icon: <Mail className="w-5 h-5" />, description: 'Análise e resposta de emails', category: 'communication' },
-    { name: 'Calendar Management', icon: <Calendar className="w-5 h-5" />, description: 'Agendamento inteligente', category: 'productivity' },
-    { name: 'Code Generation', icon: <Code className="w-5 h-5" />, description: 'Geração de código em múltiplas linguagens', category: 'development' },
-    { name: 'Image Analysis', icon: <Image className="w-5 h-5" />, description: 'Processamento e análise de imagens', category: 'media' },
-    { name: 'Voice Processing', icon: <Mic className="w-5 h-5" />, description: 'Transcrição e síntese de voz', category: 'media' },
-    { name: 'API Integration', icon: <Globe className="w-5 h-5" />, description: 'Integração com APIs externas', category: 'integration' }
-  ]);
+ /**
+  * Página principal da aplicação. Nesta versão o estado `currentView` controla
+  * qual módulo da aplicação deve ser exibido. Os cartões de ação chamam
+  * setCurrentView() dentro de um manipulador de clique (`onClick`), e abaixo
+  * há uma renderização condicional do componente correspondente.
+  */
+ const AgnoModernHomepage: React.FC = () => {
+   const [currentView, setCurrentView] = useState<'dashboard' | 'workflow' | 'team' | 'chat'>('dashboard');
+   const [stats, setStats] = useState<DashboardStats>({
+     workflows: 24,
+     teams: 8,
+     agents: 45,
+     executions_today: 156,
+     success_rate: 94.2,
+     avg_response_time: 2.8
+   });
 
-  // Simulação de dados em tempo real
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStats(prev => ({
-        ...prev,
-        executions_today: prev.executions_today + Math.floor(Math.random() * 3),
-        success_rate: 90 + Math.random() * 8,
-        avg_response_time: 1.5 + Math.random() * 2
-      }));
-    }, 5000);
+   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([
+     {
+       id: '1',
+       type: 'workflow',
+       name: 'Análise de Sentimentos de Reviews',
+       timestamp: '2 min atrás',
+       status: 'completed',
+       details: 'Processou 2.3k reviews'
+     },
+     {
+       id: '2',
+       type: 'team',
+       name: 'Time de Customer Success',
+       timestamp: '15 min atrás',
+       status: 'running',
+       details: 'Atendendo 12 tickets'
+     },
+     {
+       id: '3',
+       type: 'agent',
+       name: 'Assistente de Vendas Pro',
+       timestamp: '1 hora atrás',
+       status: 'completed',
+       details: 'Lead qualificado com sucesso'
+     }
+   ]);
 
-    return () => clearInterval(interval);
-  }, []);
+   const [availableTools] = useState<Tool[]>([
+     { name: 'Web Search', icon: <Search className="w-6 h-6" />, description: 'Busca em tempo real na internet', category: 'data' },
+     { name: 'Database Query', icon: <Database className="w-6 h-6" />, description: 'Consultas SQL inteligentes', category: 'data' },
+     { name: 'Email Processing', icon: <Mail className="w-6 h-6" />, description: 'Análise e resposta de emails', category: 'communication' },
+     { name: 'Calendar Management', icon: <Calendar className="w-6 h-6" />, description: 'Agendamento inteligente', category: 'productivity' },
+     { name: 'Code Generation', icon: <Code className="w-6 h-6" />, description: 'Geração de código em múltiplas linguagens', category: 'development' },
+     { name: 'Image Analysis', icon: <Image className="w-6 h-6" />, description: 'Processamento e análise de imagens', category: 'media' },
+     { name: 'Voice Processing', icon: <Mic className="w-6 h-6" />, description: 'Transcrição e síntese de voz', category: 'media' },
+     { name: 'API Integration', icon: <Globe className="w-6 h-6" />, description: 'Integração com APIs externas', category: 'integration' }
+   ]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100';
-      case 'running': return 'text-blue-600 bg-blue-100';
-      case 'failed': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
+   // Atualiza métricas a cada 5 segundos para simular dados em tempo real
+   useEffect(() => {
+     const interval = setInterval(() => {
+       setStats(prev => ({
+         ...prev,
+         executions_today: prev.executions_today + Math.floor(Math.random() * 3),
+         success_rate: 90 + Math.random() * 8,
+         avg_response_time: 1.5 + Math.random() * 2
+       }));
+     }, 5000);
+     return () => clearInterval(interval);
+   }, []);
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed': return <CheckCircle className="w-4 h-4" />;
-      case 'running': return <Activity className="w-4 h-4 animate-pulse" />;
-      case 'failed': return <AlertCircle className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
-    }
-  };
+   const getStatusColor = (status: string) => {
+     switch (status) {
+       case 'completed': return 'text-green-600 bg-green-100';
+       case 'running': return 'text-blue-600 bg-blue-100';
+       case 'failed': return 'text-red-600 bg-red-100';
+       default: return 'text-gray-600 bg-gray-100';
+     }
+   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-xl">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Agno Platform</h1>
-                <p className="text-xs text-gray-600">Multi-Agent AI Platform</p>
-              </div>
-            </div>
+   const getStatusIcon = (status: string) => {
+     switch (status) {
+       case 'completed': return <CheckCircle className="w-4 h-4 text-green-600" />;
+       case 'running': return <Activity className="w-4 h-4 text-blue-600" />;
+       case 'failed': return <AlertCircle className="w-4 h-4 text-red-600" />;
+       default: return <Clock className="w-4 h-4 text-gray-600" />;
+     }
+   };
 
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                Sistema Online
-              </div>
-              <button className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors">
-                <Settings className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+   // Renderização condicional: mostra a view correta conforme currentView
+   if (currentView === 'workflow') {
+     return (
+       <div className="p-4">
+         <button
+           onClick={() => setCurrentView('dashboard')}
+           className="mb-4 text-blue-600 underline"
+         >
+           ← Voltar ao dashboard
+         </button>
+         <EnhancedWorkflowBuilder
+           agents={[]}
+           templates={[]}
+           onSaveWorkflow={async () => Promise.resolve('')}
+           onExecuteWorkflow={async () => Promise.resolve('')}
+           onLoadTemplate={async () => Promise.resolve('')}
+         />
+       </div>
+     );
+   }
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Section */}
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Bem-vindo ao futuro da
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> IA Multi-Agente</span>
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Crie, gerencie e orquestre workflows inteligentes com agentes especializados,
-            ferramentas avançadas e RAG integrado para automatizar qualquer processo.
-          </p>
-        </div>
+   if (currentView === 'team') {
+     return (
+       <div className="p-4">
+         <button
+           onClick={() => setCurrentView('dashboard')}
+           className="mb-4 text-blue-600 underline"
+         >
+           ← Voltar ao dashboard
+         </button>
+         <AgnoManagementInterface />
+       </div>
+     );
+   }
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-blue-100 rounded-xl">
-                <Workflow className="w-6 h-6 text-blue-600" />
-              </div>
-              <span className="text-2xl font-bold text-gray-900">{stats.workflows}</span>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-1">Workflows Ativos</h3>
-            <p className="text-sm text-gray-600">+12% este mês</p>
-          </div>
+   if (currentView === 'chat') {
+     return (
+       <div className="p-4">
+         <button
+           onClick={() => setCurrentView('dashboard')}
+           className="mb-4 text-blue-600 underline"
+         >
+           ← Voltar ao dashboard
+         </button>
+         <AgnoChatInterface />
+       </div>
+     );
+   }
 
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-green-100 rounded-xl">
-                <Users className="w-6 h-6 text-green-600" />
-              </div>
-              <span className="text-2xl font-bold text-gray-900">{stats.teams}</span>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-1">Teams Colaborativos</h3>
-            <p className="text-sm text-gray-600">+3 novos hoje</p>
-          </div>
+   // Dashboard principal
+   return (
+     <div className="p-8 space-y-16">
+       {/* Cabeçalho */}
+       <header className="flex flex-col items-center space-y-4 text-center">
+         <h1 className="text-4xl font-bold">Agno Platform</h1>
+         <p className="text-gray-600">Multi-Agent AI Platform</p>
+         <span className="inline-block px-3 py-1 text-sm font-medium text-green-700 bg-green-100 rounded-full">
+           Sistema Online
+         </span>
+       </header>
 
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-purple-100 rounded-xl">
-                <Bot className="w-6 h-6 text-purple-600" />
-              </div>
-              <span className="text-2xl font-bold text-gray-900">{stats.agents}</span>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-1">Assistentes IA</h3>
-            <p className="text-sm text-gray-600">Múltiplos modelos</p>
-          </div>
+       {/* Seção Hero */}
+       <section className="text-center max-w-3xl mx-auto space-y-4">
+         <h2 className="text-3xl font-semibold">
+           Bem-vindo ao futuro da&nbsp;
+           <span className="text-blue-600">IA Multi‑Agente</span>
+         </h2>
+         <p className="text-lg text-gray-700">
+           Crie, gerencie e orquestre workflows inteligentes com agentes especializados,
+           ferramentas avançadas e RAG integrado para automatizar qualquer processo.
+         </p>
+       </section>
 
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-orange-100 rounded-xl">
-                <Zap className="w-6 h-6 text-orange-600" />
-              </div>
-              <span className="text-2xl font-bold text-gray-900">{stats.executions_today}</span>
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-1">Execuções Hoje</h3>
-            <p className="text-sm text-gray-600">{stats.success_rate.toFixed(1)}% sucesso</p>
-          </div>
-        </div>
+       {/* Cards de métricas */}
+       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+         <div className="p-4 bg-white rounded-xl shadow flex flex-col items-center">
+           <Workflow className="w-6 h-6 text-blue-600 mb-2" />
+           <span className="text-2xl font-semibold">{stats.workflows}</span>
+           <span className="text-gray-500">Workflows Ativos</span>
+           <span className="text-sm text-green-600">+12% este mês</span>
+         </div>
+         <div className="p-4 bg-white rounded-xl shadow flex flex-col items-center">
+           <Users className="w-6 h-6 text-green-600 mb-2" />
+           <span className="text-2xl font-semibold">{stats.teams}</span>
+           <span className="text-gray-500">Teams Colaborativos</span>
+           <span className="text-sm text-green-600">+3 novos hoje</span>
+         </div>
+         <div className="p-4 bg-white rounded-xl shadow flex flex-col items-center">
+           <Bot className="w-6 h-6 text-purple-600 mb-2" />
+           <span className="text-2xl font-semibold">{stats.agents}</span>
+           <span className="text-gray-500">Assistentes IA</span>
+           <span className="text-sm text-gray-500">Múltiplos modelos</span>
+         </div>
+         <div className="p-4 bg-white rounded-xl shadow flex flex-col items-center">
+           <Activity className="w-6 h-6 text-pink-600 mb-2" />
+           <span className="text-2xl font-semibold">{stats.executions_today}</span>
+           <span className="text-gray-500">Execuções Hoje</span>
+           <span className="text-sm text-gray-500">{stats.success_rate.toFixed(1)}% sucesso</span>
+         </div>
+       </section>
 
-        {/* Main Action Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Workflow Builder */}
-          <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl p-8 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-            <div className="relative z-10">
-              <Workflow className="w-12 h-12 mb-6" />
-              <h2 className="text-2xl font-bold mb-3">Workflow Builder</h2>
-              <p className="text-blue-100 mb-6">
-                Crie automações complexas com múltiplos agentes, condições e ferramentas integradas.
-              </p>
-              <button
-                onClick={() => setCurrentView('workflow')}
-                className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2"
-              >
-                Criar Workflow
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+       {/* Cartões principais de ação */}
+       <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+         <div className="p-6 bg-white rounded-xl shadow space-y-4">
+           <div className="flex items-center gap-3">
+             <GitBranch className="w-8 h-8 text-blue-600" />
+             <h3 className="text-xl font-semibold">Workflow Builder</h3>
+           </div>
+           <p className="text-gray-600">
+             Crie automações complexas com múltiplos agentes, condições e ferramentas integradas.
+           </p>
+           <button
+             onClick={() => setCurrentView('workflow')}
+             className="flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
+           >
+             <Plus className="w-4 h-4" />
+             Criar Workflow
+           </button>
+         </div>
 
-          {/* Team Builder */}
-          <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-8 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-            <div className="relative z-10">
-              <Users className="w-12 h-12 mb-6" />
-              <h2 className="text-2xl font-bold mb-3">Team Builder</h2>
-              <p className="text-green-100 mb-6">
-                Monte equipes de agentes especializados que trabalham em colaboração.
-              </p>
-              <button
-                onClick={() => setCurrentView('team')}
-                className="bg-white text-green-600 px-6 py-3 rounded-xl font-semibold hover:bg-green-50 transition-colors flex items-center gap-2"
-              >
-                Montar Team
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+         <div className="p-6 bg-white rounded-xl shadow space-y-4">
+           <Users className="w-8 h-8 text-green-600" />
+           <h3 className="text-xl font-semibold">Team Builder</h3>
+           <p className="text-gray-600">
+             Monte equipes de agentes especializados que trabalham em colaboração.
+           </p>
+           <button
+             onClick={() => setCurrentView('team')}
+             className="flex items-center gap-2 bg-white text-green-600 px-6 py-3 rounded-xl font-semibold hover:bg-green-50 transition-colors"
+           >
+             <Plus className="w-4 h-4" />
+             Montar Team
+           </button>
+         </div>
 
-          {/* Chat Interface */}
-          <div className="bg-gradient-to-br from-purple-500 to-violet-600 rounded-3xl p-8 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-            <div className="relative z-10">
-              <MessageSquare className="w-12 h-12 mb-6" />
-              <h2 className="text-2xl font-bold mb-3">Chat Interface</h2>
-              <p className="text-purple-100 mb-6">
-                Converse diretamente com seus agentes e veja ferramentas em ação em tempo real.
-              </p>
-              <button
-                onClick={() => setCurrentView('chat')}
-                className="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold hover:bg-purple-50 transition-colors flex items-center gap-2"
-              >
-                Iniciar Chat
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
+         <div className="p-6 bg-white rounded-xl shadow space-y-4">
+           <MessageSquare className="w-8 h-8 text-purple-600" />
+           <h3 className="text-xl font-semibold">Chat Interface</h3>
+           <p className="text-gray-600">
+             Converse diretamente com seus agentes e veja ferramentas em ação em tempo real.
+           </p>
+           <button
+             onClick={() => setCurrentView('chat')}
+             className="flex items-center gap-2 bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold hover:bg-purple-50 transition-colors"
+           >
+             <Plus className="w-4 h-4" />
+             Iniciar Chat
+           </button>
+         </div>
+       </section>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Performance Metrics */}
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Performance em Tempo Real</h2>
-              <BarChart3 className="w-6 h-6 text-gray-600" />
-            </div>
+       {/* Performance em Tempo Real */}
+       <section className="mt-12 space-y-6">
+         <h3 className="text-2xl font-semibold">Performance em Tempo Real</h3>
+         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+           <div className="p-4 bg-white rounded-xl shadow">
+             <span className="text-sm font-medium text-gray-600">Taxa de Sucesso</span>
+             <div className="text-3xl font-semibold">{stats.success_rate.toFixed(1)}%</div>
+           </div>
+           <div className="p-4 bg-white rounded-xl shadow">
+             <span className="text-sm font-medium text-gray-600">Tempo Médio de Resposta</span>
+             <div className="text-3xl font-semibold">{stats.avg_response_time.toFixed(1)}s</div>
+           </div>
+           <div className="p-4 bg-white rounded-xl shadow">
+             <span className="text-sm font-medium text-gray-600">Uptime do Sistema</span>
+             <div className="text-3xl font-semibold">99.9%</div>
+           </div>
+         </div>
+       </section>
 
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Taxa de Sucesso</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-green-500 transition-all duration-500"
-                      style={{ width: `${stats.success_rate}%` }}
-                    ></div>
-                  </div>
-                  <span className="text-sm font-medium text-gray-900">{stats.success_rate.toFixed(1)}%</span>
-                </div>
-              </div>
+       {/* Atividade Recente */}
+       <section className="mt-12 space-y-4">
+         <h3 className="text-2xl font-semibold">Atividade Recente</h3>
+         <ul className="space-y-3">
+           {recentActivity.map(activity => (
+             <li
+               key={activity.id}
+               className={`flex items-center justify-between p-3 rounded-lg ${getStatusColor(activity.status)}`}
+             >
+               <div className="flex items-center gap-2">
+                 {getStatusIcon(activity.status)}
+                 <div className="font-medium">{activity.name}</div>
+               </div>
+               <div className="text-sm text-gray-600">
+                 {activity.details} — {activity.timestamp}
+               </div>
+             </li>
+           ))}
+         </ul>
+         <button className="text-blue-600 underline mt-2">Ver todas as atividades →</button>
+       </section>
 
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Tempo Médio de Resposta</span>
-                <span className="text-sm font-medium text-gray-900">{stats.avg_response_time.toFixed(1)}s</span>
-              </div>
+       {/* Ferramentas disponíveis */}
+       <section className="mt-12 space-y-4">
+         <h3 className="text-2xl font-semibold">Ferramentas Disponíveis</h3>
+         <p className="text-gray-600">50+ ferramentas integradas</p>
+         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
+           {availableTools.map(tool => (
+             <div key={tool.name} className="p-4 bg-white rounded-lg shadow flex flex-col items-center space-y-2">
+               {tool.icon}
+               <span className="font-medium">{tool.name}</span>
+               <span className="text-sm text-gray-600">{tool.description}</span>
+             </div>
+           ))}
+         </div>
+       </section>
 
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Uptime do Sistema</span>
-                <span className="text-sm font-medium text-green-600">99.9%</span>
-              </div>
-            </div>
-          </div>
+       {/* Ações rápidas */}
+       <section className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
+         <div className="p-6 bg-white rounded-xl shadow flex flex-col space-y-2">
+           <Plus className="w-6 h-6 text-blue-600" />
+           <h4 className="font-semibold">Criar Novo Agente</h4>
+           <p className="text-sm text-gray-600">Configure um assistente especializado</p>
+           <button
+             onClick={() => setCurrentView('team')}
+             className="mt-2 text-blue-600 underline"
+           >
+             Começar
+           </button>
+         </div>
+         <div className="p-6 bg-white rounded-xl shadow flex flex-col space-y-2">
+           <Download className="w-6 h-6 text-green-600" />
+           <h4 className="font-semibold">Importar Template</h4>
+           <p className="text-sm text-gray-600">Use templates pré-configurados</p>
+           <button className="mt-2 text-green-600 underline">Importar</button>
+         </div>
+         <div className="p-6 bg-white rounded-xl shadow flex flex-col space-y-2">
+           <BarChart3 className="w-6 h-6 text-purple-600" />
+           <h4 className="font-semibold">Ver Analytics</h4>
+           <p className="text-sm text-gray-600">Métricas detalhadas de performance</p>
+           <button className="mt-2 text-purple-600 underline">Ver Métricas</button>
+         </div>
+       </section>
+     </div>
+   );
+ };
 
-          {/* Recent Activity */}
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Atividade Recente</h2>
-              <Activity className="w-6 h-6 text-gray-600" />
-            </div>
-
-            <div className="space-y-4">
-              {recentActivity.map((activity) => (
-                <div key={activity.id} className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${getStatusColor(activity.status)}`}>
-                    {getStatusIcon(activity.status)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {activity.name}
-                    </p>
-                    <p className="text-xs text-gray-600">{activity.details}</p>
-                  </div>
-                  <span className="text-xs text-gray-500">{activity.timestamp}</span>
-                </div>
-              ))}
-            </div>
-
-            <button className="w-full mt-4 text-sm text-blue-600 hover:text-blue-700 font-medium">
-              Ver todas as atividades →
-            </button>
-          </div>
-        </div>
-
-        {/* Available Tools */}
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/50 mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Ferramentas Disponíveis</h2>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Cpu className="w-4 h-4" />
-              50+ ferramentas integradas
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {availableTools.map((tool) => (
-              <div
-                key={tool.name}
-                className="group p-3 bg-gray-50 hover:bg-white rounded-xl transition-all duration-200 hover:shadow-md cursor-pointer"
-                title={tool.description}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="p-2 bg-white rounded-lg mb-2 group-hover:scale-110 transition-transform">
-                    {tool.icon}
-                  </div>
-                  <span className="text-xs font-medium text-gray-700">{tool.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button className="bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/50 hover:bg-white transition-all duration-300 flex items-center gap-3 text-left">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Plus className="w-5 h-5 text-blue-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Criar Novo Agente</h3>
-              <p className="text-sm text-gray-600">Configure um assistente especializado</p>
-            </div>
-          </button>
-
-          <button className="bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/50 hover:bg-white transition-all duration-300 flex items-center gap-3 text-left">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <GitBranch className="w-5 h-5 text-green-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Importar Template</h3>
-              <p className="text-sm text-gray-600">Use templates pré-configurados</p>
-            </div>
-          </button>
-
-          <button className="bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/50 hover:bg-white transition-all duration-300 flex items-center gap-3 text-left">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <BarChart3 className="w-5 h-5 text-purple-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">Ver Analytics</h3>
-              <p className="text-sm text-gray-600">Métricas detalhadas de performance</p>
-            </div>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default AgnoModernHomepage;
+ export default AgnoModernHomepage;
