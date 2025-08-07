@@ -584,15 +584,15 @@ const AgnoManagementInterface = () => {
   // =============================================
   // FILTROS
   // =============================================
-  const filteredAgents = agents.filter(agent =>
+  const filteredAgents = Array.isArray(agents) ? agents.filter(agent =>
     agent.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     agent.role?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) : [];
 
-  const filteredWorkflows = workflows.filter(workflow =>
+  const filteredWorkflows = Array.isArray(workflows) ? workflows.filter(workflow =>
     workflow.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     workflow.description?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) : [];
 
   // =============================================
   // RENDERIZAÇÃO

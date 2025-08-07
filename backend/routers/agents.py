@@ -10,12 +10,12 @@ import uuid
 import asyncio
 from datetime import datetime
 
-from backend.routers.database import get_db
-from backend.models.agents import Agent, AgentTool, RAGIndex
-from backend.models.tools import Tool
-from backend.services.embedding_service import EmbeddingService
-from backend.services.vector_store import VectorStoreService
-from backend.services.document_processor import DocumentProcessor
+from database.database import get_db
+from models.agents import Agent, AgentTool, RAGIndex
+from models.tools import Tool
+from services.embedding_service import EmbeddingService
+from services.vector_store import VectorStoreService
+from services.document_processor import DocumentProcessor
 
 router = APIRouter()
 

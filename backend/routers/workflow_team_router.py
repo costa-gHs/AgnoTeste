@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-from workflow_team_service import (
+from services.workflow_team_service import (
     workflow_team_service,
     NodeConfig,
     WorkflowConnection,
@@ -14,7 +14,8 @@ from workflow_team_service import (
 )
 
 # ✅ REMOVIDO IMPORT DE AUTH - sem dependência
-router = APIRouter(prefix="/api/v1", tags=["Workflow & Team Builder"])
+router = APIRouter(tags=["Workflow & Team Builder"])  # sem prefix
+
 
 
 # ==================== PYDANTIC MODELS ====================

@@ -1,5 +1,5 @@
-# main.py - Agno Platform Backend MELHORADO
-# Versão: 4.5.0 - Melhorias focadas e práticas
+# app.py - Agno Platform Backend MELHORADO E CORRIGIDO
+# Versão: 4.5.1 - Correções de importação e routers
 
 import os
 import json
@@ -253,7 +253,7 @@ async def lifespan(app: FastAPI):
     startup_time = datetime.now()
 
     logger.info("🚀" + "=" * 60)
-    logger.info("🚀 INICIANDO AGNO PLATFORM v4.5.0")
+    logger.info("🚀 INICIANDO AGNO PLATFORM v4.5.1")
     logger.info("🚀" + "=" * 60)
 
     # Verificar variáveis de ambiente importantes
@@ -320,7 +320,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="🚀 Agno Platform API",
     description="Sistema avançado de agentes IA com interface moderna",
-    version="4.5.0",
+    version="4.5.1",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan
@@ -377,9 +377,9 @@ async def log_requests(request: Request, call_next):
 async def root():
     """🏠 Endpoint principal melhorado"""
     return BaseResponse(
-        message="🚀 Agno Platform v4.5.0 - Sistema Operacional",
+        message="🚀 Agno Platform v4.5.1 - Sistema Operacional",
         data={
-            "version": "4.5.0",
+            "version": "4.5.1",
             "status": getattr(app.state, 'startup_status', 'unknown'),
             "agno_available": AGNO_AVAILABLE,
             "features": [
@@ -426,6 +426,7 @@ async def health_check(db: AsyncSession = Depends(get_db)):
     agno_status = {"status": "disabled", "tools": 0}
     if AGNO_AVAILABLE:
         try:
+            from routers.agno_services import get_real_agno_service
             agno_service = get_real_agno_service()
             health_data = agno_service.get_system_health()
             agno_status = {
@@ -453,9 +454,6 @@ async def health_check(db: AsyncSession = Depends(get_db)):
     }
 
     # Determinar status geral
-    healthy_services = sum(1 for s in services.values() if s.get("status") == "healthy")
-    total_critical_services = 1  # Apenas database é crítico
-
     if db_status["status"] == "healthy":
         overall_status = "healthy"
     else:
@@ -464,7 +462,7 @@ async def health_check(db: AsyncSession = Depends(get_db)):
     return HealthResponse(
         status=overall_status,
         timestamp=datetime.utcnow().isoformat(),
-        version="4.5.0",
+        version="4.5.1",
         environment=os.getenv("ENVIRONMENT", "development"),
         services=services,
         agno_available=AGNO_AVAILABLE
@@ -662,7 +660,7 @@ async def chat_with_agent(
         # Buscar agente com validação de acesso
         agent_query = sa_text("""
             SELECT id, name, role, model_provider, model_id, instructions, tools,
-                   temperature, memory_enabled, rag_enabled
+                   memory_enabled, rag_enabled
             FROM agno_agents 
             WHERE id = :agent_id AND user_id = :user_id AND is_active = true
         """)
@@ -771,6 +769,7 @@ async def execute_real_agno_chat(chat_id: str, agent, request: ChatRequest):
     """Executar chat real usando framework Agno"""
 
     try:
+        from routers.agno_services import get_real_agno_service
         agno_service = get_real_agno_service()
 
         # Configurar agente
@@ -943,46 +942,6 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str, user_id: int 
 
 
 # =============================================
-# ROTAS PARA AGNO FRAMEWORK
-# =============================================
-
-if AGNO_AVAILABLE and real_agno_router:
-    app.include_router(real_agno_router, tags=["Agno Framework"])
-    logger.info("✅ Rotas do Agno Framework incluídas")
-else:
-    # Rotas de fallback para Agno
-    from fastapi import APIRouter
-
-    fallback_router = APIRouter(prefix="/api/agno", tags=["Agno Fallback"])
-
-
-    @fallback_router.get("/health")
-    async def agno_health_fallback():
-        return {
-            "status": "unavailable",
-            "framework": "none",
-            "agno_available": False,
-            "message": "Framework Agno não disponível",
-            "help": "Configure as dependências do Agno para funcionalidades avançadas"
-        }
-
-
-    @fallback_router.get("/tools")
-    async def agno_tools_fallback():
-        return {
-            "status": "unavailable",
-            "message": "Framework Agno não disponível",
-            "total_tools": 0,
-            "tools": [],
-            "help": "Execute: pip install agno openai anthropic"
-        }
-
-
-    app.include_router(fallback_router)
-    logger.warning("⚠️ Usando rotas de fallback do Agno")
-
-
-# =============================================
 # ROTAS DE DEBUG E MONITORAMENTO
 # =============================================
 
@@ -1003,7 +962,7 @@ async def debug_info():
                 "memory_total": f"{psutil.virtual_memory().total / (1024 ** 3):.2f} GB"
             },
             "application": {
-                "version": "4.5.0",
+                "version": "4.5.1",
                 "startup_status": getattr(app.state, 'startup_status', 'unknown'),
                 "agno_available": AGNO_AVAILABLE,
                 "db_connected": getattr(app.state, 'db_connected', False),
@@ -1074,6 +1033,237 @@ async def internal_error_handler(request: Request, exc: Exception):
 
 
 # =============================================
+# IMPORTAR E INCLUIR ROUTERS COM VERIFICAÇÕES
+# =============================================
+
+# Variáveis para armazenar routers
+agents_router = None
+workflows_router = None
+
+# 1. AGENTS ROUTER
+try:
+    from routers.agents import router as agents_router
+
+    logger.info("✅ Router de agents importado")
+except ImportError as e:
+    logger.error(f"❌ Erro ao importar router de agents: {e}")
+    agents_router = None
+
+# 2. WORKFLOWS ROUTER
+try:
+    from routers.workflow_team_router import router as workflows_router
+
+    logger.info("✅ Router de workflows importado")
+except ImportError as e:
+    logger.error(f"❌ Erro ao importar router de workflows: {e}")
+    workflows_router = None
+
+# =============================================
+# INCLUIR ROUTERS NO APP COM VERIFICAÇÕES
+# =============================================
+
+# Incluir router de agents se disponível
+if agents_router is not None:
+    try:
+        app.include_router(
+            agents_router,
+            prefix="/api/agents",
+            tags=["Agents"]
+        )
+        logger.info("✅ Rotas de agents incluídas em /api/agents")
+    except Exception as e:
+        logger.error(f"❌ Erro ao incluir router de agents: {e}")
+        agents_router = None
+
+# Incluir router de workflows se disponível
+if workflows_router is not None:
+    try:
+        app.include_router(
+            workflows_router,
+            prefix="/api",
+            tags=["Workflows", "Teams"]
+        )
+        logger.info("✅ Rotas de workflows incluídas em /api")
+    except Exception as e:
+        logger.error(f"❌ Erro ao incluir router de workflows: {e}")
+        workflows_router = None
+
+# =============================================
+# ROTAS DE FALLBACK PARA ROUTERS FALTANTES
+# =============================================
+
+# Fallback para agents se não disponível
+if agents_router is None:
+    from fastapi import APIRouter
+
+    agents_fallback = APIRouter(prefix="/api/agents", tags=["Agents Fallback"])
+
+
+    @agents_fallback.get("/")
+    async def agents_fallback_list():
+        """Fallback para listar agents"""
+        logger.warning("⚠️ Usando fallback para agents - router não disponível")
+        return BaseResponse(
+            message="Router de agents não disponível - usando fallback",
+            data={
+                "agents": [],
+                "pagination": {"total": 0, "limit": 50, "offset": 0, "has_more": False},
+                "warning": "Sistema em modo de desenvolvimento - router de agents não carregado"
+            }
+        )
+
+
+    @agents_fallback.post("/")
+    async def agents_fallback_create(request: CreateAgentRequest):
+        """Fallback para criar agent"""
+        logger.warning("⚠️ Tentativa de criar agent com fallback")
+        raise HTTPException(
+            status_code=503,
+            detail="Funcionalidade temporariamente indisponível - router de agents não carregado"
+        )
+
+
+    @agents_fallback.post("/{agent_id}/chat")
+    async def agents_fallback_chat(agent_id: int, request: ChatRequest):
+        """Fallback para chat"""
+        logger.warning(f"⚠️ Tentativa de chat com agent {agent_id} usando fallback")
+        raise HTTPException(
+            status_code=503,
+            detail="Chat temporariamente indisponível - router de agents não carregado"
+        )
+
+
+    app.include_router(agents_fallback)
+    logger.warning("⚠️ Router fallback de agents incluído")
+
+# Fallback para workflows se não disponível
+if workflows_router is None:
+    workflows_fallback = APIRouter(prefix="/api", tags=["Workflows Fallback"])
+
+
+    @workflows_fallback.get("/workflows")
+    async def workflows_fallback_list():
+        """Fallback para listar workflows"""
+        logger.warning("⚠️ Usando fallback para workflows - router não disponível")
+        return []  # Lista vazia para não quebrar o frontend
+
+
+    @workflows_fallback.get("/teams")
+    async def teams_fallback_list():
+        """Fallback para listar teams"""
+        logger.warning("⚠️ Usando fallback para teams - router não disponível")
+        return []  # Lista vazia para não quebrar o frontend
+
+
+    @workflows_fallback.post("/workflows")
+    async def workflows_fallback_create():
+        """Fallback para criar workflow"""
+        logger.warning("⚠️ Tentativa de criar workflow com fallback")
+        raise HTTPException(
+            status_code=503,
+            detail="Funcionalidade temporariamente indisponível - router de workflows não carregado"
+        )
+
+
+    app.include_router(workflows_fallback)
+    logger.warning("⚠️ Router fallback de workflows incluído")
+
+# =============================================
+# ROTAS PARA AGNO FRAMEWORK
+# =============================================
+
+if AGNO_AVAILABLE and real_agno_router is not None:
+    try:
+        app.include_router(real_agno_router, tags=["Agno Framework"])
+        logger.info("✅ Rotas do Agno Framework incluídas")
+    except Exception as e:
+        logger.error(f"❌ Erro ao incluir router do Agno: {e}")
+        real_agno_router = None
+
+# Fallback do Agno se não disponível
+if not AGNO_AVAILABLE or real_agno_router is None:
+    agno_fallback = APIRouter(prefix="/api/agno", tags=["Agno Fallback"])
+
+
+    @agno_fallback.get("/health")
+    async def agno_health_fallback():
+        return {
+            "status": "unavailable",
+            "framework": "none",
+            "agno_available": False,
+            "message": "Framework Agno não disponível",
+            "help": "Configure as dependências do Agno para funcionalidades avançadas"
+        }
+
+
+    @agno_fallback.get("/tools")
+    async def agno_tools_fallback():
+        return {
+            "status": "unavailable",
+            "message": "Framework Agno não disponível",
+            "total_tools": 0,
+            "tools": [],
+            "help": "Execute: pip install agno openai anthropic"
+        }
+
+
+    app.include_router(agno_fallback)
+    logger.warning("⚠️ Router fallback do Agno incluído")
+
+
+# =============================================
+# STARTUP EVENT PARA LISTAR ROTAS
+# =============================================
+
+@app.on_event("startup")
+async def startup_routes_debug():
+    """Log das rotas registradas para debug no startup"""
+    logger.info("🔍 Verificando rotas registradas...")
+
+    routes_info = []
+    critical_routes = {
+        "/": False,
+        "/api/health": False,
+        "/api/agents": False,
+        "/api/workflows": False,
+    }
+
+    for route in app.routes:
+        if hasattr(route, 'path') and hasattr(route, 'methods'):
+            path = getattr(route, 'path', '')
+            methods = list(getattr(route, 'methods', []))
+            routes_info.append(f"{methods} {path}")
+
+            # Verificar rotas críticas
+            for critical_path in critical_routes:
+                if path == critical_path or (critical_path != "/" and critical_path in path):
+                    critical_routes[critical_path] = True
+
+    # Log das rotas
+    logger.info("📋 Rotas registradas:")
+    for route_info in sorted(routes_info):
+        logger.info(f"  📍 {route_info}")
+
+    # Verificar rotas críticas
+    logger.info("🔍 Status das rotas críticas:")
+    for critical_path, found in critical_routes.items():
+        status = "✅" if found else "❌"
+        logger.info(f"  {status} {critical_path}")
+
+    # Status dos routers
+    router_status = {
+        "agents": agents_router is not None,
+        "workflows": workflows_router is not None,
+        "agno": real_agno_router is not None
+    }
+
+    logger.info("🔍 Status dos routers:")
+    for router_name, available in router_status.items():
+        status = "✅" if available else "❌"
+        logger.info(f"  {status} {router_name}_router")
+
+
+# =============================================
 # INICIALIZAÇÃO
 # =============================================
 
@@ -1083,7 +1273,7 @@ if __name__ == "__main__":
     logger.info("🚀 Iniciando servidor Agno Platform...")
 
     uvicorn.run(
-        "main:app",
+        "app:app",  # Correto para o arquivo app.py
         host="0.0.0.0",
         port=8000,
         reload=True,
