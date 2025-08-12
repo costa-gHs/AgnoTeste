@@ -4,6 +4,7 @@ import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 from dotenv import load_dotenv
+from typing import AsyncGenerator
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -36,7 +37,14 @@ Base = declarative_base()
 # DEPENDENCY FUNCTION
 # =============================================
 
-async def get_db() -> AsyncSession:
+
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """Dependency para obter sessão do banco"""
     async with async_session() as session:
-        yield session
+        try:
+            yield session
+        except Exception:
+            await session.rollback()
+            raise
+        finally:
+            await session.close()

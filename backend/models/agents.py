@@ -4,9 +4,7 @@ from sqlalchemy import Column, String, Text, Boolean, JSON, DateTime, Integer, F
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import uuid
-
-from app.database import Base
-
+from database import Base  # Se database.py está no PYTHONPATH
 
 class Agent(Base):
     """Modelo para agentes AI"""

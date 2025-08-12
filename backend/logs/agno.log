@@ -1,0 +1,772 @@
+2025-08-11 18:08:49,303 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 18:08:53,966 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 18:08:54,035 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 18:08:54,138 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 18:08:55,415 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-11 18:08:55,422 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 18:08:55,424 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 18:08:55,433 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 18:08:55,437 - app - [INFO] - 🚀============================================================
+2025-08-11 18:08:55,437 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 18:08:55,438 - app - [INFO] - 🚀============================================================
+2025-08-11 18:08:55,439 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 18:08:55,538 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 18:08:55,539 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 18:08:55,539 - app - [INFO] - ⏱️ Inicialização completada em 0.10s
+2025-08-11 18:08:55,540 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:12,031 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 18:10:12,038 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 18:10:13,440 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 18:10:15,585 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 18:10:15,622 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 18:10:15,691 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 18:10:16,428 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-11 18:10:16,434 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 18:10:16,436 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 18:10:16,446 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 18:10:16,448 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:16,448 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 18:10:16,449 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:16,450 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 18:10:16,504 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 18:10:16,504 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 18:10:16,505 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-11 18:10:16,505 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:16,908 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 18:10:16,912 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 18:10:23,754 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 18:10:26,451 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 18:10:26,486 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 18:10:26,544 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 18:10:27,500 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-11 18:10:27,508 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 18:10:27,509 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 18:10:27,520 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 18:10:27,523 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:27,524 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 18:10:27,526 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:27,527 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 18:10:27,592 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 18:10:27,593 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 18:10:27,594 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-11 18:10:27,595 - app - [INFO] - 🚀============================================================
+2025-08-11 18:10:31,412 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 18:10:31,416 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 19:06:15,835 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 19:06:20,694 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 19:06:20,743 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 19:06:20,781 - app - [ERROR] - ❌ Erro ao importar router de agents: cannot import name 'get_db' from 'database' (unknown location)
+2025-08-11 19:06:20,798 - app - [ERROR] - ❌ Erro ao importar router de workflows: cannot import name 'get_db' from 'database' (unknown location)
+2025-08-11 19:06:20,803 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 19:06:20,808 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 19:06:20,817 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 19:06:20,819 - app - [INFO] - 🚀============================================================
+2025-08-11 19:06:20,820 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 19:06:20,820 - app - [INFO] - 🚀============================================================
+2025-08-11 19:06:20,822 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 19:06:20,918 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 19:06:20,920 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 19:06:20,921 - app - [INFO] - ⏱️ Inicialização completada em 0.10s
+2025-08-11 19:06:20,923 - app - [INFO] - 🚀============================================================
+2025-08-11 19:41:53,674 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 19:41:53,765 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 19:42:02,968 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 19:42:08,925 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 19:42:08,972 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 19:42:09,005 - app - [ERROR] - ❌ Erro ao importar router de agents: attempted relative import beyond top-level package
+2025-08-11 19:42:09,018 - app - [ERROR] - ❌ Erro ao importar router de workflows: attempted relative import beyond top-level package
+2025-08-11 19:42:09,024 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 19:42:09,026 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 19:42:09,033 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 19:42:09,036 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:09,037 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 19:42:09,037 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:09,038 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 19:42:09,094 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 19:42:09,095 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 19:42:09,095 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-11 19:42:09,096 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:12,008 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 19:42:12,014 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 19:42:15,847 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 19:42:18,627 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 19:42:18,672 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 19:42:18,809 - app - [ERROR] - ❌ Erro ao importar router de agents: attempted relative import beyond top-level package
+2025-08-11 19:42:18,848 - app - [ERROR] - ❌ Erro ao importar router de workflows: attempted relative import beyond top-level package
+2025-08-11 19:42:18,856 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 19:42:18,857 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 19:42:18,869 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 19:42:18,872 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:18,872 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 19:42:18,873 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:18,874 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 19:42:18,938 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 19:42:18,939 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 19:42:18,939 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-11 19:42:18,940 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:29,484 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 19:42:32,880 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 19:42:32,929 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 19:42:32,963 - app - [ERROR] - ❌ Erro ao importar router de agents: attempted relative import beyond top-level package
+2025-08-11 19:42:32,983 - app - [ERROR] - ❌ Erro ao importar router de workflows: attempted relative import beyond top-level package
+2025-08-11 19:42:32,991 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 19:42:32,992 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 19:42:32,999 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 19:42:33,000 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:33,001 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 19:42:33,002 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:33,003 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 19:42:33,088 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 19:42:33,089 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 19:42:33,089 - app - [INFO] - ⏱️ Inicialização completada em 0.09s
+2025-08-11 19:42:33,089 - app - [INFO] - 🚀============================================================
+2025-08-11 19:42:57,898 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 19:42:57,911 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 19:43:03,190 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 19:43:08,010 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 19:43:08,081 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 19:43:08,194 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 19:43:08,224 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'models.workflows'
+2025-08-11 19:43:08,231 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 19:43:08,235 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 19:43:08,254 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 19:43:08,255 - app - [INFO] - 🚀============================================================
+2025-08-11 19:43:08,256 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 19:43:08,260 - app - [INFO] - 🚀============================================================
+2025-08-11 19:43:08,260 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 19:43:08,352 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 19:43:08,352 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 19:43:08,353 - app - [INFO] - ⏱️ Inicialização completada em 0.10s
+2025-08-11 19:43:08,354 - app - [INFO] - 🚀============================================================
+2025-08-11 19:43:31,278 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 19:43:35,013 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 19:43:35,097 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 19:43:35,388 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 19:43:35,477 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'models.workflows'
+2025-08-11 19:43:35,487 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 19:43:35,495 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 19:43:35,512 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 19:43:35,515 - app - [INFO] - 🚀============================================================
+2025-08-11 19:43:35,518 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 19:43:35,521 - app - [INFO] - 🚀============================================================
+2025-08-11 19:43:35,522 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 19:43:35,676 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 19:43:35,678 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 19:43:35,680 - app - [INFO] - ⏱️ Inicialização completada em 0.16s
+2025-08-11 19:43:35,681 - app - [INFO] - 🚀============================================================
+2025-08-11 19:45:16,678 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 19:45:16,685 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 20:00:27,098 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 20:00:31,801 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 20:00:31,858 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 20:00:31,920 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 20:00:31,956 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 20:00:31,960 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 20:00:31,963 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 20:00:31,974 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 20:00:31,975 - app - [INFO] - 🚀============================================================
+2025-08-11 20:00:31,976 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 20:00:31,976 - app - [INFO] - 🚀============================================================
+2025-08-11 20:00:31,977 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 20:00:32,085 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 20:00:32,086 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 20:00:32,087 - app - [INFO] - ⏱️ Inicialização completada em 0.11s
+2025-08-11 20:00:32,088 - app - [INFO] - 🚀============================================================
+2025-08-11 20:01:54,099 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 20:01:54,322 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 20:02:04,914 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 20:02:09,589 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 20:02:09,639 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 20:02:09,718 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 20:02:09,745 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 20:02:09,750 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 20:02:09,751 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 20:02:09,758 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 20:02:09,760 - app - [INFO] - 🚀============================================================
+2025-08-11 20:02:09,761 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 20:02:09,761 - app - [INFO] - 🚀============================================================
+2025-08-11 20:02:09,762 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 20:02:09,843 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 20:02:09,844 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 20:02:09,848 - app - [INFO] - ⏱️ Inicialização completada em 0.09s
+2025-08-11 20:02:09,849 - app - [INFO] - 🚀============================================================
+2025-08-11 20:02:19,885 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 20:02:23,873 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 20:02:23,971 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 20:02:24,035 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 20:02:24,059 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 20:02:24,061 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 20:02:24,062 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 20:02:24,067 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 20:02:24,069 - app - [INFO] - 🚀============================================================
+2025-08-11 20:02:24,069 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 20:02:24,069 - app - [INFO] - 🚀============================================================
+2025-08-11 20:02:24,070 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 20:02:24,151 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 20:02:24,151 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 20:02:24,151 - app - [INFO] - ⏱️ Inicialização completada em 0.08s
+2025-08-11 20:02:24,152 - app - [INFO] - 🚀============================================================
+2025-08-11 21:14:57,487 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 21:14:57,793 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 21:15:10,740 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:15:19,677 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:15:19,781 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:15:19,967 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:15:20,185 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:15:20,201 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:15:20,202 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:15:20,212 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:15:20,214 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:20,215 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:15:20,217 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:20,221 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:15:20,399 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:15:20,401 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:15:20,405 - app - [INFO] - ⏱️ Inicialização completada em 0.19s
+2025-08-11 21:15:20,411 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:23,799 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:15:24,094 - app - [WARNING] - ⚠️ Agno framework não disponível: No module named 'routers.embedding_service'
+2025-08-11 21:15:24,232 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'routers.embedding_service'
+2025-08-11 21:15:24,272 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'routers.embedding_service'
+2025-08-11 21:15:24,280 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:15:24,282 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:15:24,284 - app - [WARNING] - ⚠️ Router fallback do Agno incluído
+2025-08-11 21:15:24,289 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:24,291 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:15:24,293 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:24,294 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:15:24,480 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:15:24,488 - app - [INFO] - ⚡ Sistema parcialmente operacional
+2025-08-11 21:15:24,510 - app - [INFO] - ⏱️ Inicialização completada em 0.22s
+2025-08-11 21:15:24,516 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:27,568 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:15:27,750 - app - [WARNING] - ⚠️ Agno framework não disponível: No module named 'routers.embedding_service'
+2025-08-11 21:15:27,798 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'routers.embedding_service'
+2025-08-11 21:15:27,823 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'routers.embedding_service'
+2025-08-11 21:15:27,831 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:15:27,834 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:15:27,841 - app - [WARNING] - ⚠️ Router fallback do Agno incluído
+2025-08-11 21:15:27,846 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:27,847 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:15:27,850 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:27,851 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:15:27,941 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:15:27,943 - app - [INFO] - ⚡ Sistema parcialmente operacional
+2025-08-11 21:15:27,944 - app - [INFO] - ⏱️ Inicialização completada em 0.10s
+2025-08-11 21:15:27,946 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:29,353 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 21:15:29,363 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 21:15:32,433 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:15:32,547 - app - [WARNING] - ⚠️ Agno framework não disponível: No module named 'routers.embedding_service'
+2025-08-11 21:15:32,603 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'routers.embedding_service'
+2025-08-11 21:15:32,625 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'routers.embedding_service'
+2025-08-11 21:15:32,631 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:15:32,634 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:15:32,635 - app - [WARNING] - ⚠️ Router fallback do Agno incluído
+2025-08-11 21:15:32,642 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:32,643 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:15:32,643 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:32,644 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:15:32,707 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:15:32,708 - app - [INFO] - ⚡ Sistema parcialmente operacional
+2025-08-11 21:15:32,711 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-11 21:15:32,711 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:40,038 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 21:15:40,043 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 21:15:44,372 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:15:44,509 - app - [WARNING] - ⚠️ Agno framework não disponível: No module named 'routers.embedding_service'
+2025-08-11 21:15:44,569 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'routers.embedding_service'
+2025-08-11 21:15:44,591 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'routers.embedding_service'
+2025-08-11 21:15:44,600 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:15:44,602 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:15:44,604 - app - [WARNING] - ⚠️ Router fallback do Agno incluído
+2025-08-11 21:15:44,609 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:44,610 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:15:44,611 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:44,612 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:15:44,720 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:15:44,720 - app - [INFO] - ⚡ Sistema parcialmente operacional
+2025-08-11 21:15:44,721 - app - [INFO] - ⏱️ Inicialização completada em 0.11s
+2025-08-11 21:15:44,722 - app - [INFO] - 🚀============================================================
+2025-08-11 21:15:59,874 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 21:15:59,902 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 21:16:02,789 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:16:08,370 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:16:08,507 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:16:08,708 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:08,877 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:08,884 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:16:08,888 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:16:08,912 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:16:08,930 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:08,931 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:16:08,933 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:08,936 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:16:09,123 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:16:09,124 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:16:09,125 - app - [INFO] - ⏱️ Inicialização completada em 0.20s
+2025-08-11 21:16:09,126 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:12,283 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:16:17,195 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:16:17,334 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:16:17,546 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:17,633 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:17,648 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:16:17,657 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:16:17,671 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:16:17,675 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:17,675 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:16:17,676 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:17,676 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:16:17,833 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:16:17,838 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:16:17,843 - app - [INFO] - ⏱️ Inicialização completada em 0.17s
+2025-08-11 21:16:17,844 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:20,760 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:16:26,449 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:16:26,514 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:16:26,592 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:26,629 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:26,636 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:16:26,638 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:16:26,649 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:16:26,653 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:26,654 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:16:26,656 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:26,657 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:16:26,724 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:16:26,725 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:16:26,726 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-11 21:16:26,726 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:29,057 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:16:33,867 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:16:33,953 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:16:34,069 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:34,117 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:34,126 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:16:34,127 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:16:34,140 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:16:34,149 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:34,152 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:16:34,155 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:34,157 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:16:34,244 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:16:34,244 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:16:34,246 - app - [INFO] - ⏱️ Inicialização completada em 0.10s
+2025-08-11 21:16:34,248 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:46,054 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:16:50,958 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:16:51,082 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:16:51,175 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:51,243 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:16:51,251 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:16:51,256 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:16:51,268 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:16:51,273 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:51,280 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:16:51,281 - app - [INFO] - 🚀============================================================
+2025-08-11 21:16:51,282 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:16:51,477 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:16:51,480 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:16:51,481 - app - [INFO] - ⏱️ Inicialização completada em 0.21s
+2025-08-11 21:16:51,481 - app - [INFO] - 🚀============================================================
+2025-08-11 21:17:19,988 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 21:17:19,997 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-11 21:22:13,562 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-11 21:22:20,708 - app - [INFO] - ✅ Agno framework disponível
+2025-08-11 21:22:20,836 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-11 21:22:21,114 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:22:21,427 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-11 21:22:21,436 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-11 21:22:21,443 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-11 21:22:21,465 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-11 21:22:21,471 - app - [INFO] - 🚀============================================================
+2025-08-11 21:22:21,475 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-11 21:22:21,479 - app - [INFO] - 🚀============================================================
+2025-08-11 21:22:21,488 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-11 21:22:22,161 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-11 21:22:22,164 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-11 21:22:22,166 - app - [INFO] - ⏱️ Inicialização completada em 0.69s
+2025-08-11 21:22:22,175 - app - [INFO] - 🚀============================================================
+2025-08-11 21:57:33,225 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-11 21:57:33,240 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 00:52:43,270 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 00:52:48,515 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 00:52:48,626 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 00:52:48,754 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:52:48,801 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:52:48,806 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 00:52:48,807 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 00:52:48,815 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 00:52:48,817 - app - [INFO] - 🚀============================================================
+2025-08-12 00:52:48,817 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 00:52:48,819 - app - [INFO] - 🚀============================================================
+2025-08-12 00:52:48,819 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 00:52:48,949 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 00:52:48,956 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 00:52:48,959 - app - [INFO] - ⏱️ Inicialização completada em 0.14s
+2025-08-12 00:52:48,963 - app - [INFO] - 🚀============================================================
+2025-08-12 00:53:28,796 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 00:53:28,815 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 00:53:33,760 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 00:53:40,190 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 00:53:40,244 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 00:53:40,343 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:53:40,377 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:53:40,382 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 00:53:40,384 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 00:53:40,391 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 00:53:40,398 - app - [INFO] - 🚀============================================================
+2025-08-12 00:53:40,399 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 00:53:40,400 - app - [INFO] - 🚀============================================================
+2025-08-12 00:53:40,401 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 00:53:40,511 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 00:53:40,539 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 00:53:40,818 - app - [INFO] - ⏱️ Inicialização completada em 0.42s
+2025-08-12 00:53:40,850 - app - [INFO] - 🚀============================================================
+2025-08-12 00:53:53,668 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 00:53:56,673 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 00:53:56,715 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 00:53:56,784 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:53:56,807 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:53:56,810 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 00:53:56,811 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 00:53:56,816 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 00:53:56,817 - app - [INFO] - 🚀============================================================
+2025-08-12 00:53:56,818 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 00:53:56,818 - app - [INFO] - 🚀============================================================
+2025-08-12 00:53:56,819 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 00:53:56,871 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 00:53:56,871 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 00:53:56,872 - app - [INFO] - ⏱️ Inicialização completada em 0.05s
+2025-08-12 00:53:56,872 - app - [INFO] - 🚀============================================================
+2025-08-12 00:54:22,144 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 00:54:22,150 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 00:54:36,201 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 00:54:39,273 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 00:54:39,317 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 00:54:39,387 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:54:39,413 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 00:54:39,417 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 00:54:39,419 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 00:54:39,426 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 00:54:39,429 - app - [INFO] - 🚀============================================================
+2025-08-12 00:54:39,430 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 00:54:39,430 - app - [INFO] - 🚀============================================================
+2025-08-12 00:54:39,431 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 00:54:39,484 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 00:54:39,485 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 00:54:39,487 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-12 00:54:39,488 - app - [INFO] - 🚀============================================================
+2025-08-12 00:54:46,009 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 00:54:46,014 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:39:30,356 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:39:35,773 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:39:35,897 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:39:36,120 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:39:36,192 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:39:36,203 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:39:36,206 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:39:36,214 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:39:36,216 - app - [INFO] - 🚀============================================================
+2025-08-12 21:39:36,218 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:39:36,219 - app - [INFO] - 🚀============================================================
+2025-08-12 21:39:36,220 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:39:36,344 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:39:36,344 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:39:36,345 - app - [INFO] - ⏱️ Inicialização completada em 0.13s
+2025-08-12 21:39:36,345 - app - [INFO] - 🚀============================================================
+2025-08-12 21:46:30,547 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:46:30,557 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:46:34,655 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:46:41,961 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:46:42,063 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:46:42,163 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:46:42,193 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:46:42,200 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:46:42,203 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:46:42,209 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:46:42,210 - app - [INFO] - 🚀============================================================
+2025-08-12 21:46:42,211 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:46:42,211 - app - [INFO] - 🚀============================================================
+2025-08-12 21:46:42,212 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:46:42,275 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:46:42,276 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:46:42,277 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 21:46:42,277 - app - [INFO] - 🚀============================================================
+2025-08-12 21:46:44,920 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:46:49,565 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:46:49,628 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:46:49,721 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:46:49,754 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:46:49,763 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:46:49,766 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:46:49,776 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:46:49,778 - app - [INFO] - 🚀============================================================
+2025-08-12 21:46:49,779 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:46:49,780 - app - [INFO] - 🚀============================================================
+2025-08-12 21:46:49,780 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:46:49,849 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:46:49,849 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:46:49,850 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 21:46:49,853 - app - [INFO] - 🚀============================================================
+2025-08-12 21:49:06,648 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:49:06,728 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:49:09,428 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:49:13,854 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:49:13,912 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:49:14,009 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:49:14,055 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:49:14,068 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:49:14,070 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:49:14,083 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:49:14,086 - app - [INFO] - 🚀============================================================
+2025-08-12 21:49:14,088 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:49:14,090 - app - [INFO] - 🚀============================================================
+2025-08-12 21:49:14,091 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:49:14,189 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:49:14,191 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:49:14,192 - app - [INFO] - ⏱️ Inicialização completada em 0.11s
+2025-08-12 21:49:14,193 - app - [INFO] - 🚀============================================================
+2025-08-12 21:50:12,972 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:50:12,980 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:50:15,336 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:50:18,020 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:50:18,082 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:50:18,155 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:50:18,180 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:50:18,185 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:50:18,187 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:50:18,193 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:50:18,196 - app - [INFO] - 🚀============================================================
+2025-08-12 21:50:18,197 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:50:18,197 - app - [INFO] - 🚀============================================================
+2025-08-12 21:50:18,199 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:50:18,261 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:50:18,261 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:50:18,261 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 21:50:18,262 - app - [INFO] - 🚀============================================================
+2025-08-12 21:52:11,088 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:52:11,092 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:52:15,055 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:52:18,555 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:52:18,598 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:52:18,667 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:52:18,694 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'app.database'; 'app' is not a package
+2025-08-12 21:52:18,699 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:52:18,700 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:52:18,706 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:52:18,708 - app - [INFO] - 🚀============================================================
+2025-08-12 21:52:18,708 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:52:18,709 - app - [INFO] - 🚀============================================================
+2025-08-12 21:52:18,709 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:52:18,757 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:52:18,758 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:52:18,759 - app - [INFO] - ⏱️ Inicialização completada em 0.05s
+2025-08-12 21:52:18,760 - app - [INFO] - 🚀============================================================
+2025-08-12 21:54:43,159 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:54:43,167 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:54:45,149 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:54:50,577 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:54:50,669 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:55:27,976 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:55:30,637 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:55:30,685 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:55:30,775 - app - [ERROR] - ❌ Erro ao importar router de agents: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:55:30,803 - app - [ERROR] - ❌ Erro ao importar router de workflows: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:55:30,807 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:55:30,809 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:55:30,814 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:55:30,815 - app - [INFO] - 🚀============================================================
+2025-08-12 21:55:30,816 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:55:30,817 - app - [INFO] - 🚀============================================================
+2025-08-12 21:55:30,817 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:55:30,867 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:55:30,867 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:55:30,869 - app - [INFO] - ⏱️ Inicialização completada em 0.05s
+2025-08-12 21:55:30,870 - app - [INFO] - 🚀============================================================
+2025-08-12 21:56:39,878 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:56:39,887 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:56:41,830 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:56:44,539 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:56:44,580 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:56:44,642 - app - [ERROR] - ❌ Erro ao importar router de agents: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:56:44,675 - app - [ERROR] - ❌ Erro ao importar router de workflows: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:56:44,678 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:56:44,679 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:56:44,687 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:56:44,689 - app - [INFO] - 🚀============================================================
+2025-08-12 21:56:44,690 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:56:44,691 - app - [INFO] - 🚀============================================================
+2025-08-12 21:56:44,692 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:56:44,762 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:56:44,762 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:56:44,763 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 21:56:44,764 - app - [INFO] - 🚀============================================================
+2025-08-12 21:57:16,359 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:57:16,364 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:57:24,634 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:57:28,007 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:57:28,050 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:57:28,126 - app - [ERROR] - ❌ Erro ao importar router de agents: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:57:28,153 - app - [ERROR] - ❌ Erro ao importar router de workflows: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:57:28,159 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:57:28,160 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:57:28,169 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:57:28,170 - app - [INFO] - 🚀============================================================
+2025-08-12 21:57:28,170 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:57:28,171 - app - [INFO] - 🚀============================================================
+2025-08-12 21:57:28,172 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:57:28,230 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:57:28,230 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:57:28,230 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-12 21:57:28,231 - app - [INFO] - 🚀============================================================
+2025-08-12 21:57:51,602 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:57:51,608 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:58:45,771 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:58:49,095 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:58:49,143 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:58:49,228 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'backend'
+2025-08-12 21:58:49,255 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-12 21:58:49,261 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:58:49,263 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:58:49,272 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:58:49,275 - app - [INFO] - 🚀============================================================
+2025-08-12 21:58:49,276 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:58:49,277 - app - [INFO] - 🚀============================================================
+2025-08-12 21:58:49,278 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:58:49,339 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:58:49,340 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:58:49,340 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 21:58:49,340 - app - [INFO] - 🚀============================================================
+2025-08-12 21:58:57,369 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:58:57,375 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:58:59,255 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:59:02,028 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:59:02,075 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:59:02,144 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'backend'
+2025-08-12 21:59:02,178 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-12 21:59:02,182 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:59:02,183 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:59:02,191 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:59:02,193 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:02,194 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:59:02,194 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:02,195 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:59:02,244 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:59:02,245 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:59:02,246 - app - [INFO] - ⏱️ Inicialização completada em 0.05s
+2025-08-12 21:59:02,246 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:09,214 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:59:14,579 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:59:14,627 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:59:14,700 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'backend'
+2025-08-12 21:59:14,728 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-12 21:59:14,732 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:59:14,733 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:59:14,742 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:59:14,744 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:14,746 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:59:14,747 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:14,748 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:59:14,814 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:59:14,815 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:59:14,815 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 21:59:14,816 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:23,843 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 21:59:23,854 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 21:59:49,174 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 21:59:52,703 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 21:59:52,749 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 21:59:52,881 - app - [ERROR] - ❌ Erro ao importar router de agents: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:59:52,922 - app - [ERROR] - ❌ Erro ao importar router de workflows: cannot import name 'Base' from 'database' (unknown location)
+2025-08-12 21:59:52,927 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 21:59:52,929 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 21:59:52,937 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 21:59:52,939 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:52,940 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 21:59:52,940 - app - [INFO] - 🚀============================================================
+2025-08-12 21:59:52,941 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 21:59:53,001 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 21:59:53,002 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 21:59:53,002 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-12 21:59:53,003 - app - [INFO] - 🚀============================================================
+2025-08-12 22:01:50,888 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 22:01:50,969 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 22:01:55,613 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 22:02:01,988 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 22:02:02,108 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 22:02:04,001 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'backend'
+2025-08-12 22:02:04,196 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-12 22:02:04,213 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 22:02:04,238 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 22:02:04,272 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 22:02:04,275 - app - [INFO] - 🚀============================================================
+2025-08-12 22:02:04,278 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 22:02:04,279 - app - [INFO] - 🚀============================================================
+2025-08-12 22:02:04,280 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 22:02:04,381 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 22:02:04,382 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 22:02:04,384 - app - [INFO] - ⏱️ Inicialização completada em 0.11s
+2025-08-12 22:02:04,384 - app - [INFO] - 🚀============================================================
+2025-08-12 22:02:14,394 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 22:02:17,392 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 22:02:17,437 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 22:02:17,523 - app - [ERROR] - ❌ Erro ao importar router de agents: No module named 'backend'
+2025-08-12 22:02:17,555 - app - [ERROR] - ❌ Erro ao importar router de workflows: No module named 'backend'
+2025-08-12 22:02:17,560 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 22:02:17,561 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 22:02:17,566 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 22:02:17,567 - app - [INFO] - 🚀============================================================
+2025-08-12 22:02:17,568 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 22:02:17,568 - app - [INFO] - 🚀============================================================
+2025-08-12 22:02:17,568 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 22:02:17,633 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 22:02:17,633 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 22:02:17,634 - app - [INFO] - ⏱️ Inicialização completada em 0.07s
+2025-08-12 22:02:17,634 - app - [INFO] - 🚀============================================================
+2025-08-12 22:03:03,606 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 22:03:03,611 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 22:04:54,122 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 22:04:57,570 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 22:04:57,611 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 22:04:57,677 - app - [ERROR] - ❌ Erro ao importar router de agents: attempted relative import beyond top-level package
+2025-08-12 22:04:57,709 - app - [ERROR] - ❌ Erro ao importar router de workflows: attempted relative import beyond top-level package
+2025-08-12 22:04:57,713 - app - [WARNING] - ⚠️ Router fallback de agents incluído
+2025-08-12 22:04:57,715 - app - [WARNING] - ⚠️ Router fallback de workflows incluído
+2025-08-12 22:04:57,722 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 22:04:57,724 - app - [INFO] - 🚀============================================================
+2025-08-12 22:04:57,724 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 22:04:57,725 - app - [INFO] - 🚀============================================================
+2025-08-12 22:04:57,726 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 22:04:57,780 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 22:04:57,780 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 22:04:57,780 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-12 22:04:57,781 - app - [INFO] - 🚀============================================================
+2025-08-12 22:05:58,861 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 22:05:58,868 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-12 22:06:02,481 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 22:06:05,218 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 22:06:05,257 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 22:06:43,966 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-12 22:06:47,245 - app - [INFO] - ✅ Agno framework disponível
+2025-08-12 22:06:47,301 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-12 22:06:47,417 - app - [INFO] - ✅ Router de agents importado
+2025-08-12 22:06:47,454 - app - [INFO] - ✅ Router de workflows importado
+2025-08-12 22:06:47,464 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-12 22:06:47,491 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-12 22:06:47,498 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-12 22:06:47,499 - app - [INFO] - 🚀============================================================
+2025-08-12 22:06:47,500 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-12 22:06:47,501 - app - [INFO] - 🚀============================================================
+2025-08-12 22:06:47,502 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-12 22:06:47,561 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-12 22:06:47,562 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-12 22:06:47,562 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-12 22:06:47,563 - app - [INFO] - 🚀============================================================
+2025-08-12 22:07:20,566 - app - [WARNING] - 🐌 GET /api/workflows - 500 - 0.008s
+2025-08-12 22:07:20,574 - app - [WARNING] - 🐌 GET /api/workflows - 500 - 0.002s
+2025-08-12 22:07:20,597 - app - [INFO] - 📋 Listados 8 agentes (total: 8) para usuário 1
+2025-08-12 22:07:20,619 - app - [INFO] - 📋 Listados 8 agentes (total: 8) para usuário 1
+2025-08-12 22:07:49,783 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-12 22:07:49,788 - app - [INFO] - ✅ Conexões fechadas com sucesso
