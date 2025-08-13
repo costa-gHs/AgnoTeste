@@ -1,53 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  Users,
-  Plus,
-  Trash2,
-  Settings,
-  Play,
-  Crown,
-  Bot,
-  ChevronRight,
-  ChevronDown,
-  Zap,
-  Brain,
-  MessageSquare,
-  Save,
-  AlertCircle,
-  CheckCircle,
-  Loader,
-  User,
-  Shield,
-  Target,
-  X,
-  Search,
-  Database,
-  Globe,
-  Code,
-  Mail,
-  Calendar,
-  FileText,
-  Image,
-  Mic,
-  Cpu,
-  Layers,
-  Eye,
-  Edit,
-  Copy,
-  Wand2,
-  HelpCircle,
-  Upload,
-  Link
+  Users, Plus, Trash2, Settings, Play, Crown, Bot, ChevronRight, ChevronDown,
+  Zap, Brain, MessageSquare, Save, AlertCircle, CheckCircle, Loader, User,
+  Shield, Target, X, Search, Database, Globe, Code, Mail, Calendar, FileText,
+  Image, Mic, Cpu, Layers, Eye, Edit, Copy, Wand2, HelpCircle, Upload, Link,
+  DollarSign, Calculator, Cloud, Wrench, TrendingUp, Monitor, Activity,
+  Filter, SortDesc, MoreVertical, Download, RefreshCw, Workflow, Network,
+  GitBranch, Star, Heart, Clock, BarChart3, PieChart, LineChart, Hash,
+  Sparkles, Rocket, Gauge, PhoneCall, Video, Headphones, Server, Lock,
+  ShoppingCart, CreditCard, MapPin, Camera, Music, Film, Archive, Package
 } from 'lucide-react';
 
-// Interfaces
+// Types
 interface Tool {
   id: string;
   name: string;
   description: string;
-  category: 'data' | 'communication' | 'productivity' | 'development' | 'media' | 'integration';
+  category: 'web' | 'financial' | 'ai_media' | 'cloud' | 'utilities' | 'reasoning' | 'communication' | 'productivity' | 'ecommerce' | 'database';
   icon: React.ReactNode;
-  config?: Record<string, any>;
+  config_schema?: any;
+  requires_auth?: boolean;
+  enabled?: boolean;
+  available?: boolean;
 }
 
 interface RAGConfig {
@@ -77,6 +51,10 @@ interface Agent {
   rag_config: RAGConfig;
   roleInTeam?: string;
   priority?: number;
+  avatar?: string;
+  created_at?: string;
+  performance_score?: number;
+  execution_count?: number;
 }
 
 interface Team {
@@ -85,122 +63,56 @@ interface Team {
   description: string;
   teamType: 'collaborative' | 'hierarchical' | 'sequential';
   agents: Agent[];
-  supervisorConfig?: {
-    agentId: string;
-    instructions: string[];
-  };
+  supervisorConfig?: Agent;
+  metadata?: any;
+  created_at?: string;
+  execution_count?: number;
+  success_rate?: number;
+  avg_response_time?: number;
 }
 
-// Dados mockados
-const AVAILABLE_TOOLS: Tool[] = [
-  {
-    id: 'web_search',
-    name: 'Web Search',
-    description: 'Busca em tempo real na internet com múltiplos provedores',
-    category: 'data',
-    icon: <Search className="w-4 h-4" />
-  },
-  {
-    id: 'database_query',
-    name: 'Database Query',
-    description: 'Executa consultas SQL em bancos de dados conectados',
-    category: 'data',
-    icon: <Database className="w-4 h-4" />
-  },
-  {
-    id: 'api_integration',
-    name: 'API Integration',
-    description: 'Integração com APIs REST e GraphQL externas',
-    category: 'integration',
-    icon: <Globe className="w-4 h-4" />
-  },
-  {
-    id: 'code_generation',
-    name: 'Code Generation',
-    description: 'Gera código em Python, JavaScript, SQL e outras linguagens',
-    category: 'development',
-    icon: <Code className="w-4 h-4" />
-  },
-  {
-    id: 'email_processing',
-    name: 'Email Processing',
-    description: 'Análise, classificação e resposta automática de emails',
-    category: 'communication',
-    icon: <Mail className="w-4 h-4" />
-  },
-  {
-    id: 'calendar_management',
-    name: 'Calendar Management',
-    description: 'Agendamento inteligente e gestão de calendários',
-    category: 'productivity',
-    icon: <Calendar className="w-4 h-4" />
-  },
-  {
-    id: 'document_processing',
-    name: 'Document Processing',
-    description: 'Processamento de PDFs, DOCs e outros documentos',
-    category: 'productivity',
-    icon: <FileText className="w-4 h-4" />
-  },
-  {
-    id: 'image_analysis',
-    name: 'Image Analysis',
-    description: 'Análise de imagens com visão computacional',
-    category: 'media',
-    icon: <Image className="w-4 h-4" />
-  },
-  {
-    id: 'voice_processing',
-    name: 'Voice Processing',
-    description: 'Transcrição de áudio e síntese de voz',
-    category: 'media',
-    icon: <Mic className="w-4 h-4" />
-  }
-];
+interface AgentExecution {
+  id: string;
+  agent_name: string;
+  message: string;
+  response?: string;
+  status: 'running' | 'completed' | 'error';
+  execution_time_ms?: number;
+  timestamp: string;
+}
 
-const MODEL_OPTIONS = {
-  openai: [
-    { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', description: 'Modelo mais avançado para tarefas complexas' },
-    { id: 'gpt-4', name: 'GPT-4', description: 'Excelente para raciocínio e análise' },
-    { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', description: 'Rápido e eficiente para tarefas gerais' }
-  ],
-  anthropic: [
-    { id: 'claude-3-opus', name: 'Claude 3 Opus', description: 'Máximo desempenho para tarefas críticas' },
-    { id: 'claude-3-sonnet', name: 'Claude 3 Sonnet', description: 'Balance entre performance e velocidade' },
-    { id: 'claude-3-haiku', name: 'Claude 3 Haiku', description: 'Rápido para interações simples' }
-  ],
-  groq: [
-    { id: 'llama2-70b-4096', name: 'Llama 2 70B', description: 'Modelo open-source de alta performance' },
-    { id: 'mixtral-8x7b-32768', name: 'Mixtral 8x7B', description: 'Expertise em múltiplos domínios' }
-  ]
-};
+const TeamBuilder: React.FC = () => {
+  // States
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+  const [agents, setAgents] = useState<Agent[]>([]);
+  const [availableTools, setAvailableTools] = useState<Tool[]>([]);
+  const [executions, setExecutions] = useState<AgentExecution[]>([]);
 
-const AdvancedTeamBuilder = () => {
-  // Estados principais
-  const [team, setTeam] = useState<Team>({
-    name: '',
-    description: '',
-    teamType: 'collaborative',
-    agents: []
-  });
+  // UI States
+  const [activeTab, setActiveTab] = useState<'builder' | 'agents' | 'tools' | 'executions' | 'analytics'>('builder');
+  const [isCreatingAgent, setIsCreatingAgent] = useState(false);
+  const [isCreatingTeam, setIsCreatingTeam] = useState(false);
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [toolSearchTerm, setToolSearchTerm] = useState('');
+  const [selectedToolCategory, setSelectedToolCategory] = useState<string>('all');
+  const [draggedAgent, setDraggedAgent] = useState<Agent | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [testingAgent, setTestingAgent] = useState<string | null>(null);
+  const [testPrompt, setTestPrompt] = useState('');
+  const [testResult, setTestResult] = useState<string>('');
 
-  // Estados de UI
-  const [showAgentCreator, setShowAgentCreator] = useState(false);
-  const [showAgentSelector, setShowAgentSelector] = useState(false);
-  const [editingAgent, setEditingAgent] = useState<Agent | null>(null);
-  const [selectedAgents, setSelectedAgents] = useState<Agent[]>([]);
-  const [availableAgents, setAvailableAgents] = useState<Agent[]>([]);
-
-  // Estados do Agent Creator
+  // Form states
   const [newAgent, setNewAgent] = useState<Partial<Agent>>({
     name: '',
     role: '',
     description: '',
     model_provider: 'openai',
-    model_id: 'gpt-4-turbo',
+    model_id: 'gpt-4o',
     instructions: [''],
     tools: [],
     memory_enabled: true,
+    is_active: true,
     rag_config: {
       enabled: false,
       embeddingModel: 'text-embedding-3-small',
@@ -212,163 +124,283 @@ const AdvancedTeamBuilder = () => {
     }
   });
 
-  // Estados de controle
-  const [activeTab, setActiveTab] = useState<'basic' | 'tools' | 'rag' | 'advanced'>('basic');
-  const [toolSearch, setToolSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [isCreating, setIsCreating] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
+  const [newTeam, setNewTeam] = useState<Partial<Team>>({
+    name: '',
+    description: '',
+    teamType: 'collaborative',
+    agents: []
+  });
 
-  // Carregar agentes disponíveis (mock)
+  // Mock data - in real app, fetch from API
+  const mockTools: Tool[] = [
+    // Web & Search
+    { id: 'web_search', name: 'Web Search', description: 'Real-time web search with DuckDuckGo', category: 'web', icon: <Search className="w-4 h-4" />, available: true },
+    { id: 'web_scraping', name: 'Web Scraping', description: 'Extract data from web pages', category: 'web', icon: <Globe className="w-4 h-4" />, available: true },
+    { id: 'api_client', name: 'API Client', description: 'Generic REST API client', category: 'web', icon: <Link className="w-4 h-4" />, available: true },
+
+    // Financial
+    { id: 'yfinance', name: 'Yahoo Finance', description: 'Stock market data and analysis', category: 'financial', icon: <DollarSign className="w-4 h-4" />, available: true },
+    { id: 'calculator', name: 'Advanced Calculator', description: 'Mathematical calculations and formulas', category: 'financial', icon: <Calculator className="w-4 h-4" />, available: true },
+    { id: 'market_analysis', name: 'Market Analysis', description: 'Technical analysis and indicators', category: 'financial', icon: <TrendingUp className="w-4 h-4" />, available: true },
+
+    // AI & Media
+    { id: 'dalle', name: 'DALL-E 3', description: 'AI image generation', category: 'ai_media', icon: <Image className="w-4 h-4" />, available: true, requires_auth: true },
+    { id: 'code_generation', name: 'Code Generator', description: 'Generate code in multiple languages', category: 'ai_media', icon: <Code className="w-4 h-4" />, available: true },
+    { id: 'reasoning', name: 'Reasoning Engine', description: 'Advanced logical reasoning', category: 'reasoning', icon: <Brain className="w-4 h-4" />, available: true },
+
+    // Communication
+    { id: 'email_client', name: 'Email Client', description: 'Send and receive emails', category: 'communication', icon: <Mail className="w-4 h-4" />, available: false, requires_auth: true },
+    { id: 'slack_bot', name: 'Slack Integration', description: 'Slack bot functionality', category: 'communication', icon: <MessageSquare className="w-4 h-4" />, available: false, requires_auth: true },
+
+    // Productivity
+    { id: 'calendar_manager', name: 'Calendar Manager', description: 'Manage calendar events', category: 'productivity', icon: <Calendar className="w-4 h-4" />, available: true },
+    { id: 'file_processor', name: 'File Processor', description: 'Process documents and files', category: 'productivity', icon: <FileText className="w-4 h-4" />, available: true },
+
+    // Database
+    { id: 'database_query', name: 'Database Query', description: 'SQL database operations', category: 'database', icon: <Database className="w-4 h-4" />, available: false, requires_auth: true },
+
+    // Cloud & Utilities
+    { id: 'cloud_storage', name: 'Cloud Storage', description: 'Cloud file operations', category: 'cloud', icon: <Cloud className="w-4 h-4" />, available: false, requires_auth: true },
+    { id: 'system_monitor', name: 'System Monitor', description: 'Monitor system resources', category: 'utilities', icon: <Monitor className="w-4 h-4" />, available: true }
+  ];
+
+  const toolCategories = [
+    { id: 'all', name: 'All Tools', icon: <Layers className="w-4 h-4" />, color: 'gray' },
+    { id: 'web', name: 'Web & APIs', icon: <Globe className="w-4 h-4" />, color: 'blue' },
+    { id: 'financial', name: 'Financial', icon: <DollarSign className="w-4 h-4" />, color: 'green' },
+    { id: 'ai_media', name: 'AI & Media', icon: <Sparkles className="w-4 h-4" />, color: 'purple' },
+    { id: 'communication', name: 'Communication', icon: <MessageSquare className="w-4 h-4" />, color: 'indigo' },
+    { id: 'productivity', name: 'Productivity', icon: <Calendar className="w-4 h-4" />, color: 'teal' },
+    { id: 'database', name: 'Database', icon: <Database className="w-4 h-4" />, color: 'orange' },
+    { id: 'cloud', name: 'Cloud', icon: <Cloud className="w-4 h-4" />, color: 'sky' },
+    { id: 'utilities', name: 'Utilities', icon: <Wrench className="w-4 h-4" />, color: 'slate' },
+    { id: 'reasoning', name: 'Reasoning', icon: <Brain className="w-4 h-4" />, color: 'rose' }
+  ];
+
+  const modelOptions = {
+    openai: [
+      { id: 'gpt-4o', name: 'GPT-4o (Latest)', description: 'Most capable model' },
+      { id: 'gpt-4o-mini', name: 'GPT-4o Mini', description: 'Fast and efficient' },
+      { id: 'gpt-4', name: 'GPT-4', description: 'Previous generation' },
+      { id: 'o1', name: 'O1 (Reasoning)', description: 'Advanced reasoning' },
+      { id: 'o1-mini', name: 'O1 Mini', description: 'Lightweight reasoning' }
+    ],
+    anthropic: [
+      { id: 'claude-3-5-sonnet-20241022', name: 'Claude 3.5 Sonnet', description: 'Latest Claude model' },
+      { id: 'claude-3-opus-20240229', name: 'Claude 3 Opus', description: 'Most capable Claude' },
+      { id: 'claude-3-haiku-20240307', name: 'Claude 3 Haiku', description: 'Fast and efficient' }
+    ],
+    groq: [
+      { id: 'llama-3.1-70b-versatile', name: 'Llama 3.1 70B', description: 'High performance' },
+      { id: 'mixtral-8x7b-32768', name: 'Mixtral 8x7B', description: 'Long context' }
+    ]
+  };
+
+  // Effects
   useEffect(() => {
-    const mockAgents: Agent[] = [
-      {
-        id: '1',
-        name: 'Assistente de Vendas',
-        role: 'Especialista em conversão de leads',
-        model_provider: 'openai',
-        model_id: 'gpt-4-turbo',
-        instructions: ['Sempre seja consultivo', 'Foque na necessidade do cliente'],
-        tools: [AVAILABLE_TOOLS[0], AVAILABLE_TOOLS[4]],
-        configuration: {},
-        is_active: true,
-        memory_enabled: true,
-        rag_config: { enabled: false, embeddingModel: 'text-embedding-3-small', chunkSize: 1000, chunkOverlap: 200, topK: 5, threshold: 0.7 }
-      },
-      {
-        id: '2',
-        name: 'Analista de Dados',
-        role: 'Processamento e análise de informações',
-        model_provider: 'anthropic',
-        model_id: 'claude-3-sonnet',
-        instructions: ['Use dados para embasar conclusões', 'Seja preciso nos cálculos'],
-        tools: [AVAILABLE_TOOLS[1], AVAILABLE_TOOLS[3]],
-        configuration: {},
-        is_active: true,
-        memory_enabled: true,
-        rag_config: { enabled: true, embeddingModel: 'text-embedding-3-large', chunkSize: 1500, chunkOverlap: 300, topK: 7, threshold: 0.8 }
-      }
-    ];
-    setAvailableAgents(mockAgents);
+    setAvailableTools(mockTools);
+    loadTeams();
+    loadAgents();
   }, []);
 
-  // Filtrar ferramentas
-  const filteredTools = AVAILABLE_TOOLS.filter(tool => {
-    const matchesSearch = tool.name.toLowerCase().includes(toolSearch.toLowerCase()) ||
-                         tool.description.toLowerCase().includes(toolSearch.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
+  // Mock API functions
+  const loadTeams = async () => {
+    setIsLoading(true);
+    try {
+      // Mock API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const mockTeams: Team[] = [
+        {
+          id: '1',
+          name: 'Research Team',
+          description: 'Specialized team for research and analysis',
+          teamType: 'collaborative',
+          agents: [],
+          execution_count: 45,
+          success_rate: 94.5,
+          avg_response_time: 2.3,
+          created_at: '2024-01-15'
+        }
+      ];
+      setTeams(mockTeams);
+    } catch (error) {
+      console.error('Error loading teams:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadAgents = async () => {
+    try {
+      const mockAgents: Agent[] = [
+        {
+          id: '1',
+          name: 'Research Assistant',
+          role: 'Senior Researcher',
+          description: 'Expert in data analysis and web research',
+          model_provider: 'openai',
+          model_id: 'gpt-4o',
+          instructions: ['Focus on factual accuracy', 'Cite sources when possible'],
+          tools: mockTools.slice(0, 4),
+          is_active: true,
+          memory_enabled: true,
+          performance_score: 96,
+          execution_count: 234,
+          configuration: {},
+          rag_config: {
+            enabled: true,
+            embeddingModel: 'text-embedding-3-small',
+            chunkSize: 1000,
+            chunkOverlap: 200,
+            topK: 5,
+            threshold: 0.7
+          },
+          created_at: '2024-01-10'
+        }
+      ];
+      setAgents(mockAgents);
+    } catch (error) {
+      console.error('Error loading agents:', error);
+    }
+  };
+
+  const saveTeam = async () => {
+    setIsLoading(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const team: Team = {
+        id: Date.now().toString(),
+        ...newTeam as Team,
+        created_at: new Date().toISOString(),
+        execution_count: 0,
+        success_rate: 0,
+        avg_response_time: 0
+      };
+      setTeams([...teams, team]);
+      setNewTeam({ name: '', description: '', teamType: 'collaborative', agents: [] });
+      setIsCreatingTeam(false);
+    } catch (error) {
+      console.error('Error saving team:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const saveAgent = async () => {
+    setIsLoading(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const agent: Agent = {
+        id: Date.now().toString(),
+        ...newAgent as Agent,
+        created_at: new Date().toISOString(),
+        performance_score: 0,
+        execution_count: 0
+      };
+      setAgents([...agents, agent]);
+      setNewAgent({
+        name: '', role: '', description: '', model_provider: 'openai', model_id: 'gpt-4o',
+        instructions: [''], tools: [], memory_enabled: true, is_active: true,
+        rag_config: {
+          enabled: false, embeddingModel: 'text-embedding-3-small',
+          chunkSize: 1000, chunkOverlap: 200, topK: 5, threshold: 0.7, documents: []
+        }
+      });
+      setIsCreatingAgent(false);
+    } catch (error) {
+      console.error('Error saving agent:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const testAgent = async (agentId: string) => {
+    if (!testPrompt.trim()) return;
+
+    setTestingAgent(agentId);
+    setTestResult('');
+
+    try {
+      // Mock streaming response
+      const responses = [
+        "Processing your request...",
+        "Analyzing data with available tools...",
+        "Generating comprehensive response...",
+        `Here's the result for "${testPrompt}": This is a detailed response from the agent demonstrating its capabilities and knowledge. The agent has successfully processed your request using its configured tools and model.`
+      ];
+
+      for (let i = 0; i < responses.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        setTestResult(responses[i]);
+      }
+    } catch (error) {
+      setTestResult('Error occurred during testing');
+    } finally {
+      setTestingAgent(null);
+    }
+  };
+
+  // Utility functions
+  const filteredTools = mockTools.filter(tool => {
+    const matchesSearch = tool.name.toLowerCase().includes(toolSearchTerm.toLowerCase()) ||
+                         tool.description.toLowerCase().includes(toolSearchTerm.toLowerCase());
+    const matchesCategory = selectedToolCategory === 'all' || tool.category === selectedToolCategory;
     return matchesSearch && matchesCategory;
   });
 
-  // Função para criar novo agente
-  const handleCreateAgent = async () => {
-    if (!newAgent.name || !newAgent.role || !newAgent.model_provider) {
-      alert('Preencha todos os campos obrigatórios');
-      return;
-    }
+  const getProviderIcon = (provider: string) => {
+    const icons = { openai: '🤖', anthropic: '🧠', groq: '⚡', ollama: '🦙' };
+    return icons[provider as keyof typeof icons] || '🤖';
+  };
 
-    setIsCreating(true);
+  const getCategoryColor = (category: string) => {
+    const colors = {
+      web: 'blue', financial: 'green', ai_media: 'purple', communication: 'indigo',
+      productivity: 'teal', database: 'orange', cloud: 'sky', utilities: 'slate', reasoning: 'rose'
+    };
+    return colors[category as keyof typeof colors] || 'gray';
+  };
 
-    try {
-      // Simular criação no backend
-      await new Promise(resolve => setTimeout(resolve, 1500));
+  // Drag & Drop handlers
+  const handleDragStart = (agent: Agent) => {
+    setDraggedAgent(agent);
+  };
 
-      const agent: Agent = {
-        id: `agent_${Date.now()}`,
-        name: newAgent.name!,
-        role: newAgent.role!,
-        description: newAgent.description || '',
-        model_provider: newAgent.model_provider!,
-        model_id: newAgent.model_id!,
-        instructions: newAgent.instructions?.filter(i => i.trim()) || [],
-        tools: newAgent.tools || [],
-        configuration: {},
-        is_active: true,
-        memory_enabled: newAgent.memory_enabled || false,
-        rag_config: newAgent.rag_config || {
-          enabled: false,
-          embeddingModel: 'text-embedding-3-small',
-          chunkSize: 1000,
-          chunkOverlap: 200,
-          topK: 5,
-          threshold: 0.7
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent, teamId: string) => {
+    e.preventDefault();
+    if (draggedAgent) {
+      const updatedTeams = teams.map(team => {
+        if (team.id === teamId) {
+          return {
+            ...team,
+            agents: [...team.agents, { ...draggedAgent, roleInTeam: 'member' }]
+          };
         }
-      };
-
-      // Adicionar ao time atual
-      setSelectedAgents([...selectedAgents, agent]);
-
-      // Adicionar aos agentes disponíveis
-      setAvailableAgents([...availableAgents, agent]);
-
-      // Reset form
-      setNewAgent({
-        name: '',
-        role: '',
-        description: '',
-        model_provider: 'openai',
-        model_id: 'gpt-4-turbo',
-        instructions: [''],
-        tools: [],
-        memory_enabled: true,
-        rag_config: {
-          enabled: false,
-          embeddingModel: 'text-embedding-3-small',
-          chunkSize: 1000,
-          chunkOverlap: 200,
-          topK: 5,
-          threshold: 0.7,
-          documents: []
-        }
+        return team;
       });
-
-      setShowAgentCreator(false);
-      setActiveTab('basic');
-
-    } catch (error) {
-      console.error('Erro ao criar agente:', error);
-    } finally {
-      setIsCreating(false);
+      setTeams(updatedTeams);
+      setDraggedAgent(null);
     }
   };
 
-  // Função para salvar team
-  const handleSaveTeam = async () => {
-    if (!team.name || selectedAgents.length === 0) {
-      alert('Preencha o nome do team e adicione pelo menos um agente');
-      return;
-    }
-
-    setIsSaving(true);
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('Team salvo:', { ...team, agents: selectedAgents });
-      alert('Team salvo com sucesso!');
-    } catch (error) {
-      console.error('Erro ao salvar team:', error);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  // Função para adicionar instrução
-  const addInstruction = () => {
+  const addInstructionToAgent = () => {
     setNewAgent({
       ...newAgent,
       instructions: [...(newAgent.instructions || []), '']
     });
   };
 
-  // Função para remover instrução
-  const removeInstruction = (index: number) => {
-    const instructions = newAgent.instructions || [];
+  const removeInstructionFromAgent = (index: number) => {
+    const instructions = [...(newAgent.instructions || [])];
     instructions.splice(index, 1);
     setNewAgent({ ...newAgent, instructions });
   };
 
-  // Função para alternar ferramenta
-  const toggleTool = (tool: Tool) => {
+  const toggleToolForAgent = (tool: Tool) => {
     const currentTools = newAgent.tools || [];
     const isSelected = currentTools.some(t => t.id === tool.id);
 
@@ -385,797 +417,849 @@ const AdvancedTeamBuilder = () => {
     }
   };
 
-  const getModelIcon = (provider: string) => {
-    const icons: Record<string, string> = {
-      'openai': '🤖',
-      'anthropic': '🧠',
-      'groq': '⚡',
-      'ollama': '🦙'
-    };
-    return icons[provider] || '🤖';
-  };
-
-  const getCategoryIcon = (category: string) => {
-    const icons: Record<string, React.ReactNode> = {
-      'data': <Database className="w-4 h-4" />,
-      'communication': <Mail className="w-4 h-4" />,
-      'productivity': <Calendar className="w-4 h-4" />,
-      'development': <Code className="w-4 h-4" />,
-      'media': <Image className="w-4 h-4" />,
-      'integration': <Globe className="w-4 h-4" />
-    };
-    return icons[category] || <Cpu className="w-4 h-4" />;
-  };
-
   return (
-    <div className="h-full bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-              <Users className="w-8 h-8 text-blue-600" />
-              Team Builder Avançado
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Crie times de agentes especializados com ferramentas personalizadas e RAG integrado
-            </p>
+      <div className="bg-white shadow-lg border-b">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-blue-600 rounded-xl">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Advanced Team Builder</h1>
+                <p className="text-gray-600">Create, manage and orchestrate intelligent AI agent teams</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsCreatingAgent(true)}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+              >
+                <Bot className="w-4 h-4" />
+                New Agent
+              </button>
+              <button
+                onClick={() => setIsCreatingTeam(true)}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                New Team
+              </button>
+            </div>
           </div>
 
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowAgentCreator(true)}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
-            >
-              <Plus className="w-4 h-4" />
-              Criar Assistente
-            </button>
-
-            <button
-              onClick={() => setShowAgentSelector(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-            >
-              <Bot className="w-4 h-4" />
-              Adicionar Existente
-            </button>
-
-            <button
-              onClick={handleSaveTeam}
-              disabled={isSaving}
-              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 transition-colors flex items-center gap-2"
-            >
-              {isSaving ? <Loader className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-              Salvar Team
-            </button>
+          {/* Navigation Tabs */}
+          <div className="flex space-x-1 mt-6 bg-gray-100 p-1 rounded-lg">
+            {[
+              { id: 'builder', name: 'Team Builder', icon: <Users className="w-4 h-4" /> },
+              { id: 'agents', name: 'Agents', icon: <Bot className="w-4 h-4" /> },
+              { id: 'tools', name: 'Tools Library', icon: <Wrench className="w-4 h-4" /> },
+              { id: 'executions', name: 'Executions', icon: <Activity className="w-4 h-4" /> },
+              { id: 'analytics', name: 'Analytics', icon: <BarChart3 className="w-4 h-4" /> }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 ${
+                  activeTab === tab.id 
+                    ? 'bg-white text-blue-600 shadow-sm font-medium' 
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                {tab.icon}
+                {tab.name}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="flex-1 p-6">
-        {/* Team Configuration */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Configuração do Team</h2>
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Team Builder Tab */}
+        {activeTab === 'builder' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Teams List */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <Layers className="w-6 h-6" />
+                    Active Teams
+                  </h2>
+                  <button
+                    onClick={() => setIsCreatingTeam(true)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Create Team
+                  </button>
+                </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nome do Team *
-                </label>
-                <input
-                  type="text"
-                  value={team.name}
-                  onChange={(e) => setTeam({ ...team, name: e.target.value })}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Ex: Time de Customer Success"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Descrição
-                </label>
-                <textarea
-                  value={team.description}
-                  onChange={(e) => setTeam({ ...team, description: e.target.value })}
-                  rows={3}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Descreva o propósito e objetivos deste team..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Tipo de Colaboração
-                </label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {[
-                    { value: 'collaborative', label: 'Colaborativo', desc: 'Trabalham juntos', icon: Users },
-                    { value: 'hierarchical', label: 'Hierárquico', desc: 'Com supervisor', icon: Crown },
-                    { value: 'sequential', label: 'Sequencial', desc: 'Em cadeia', icon: ChevronRight }
-                  ].map((type) => {
-                    const Icon = type.icon;
-                    return (
-                      <label
-                        key={type.value}
-                        className={`relative flex p-3 border rounded-lg cursor-pointer transition-colors ${
-                          team.teamType === type.value
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-gray-300 hover:border-gray-400'
-                        }`}
+                {isLoading ? (
+                  <div className="flex items-center justify-center h-48">
+                    <Loader className="w-8 h-8 animate-spin text-blue-600" />
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {teams.map(team => (
+                      <div
+                        key={team.id}
+                        className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors cursor-pointer"
+                        onClick={() => setSelectedTeam(team)}
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => handleDrop(e, team.id!)}
                       >
-                        <input
-                          type="radio"
-                          value={type.value}
-                          checked={team.teamType === type.value}
-                          onChange={(e) => setTeam({ ...team, teamType: e.target.value as any })}
-                          className="sr-only"
-                        />
-                        <div className="flex items-center gap-3">
-                          <Icon className="w-5 h-5 text-gray-600" />
-                          <div>
-                            <div className="font-medium text-gray-900">{type.label}</div>
-                            <div className="text-xs text-gray-600">{type.desc}</div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-lg ${
+                              team.teamType === 'hierarchical' ? 'bg-purple-100 text-purple-600' :
+                              team.teamType === 'sequential' ? 'bg-orange-100 text-orange-600' :
+                              'bg-blue-100 text-blue-600'
+                            }`}>
+                              {team.teamType === 'hierarchical' ? <Crown className="w-5 h-5" /> :
+                               team.teamType === 'sequential' ? <GitBranch className="w-5 h-5" /> :
+                               <Users className="w-5 h-5" />}
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-gray-900">{team.name}</h3>
+                              <p className="text-sm text-gray-600">{team.description}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <Bot className="w-4 h-4" />
+                              {team.agents.length} agents
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Activity className="w-4 h-4" />
+                              {team.execution_count || 0} runs
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Gauge className="w-4 h-4" />
+                              {team.success_rate || 0}% success
+                            </span>
                           </div>
                         </div>
-                      </label>
-                    );
-                  })}
-                </div>
+
+                        {/* Agents in team */}
+                        {team.agents.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {team.agents.map(agent => (
+                              <div key={agent.id} className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full text-sm">
+                                <span>{getProviderIcon(agent.model_provider)}</span>
+                                <span className="font-medium">{agent.name}</span>
+                                {agent.roleInTeam && (
+                                  <span className="text-gray-500">({agent.roleInTeam})</span>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+
+                    {teams.length === 0 && (
+                      <div className="text-center py-12">
+                        <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-gray-900 mb-2">No teams yet</h3>
+                        <p className="text-gray-600 mb-4">Create your first AI agent team to get started</p>
+                        <button
+                          onClick={() => setIsCreatingTeam(true)}
+                          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                          Create First Team
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Available Agents Sidebar */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Bot className="w-5 h-5" />
+                Available Agents
+              </h3>
+
+              <div className="space-y-3">
+                {agents.map(agent => (
+                  <div
+                    key={agent.id}
+                    draggable
+                    onDragStart={() => handleDragStart(agent)}
+                    className="border border-gray-200 rounded-lg p-3 cursor-move hover:border-blue-300 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-lg">{getProviderIcon(agent.model_provider)}</span>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900">{agent.name}</div>
+                        <div className="text-sm text-gray-600">{agent.role}</div>
+                      </div>
+                      <div className="text-xs bg-gray-100 px-2 py-1 rounded">
+                        {agent.model_id}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <span>{agent.tools.length} tools</span>
+                      <span className="flex items-center gap-1">
+                        <Star className="w-3 h-3" />
+                        {agent.performance_score || 0}%
+                      </span>
+                    </div>
+                  </div>
+                ))}
+
+                {agents.length === 0 && (
+                  <div className="text-center py-8">
+                    <Bot className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                    <p className="text-gray-600 text-sm">No agents available</p>
+                    <button
+                      onClick={() => setIsCreatingAgent(true)}
+                      className="mt-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    >
+                      Create Agent
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
+        )}
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Agentes no Team</h2>
-
-            {selectedAgents.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <Bot className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                <p>Nenhum agente adicionado</p>
-                <p className="text-sm">Crie ou adicione agentes ao seu team</p>
+        {/* Agents Tab */}
+        {activeTab === 'agents' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Agent Management</h2>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setIsCreatingAgent(true)}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Create Agent
+                  </button>
+                </div>
               </div>
-            ) : (
-              <div className="space-y-3">
-                {selectedAgents.map((agent, index) => (
-                  <div key={agent.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl">{getModelIcon(agent.model_provider)}</span>
-                      <div>
-                        <div className="font-medium text-gray-900">{agent.name}</div>
-                        <div className="text-sm text-gray-600">{agent.role}</div>
-                        <div className="flex gap-1 mt-1">
-                          {agent.tools.slice(0, 2).map(tool => (
-                            <span key={tool.id} className="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded">
-                              {tool.name}
-                            </span>
-                          ))}
-                          {agent.tools.length > 2 && (
-                            <span className="text-xs text-gray-500">+{agent.tools.length - 2}</span>
-                          )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {agents.map(agent => (
+                  <div key={agent.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg">
+                          <span className="text-2xl">{getProviderIcon(agent.model_provider)}</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-900">{agent.name}</h3>
+                          <p className="text-sm text-gray-600">{agent.role}</p>
                         </div>
                       </div>
+                      <div className="flex gap-1">
+                        <button className="p-1 text-gray-400 hover:text-gray-600">
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button className="p-1 text-gray-400 hover:text-red-600">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      onClick={() => setSelectedAgents(selectedAgents.filter(a => a.id !== agent.id))}
-                      className="p-1 text-red-600 hover:bg-red-50 rounded"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+
+                    {agent.description && (
+                      <p className="text-sm text-gray-600 mb-3">{agent.description}</p>
+                    )}
+
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Model:</span>
+                        <span className="font-medium">{agent.model_id}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Tools:</span>
+                        <span className="font-medium">{agent.tools.length}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Performance:</span>
+                        <span className="font-medium">{agent.performance_score || 0}%</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Executions:</span>
+                        <span className="font-medium">{agent.execution_count || 0}</span>
+                      </div>
+                    </div>
+
+                    {/* Features */}
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {agent.memory_enabled && (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">Memory</span>
+                      )}
+                      {agent.rag_config.enabled && (
+                        <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">RAG</span>
+                      )}
+                      {agent.is_active && (
+                        <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Active</span>
+                      )}
+                    </div>
+
+                    {/* Test Agent */}
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Test message..."
+                          value={testPrompt}
+                          onChange={(e) => setTestPrompt(e.target.value)}
+                          className="flex-1 px-3 py-1 border border-gray-300 rounded text-sm"
+                        />
+                        <button
+                          onClick={() => testAgent(agent.id)}
+                          disabled={testingAgent === agent.id || !testPrompt.trim()}
+                          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 disabled:opacity-50 flex items-center gap-1"
+                        >
+                          {testingAgent === agent.id ? (
+                            <Loader className="w-3 h-3 animate-spin" />
+                          ) : (
+                            <Play className="w-3 h-3" />
+                          )}
+                          Test
+                        </button>
+                      </div>
+
+                      {testingAgent === agent.id && (
+                        <div className="text-sm text-gray-600 bg-gray-50 p-2 rounded">
+                          <Loader className="w-4 h-4 animate-spin inline mr-2" />
+                          Testing...
+                        </div>
+                      )}
+
+                      {testResult && testingAgent !== agent.id && (
+                        <div className="text-sm text-gray-700 bg-blue-50 p-2 rounded border-l-4 border-blue-400">
+                          {testResult}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Tools Library Tab */}
+        {activeTab === 'tools' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Tools Library</h2>
+                <div className="flex gap-3">
+                  <div className="relative">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search tools..."
+                      value={toolSearchTerm}
+                      onChange={(e) => setToolSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Tool Categories */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {toolCategories.map(category => (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedToolCategory(category.id)}
+                    className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                      selectedToolCategory === category.id
+                        ? `bg-${category.color}-100 text-${category.color}-700 border-2 border-${category.color}-300`
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {category.icon}
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Tools Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredTools.map(tool => (
+                  <div
+                    key={tool.id}
+                    className={`border-2 rounded-lg p-4 transition-all cursor-pointer ${
+                      tool.available 
+                        ? 'border-gray-200 hover:border-blue-300 hover:shadow-md' 
+                        : 'border-gray-100 bg-gray-50 opacity-60'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2 rounded-lg bg-${getCategoryColor(tool.category)}-100 text-${getCategoryColor(tool.category)}-600`}>
+                          {tool.icon}
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-900">{tool.name}</h3>
+                          <p className="text-sm text-gray-600 capitalize">{tool.category.replace('_', ' ')}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-1">
+                        {tool.available ? (
+                          <CheckCircle className="w-5 h-5 text-green-500" />
+                        ) : (
+                          <AlertCircle className="w-5 h-5 text-orange-500" />
+                        )}
+                        {tool.requires_auth && (
+                          <Lock className="w-4 h-4 text-gray-400" />
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-gray-600 mb-4">{tool.description}</p>
+
+                    <div className="flex items-center justify-between">
+                      <span className={`px-2 py-1 text-xs rounded ${
+                        tool.available ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                      }`}>
+                        {tool.available ? 'Available' : 'Setup Required'}
+                      </span>
+
+                      {tool.available && (
+                        <button className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+                          Configure
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Executions Tab */}
+        {activeTab === 'executions' && (
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Executions</h2>
+
+            <div className="space-y-4">
+              {executions.length === 0 ? (
+                <div className="text-center py-12">
+                  <Activity className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No executions yet</h3>
+                  <p className="text-gray-600">Agent executions will appear here</p>
+                </div>
+              ) : (
+                executions.map(execution => (
+                  <div key={execution.id} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-3 h-3 rounded-full ${
+                          execution.status === 'completed' ? 'bg-green-500' :
+                          execution.status === 'running' ? 'bg-blue-500 animate-pulse' :
+                          'bg-red-500'
+                        }`} />
+                        <span className="font-medium">{execution.agent_name}</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span>{new Date(execution.timestamp).toLocaleString()}</span>
+                        {execution.execution_time_ms && (
+                          <span>{execution.execution_time_ms}ms</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-50 rounded p-3 mb-2">
+                      <p className="text-sm font-medium text-gray-700">Input:</p>
+                      <p className="text-sm text-gray-600">{execution.message}</p>
+                    </div>
+
+                    {execution.response && (
+                      <div className="bg-blue-50 rounded p-3">
+                        <p className="text-sm font-medium text-blue-700">Response:</p>
+                        <p className="text-sm text-blue-600">{execution.response}</p>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Analytics Tab */}
+        {activeTab === 'analytics' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Team Performance</h3>
+              <div className="space-y-4">
+                {teams.map(team => (
+                  <div key={team.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                      <div className="font-medium">{team.name}</div>
+                      <div className="text-sm text-gray-600">{team.agents.length} agents</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-green-600">{team.success_rate || 0}%</div>
+                      <div className="text-sm text-gray-500">{team.execution_count || 0} runs</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Tool Usage</h3>
+              <div className="space-y-3">
+                {mockTools.slice(0, 5).map((tool, index) => (
+                  <div key={tool.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {tool.icon}
+                      <span className="text-sm">{tool.name}</span>
+                    </div>
+                    <div className="w-24 bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-blue-600 h-2 rounded-full"
+                        style={{ width: `${Math.random() * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Modal Criador de Agente */}
-      {showAgentCreator && (
+      {/* Create Agent Modal */}
+      {isCreatingAgent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-            {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <div>
-                <h2 className="text-xl font-bold text-gray-900">Criar Novo Assistente</h2>
-                <p className="text-sm text-gray-600">Configure um assistente especializado com ferramentas e RAG</p>
+          <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">Create New Agent</h2>
+                <button
+                  onClick={() => setIsCreatingAgent(false)}
+                  className="p-2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-6 h-6" />
+                </button>
               </div>
-              <button
-                onClick={() => setShowAgentCreator(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
 
-            {/* Tabs */}
-            <div className="border-b border-gray-200">
-              <nav className="flex gap-8 px-6">
-                {[
-                  { id: 'basic', label: 'Básico', icon: User },
-                  { id: 'tools', label: 'Ferramentas', icon: Zap },
-                  { id: 'rag', label: 'RAG', icon: Database },
-                  { id: 'advanced', label: 'Avançado', icon: Settings }
-                ].map(tab => {
-                  const Icon = tab.icon;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id as any)}
-                      className={`flex items-center gap-2 py-4 border-b-2 transition-colors ${
-                        activeTab === tab.id
-                          ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                      {tab.label}
-                    </button>
-                  );
-                })}
-              </nav>
-            </div>
+            <div className="p-6 space-y-6">
+              {/* Basic Info */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Agent Name</label>
+                  <input
+                    type="text"
+                    value={newAgent.name || ''}
+                    onChange={(e) => setNewAgent({ ...newAgent, name: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g., Research Assistant"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                  <input
+                    type="text"
+                    value={newAgent.role || ''}
+                    onChange={(e) => setNewAgent({ ...newAgent, role: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g., Senior Researcher"
+                  />
+                </div>
+              </div>
 
-            {/* Tab Content */}
-            <div className="p-6 overflow-y-auto" style={{ maxHeight: '60vh' }}>
-              {activeTab === 'basic' && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Nome do Assistente *
-                      </label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <textarea
+                  value={newAgent.description || ''}
+                  onChange={(e) => setNewAgent({ ...newAgent, description: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  rows={3}
+                  placeholder="Describe the agent's purpose and capabilities..."
+                />
+              </div>
+
+              {/* Model Configuration */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Provider</label>
+                  <select
+                    value={newAgent.model_provider || 'openai'}
+                    onChange={(e) => setNewAgent({
+                      ...newAgent,
+                      model_provider: e.target.value as any,
+                      model_id: modelOptions[e.target.value as keyof typeof modelOptions][0].id
+                    })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="openai">OpenAI</option>
+                    <option value="anthropic">Anthropic</option>
+                    <option value="groq">Groq</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Model</label>
+                  <select
+                    value={newAgent.model_id || ''}
+                    onChange={(e) => setNewAgent({ ...newAgent, model_id: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    {modelOptions[newAgent.model_provider as keyof typeof modelOptions]?.map(model => (
+                      <option key={model.id} value={model.id}>
+                        {model.name} - {model.description}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Instructions */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium text-gray-700">Instructions</label>
+                  <button
+                    onClick={addInstructionToAgent}
+                    className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+                  >
+                    Add Instruction
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {(newAgent.instructions || []).map((instruction, index) => (
+                    <div key={index} className="flex gap-2">
                       <input
                         type="text"
-                        value={newAgent.name || ''}
-                        onChange={(e) => setNewAgent({ ...newAgent, name: e.target.value })}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                        placeholder="Ex: Assistente de Vendas"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Função/Especialidade *
-                      </label>
-                      <input
-                        type="text"
-                        value={newAgent.role || ''}
-                        onChange={(e) => setNewAgent({ ...newAgent, role: e.target.value })}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                        placeholder="Ex: Especialista em qualificação de leads"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Descrição
-                    </label>
-                    <textarea
-                      value={newAgent.description || ''}
-                      onChange={(e) => setNewAgent({ ...newAgent, description: e.target.value })}
-                      rows={3}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      placeholder="Descreva as responsabilidades e contexto deste assistente..."
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Provedor do Modelo *
-                      </label>
-                      <select
-                        value={newAgent.model_provider || 'openai'}
+                        value={instruction}
                         onChange={(e) => {
-                          const provider = e.target.value as 'openai' | 'anthropic' | 'groq';
-                          const firstModel = MODEL_OPTIONS[provider][0].id;
-                          setNewAgent({
-                            ...newAgent,
-                            model_provider: provider,
-                            model_id: firstModel
-                          });
+                          const instructions = [...(newAgent.instructions || [])];
+                          instructions[index] = e.target.value;
+                          setNewAgent({ ...newAgent, instructions });
                         }}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      >
-                        <option value="openai">OpenAI</option>
-                        <option value="anthropic">Anthropic</option>
-                        <option value="groq">Groq</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Modelo Específico *
-                      </label>
-                      <select
-                        value={newAgent.model_id || ''}
-                        onChange={(e) => setNewAgent({ ...newAgent, model_id: e.target.value })}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      >
-                        {MODEL_OPTIONS[newAgent.model_provider as keyof typeof MODEL_OPTIONS]?.map(model => (
-                          <option key={model.id} value={model.id}>
-                            {model.name} - {model.description}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Instruções do Sistema
-                    </label>
-                    <div className="space-y-3">
-                      {(newAgent.instructions || ['']).map((instruction, index) => (
-                        <div key={index} className="flex gap-2">
-                          <input
-                            type="text"
-                            value={instruction}
-                            onChange={(e) => {
-                              const instructions = [...(newAgent.instructions || [])];
-                              instructions[index] = e.target.value;
-                              setNewAgent({ ...newAgent, instructions });
-                            }}
-                            className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                            placeholder={`Instrução ${index + 1}`}
-                          />
-                          {(newAgent.instructions || []).length > 1 && (
-                            <button
-                              onClick={() => removeInstruction(index)}
-                              className="p-3 text-red-600 hover:bg-red-50 rounded-lg"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          )}
-                        </div>
-                      ))}
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder={`Instruction ${index + 1}...`}
+                      />
                       <button
-                        onClick={addInstruction}
-                        className="flex items-center gap-2 text-blue-600 hover:text-blue-700"
+                        onClick={() => removeInstructionFromAgent(index)}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded"
                       >
-                        <Plus className="w-4 h-4" />
-                        Adicionar Instrução
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      id="memory_enabled"
-                      checked={newAgent.memory_enabled || false}
-                      onChange={(e) => setNewAgent({ ...newAgent, memory_enabled: e.target.checked })}
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                    <label htmlFor="memory_enabled" className="text-sm font-medium text-gray-700">
-                      Habilitar memória persistente
-                    </label>
-                    <HelpCircle className="w-4 h-4 text-gray-400" title="Permite que o assistente lembre de conversas anteriores" />
-                  </div>
+                  ))}
                 </div>
-              )}
+              </div>
 
-              {activeTab === 'tools' && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Ferramentas Disponíveis</h3>
-                      <p className="text-sm text-gray-600">Selecione as ferramentas que este assistente poderá usar</p>
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {(newAgent.tools || []).length} selecionadas
-                    </div>
-                  </div>
-
-                  {/* Filtros */}
-                  <div className="flex gap-4">
-                    <div className="flex-1 relative">
-                      <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                      <input
-                        type="text"
-                        value={toolSearch}
-                        onChange={(e) => setToolSearch(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                        placeholder="Buscar ferramentas..."
-                      />
-                    </div>
-                    <select
-                      value={selectedCategory}
-                      onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              {/* Tools Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-4">Select Tools</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-60 overflow-y-auto border border-gray-200 rounded-lg p-4">
+                  {mockTools.map(tool => (
+                    <div
+                      key={tool.id}
+                      onClick={() => toggleToolForAgent(tool)}
+                      className={`p-3 border rounded-lg cursor-pointer transition-all ${
+                        (newAgent.tools || []).some(t => t.id === tool.id)
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      } ${!tool.available ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      <option value="all">Todas as categorias</option>
-                      <option value="data">Dados</option>
-                      <option value="communication">Comunicação</option>
-                      <option value="productivity">Produtividade</option>
-                      <option value="development">Desenvolvimento</option>
-                      <option value="media">Mídia</option>
-                      <option value="integration">Integração</option>
-                    </select>
-                  </div>
-
-                  {/* Grid de Ferramentas */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredTools.map(tool => {
-                      const isSelected = (newAgent.tools || []).some(t => t.id === tool.id);
-                      return (
-                        <div
-                          key={tool.id}
-                          onClick={() => toggleTool(tool)}
-                          className={`p-4 border rounded-xl cursor-pointer transition-all ${
-                            isSelected
-                              ? 'border-blue-500 bg-blue-50 shadow-md'
-                              : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center gap-2">
-                              {getCategoryIcon(tool.category)}
-                              <span className="font-medium text-gray-900">{tool.name}</span>
-                            </div>
-                            {isSelected && <CheckCircle className="w-5 h-5 text-blue-600" />}
-                          </div>
-                          <p className="text-sm text-gray-600">{tool.description}</p>
-                          <div className="mt-2">
-                            <span className="inline-flex px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full capitalize">
-                              {tool.category}
-                            </span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {filteredTools.length === 0 && (
-                    <div className="text-center py-8 text-gray-500">
-                      <Search className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                      <p>Nenhuma ferramenta encontrada</p>
-                      <p className="text-sm">Tente ajustar os filtros de busca</p>
+                      <div className="flex items-center gap-2 mb-1">
+                        {tool.icon}
+                        <span className="font-medium text-sm">{tool.name}</span>
+                        {(newAgent.tools || []).some(t => t.id === tool.id) && (
+                          <CheckCircle className="w-4 h-4 text-blue-600 ml-auto" />
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-600">{tool.description}</p>
                     </div>
-                  )}
+                  ))}
                 </div>
-              )}
+              </div>
 
-              {activeTab === 'rag' && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
+              {/* Advanced Options */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={newAgent.memory_enabled || false}
+                    onChange={(e) => setNewAgent({ ...newAgent, memory_enabled: e.target.checked })}
+                    className="mr-2"
+                  />
+                  <span className="text-sm font-medium">Memory Enabled</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={newAgent.is_active || false}
+                    onChange={(e) => setNewAgent({ ...newAgent, is_active: e.target.checked })}
+                    className="mr-2"
+                  />
+                  <span className="text-sm font-medium">Active</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={newAgent.rag_config?.enabled || false}
+                    onChange={(e) => setNewAgent({
+                      ...newAgent,
+                      rag_config: { ...newAgent.rag_config!, enabled: e.target.checked }
+                    })}
+                    className="mr-2"
+                  />
+                  <span className="text-sm font-medium">RAG Enabled</span>
+                </label>
+              </div>
+
+              {/* RAG Configuration */}
+              {newAgent.rag_config?.enabled && (
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 space-y-4">
+                  <h4 className="font-medium text-purple-900">RAG Configuration</h4>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Configuração RAG</h3>
-                      <p className="text-sm text-gray-600">Configure a recuperação aumentada de geração para este assistente</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={newAgent.rag_config?.enabled || false}
+                      <label className="block text-sm font-medium text-purple-700 mb-1">Embedding Model</label>
+                      <select
+                        value={newAgent.rag_config?.embeddingModel || 'text-embedding-3-small'}
                         onChange={(e) => setNewAgent({
                           ...newAgent,
-                          rag_config: { ...(newAgent.rag_config || {}), enabled: e.target.checked } as RAGConfig
+                          rag_config: { ...newAgent.rag_config!, embeddingModel: e.target.value as any }
                         })}
-                        className="sr-only peer"
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                      <span className="ml-3 text-sm font-medium text-gray-900">
-                        {newAgent.rag_config?.enabled ? 'Habilitado' : 'Desabilitado'}
-                      </span>
-                    </label>
-                  </div>
-
-                  {newAgent.rag_config?.enabled && (
-                    <div className="space-y-6 p-6 bg-gray-50 rounded-xl">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Modelo de Embedding
-                          </label>
-                          <select
-                            value={newAgent.rag_config?.embeddingModel || 'text-embedding-3-small'}
-                            onChange={(e) => setNewAgent({
-                              ...newAgent,
-                              rag_config: {
-                                ...(newAgent.rag_config || {}),
-                                embeddingModel: e.target.value as any
-                              } as RAGConfig
-                            })}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                          >
-                            <option value="text-embedding-3-small">Text Embedding 3 Small (Rápido)</option>
-                            <option value="text-embedding-3-large">Text Embedding 3 Large (Precisão)</option>
-                            <option value="text-embedding-ada-002">Ada 002 (Econômico)</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Nome do Índice
-                          </label>
-                          <input
-                            type="text"
-                            value={newAgent.rag_config?.indexName || ''}
-                            onChange={(e) => setNewAgent({
-                              ...newAgent,
-                              rag_config: {
-                                ...(newAgent.rag_config || {}),
-                                indexName: e.target.value
-                              } as RAGConfig
-                            })}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                            placeholder="Ex: knowledge_base_vendas"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Tamanho do Chunk
-                          </label>
-                          <input
-                            type="number"
-                            value={newAgent.rag_config?.chunkSize || 1000}
-                            onChange={(e) => setNewAgent({
-                              ...newAgent,
-                              rag_config: {
-                                ...(newAgent.rag_config || {}),
-                                chunkSize: parseInt(e.target.value)
-                              } as RAGConfig
-                            })}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                            min="100"
-                            max="4000"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Sobreposição
-                          </label>
-                          <input
-                            type="number"
-                            value={newAgent.rag_config?.chunkOverlap || 200}
-                            onChange={(e) => setNewAgent({
-                              ...newAgent,
-                              rag_config: {
-                                ...(newAgent.rag_config || {}),
-                                chunkOverlap: parseInt(e.target.value)
-                              } as RAGConfig
-                            })}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                            min="0"
-                            max="1000"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Top K Resultados
-                          </label>
-                          <input
-                            type="number"
-                            value={newAgent.rag_config?.topK || 5}
-                            onChange={(e) => setNewAgent({
-                              ...newAgent,
-                              rag_config: {
-                                ...(newAgent.rag_config || {}),
-                                topK: parseInt(e.target.value)
-                              } as RAGConfig
-                            })}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                            min="1"
-                            max="20"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Threshold
-                          </label>
-                          <input
-                            type="number"
-                            step="0.1"
-                            value={newAgent.rag_config?.threshold || 0.7}
-                            onChange={(e) => setNewAgent({
-                              ...newAgent,
-                              rag_config: {
-                                ...(newAgent.rag_config || {}),
-                                threshold: parseFloat(e.target.value)
-                              } as RAGConfig
-                            })}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                            min="0"
-                            max="1"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Base de Conhecimento
-                        </label>
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                          <Upload className="w-8 h-8 mx-auto mb-3 text-gray-400" />
-                          <p className="text-gray-600 mb-2">Arraste documentos aqui ou clique para selecionar</p>
-                          <p className="text-sm text-gray-500">Suporta PDF, DOC, TXT, MD</p>
-                          <button className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                            Selecionar Arquivos
-                          </button>
-                        </div>
-
-                        {/* Lista de documentos (placeholder) */}
-                        <div className="mt-4 space-y-2">
-                          <div className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
-                            <div className="flex items-center gap-3">
-                              <FileText className="w-5 h-5 text-gray-400" />
-                              <span className="text-sm text-gray-700">manual_vendas.pdf</span>
-                              <span className="text-xs text-gray-500">2.3 MB</span>
-                            </div>
-                            <button className="p-1 text-red-600 hover:bg-red-50 rounded">
-                              <X className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                        className="w-full px-3 py-2 border border-purple-300 rounded-lg"
+                      >
+                        <option value="text-embedding-ada-002">Ada 002</option>
+                        <option value="text-embedding-3-small">Text Embedding 3 Small</option>
+                        <option value="text-embedding-3-large">Text Embedding 3 Large</option>
+                      </select>
                     </div>
-                  )}
-                </div>
-              )}
-
-              {activeTab === 'advanced' && (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Configurações Avançadas</h3>
-                    <div className="space-y-4">
-                      <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                        <div className="flex items-center gap-2 mb-2">
-                          <AlertCircle className="w-5 h-5 text-yellow-600" />
-                          <span className="font-medium text-yellow-800">Em Desenvolvimento</span>
-                        </div>
-                        <p className="text-sm text-yellow-700">
-                          Funcionalidades avançadas como fine-tuning, webhooks e integrações personalizadas estarão disponíveis em breve.
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-4 border border-gray-200 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-2">Fine-tuning</h4>
-                          <p className="text-sm text-gray-600 mb-3">Treine o modelo com dados específicos do seu domínio</p>
-                          <button disabled className="px-3 py-1 bg-gray-100 text-gray-400 text-sm rounded cursor-not-allowed">
-                            Em breve
-                          </button>
-                        </div>
-
-                        <div className="p-4 border border-gray-200 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-2">Webhooks</h4>
-                          <p className="text-sm text-gray-600 mb-3">Notificações automáticas para eventos específicos</p>
-                          <button disabled className="px-3 py-1 bg-gray-100 text-gray-400 text-sm rounded cursor-not-allowed">
-                            Em breve
-                          </button>
-                        </div>
-
-                        <div className="p-4 border border-gray-200 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-2">APIs Personalizadas</h4>
-                          <p className="text-sm text-gray-600 mb-3">Integre com sistemas internos da empresa</p>
-                          <button disabled className="px-3 py-1 bg-gray-100 text-gray-400 text-sm rounded cursor-not-allowed">
-                            Em breve
-                          </button>
-                        </div>
-
-                        <div className="p-4 border border-gray-200 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-2">Monitoramento</h4>
-                          <p className="text-sm text-gray-600 mb-3">Métricas avançadas e alertas em tempo real</p>
-                          <button disabled className="px-3 py-1 bg-gray-100 text-gray-400 text-sm rounded cursor-not-allowed">
-                            Em breve
-                          </button>
-                        </div>
-                      </div>
+                    <div>
+                      <label className="block text-sm font-medium text-purple-700 mb-1">Chunk Size</label>
+                      <input
+                        type="number"
+                        value={newAgent.rag_config?.chunkSize || 1000}
+                        onChange={(e) => setNewAgent({
+                          ...newAgent,
+                          rag_config: { ...newAgent.rag_config!, chunkSize: parseInt(e.target.value) }
+                        })}
+                        className="w-full px-3 py-2 border border-purple-300 rounded-lg"
+                      />
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Footer */}
-            <div className="p-6 border-t border-gray-200 flex justify-between">
+            <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
               <button
-                onClick={() => setShowAgentCreator(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                onClick={() => setIsCreatingAgent(false)}
+                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
               >
-                Cancelar
+                Cancel
               </button>
               <button
-                onClick={handleCreateAgent}
-                disabled={isCreating || !newAgent.name || !newAgent.role}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                onClick={saveAgent}
+                disabled={isLoading || !newAgent.name || !newAgent.role}
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
               >
-                {isCreating ? (
-                  <>
-                    <Loader className="w-4 h-4 animate-spin" />
-                    Criando...
-                  </>
-                ) : (
-                  <>
-                    <Wand2 className="w-4 h-4" />
-                    Criar Assistente
-                  </>
-                )}
+                {isLoading && <Loader className="w-4 h-4 animate-spin" />}
+                Create Agent
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Modal Selector de Agentes Existentes */}
-      {showAgentSelector && (
+      {/* Create Team Modal */}
+      {isCreatingTeam && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900">Selecionar Agentes Existentes</h2>
-              <button
-                onClick={() => setShowAgentSelector(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
+          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">Create New Team</h2>
+                <button
+                  onClick={() => setIsCreatingTeam(false)}
+                  className="p-2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
 
-            <div className="p-6 overflow-y-auto" style={{ maxHeight: '60vh' }}>
-              {availableAgents.filter(agent => !selectedAgents.find(sa => sa.id === agent.id)).length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>Todos os agentes disponíveis já foram adicionados ao team.</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {availableAgents
-                    .filter(agent => !selectedAgents.find(sa => sa.id === agent.id))
-                    .map(agent => (
-                      <div
-                        key={agent.id}
-                        onClick={() => {
-                          setSelectedAgents([...selectedAgents, agent]);
-                          setShowAgentSelector(false);
-                        }}
-                        className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                      >
-                        <div className="flex items-center gap-4">
-                          <span className="text-2xl">{getModelIcon(agent.model_provider)}</span>
-                          <div>
-                            <h3 className="font-medium text-gray-900">{agent.name}</h3>
-                            <p className="text-sm text-gray-600">{agent.role}</p>
-                            {agent.description && (
-                              <p className="text-xs text-gray-500 mt-1">{agent.description}</p>
-                            )}
-                            <div className="flex gap-2 mt-2">
-                              {agent.tools.slice(0, 3).map(tool => (
-                                <span
-                                  key={tool.id}
-                                  className="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full"
-                                >
-                                  {tool.name}
-                                </span>
-                              ))}
-                              {agent.tools.length > 3 && (
-                                <span className="text-xs text-gray-500 self-center">
-                                  +{agent.tools.length - 3} mais
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                        <Plus className="w-5 h-5 text-green-600" />
+            <div className="p-6 space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Team Name</label>
+                <input
+                  type="text"
+                  value={newTeam.name || ''}
+                  onChange={(e) => setNewTeam({ ...newTeam, name: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g., Research Team"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <textarea
+                  value={newTeam.description || ''}
+                  onChange={(e) => setNewTeam({ ...newTeam, description: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  rows={3}
+                  placeholder="Describe the team's purpose..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Team Type</label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {[
+                    { id: 'collaborative', name: 'Collaborative', icon: <Users className="w-5 h-5" />, desc: 'Agents work together' },
+                    { id: 'hierarchical', name: 'Hierarchical', icon: <Crown className="w-5 h-5" />, desc: 'With supervisor' },
+                    { id: 'sequential', name: 'Sequential', icon: <GitBranch className="w-5 h-5" />, desc: 'Step by step' }
+                  ].map(type => (
+                    <div
+                      key={type.id}
+                      onClick={() => setNewTeam({ ...newTeam, teamType: type.id as any })}
+                      className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                        newTeam.teamType === type.id
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        {type.icon}
+                        <span className="font-medium">{type.name}</span>
                       </div>
-                    ))}
+                      <p className="text-sm text-gray-600">{type.desc}</p>
+                    </div>
+                  ))}
                 </div>
-              )}
+              </div>
             </div>
 
-            <div className="p-6 border-t border-gray-200 flex justify-end">
+            <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
               <button
-                onClick={() => setShowAgentSelector(false)}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                onClick={() => setIsCreatingTeam(false)}
+                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
               >
-                Fechar
+                Cancel
+              </button>
+              <button
+                onClick={saveTeam}
+                disabled={isLoading || !newTeam.name}
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+              >
+                {isLoading && <Loader className="w-4 h-4 animate-spin" />}
+                Create Team
               </button>
             </div>
           </div>
@@ -1185,4 +1269,4 @@ const AdvancedTeamBuilder = () => {
   );
 };
 
-export default AdvancedTeamBuilder;
+export default TeamBuilder;
