@@ -1,0 +1,124 @@
+0,1,2,3,4
+agno_agents,id,integer,NO,nextval('agno_agents_id_seq'::regclass)
+agno_agents,user_id,integer,YES,
+agno_agents,name,character varying,NO,
+agno_agents,description,text,YES,
+agno_agents,role,character varying,YES,
+agno_agents,model_provider,character varying,NO,
+agno_agents,model_id,character varying,NO,
+agno_agents,instructions,jsonb,NO,'[]'::jsonb
+agno_agents,tools,jsonb,NO,'[]'::jsonb
+agno_agents,configuration,jsonb,NO,'{}'::jsonb
+agno_agents,is_active,boolean,YES,true
+agno_agents,memory_enabled,boolean,YES,true
+agno_agents,rag_enabled,boolean,YES,false
+agno_agents,rag_index_id,character varying,YES,
+agno_agents,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_agents,updated_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_chat_sessions,id,uuid,NO,uuid_generate_v4()
+agno_chat_sessions,user_id,integer,YES,
+agno_chat_sessions,agent_id,integer,YES,
+agno_chat_sessions,workflow_id,integer,YES,
+agno_chat_sessions,session_name,character varying,YES,
+agno_chat_sessions,status,character varying,YES,'active'::character varying
+agno_chat_sessions,started_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_chat_sessions,ended_at,timestamp with time zone,YES,
+agno_execution_steps,id,uuid,NO,uuid_generate_v4()
+agno_execution_steps,execution_id,uuid,YES,
+agno_execution_steps,step_order,integer,YES,
+agno_execution_steps,node_id,character varying,YES,
+agno_execution_steps,agent_id,integer,YES,
+agno_execution_steps,step_type,character varying,YES,
+agno_execution_steps,input_data,jsonb,YES,
+agno_execution_steps,output_data,jsonb,YES,
+agno_execution_steps,status,character varying,YES,'pending'::character varying
+agno_execution_steps,started_at,timestamp with time zone,YES,
+agno_execution_steps,completed_at,timestamp with time zone,YES,
+agno_execution_steps,execution_time_ms,integer,YES,
+agno_execution_steps,error_message,text,YES,
+agno_execution_steps,metadata,jsonb,YES,'{}'::jsonb
+agno_team_agents,id,integer,NO,nextval('agno_team_agents_id_seq'::regclass)
+agno_team_agents,team_id,integer,YES,
+agno_team_agents,agent_id,integer,YES,
+agno_team_agents,role_in_team,character varying,YES,
+agno_team_agents,priority,integer,YES,1
+agno_team_agents,agent_config,jsonb,YES,'{}'::jsonb
+agno_team_agents,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_team_executions,id,integer,NO,nextval('agno_team_executions_id_seq'::regclass)
+agno_team_executions,team_id,integer,NO,
+agno_team_executions,input_message,text,NO,
+agno_team_executions,output_response,text,YES,
+agno_team_executions,status,character varying,YES,'pending'::character varying
+agno_team_executions,metadata,jsonb,YES,'{}'::jsonb
+agno_team_executions,error_message,text,YES,
+agno_team_executions,execution_time_ms,integer,YES,
+agno_team_executions,agents_involved,integer,YES,
+agno_team_executions,started_at,timestamp without time zone,YES,CURRENT_TIMESTAMP
+agno_team_executions,completed_at,timestamp without time zone,YES,
+agno_teams,id,integer,NO,nextval('agno_teams_id_seq'::regclass)
+agno_teams,user_id,integer,YES,
+agno_teams,name,character varying,NO,
+agno_teams,description,text,YES,
+agno_teams,team_type,character varying,YES,'collaborative'::character varying
+agno_teams,supervisor_agent_id,integer,YES,
+agno_teams,team_configuration,jsonb,NO,'{}'::jsonb
+agno_teams,is_active,boolean,YES,true
+agno_teams,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_teams,updated_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_user_preferences,id,integer,NO,nextval('agno_user_preferences_id_seq'::regclass)
+agno_user_preferences,user_id,integer,YES,
+agno_user_preferences,workflow_builder_config,jsonb,YES,'{}'::jsonb
+agno_user_preferences,team_builder_config,jsonb,YES,'{}'::jsonb
+agno_user_preferences,default_model_provider,character varying,YES,'openai'::character varying
+agno_user_preferences,default_model_id,character varying,YES,'gpt-4o-mini'::character varying
+agno_user_preferences,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_user_preferences,updated_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_users,id,integer,NO,nextval('agno_users_id_seq'::regclass)
+agno_users,username,character varying,NO,
+agno_users,email,character varying,NO,
+agno_users,full_name,character varying,YES,
+agno_users,is_active,boolean,YES,true
+agno_users,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_users,updated_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflow_agents,id,integer,NO,nextval('agno_workflow_agents_id_seq'::regclass)
+agno_workflow_agents,workflow_id,integer,YES,
+agno_workflow_agents,agent_id,integer,YES,
+agno_workflow_agents,position,integer,NO,0
+agno_workflow_agents,node_config,jsonb,YES,'{}'::jsonb
+agno_workflow_agents,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflow_executions,id,uuid,NO,uuid_generate_v4()
+agno_workflow_executions,workflow_id,integer,YES,
+agno_workflow_executions,user_id,integer,YES,
+agno_workflow_executions,input_data,jsonb,YES,
+agno_workflow_executions,output_data,jsonb,YES,
+agno_workflow_executions,execution_status,character varying,YES,'running'::character varying
+agno_workflow_executions,started_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflow_executions,completed_at,timestamp with time zone,YES,
+agno_workflow_executions,error_message,text,YES,
+agno_workflow_executions,execution_log,jsonb,YES,'[]'::jsonb
+agno_workflow_executions,metadata,jsonb,YES,'{}'::jsonb
+agno_workflow_templates,id,integer,NO,nextval('agno_workflow_templates_id_seq'::regclass)
+agno_workflow_templates,name,character varying,NO,
+agno_workflow_templates,description,text,YES,
+agno_workflow_templates,category,character varying,YES,
+agno_workflow_templates,template_definition,jsonb,NO,'{}'::jsonb
+agno_workflow_templates,preview_image,character varying,YES,
+agno_workflow_templates,tags,ARRAY,YES,
+agno_workflow_templates,is_public,boolean,YES,true
+agno_workflow_templates,created_by,integer,YES,
+agno_workflow_templates,usage_count,integer,YES,0
+agno_workflow_templates,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflow_templates,updated_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflows,id,integer,NO,nextval('agno_workflows_id_seq'::regclass)
+agno_workflows,user_id,integer,YES,
+agno_workflows,name,character varying,NO,
+agno_workflows,description,text,YES,
+agno_workflows,flow_type,character varying,YES,'sequential'::character varying
+agno_workflows,workflow_definition,jsonb,NO,'{}'::jsonb
+agno_workflows,is_active,boolean,YES,true
+agno_workflows,created_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflows,updated_at,timestamp with time zone,YES,CURRENT_TIMESTAMP
+agno_workflows,visual_definition,jsonb,YES,'{}'::jsonb
+agno_workflows,execution_mode,character varying,YES,'sequential'::character varying
+agno_workflows,team_id,integer,YES,
+agno_workflows,template_id,integer,YES,

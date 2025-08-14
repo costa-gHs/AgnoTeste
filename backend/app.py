@@ -207,7 +207,19 @@ class ChatRequest(BaseModel):
     prompt: str = Field(..., min_length=1, max_length=10000)
     stream: bool = True
 
+class TeamCreateRequest(BaseModel):
+    """Modelo para criar team"""
+    name: str = Field(..., min_length=2, max_length=100)
+    description: str = Field(default="", max_length=500)
+    team_type: str = Field(default="collaborative", pattern="^(collaborative|hierarchical|sequential)$")
+    agents: List[Dict[str, Any]] = Field(default_factory=list)
+    supervisor_agent_id: Optional[int] = None
+    team_configuration: Dict[str, Any] = Field(default_factory=dict)
 
+class TeamExecuteRequest(BaseModel):
+    """Modelo para executar team"""
+    message: str = Field(..., min_length=1, max_length=10000)
+    context: Dict[str, Any] = Field(default_factory=dict)
 # =============================================
 # GERENCIADOR DE WEBSOCKET SIMPLES
 # =============================================
@@ -848,6 +860,436 @@ async def execute_real_agno_chat(chat_id: str, agent, request: ChatRequest):
         return await simulate_agent_response(chat_id, agent, request)
 
 
+@app.get("/api/teams", response_model=BaseResponse)
+async def list_teams(
+        user_id: int = Query(1, description="ID do usuário"),
+        limit: int = Query(50, ge=1, le=100),
+        offset: int = Query(0, ge=0),
+        db: AsyncSession = Depends(get_db)
+):
+    """📋 Listar teams do usuário"""
+    try:
+        query = sa_text("""
+            SELECT t.id, t.name, t.description, t.team_type, t.is_active,
+                   t.created_at, t.updated_at, t.team_configuration,
+                   COUNT(ta.agent_id) as agent_count,
+                   s.name as supervisor_name
+            FROM agno_teams t
+            LEFT JOIN agno_team_agents ta ON t.id = ta.team_id AND ta.is_active = true
+            LEFT JOIN agno_agents s ON t.supervisor_agent_id = s.id
+            WHERE t.user_id = :user_id AND t.is_active = true
+            GROUP BY t.id, s.name
+            ORDER BY t.updated_at DESC
+            LIMIT :limit OFFSET :offset
+        """)
+
+        result = await db.execute(query, {
+            "user_id": user_id, "limit": limit, "offset": offset
+        })
+        rows = result.fetchall()
+
+        teams = []
+        for row in rows:
+            # Buscar agentes do team
+            agents_query = sa_text("""
+                SELECT a.id, a.name, a.role, ta.role_in_team, ta.priority
+                FROM agno_team_agents ta
+                JOIN agno_agents a ON ta.agent_id = a.id
+                WHERE ta.team_id = :team_id AND ta.is_active = true
+                ORDER BY ta.priority
+            """)
+
+            agents_result = await db.execute(agents_query, {"team_id": row.id})
+            agents = [
+                {
+                    "id": a.id, "name": a.name, "role": a.role,
+                    "role_in_team": a.role_in_team, "priority": a.priority
+                }
+                for a in agents_result.fetchall()
+            ]
+
+            team_data = {
+                "id": row.id,
+                "name": row.name,
+                "description": row.description or "",
+                "team_type": row.team_type,
+                "is_active": row.is_active,
+                "agent_count": row.agent_count,
+                "agents": agents,
+                "supervisor": {"name": row.supervisor_name} if row.supervisor_name else None,
+                "created_at": row.created_at.isoformat() if row.created_at else None,
+                "updated_at": row.updated_at.isoformat() if row.updated_at else None,
+                "execution_count": 0  # TODO: buscar do agno_team_executions
+            }
+            teams.append(team_data)
+
+        logger.info(f"📋 Listados {len(teams)} teams para usuário {user_id}")
+
+        return BaseResponse(
+            message=f"{len(teams)} teams encontrados",
+            data={"teams": teams, "pagination": {"total": len(teams), "limit": limit, "offset": offset}}
+        )
+
+    except Exception as e:
+        logger.error(f"❌ Erro ao listar teams: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro ao listar teams: {str(e)}")
+
+
+@app.post("/api/teams", response_model=BaseResponse)
+async def create_team(
+        request: TeamCreateRequest,
+        user_id: int = Query(1, description="ID do usuário"),
+        db: AsyncSession = Depends(get_db)
+):
+    """🎯 Criar novo team"""
+    try:
+        # Verificar se agentes existem
+        if request.agents:
+            agent_ids = [a.get("agent_id") for a in request.agents if a.get("agent_id")]
+            if agent_ids:
+                check_agents = sa_text("""
+                    SELECT id FROM agno_agents 
+                    WHERE id = ANY(:agent_ids) AND user_id = :user_id AND is_active = true
+                """)
+                result = await db.execute(check_agents, {
+                    "agent_ids": agent_ids, "user_id": user_id
+                })
+                existing_ids = [row.id for row in result.fetchall()]
+                missing_ids = set(agent_ids) - set(existing_ids)
+
+                if missing_ids:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"Agentes não encontrados: {list(missing_ids)}"
+                    )
+
+        # Inserir team
+        insert_team = sa_text("""
+            INSERT INTO agno_teams (user_id, name, description, team_type, team_configuration, supervisor_agent_id)
+            VALUES (:user_id, :name, :description, :team_type, :config, :supervisor_id)
+            RETURNING id, name, team_type, created_at
+        """)
+
+        result = await db.execute(insert_team, {
+            "user_id": user_id,
+            "name": request.name,
+            "description": request.description,
+            "team_type": request.team_type,
+            "config": request.team_configuration,
+            "supervisor_id": request.supervisor_agent_id
+        })
+
+        team_row = result.fetchone()
+        team_id = team_row.id
+
+        # Adicionar agentes ao team
+        if request.agents:
+            for i, agent_data in enumerate(request.agents):
+                if agent_data.get("agent_id"):
+                    insert_agent = sa_text("""
+                        INSERT INTO agno_team_agents (team_id, agent_id, role_in_team, priority)
+                        VALUES (:team_id, :agent_id, :role_in_team, :priority)
+                    """)
+
+                    await db.execute(insert_agent, {
+                        "team_id": team_id,
+                        "agent_id": agent_data["agent_id"],
+                        "role_in_team": agent_data.get("role_in_team", "member"),
+                        "priority": agent_data.get("priority", i + 1)
+                    })
+
+        await db.commit()
+
+        logger.info(f"✅ Team criado: {request.name} (ID: {team_id}) por usuário {user_id}")
+
+        return BaseResponse(
+            message="Team criado com sucesso",
+            data={
+                "team_id": team_id,
+                "name": team_row.name,
+                "team_type": team_row.team_type,
+                "created_at": team_row.created_at.isoformat()
+            }
+        )
+
+    except HTTPException:
+        await db.rollback()
+        raise
+    except Exception as e:
+        await db.rollback()
+        logger.error(f"❌ Erro ao criar team: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro ao criar team: {str(e)}")
+
+
+@app.get("/api/teams/{team_id}", response_model=BaseResponse)
+async def get_team(
+        team_id: int,
+        user_id: int = Query(1, description="ID do usuário"),
+        db: AsyncSession = Depends(get_db)
+):
+    """🔍 Buscar team específico"""
+    try:
+        query = sa_text("""
+            SELECT t.*, s.name as supervisor_name
+            FROM agno_teams t
+            LEFT JOIN agno_agents s ON t.supervisor_agent_id = s.id
+            WHERE t.id = :team_id AND t.user_id = :user_id AND t.is_active = true
+        """)
+
+        result = await db.execute(query, {"team_id": team_id, "user_id": user_id})
+        team = result.fetchone()
+
+        if not team:
+            raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        # Buscar agentes
+        agents_query = sa_text("""
+            SELECT a.id, a.name, a.role, a.model_provider, a.model_id,
+                   ta.role_in_team, ta.priority
+            FROM agno_team_agents ta
+            JOIN agno_agents a ON ta.agent_id = a.id
+            WHERE ta.team_id = :team_id AND ta.is_active = true
+            ORDER BY ta.priority
+        """)
+
+        agents_result = await db.execute(agents_query, {"team_id": team_id})
+        agents = [
+            {
+                "id": a.id, "name": a.name, "role": a.role,
+                "model_provider": a.model_provider, "model_id": a.model_id,
+                "role_in_team": a.role_in_team, "priority": a.priority
+            }
+            for a in agents_result.fetchall()
+        ]
+
+        team_data = {
+            "id": team.id,
+            "name": team.name,
+            "description": team.description or "",
+            "team_type": team.team_type,
+            "team_configuration": team.team_configuration or {},
+            "agents": agents,
+            "supervisor": {"name": team.supervisor_name} if team.supervisor_name else None,
+            "created_at": team.created_at.isoformat() if team.created_at else None
+        }
+
+        return BaseResponse(
+            message="Team encontrado",
+            data=team_data
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erro ao buscar team: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro ao buscar team: {str(e)}")
+
+
+@app.post("/api/teams/{team_id}/execute", response_model=BaseResponse)
+async def execute_team(
+        team_id: int,
+        request: TeamExecuteRequest,
+        user_id: int = Query(1, description="ID do usuário"),
+        db: AsyncSession = Depends(get_db)
+):
+    """🚀 Executar team com mensagem"""
+    execution_id = f"exec_{team_id}_{int(datetime.utcnow().timestamp())}"
+
+    try:
+        # Verificar se team existe e buscar dados
+        team_query = sa_text("""
+            SELECT t.id, t.name, t.team_type, COUNT(ta.agent_id) as agent_count
+            FROM agno_teams t
+            LEFT JOIN agno_team_agents ta ON t.id = ta.team_id AND ta.is_active = true
+            WHERE t.id = :team_id AND t.user_id = :user_id AND t.is_active = true
+            GROUP BY t.id, t.name, t.team_type
+        """)
+
+        result = await db.execute(team_query, {"team_id": team_id, "user_id": user_id})
+        team = result.fetchone()
+
+        if not team:
+            raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        if team.agent_count == 0:
+            raise HTTPException(status_code=400, detail="Team não possui agentes ativos")
+
+        # Registrar execução
+        insert_execution = sa_text("""
+            INSERT INTO agno_team_executions (team_id, input_message, status, agents_involved, metadata)
+            VALUES (:team_id, :message, 'running', :agent_count, :metadata)
+            RETURNING id
+        """)
+
+        exec_result = await db.execute(insert_execution, {
+            "team_id": team_id,
+            "message": request.message,
+            "agent_count": team.agent_count,
+            "metadata": {"context": request.context, "execution_id": execution_id}
+        })
+
+        db_execution_id = exec_result.scalar()
+
+        # Simular execução (substituir por lógica real)
+        await asyncio.sleep(1.5)  # Simular processamento
+
+        response_text = f"""🤖 **Team '{team.name}' Executado com Sucesso!**
+
+**Tipo:** {team.team_type}
+**Mensagem:** {request.message}
+**Agentes Envolvidos:** {team.agent_count}
+
+**Resultado da Execução:**
+Esta é uma execução simulada do sistema integrado. O team processou sua solicitação usando colaboração {team.team_type}.
+
+**Status:** ✅ Concluído com sucesso
+**ID da Execução:** {execution_id}
+"""
+
+        # Atualizar execução como concluída
+        update_execution = sa_text("""
+            UPDATE agno_team_executions 
+            SET output_response = :response, status = 'completed', 
+                completed_at = CURRENT_TIMESTAMP, execution_time_ms = :time_ms
+            WHERE id = :exec_id
+        """)
+
+        await db.execute(update_execution, {
+            "response": response_text,
+            "time_ms": 1500,
+            "exec_id": db_execution_id
+        })
+
+        await db.commit()
+
+        logger.info(f"🚀 Team executado: {team.name} (ID: {team_id}) - Execução: {execution_id}")
+
+        return BaseResponse(
+            message="Team executado com sucesso",
+            data={
+                "execution_id": execution_id,
+                "team_name": team.name,
+                "team_type": team.team_type,
+                "agents_used": team.agent_count,
+                "execution_time_ms": 1500,
+                "status": "completed",
+                "response": response_text
+            }
+        )
+
+    except HTTPException:
+        await db.rollback()
+        raise
+    except Exception as e:
+        await db.rollback()
+        logger.error(f"❌ Erro na execução do team: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro na execução: {str(e)}")
+
+
+@app.delete("/api/teams/{team_id}")
+async def delete_team(
+        team_id: int,
+        user_id: int = Query(1, description="ID do usuário"),
+        db: AsyncSession = Depends(get_db)
+):
+    """🗑️ Deletar team (soft delete)"""
+    try:
+        update_query = sa_text("""
+            UPDATE agno_teams 
+            SET is_active = false, updated_at = CURRENT_TIMESTAMP
+            WHERE id = :team_id AND user_id = :user_id AND is_active = true
+            RETURNING name
+        """)
+
+        result = await db.execute(update_query, {"team_id": team_id, "user_id": user_id})
+        team = result.fetchone()
+
+        if not team:
+            raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        # Desativar associações de agentes
+        await db.execute(sa_text("""
+            UPDATE agno_team_agents 
+            SET is_active = false 
+            WHERE team_id = :team_id
+        """), {"team_id": team_id})
+
+        await db.commit()
+
+        logger.info(f"🗑️ Team deletado: {team.name} (ID: {team_id})")
+
+        return BaseResponse(
+            message=f"Team '{team.name}' removido com sucesso"
+        )
+
+    except HTTPException:
+        await db.rollback()
+        raise
+    except Exception as e:
+        await db.rollback()
+        logger.error(f"❌ Erro ao deletar team: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro ao deletar team: {str(e)}")
+
+
+@app.get("/api/teams/{team_id}/analytics", response_model=BaseResponse)
+async def get_team_analytics(
+        team_id: int,
+        user_id: int = Query(1, description="ID do usuário"),
+        db: AsyncSession = Depends(get_db)
+):
+    """📊 Analytics do team"""
+    try:
+        analytics_query = sa_text("""
+            SELECT 
+                t.name,
+                t.team_type,
+                COUNT(ta.agent_id) as agent_count,
+                COUNT(te.id) as total_executions,
+                COUNT(CASE WHEN te.status = 'completed' THEN 1 END) as successful_executions,
+                AVG(te.execution_time_ms) as avg_execution_time,
+                MAX(te.started_at) as last_execution
+            FROM agno_teams t
+            LEFT JOIN agno_team_agents ta ON t.id = ta.team_id AND ta.is_active = true
+            LEFT JOIN agno_team_executions te ON t.id = te.team_id
+            WHERE t.id = :team_id AND t.user_id = :user_id AND t.is_active = true
+            GROUP BY t.id, t.name, t.team_type
+        """)
+
+        result = await db.execute(analytics_query, {"team_id": team_id, "user_id": user_id})
+        analytics = result.fetchone()
+
+        if not analytics:
+            raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        success_rate = 0
+        if analytics.total_executions > 0:
+            success_rate = (analytics.successful_executions / analytics.total_executions) * 100
+
+        analytics_data = {
+            "team_id": team_id,
+            "team_name": analytics.name,
+            "team_type": analytics.team_type,
+            "agent_count": analytics.agent_count,
+            "total_executions": analytics.total_executions,
+            "successful_executions": analytics.successful_executions,
+            "success_rate": round(success_rate, 2),
+            "avg_response_time_ms": round(analytics.avg_execution_time or 0, 2),
+            "last_execution": analytics.last_execution.isoformat() if analytics.last_execution else None
+        }
+
+        return BaseResponse(
+            message="Analytics do team",
+            data=analytics_data
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erro ao buscar analytics: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro ao buscar analytics: {str(e)}")
+
+
+
 # =============================================
 # WEBSOCKET MELHORADO
 # =============================================
@@ -974,11 +1416,12 @@ async def debug_info():
             },
             "routes": {
                 "total": len(app.routes),
+                "teams_available": any("/teams" in getattr(route, 'path', '') for route in app.routes),
                 "endpoints": [
                     {"path": route.path, "methods": list(getattr(route, 'methods', []))}
                     for route in app.routes
                     if hasattr(route, 'path') and hasattr(route, 'methods')
-                ]
+                ][:10]  # Apenas primeiros 10 para não poluir
             }
         }
     )
@@ -1226,6 +1669,7 @@ async def startup_routes_debug():
         "/api/health": False,
         "/api/agents": False,
         "/api/workflows": False,
+        "api/teams": False,
     }
 
     for route in app.routes:

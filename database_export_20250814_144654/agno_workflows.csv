@@ -1,0 +1,2 @@
+0,1,2,3,4,5,6,7,8,9,10,11,12
+1,1,Análise de Dados Completa,Workflow para análise completa de dados com múltiplos agentes,sequential,"{""steps"": [{""step"": 1, ""agent"": ""Assistente Geral"", ""description"": ""Preparação dos dados""}, {""step"": 2, ""agent"": ""Analista Financeiro"", ""description"": ""Análise financeira""}, {""step"": 3, ""agent"": ""Especialista em Código"", ""description"": ""Visualizações""}]}",True,2025-08-01 20:01:35.199745+00:00,2025-08-01 20:01:35.199745+00:00,{},sequential,,
