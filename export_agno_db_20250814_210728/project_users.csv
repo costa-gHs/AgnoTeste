@@ -1,0 +1,2 @@
+id,project_id,external_user_id,username,email,full_name,is_active,subscription_tier,daily_message_limit,monthly_token_limit,created_at,last_activity
+1,1,demo_user_001,usuario_demo,demo@empresa.com,Usuário Demonstração,True,pro,50,100000,2025-08-05 18:55:25.799617+00:00,

@@ -1,0 +1,8 @@
+id,team_id,agent_id,role_in_team,priority,agent_config,created_at,is_active
+1,1,1,analyst,1,{},2025-08-14 17:11:06.779900+00:00,True
+2,1,2,researcher,2,{},2025-08-14 17:11:06.779900+00:00,True
+3,2,1,supervisor,1,{},2025-08-14 18:03:53.070762+00:00,True
+4,2,2,developer,2,{},2025-08-14 18:03:53.070762+00:00,True
+5,3,1,preprocessor,1,{},2025-08-14 18:03:53.070762+00:00,True
+6,3,3,processor,2,{},2025-08-14 18:03:53.070762+00:00,True
+7,3,2,validator,3,{},2025-08-14 18:03:53.070762+00:00,True

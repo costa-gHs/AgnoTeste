@@ -1504,7 +1504,16 @@ except ImportError as e:
 # =============================================
 # INCLUIR ROUTERS NO APP COM VERIFICAÇÕES
 # =============================================
-
+# ✅ ADICIONAR ESTAS LINHAS:
+# Remove conflito de rotas teams
+try:
+    # Garantir que apenas workflow_team_router seja usado para /api/teams
+    for route in app.routes:
+        if hasattr(route, 'path') and route.path == '/api/teams/{path:path}':
+            app.routes.remove(route)
+            break
+except:
+    pass
 # Incluir router de agents se disponível
 if agents_router is not None:
     try:

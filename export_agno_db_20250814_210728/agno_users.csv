@@ -1,0 +1,3 @@
+id,username,email,full_name,is_active,created_at,updated_at
+1,demo,demo@agno.ai,Demo User,True,2025-08-01 20:01:35.186785+00:00,2025-08-01 20:01:35.186785+00:00
+2,teste,teste@agno.com,Usuário de Teste,True,2025-08-04 16:44:06.036099+00:00,2025-08-04 16:44:06.036099+00:00

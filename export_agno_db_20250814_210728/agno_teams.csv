@@ -1,0 +1,4 @@
+id,user_id,name,description,team_type,supervisor_agent_id,team_configuration,is_active,created_at,updated_at
+1,1,Equipe de Análise,Team colaborativo para análise de dados,collaborative,,{},True,2025-08-14 17:11:06.772374+00:00,2025-08-14 17:11:06.772374+00:00
+2,1,Equipe de Desenvolvimento,Team hierárquico para desenvolvimento de software,hierarchical,1.0,"{'max_iterations': 5, 'require_supervisor_approval': True}",True,2025-08-14 18:03:53.070762+00:00,2025-08-14 18:03:53.070762+00:00
+3,1,Pipeline de Processamento,Team sequencial para processamento em etapas,sequential,,"{'step_timeout': 300, 'auto_continue': True}",True,2025-08-14 18:03:53.070762+00:00,2025-08-14 18:03:53.070762+00:00

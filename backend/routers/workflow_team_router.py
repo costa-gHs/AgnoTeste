@@ -1,4 +1,4 @@
-# backend/routers/workflow_team_router.py - CORREÇÃO PONTUAL PARA ERRO 500
+# backend/routers/workflow_team_router.py - VERSÃO CORRIGIDA COMPLETA
 
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends
 from pydantic import BaseModel, Field
@@ -6,7 +6,6 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, insert, update, delete, func, desc
-from sqlalchemy.orm import selectinload
 import json
 import uuid
 
@@ -14,9 +13,6 @@ import sys
 import os
 from models.database import get_db
 from models.agents import Agent, Team, TeamAgent
-
-# ✅ CORREÇÃO PONTUAL: Remover classes mockadas e queries SQLAlchemy problemáticas
-# TODO: Implementar modelos SQLAlchemy reais depois
 
 router = APIRouter(tags=["Workflow & Team Builder"])
 
@@ -70,100 +66,64 @@ class WorkflowFromTemplateRequest(BaseModel):
     customizations: Optional[Dict[str, Any]] = None
 
 
-# ✅ FUNÇÃO MOCK PARA USER_ID (temporária)
-def get_mock_user_id() -> int:
-    """Retorna user_id mock para desenvolvimento"""
-    return 1
-
-
 # ==================== STORAGE EM MEMÓRIA (TEMPORÁRIO) ====================
-# TODO: Mover para banco quando os modelos estiverem prontos
-
 WORKFLOWS_STORAGE = {}
 TEAMS_STORAGE = {}
 EXECUTIONS_STORAGE = {}
 
 
-# ==================== TEAM BUILDER ENDPOINTS ====================
+def get_mock_user_id() -> int:
+    """Retorna user_id mock para desenvolvimento"""
+    return 1
 
-@router.post("/teams", response_model=Dict[str, str])
-async def create_team(team_request: TeamRequest, db: AsyncSession = Depends(get_db)):
-    """Cria um novo team de agentes"""
-    try:
-        user_id = get_mock_user_id()
-        team_id = str(uuid.uuid4())
 
-        # ✅ CORREÇÃO: Usar apenas models reais existentes do PostgreSQL
-        # Verificar se os agentes existem
-        for agent_data in team_request.agents:
-            if 'id' in agent_data:
-                result = await db.execute(
-                    select(Agent).where(Agent.id == agent_data['id'])
-                )
-                agent = result.scalar_one_or_none()
-                if not agent:
-                    raise HTTPException(status_code=400, detail=f"Agente {agent_data['id']} não encontrado")
-
-        # Criar team no PostgreSQL
-        team_dict = {
-            "id": team_id,
-            "name": team_request.name,
-            "description": team_request.description,
-            "team_type": team_request.team_type,
-            "team_configuration": team_request.supervisor_config or {},
-            "is_active": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        }
-
-        result = await db.execute(
-            insert(Team).values(**team_dict).returning(Team.id)
-        )
-        created_team_id = result.scalar_one()
-
-        # Adicionar agentes ao team
-        for i, agent_data in enumerate(team_request.agents):
-            if 'id' in agent_data:
-                team_agent_dict = {
-                    "id": str(uuid.uuid4()),
-                    "team_id": created_team_id,
-                    "agent_id": agent_data['id'],
-                    "role_in_team": agent_data.get('role_in_team', 'member'),
-                    "priority": i + 1,
-                    "is_active": True,
-                    "added_at": datetime.utcnow()
-                }
-
-                await db.execute(insert(TeamAgent).values(**team_agent_dict))
-
-        await db.commit()
-
-        return {"team_id": str(created_team_id), "message": "Team criado com sucesso"}
-
-    except HTTPException:
-        await db.rollback()
-        raise
-    except Exception as e:
-        await db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
-
+# ==================== TEAMS ENDPOINTS CORRIGIDOS ====================
 
 @router.get("/teams", response_model=List[Dict])
 async def list_teams(user_id: int = 1, db: AsyncSession = Depends(get_db)):
-    """Lista todos os teams do usuário"""
+    """Lista todos os teams do usuário - VERSÃO CORRIGIDA"""
     try:
-        # ✅ CORREÇÃO: Usar apenas models reais do PostgreSQL
+        # Query simples sem relacionamentos problemáticos
         result = await db.execute(
             select(Team)
-            .options(selectinload(Team.team_agents).selectinload(TeamAgent.agent))
-            .where(Team.is_active == True)
+            .where(Team.user_id == user_id, Team.is_active == True)
             .order_by(desc(Team.created_at))
         )
         teams = result.scalars().all()
 
-        # Formatar resposta
+        # Buscar dados dos agentes para cada team
         teams_list = []
         for team in teams:
+            # Buscar team_agents
+            team_agents_result = await db.execute(
+                select(TeamAgent).where(
+                    TeamAgent.team_id == team.id,
+                    TeamAgent.is_active == True
+                )
+            )
+            team_agents = team_agents_result.scalars().all()
+
+            # Buscar dados dos agentes
+            agents_data = []
+            if team_agents:
+                agent_ids = [ta.agent_id for ta in team_agents]
+                agents_result = await db.execute(
+                    select(Agent).where(Agent.id.in_(agent_ids), Agent.is_active == True)
+                )
+                agents = {agent.id: agent for agent in agents_result.scalars().all()}
+
+                for ta in team_agents:
+                    if ta.agent_id in agents:
+                        agent = agents[ta.agent_id]
+                        agent_data = {
+                            "id": agent.id,
+                            "name": agent.name,
+                            "role": agent.role,
+                            "role_in_team": ta.role_in_team,
+                            "priority": ta.priority
+                        }
+                        agents_data.append(agent_data)
+
             team_dict = {
                 "id": team.id,
                 "name": team.name,
@@ -172,39 +132,65 @@ async def list_teams(user_id: int = 1, db: AsyncSession = Depends(get_db)):
                 "is_active": team.is_active,
                 "created_at": team.created_at.isoformat() if team.created_at else None,
                 "updated_at": team.updated_at.isoformat() if team.updated_at else None,
-                "agents": [
-                    {
-                        "id": ta.agent.id,
-                        "name": ta.agent.name,
-                        "role": ta.agent.role,
-                        "role_in_team": ta.role_in_team,
-                        "priority": ta.priority
-                    }
-                    for ta in team.team_agents if ta.is_active and ta.agent
-                ]
+                "agents": agents_data,
+                "agent_count": len(agents_data)
             }
             teams_list.append(team_dict)
 
+        print(f"💡 INFO     | 📋 Listados {len(teams_list)} teams para usuário {user_id}")
         return teams_list
 
     except Exception as e:
+        print(f"❌ ERROR    | Erro ao listar teams: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/teams/{team_id}", response_model=Dict)
-async def get_team(team_id: str, user_id: int = 1, db: AsyncSession = Depends(get_db)):
-    """Busca detalhes de um team específico"""
+async def get_team(team_id: int, user_id: int = 1, db: AsyncSession = Depends(get_db)):
+    """Busca detalhes de um team específico - VERSÃO CORRIGIDA"""
     try:
-        # ✅ CORREÇÃO: Usar apenas models reais do PostgreSQL
+        # Buscar team
         result = await db.execute(
-            select(Team)
-            .options(selectinload(Team.team_agents).selectinload(TeamAgent.agent))
-            .where(Team.id == team_id)
+            select(Team).where(Team.id == team_id, Team.user_id == user_id)
         )
         team = result.scalar_one_or_none()
 
         if not team:
             raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        # Buscar team_agents
+        team_agents_result = await db.execute(
+            select(TeamAgent).where(
+                TeamAgent.team_id == team_id,
+                TeamAgent.is_active == True
+            )
+        )
+        team_agents = team_agents_result.scalars().all()
+
+        # Buscar dados dos agentes
+        agents_data = []
+        if team_agents:
+            agent_ids = [ta.agent_id for ta in team_agents]
+            agents_result = await db.execute(
+                select(Agent).where(Agent.id.in_(agent_ids), Agent.is_active == True)
+            )
+            agents = {agent.id: agent for agent in agents_result.scalars().all()}
+
+            for ta in team_agents:
+                if ta.agent_id in agents:
+                    agent = agents[ta.agent_id]
+                    agent_data = {
+                        "id": agent.id,
+                        "name": agent.name,
+                        "role": agent.role,
+                        "description": agent.description,
+                        "model_provider": agent.model_provider,
+                        "model_id": agent.model_id,
+                        "role_in_team": ta.role_in_team,
+                        "priority": ta.priority,
+                        "tools": agent.tools or []
+                    }
+                    agents_data.append(agent_data)
 
         team_dict = {
             "id": team.id,
@@ -214,17 +200,9 @@ async def get_team(team_id: str, user_id: int = 1, db: AsyncSession = Depends(ge
             "is_active": team.is_active,
             "created_at": team.created_at.isoformat() if team.created_at else None,
             "updated_at": team.updated_at.isoformat() if team.updated_at else None,
-            "team_configuration": team.team_configuration,
-            "agents": [
-                {
-                    "id": ta.agent.id,
-                    "name": ta.agent.name,
-                    "role": ta.agent.role,
-                    "role_in_team": ta.role_in_team,
-                    "priority": ta.priority
-                }
-                for ta in team.team_agents if ta.is_active and ta.agent
-            ]
+            "team_configuration": team.team_configuration or {},
+            "agents": agents_data,
+            "agent_count": len(agents_data)
         }
 
         return team_dict
@@ -235,98 +213,18 @@ async def get_team(team_id: str, user_id: int = 1, db: AsyncSession = Depends(ge
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/teams/{team_id}/execute", response_model=Dict)
-async def execute_team(
-        team_id: str,
-        execution_request: TeamExecutionRequest,
-        db: AsyncSession = Depends(get_db)
-):
-    """Executa um team com uma mensagem"""
-    try:
-        # ✅ CORREÇÃO: Verificar se team existe no PostgreSQL
-        result = await db.execute(
-            select(Team)
-            .options(selectinload(Team.team_agents).selectinload(TeamAgent.agent))
-            .where(Team.id == team_id)
-        )
-        team = result.scalar_one_or_none()
-
-        if not team:
-            raise HTTPException(status_code=404, detail="Team não encontrado")
-
-        # TODO: Integrar com Agno framework quando estiver pronto
-        # Por enquanto, retornar resposta simulada
-        execution_id = str(uuid.uuid4())
-
-        # Simular execução
-        agents_used = [ta.agent.name for ta in team.team_agents if ta.is_active and ta.agent]
-
-        mock_result = {
-            'execution_id': execution_id,
-            'team_id': team_id,
-            'response': f"Team '{team.name}' processou a mensagem: '{execution_request.message}'. Participaram {len(agents_used)} agentes.",
-            'metadata': {
-                'execution_time': "1.5s",
-                'agents_used': agents_used,
-                'team_type': team.team_type,
-                'message_length': len(execution_request.message)
-            }
-        }
-
-        # Salvar execução temporariamente em memória
-        EXECUTIONS_STORAGE[execution_id] = {
-            **mock_result,
-            'status': 'completed',
-            'started_at': datetime.utcnow().isoformat(),
-            'completed_at': datetime.utcnow().isoformat()
-        }
-
-        return mock_result
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.delete("/teams/{team_id}")
-async def delete_team(team_id: str, user_id: int = 1, db: AsyncSession = Depends(get_db)):
-    """Remove um team (soft delete)"""
-    try:
-        # ✅ CORREÇÃO: Soft delete no PostgreSQL
-        result = await db.execute(
-            update(Team)
-            .where(Team.id == team_id)
-            .values(is_active=False, updated_at=datetime.utcnow())
-        )
-
-        if result.rowcount == 0:
-            raise HTTPException(status_code=404, detail="Team não encontrado")
-
-        await db.commit()
-        return {"message": "Team removido com sucesso"}
-
-    except HTTPException:
-        await db.rollback()
-        raise
-    except Exception as e:
-        await db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ==================== WORKFLOW BUILDER ENDPOINTS (SIMPLIFICADOS) ====================
+# ==================== WORKFLOWS ENDPOINTS ====================
 
 @router.post("/workflows/visual", response_model=Dict[str, str])
 async def create_visual_workflow(
         workflow_request: VisualWorkflowRequest,
         db: AsyncSession = Depends(get_db)
 ):
-    """Cria um novo workflow visual"""
+    """Cria um workflow visual"""
     try:
-        user_id = get_mock_user_id()
         workflow_id = str(uuid.uuid4())
+        user_id = get_mock_user_id()
 
-        # ✅ CORREÇÃO: Salvar em memória até criar modelos PostgreSQL
         workflow_data = {
             "id": workflow_id,
             "name": workflow_request.name,
@@ -342,7 +240,6 @@ async def create_visual_workflow(
         }
 
         WORKFLOWS_STORAGE[workflow_id] = workflow_data
-
         return {"workflow_id": workflow_id, "message": "Workflow criado com sucesso"}
 
     except Exception as e:
@@ -353,7 +250,6 @@ async def create_visual_workflow(
 async def list_workflows(user_id: int = 1, db: AsyncSession = Depends(get_db)):
     """Lista todos os workflows do usuário"""
     try:
-        # ✅ CORREÇÃO: Retornar workflows da memória (dados de exemplo)
         workflows_list = []
 
         # Adicionar workflows de exemplo se storage estiver vazio
@@ -395,7 +291,6 @@ async def list_workflows(user_id: int = 1, db: AsyncSession = Depends(get_db)):
 async def get_workflow(workflow_id: str, user_id: int = 1, db: AsyncSession = Depends(get_db)):
     """Busca detalhes de um workflow específico"""
     try:
-        # ✅ CORREÇÃO: Buscar na memória
         if workflow_id not in WORKFLOWS_STORAGE:
             raise HTTPException(status_code=404, detail="Workflow não encontrado")
 
@@ -421,7 +316,6 @@ async def execute_workflow(
 ):
     """Executa um workflow visual"""
     try:
-        # ✅ CORREÇÃO: Verificar se workflow existe na memória
         if workflow_id not in WORKFLOWS_STORAGE:
             raise HTTPException(status_code=404, detail="Workflow não encontrado")
 
@@ -448,42 +342,17 @@ async def execute_workflow(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/workflows/executions/{execution_id}", response_model=Dict)
-async def get_execution_status(execution_id: str, db: AsyncSession = Depends(get_db)):
-    """Busca status de uma execução"""
-    try:
-        # ✅ CORREÇÃO: Buscar na memória
-        if execution_id not in EXECUTIONS_STORAGE:
-            raise HTTPException(status_code=404, detail="Execução não encontrada")
-
-        execution = EXECUTIONS_STORAGE[execution_id]
-
-        # Simular conclusão se ainda estiver rodando
-        if execution.get("status") == "running":
-            execution["status"] = "completed"
-            execution["completed_at"] = datetime.utcnow().isoformat()
-            execution["output_data"] = {"result": "Execução concluída com sucesso"}
-
-        return execution
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 # ==================== TEMPLATES ENDPOINTS ====================
 
-@router.get("/workflows/templates", response_model=List[Dict])
+@router.get("/templates", response_model=List[Dict])
 async def list_workflow_templates(category: Optional[str] = None, db: AsyncSession = Depends(get_db)):
     """Lista templates de workflow disponíveis"""
     try:
-        # ✅ CORREÇÃO: Retornar templates estáticos
         templates = [
             {
                 "id": 1,
                 "name": "Análise de Dados",
-                "description": "Template para análise automática de datasets",
+                "description": "Template para análise automática de dados",
                 "category": "analytics",
                 "usage_count": 15,
                 "template_definition": {
@@ -536,7 +405,6 @@ async def create_workflow_from_template(
     try:
         workflow_id = str(uuid.uuid4())
 
-        # ✅ CORREÇÃO: Criar workflow em memória
         workflow_data = {
             "id": workflow_id,
             "name": template_request.name,
@@ -567,18 +435,17 @@ async def create_workflow_from_template(
 async def get_workflow_analytics(user_id: int = 1, db: AsyncSession = Depends(get_db)):
     """Analytics de workflows do usuário"""
     try:
-        # ✅ CORREÇÃO: Analytics com dados em memória
         user_workflows = [w for w in WORKFLOWS_STORAGE.values() if w.get("user_id") == user_id]
         total_workflows = len(user_workflows)
         total_executions = len(EXECUTIONS_STORAGE)
 
-        recent_executions = list(EXECUTIONS_STORAGE.values())[-5:]  # Últimas 5
+        recent_executions = list(EXECUTIONS_STORAGE.values())[-5:]
 
         stats = {
             'total_workflows': total_workflows,
             'total_executions': total_executions,
             'recent_executions': recent_executions,
-            'success_rate': 85.5  # Mock
+            'success_rate': 85.5
         }
 
         return stats
@@ -591,22 +458,21 @@ async def get_workflow_analytics(user_id: int = 1, db: AsyncSession = Depends(ge
 async def get_team_analytics(user_id: int = 1, db: AsyncSession = Depends(get_db)):
     """Analytics de teams do usuário"""
     try:
-        # ✅ CORREÇÃO: Analytics com dados reais do PostgreSQL
         # Contar teams
         teams_result = await db.execute(
             select(func.count(Team.id))
-            .where(Team.is_active == True)
+            .where(Team.user_id == user_id, Team.is_active == True)
         )
         total_teams = teams_result.scalar()
 
         # Teams mais usados (simulado)
         most_used_result = await db.execute(
             select(Team.id, Team.name)
-            .where(Team.is_active == True)
+            .where(Team.user_id == user_id, Team.is_active == True)
             .limit(5)
         )
         most_used_teams = [
-            {"id": row[0], "name": row[1], "usage_count": 0}  # Mock usage_count
+            {"id": row[0], "name": row[1], "usage_count": 0}
             for row in most_used_result.fetchall()
         ]
 

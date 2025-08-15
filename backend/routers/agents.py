@@ -3,7 +3,6 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, insert, update, delete
-from sqlalchemy.orm import selectinload
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field
 from enum import Enum
@@ -15,37 +14,7 @@ from datetime import datetime
 import sys
 import os
 from models.database import get_db
-from models.agents import Agent, AgentTool, RAGIndex
-
-
-# ✅ TEMPORÁRIO: Services mockados já que não existem ainda
-class EmbeddingService:
-    def __init__(self): pass
-
-
-class VectorStoreService:
-    def __init__(self): pass
-
-    async def create_index(self, index_name: str, embedding_model: str): pass
-
-    async def add_documents(self, index_name: str, documents: list): pass
-
-
-class DocumentProcessor:
-    def __init__(self): pass
-
-    async def process_document(self, content, filename, chunk_size, chunk_overlap):
-        return []  # Mock
-
-
-# ✅ TEMPORÁRIO: Tool mock
-class Tool:
-    def __init__(self, id=None, name=None, description=None, category=None):
-        self.id = id
-        self.name = name
-        self.description = description
-        self.category = category
-
+from models.agents import Agent
 
 router = APIRouter()
 
@@ -93,7 +62,7 @@ class CreateAgentRequest(BaseModel):
     memory_enabled: bool = True
     rag_config: RAGConfigRequest = RAGConfigRequest()
     configuration: Dict[str, Any] = {}
-    user_id: int = 1  # ✅ ADICIONADO: Campo obrigatório para PostgreSQL
+    user_id: int = 1
 
 
 class UpdateAgentRequest(BaseModel):
@@ -111,7 +80,7 @@ class UpdateAgentRequest(BaseModel):
 
 
 class AgentResponse(BaseModel):
-    id: str
+    id: int
     name: str
     role: str
     description: Optional[str]
@@ -132,7 +101,7 @@ class AgentResponse(BaseModel):
 
 
 # =====================================================
-# ENDPOINTS (Versões simplificadas para funcionar)
+# ENDPOINTS
 # =====================================================
 
 @router.get("/", response_model=List[AgentResponse])
@@ -140,16 +109,13 @@ async def get_agents(
         skip: int = 0,
         limit: int = 100,
         active_only: bool = True,
-        user_id: int = 1,  # ✅ ADICIONADO: Filtro por usuário
+        user_id: int = 1,
         db: AsyncSession = Depends(get_db)
 ):
     """Lista todos os agentes com suas configurações"""
 
-    # ✅ CORREÇÃO: Query no PostgreSQL com SQLAlchemy
-    query = select(Agent).options(
-        selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
-        selectinload(Agent.rag_index)
-    ).where(Agent.user_id == user_id)
+    # Query simples sem relacionamentos problemáticos
+    query = select(Agent).where(Agent.user_id == user_id)
 
     if active_only:
         query = query.where(Agent.is_active == True)
@@ -159,9 +125,29 @@ async def get_agents(
     result = await db.execute(query)
     agents = result.scalars().all()
 
-    # Enriquecer com dados das ferramentas
+    # Converter para response format
     result_list = []
     for agent in agents:
+        # Processar tools do JSON
+        tools_data = []
+        if agent.tools:
+            for tool in agent.tools:
+                if isinstance(tool, dict):
+                    tools_data.append(tool)
+                elif isinstance(tool, str):
+                    tools_data.append({"id": tool, "name": tool, "config": {}})
+
+        # Processar configuração RAG
+        rag_config = None
+        if agent.rag_enabled:
+            rag_config = {
+                "enabled": True,
+                "index_name": agent.rag_index_id,
+                "status": "active"
+            }
+        else:
+            rag_config = {"enabled": False}
+
         agent_dict = {
             "id": agent.id,
             "name": agent.name,
@@ -170,43 +156,15 @@ async def get_agents(
             "model_provider": agent.model_provider,
             "model_id": agent.model_id,
             "instructions": agent.instructions or [],
+            "tools": tools_data,
             "memory_enabled": agent.memory_enabled,
             "rag_enabled": agent.rag_enabled,
+            "rag_config": rag_config,
             "is_active": agent.is_active,
             "user_id": agent.user_id,
             "created_at": agent.created_at,
-            "updated_at": agent.updated_at,
-            "tools": [],
-            "rag_config": None
+            "updated_at": agent.updated_at
         }
-
-        # Adicionar ferramentas
-        for agent_tool in agent.agent_tools:
-            if agent_tool.tool:  # Verificar se tool existe
-                tool_data = {
-                    "id": agent_tool.tool.id,
-                    "name": agent_tool.tool.name,
-                    "description": agent_tool.tool.description,
-                    "category": agent_tool.tool.category,
-                    "config": agent_tool.configuration
-                }
-                agent_dict["tools"].append(tool_data)
-
-        # Adicionar configuração RAG
-        if agent.rag_index:
-            agent_dict["rag_config"] = {
-                "enabled": True,
-                "index_name": agent.rag_index.name,
-                "embedding_model": agent.rag_index.embedding_model,
-                "chunk_size": agent.rag_index.chunk_size,
-                "chunk_overlap": agent.rag_index.chunk_overlap,
-                "top_k": agent.rag_index.top_k,
-                "threshold": agent.rag_index.threshold,
-                "status": agent.rag_index.status,
-                "document_count": agent.rag_index.document_count
-            }
-        else:
-            agent_dict["rag_config"] = {"enabled": False}
 
         result_list.append(agent_dict)
 
@@ -214,16 +172,11 @@ async def get_agents(
 
 
 @router.get("/{agent_id}", response_model=AgentResponse)
-async def get_agent(agent_id: str, user_id: int = 1, db: AsyncSession = Depends(get_db)):
+async def get_agent(agent_id: int, user_id: int = 1, db: AsyncSession = Depends(get_db)):
     """Obtém detalhes de um agente específico"""
 
-    # ✅ CORREÇÃO: Query no PostgreSQL
     result = await db.execute(
         select(Agent)
-        .options(
-            selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
-            selectinload(Agent.rag_index)
-        )
         .where(Agent.id == agent_id)
         .where(Agent.user_id == user_id)
     )
@@ -232,7 +185,43 @@ async def get_agent(agent_id: str, user_id: int = 1, db: AsyncSession = Depends(
     if not agent:
         raise HTTPException(status_code=404, detail="Agente não encontrado")
 
-    return agent
+    # Processar tools do JSON
+    tools_data = []
+    if agent.tools:
+        for tool in agent.tools:
+            if isinstance(tool, dict):
+                tools_data.append(tool)
+            elif isinstance(tool, str):
+                tools_data.append({"id": tool, "name": tool, "config": {}})
+
+    # Processar configuração RAG
+    rag_config = None
+    if agent.rag_enabled:
+        rag_config = {
+            "enabled": True,
+            "index_name": agent.rag_index_id,
+            "status": "active"
+        }
+    else:
+        rag_config = {"enabled": False}
+
+    return {
+        "id": agent.id,
+        "name": agent.name,
+        "role": agent.role,
+        "description": agent.description,
+        "model_provider": agent.model_provider,
+        "model_id": agent.model_id,
+        "instructions": agent.instructions or [],
+        "tools": tools_data,
+        "memory_enabled": agent.memory_enabled,
+        "rag_enabled": agent.rag_enabled,
+        "rag_config": rag_config,
+        "is_active": agent.is_active,
+        "user_id": agent.user_id,
+        "created_at": agent.created_at,
+        "updated_at": agent.updated_at
+    }
 
 
 @router.post("/", response_model=AgentResponse)
@@ -240,180 +229,100 @@ async def create_agent(
         agent_data: CreateAgentRequest,
         db: AsyncSession = Depends(get_db)
 ):
-    """Cria um novo agente com ferramentas e RAG"""
+    """Cria um novo agente"""
     try:
-        # ✅ MOCK: Retornar dados do agente criado como dicionário
-        mock_agent = {
-            "id": str(uuid.uuid4()),
+        # Preparar dados para inserção
+        agent_dict = {
+            "user_id": agent_data.user_id,
             "name": agent_data.name,
             "role": agent_data.role,
             "description": agent_data.description,
             "model_provider": agent_data.model_provider.value,
             "model_id": agent_data.model_id,
             "instructions": agent_data.instructions,
-            "tools": [],
+            "tools": [tool.dict() for tool in agent_data.tools],
+            "configuration": agent_data.configuration,
             "memory_enabled": agent_data.memory_enabled,
             "rag_enabled": agent_data.rag_config.enabled,
-            "rag_config": {"enabled": agent_data.rag_config.enabled},
+            "rag_index_id": agent_data.rag_config.index_name if agent_data.rag_config.enabled else None,
             "is_active": True,
-            "user_id": agent_data.user_id,
-            "created_at": datetime.utcnow().isoformat(),
-            "updated_at": datetime.utcnow().isoformat()
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
         }
 
-        return mock_agent
+        # Inserir no banco
+        result = await db.execute(
+            insert(Agent).values(**agent_dict).returning(Agent)
+        )
+        await db.commit()
 
-    except HTTPException:
-        raise
+        new_agent = result.scalar_one()
+
+        return await get_agent(new_agent.id, agent_data.user_id, db)
+
     except Exception as e:
+        await db.rollback()
         raise HTTPException(
             status_code=500,
             detail=f"Erro ao criar agente: {str(e)}"
         )
 
 
-@router.post("/{agent_id}/upload-documents")
-async def upload_rag_documents(
-        agent_id: str,
-        files: List[UploadFile] = File(...),
-        user_id: int = 1,
-        db: AsyncSession = Depends(get_db)
-):
-    """Upload de documentos para o índice RAG do agente"""
-
-    # ✅ CORREÇÃO: Buscar agent no PostgreSQL
-    result = await db.execute(
-        select(Agent)
-        .options(selectinload(Agent.rag_index))
-        .where(Agent.id == agent_id)
-        .where(Agent.user_id == user_id)
-    )
-    agent = result.scalar_one_or_none()
-
-    if not agent:
-        raise HTTPException(status_code=404, detail="Agente não encontrado")
-
-    if not agent.rag_enabled or not agent.rag_index:
-        raise HTTPException(
-            status_code=400,
-            detail="RAG não está habilitado para este agente"
-        )
-
-    # Validar tipos de arquivo
-    allowed_types = {
-        "application/pdf",
-        "text/plain",
-        "text/markdown",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    }
-
-    for file in files:
-        if file.content_type not in allowed_types:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Tipo de arquivo não suportado: {file.content_type}"
-            )
-
-    try:
-        service = AgentService(db)
-
-        # Processar documentos em background
-        asyncio.create_task(
-            service._process_documents_background(agent.rag_index, files)
-        )
-
-        return {
-            "message": f"Upload iniciado para {len(files)} arquivo(s)",
-            "status": "processing",
-            "files": [file.filename for file in files]
-        }
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Erro no upload: {str(e)}"
-        )
-
-
 @router.put("/{agent_id}", response_model=AgentResponse)
 async def update_agent(
-        agent_id: str,
-        update_data: UpdateAgentRequest,
+        agent_id: int,
+        agent_data: UpdateAgentRequest,
         user_id: int = 1,
         db: AsyncSession = Depends(get_db)
 ):
-    """Atualiza configurações de um agente"""
-
-    # ✅ CORREÇÃO: Buscar agent no PostgreSQL
-    result = await db.execute(
-        select(Agent).where(Agent.id == agent_id).where(Agent.user_id == user_id)
-    )
-    agent = result.scalar_one_or_none()
-
-    if not agent:
-        raise HTTPException(status_code=404, detail="Agente não encontrado")
-
+    """Atualiza um agente existente"""
     try:
-        # Atualizar campos básicos
-        update_dict = update_data.dict(exclude_unset=True)
-        update_dict["updated_at"] = datetime.utcnow()
-
-        # ✅ CORREÇÃO: Atualizar no PostgreSQL
-        await db.execute(
-            update(Agent)
-            .where(Agent.id == agent_id)
-            .values(**{k: v for k, v in update_dict.items()
-                       if k not in ['tools', 'rag_config']})
+        # Verificar se agente existe
+        result = await db.execute(
+            select(Agent).where(Agent.id == agent_id, Agent.user_id == user_id)
         )
+        agent = result.scalar_one_or_none()
 
-        # Atualizar ferramentas se especificado
-        if 'tools' in update_dict:
-            # Remover associações existentes
-            await db.execute(
-                delete(AgentTool).where(AgentTool.agent_id == agent_id)
-            )
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agente não encontrado")
 
-            # Criar novas associações
-            service = AgentService(db)
-            await service._configure_agent_tools(agent, update_dict['tools'])
+        # Preparar dados para atualização
+        update_data = {"updated_at": datetime.utcnow()}
 
-        # Atualizar configuração RAG se especificado
-        if 'rag_config' in update_dict:
-            rag_config = update_dict['rag_config']
-            if rag_config.enabled and not agent.rag_enabled:
-                # Habilitar RAG
-                service = AgentService(db)
-                rag_index = await service._setup_rag_index(agent, rag_config)
+        if agent_data.name is not None:
+            update_data["name"] = agent_data.name
+        if agent_data.role is not None:
+            update_data["role"] = agent_data.role
+        if agent_data.description is not None:
+            update_data["description"] = agent_data.description
+        if agent_data.model_provider is not None:
+            update_data["model_provider"] = agent_data.model_provider.value
+        if agent_data.model_id is not None:
+            update_data["model_id"] = agent_data.model_id
+        if agent_data.instructions is not None:
+            update_data["instructions"] = agent_data.instructions
+        if agent_data.tools is not None:
+            update_data["tools"] = [tool.dict() for tool in agent_data.tools]
+        if agent_data.memory_enabled is not None:
+            update_data["memory_enabled"] = agent_data.memory_enabled
+        if agent_data.rag_config is not None:
+            update_data["rag_enabled"] = agent_data.rag_config.enabled
+            update_data["rag_index_id"] = agent_data.rag_config.index_name if agent_data.rag_config.enabled else None
+        if agent_data.configuration is not None:
+            update_data["configuration"] = agent_data.configuration
+        if agent_data.is_active is not None:
+            update_data["is_active"] = agent_data.is_active
 
-                await db.execute(
-                    update(Agent)
-                    .where(Agent.id == agent_id)
-                    .values(rag_index_id=rag_index.id, rag_enabled=True)
-                )
-
-            elif not rag_config.enabled and agent.rag_enabled:
-                # Desabilitar RAG
-                await db.execute(
-                    update(Agent)
-                    .where(Agent.id == agent_id)
-                    .values(rag_enabled=False, rag_index_id=None)
-                )
-
+        # Atualizar no banco
+        await db.execute(
+            update(Agent).where(Agent.id == agent_id).values(**update_data)
+        )
         await db.commit()
 
-        # Retornar agent atualizado
-        updated_result = await db.execute(
-            select(Agent)
-            .options(
-                selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
-                selectinload(Agent.rag_index)
-            )
-            .where(Agent.id == agent_id)
-        )
-        updated_agent = updated_result.scalar_one()
+        return await get_agent(agent_id, user_id, db)
 
-        return updated_agent
-
+    except HTTPException:
+        raise
     except Exception as e:
         await db.rollback()
         raise HTTPException(
@@ -424,65 +333,81 @@ async def update_agent(
 
 @router.delete("/{agent_id}")
 async def delete_agent(
-        agent_id: str,
+        agent_id: int,
         user_id: int = 1,
         db: AsyncSession = Depends(get_db)
 ):
     """Remove um agente (soft delete)"""
+    try:
+        # Verificar se agente existe
+        result = await db.execute(
+            select(Agent).where(Agent.id == agent_id, Agent.user_id == user_id)
+        )
+        agent = result.scalar_one_or_none()
 
-    # ✅ CORREÇÃO: Soft delete no PostgreSQL
-    result = await db.execute(
-        update(Agent)
-        .where(Agent.id == agent_id)
-        .where(Agent.user_id == user_id)
-        .values(is_active=False, updated_at=datetime.utcnow())
-    )
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agente não encontrado")
 
-    if result.rowcount == 0:
-        raise HTTPException(status_code=404, detail="Agente não encontrado")
+        # Soft delete
+        await db.execute(
+            update(Agent)
+            .where(Agent.id == agent_id)
+            .values(is_active=False, updated_at=datetime.utcnow())
+        )
+        await db.commit()
 
-    await db.commit()
-    return {"message": "Agente removido com sucesso"}
+        return {"message": "Agente removido com sucesso"}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erro ao remover agente: {str(e)}"
+        )
 
 
-@router.post("/{agent_id}/chat")
-async def chat_with_agent(
-        agent_id: str,
-        message: dict,
+@router.post("/{agent_id}/upload-documents")
+async def upload_documents(
+        agent_id: int,
+        files: List[UploadFile] = File(...),
         user_id: int = 1,
         db: AsyncSession = Depends(get_db)
 ):
-    """Chat com um agente específico"""
-
-    # ✅ CORREÇÃO: Buscar agent no PostgreSQL
-    result = await db.execute(
-        select(Agent)
-        .options(
-            selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
-            selectinload(Agent.rag_index)
-        )
-        .where(Agent.id == agent_id)
-        .where(Agent.user_id == user_id)
-        .where(Agent.is_active == True)
-    )
-    agent = result.scalar_one_or_none()
-
-    if not agent:
-        raise HTTPException(status_code=404, detail="Agente não encontrado")
-
+    """Upload de documentos para RAG (placeholder)"""
     try:
-        # TODO: Implementar integração com Agno framework
-        response = {
-            "agent_id": agent_id,
-            "response": "Chat implementação pendente",
-            "message": message.get("content", ""),
-            "timestamp": datetime.utcnow().isoformat()
+        # Verificar se agente existe
+        result = await db.execute(
+            select(Agent).where(Agent.id == agent_id, Agent.user_id == user_id)
+        )
+        agent = result.scalar_one_or_none()
+
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agente não encontrado")
+
+        if not agent.rag_enabled:
+            raise HTTPException(status_code=400, detail="RAG não está habilitado para este agente")
+
+        # Placeholder para processamento de documentos
+        processed_files = []
+        for file in files:
+            content = await file.read()
+            processed_files.append({
+                "filename": file.filename,
+                "size": len(content),
+                "status": "processed"
+            })
+
+        return {
+            "message": f"Processados {len(processed_files)} documentos",
+            "files": processed_files
         }
 
-        return response
-
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Erro no chat: {str(e)}"
+            detail=f"Erro ao processar documentos: {str(e)}"
         )
