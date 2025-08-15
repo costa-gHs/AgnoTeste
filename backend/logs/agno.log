@@ -4685,3 +4685,33 @@ AttributeError: 'Agent' object has no attribute 'agent_tools'
 2025-08-15 05:50:22,486 - app - [INFO] - 📋 Listados 3 teams para usuário 1
 2025-08-15 05:50:39,243 - app - [INFO] - 🛑 Encerrando Agno Platform...
 2025-08-15 05:50:39,248 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-15 05:51:34,444 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-15 05:51:39,018 - app - [INFO] - ✅ Agno framework disponível
+2025-08-15 05:51:39,099 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-15 05:51:39,261 - app - [INFO] - ✅ Router de agents importado
+2025-08-15 05:51:39,311 - app - [INFO] - ✅ Router de workflows importado
+2025-08-15 05:51:39,325 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-15 05:51:39,341 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-15 05:51:39,357 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-15 05:51:39,359 - app - [INFO] - 🚀============================================================
+2025-08-15 05:51:39,363 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-15 05:51:39,365 - app - [INFO] - 🚀============================================================
+2025-08-15 05:51:39,369 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-15 05:51:39,495 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-15 05:51:39,496 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-15 05:51:39,498 - app - [INFO] - ⏱️ Inicialização completada em 0.14s
+2025-08-15 05:51:39,500 - app - [INFO] - 🚀============================================================
+2025-08-15 05:52:21,407 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-15 05:52:21,458 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-15 05:53:12,590 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-15 05:53:12,595 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-15 05:59:29,380 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-15 05:59:30,937 - app - [INFO] - ✅ Agno framework disponível
+2025-08-15 05:59:30,956 - app - [INFO] - 🚀 Iniciando Agno Platform Backend v5.0.0
+2025-08-15 05:59:31,008 - app - [INFO] - ✅ Conexão com banco de dados OK
+2025-08-15 05:59:31,031 - app - [INFO] - ✅ Tabelas do banco verificadas/criadas
+2025-08-15 06:00:07,746 - app - [INFO] - 📋 Listados 8 agentes para usuário 1
+2025-08-15 06:00:07,749 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-15 06:00:07,770 - app - [INFO] - 📋 Listados 8 agentes para usuário 1
+2025-08-15 06:00:07,803 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-15 06:02:21,085 - app - [INFO] - 🔄 Finalizando aplicação...
