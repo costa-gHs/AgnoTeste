@@ -350,18 +350,24 @@ async def execute_team(
         if not team.is_active:
             raise HTTPException(status_code=400, detail="Team está inativo")
 
-        # Criar execução
         execution_id = str(uuid.uuid4())
-        execution_data = {
-            "id": execution_id,
-            "team_id": team_id,
-            "input_message": execute_request.message,
-            "status": "running",
-            "metadata": execute_request.context or {},
-            "started_at": datetime.utcnow()
-        }
 
-        await db.execute(insert(TeamExecution).values(**execution_data))
+        # 🔴 CORREÇÃO: Usar execution_metadata ao invés de metadata
+        execution_metadata = execute_request.context or {}
+        execution_metadata["team_configuration"] = team.team_configuration
+        execution_metadata["agents_involved"] = len(team.team_agents)
+
+        execution = TeamExecution(
+            id=execution_id,
+            team_id=team_id,
+            input_message=execute_request.message,
+            status="running",
+            execution_metadata=execution_metadata,  # 🔴 CORREÇÃO: Mudado de metadata
+            started_at=datetime.utcnow(),
+            agents_involved=len(team.team_agents)
+        )
+
+        db.add(execution)
         await db.commit()
 
         # TODO: Implementar execução real dos agentes
@@ -373,9 +379,10 @@ async def execute_team(
             update(TeamExecution)
             .where(TeamExecution.id == execution_id)
             .values(
-                output_response=response,
+                output_response=final_response,
                 status="completed",
-                completed_at=datetime.utcnow()
+                completed_at=datetime.utcnow(),
+                execution_time_ms=int((datetime.utcnow() - execution.started_at).total_seconds() * 1000)
             )
         )
         await db.commit()

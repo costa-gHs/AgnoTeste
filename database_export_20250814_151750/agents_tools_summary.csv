@@ -1,0 +1,9 @@
+0,1,2,3,4,5,6
+1,Assistente Geral,openai,gpt-4o-mini,"[""reasoning"", ""web_search""]",True,2025-08-01 20:01:35.190646+00:00
+2,Especialista em Código,anthropic,claude-3-5-sonnet-20241022,"[""code_interpreter"", ""reasoning""]",True,2025-08-01 20:01:35.195781+00:00
+3,Analista Financeiro,openai,gpt-4o,"[""calculations"", ""web_search""]",True,2025-08-01 20:01:35.197685+00:00
+4,Analista Financeiro,openai,gpt-4o,"[""financial"", ""web_search"", ""reasoning""]",True,2025-08-04 16:44:06.052047+00:00
+5,Pesquisador Web,openai,gpt-4o,"[""web_search"", ""reasoning""]",True,2025-08-04 16:44:06.057752+00:00
+6,Especialista Matemático,openai,gpt-4o,"[""calculations"", ""reasoning""]",True,2025-08-04 16:44:06.059349+00:00
+7,Assistente Multitarefas,openai,gpt-4o,"[""web_search"", ""financial"", ""calculations"", ""reasoning""]",True,2025-08-04 16:44:06.061293+00:00
+8,Pensador Estratégico,openai,gpt-4o,"[""reasoning""]",True,2025-08-04 16:44:06.063527+00:00

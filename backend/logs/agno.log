@@ -1323,3 +1323,925 @@ HINT:  Perhaps you meant to reference the column "t.is_active".
 2025-08-14 18:12:23,719 - app - [INFO] - 📋 Listados 3 teams para usuário 1
 2025-08-14 18:12:54,780 - app - [INFO] - 🛑 Encerrando Agno Platform...
 2025-08-14 18:12:54,788 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-14 18:17:46,771 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 18:17:51,803 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 18:17:52,234 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 18:17:53,043 - app - [INFO] - ✅ Router de agents importado
+2025-08-14 18:17:53,171 - app - [INFO] - ✅ Router de workflows importado
+2025-08-14 18:17:53,194 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-14 18:17:53,223 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-14 18:17:53,240 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-14 18:17:53,242 - app - [INFO] - 🚀============================================================
+2025-08-14 18:17:53,245 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-14 18:17:53,246 - app - [INFO] - 🚀============================================================
+2025-08-14 18:17:53,246 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-14 18:17:53,364 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-14 18:17:53,365 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-14 18:17:53,365 - app - [INFO] - ⏱️ Inicialização completada em 0.12s
+2025-08-14 18:17:53,367 - app - [INFO] - 🚀============================================================
+2025-08-14 18:47:10,503 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-14 18:47:10,526 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-14 18:58:31,143 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 18:58:33,812 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 18:58:33,849 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 18:58:33,969 - app - [INFO] - ✅ Router de agents importado
+2025-08-14 18:58:33,998 - app - [INFO] - ✅ Router de workflows importado
+2025-08-14 18:58:34,005 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-14 18:58:34,016 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-14 18:58:34,020 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-14 18:58:34,022 - app - [INFO] - 🚀============================================================
+2025-08-14 18:58:34,022 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-14 18:58:34,022 - app - [INFO] - 🚀============================================================
+2025-08-14 18:58:34,023 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-14 18:58:34,169 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-14 18:58:34,170 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-14 18:58:34,170 - app - [INFO] - ⏱️ Inicialização completada em 0.15s
+2025-08-14 18:58:34,170 - app - [INFO] - 🚀============================================================
+2025-08-14 19:02:22,937 - app - [ERROR] - ❌ Erro interno [45820e08-ba52-43b7-bbe9-e1a4bf786b63]: Could not determine join condition between parent/child tables on relationship Agent.rag_index - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2025-08-14 19:02:22,939 - app - [ERROR] - ❌ Path: GET /api/agents/
+2025-08-14 19:02:22,983 - app - [ERROR] - ❌ Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2434, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/util.py", line 121, in join_condition
+    return Join._join_condition(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1432, in _join_condition
+    cls._joincond_trim_constraints(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/selectable.py", line 1577, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'agents' and 'rag_indexes'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 83, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app.py", line 370, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 159, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/trustedhost.py", line 36, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/routers/agents.py", line 150, in get_agents
+    selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 2447, in selectinload
+    return _generate_from_keys(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 2327, in _generate_from_keys
+    lead_element = Load(lead_entity)
+                   ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 1013, in __init__
+    insp._post_inspect
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1338, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4218, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4259, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2418, in _post_configure_properties
+    prop.init()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 595, in init
+    self.do_init()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1657, in do_init
+    self._setup_join_conditions()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 1895, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2321, in __init__
+    self._determine_joins()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/relationships.py", line 2478, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship Agent.rag_index - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+
+2025-08-14 19:02:23,014 - app - [ERROR] - ❌ Erro interno [29de67d7-5569-432f-8f13-5955b6959bf1]: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Agent(agents)]'. Original exception was: Could not determine join condition between parent/child tables on relationship Agent.rag_index - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2025-08-14 19:02:23,016 - app - [ERROR] - ❌ Path: GET /api/agents/
+2025-08-14 19:02:23,031 - app - [ERROR] - ❌ Traceback:   + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 77, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 183, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 182, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+    |     self.gen.throw(typ, value, traceback)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 83, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 184, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/app/app.py", line 370, in log_requests
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 159, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/trustedhost.py", line 36, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 78, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 75, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 302, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/app/routers/agents.py", line 150, in get_agents
+    |     selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 2447, in selectinload
+    |     return _generate_from_keys(
+    |            ^^^^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 2327, in _generate_from_keys
+    |     lead_element = Load(lead_entity)
+    |                    ^^^^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 1013, in __init__
+    |     insp._post_inspect
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1338, in __get__
+    |     obj.__dict__[self.__name__] = result = self.fget(obj)
+    |                                            ^^^^^^^^^^^^^^
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    |     self._check_configure()
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    |     _configure_registries({self.registry}, cascade=True)
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4218, in _configure_registries
+    |     _do_configure_registries(registries, cascade)
+    |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4255, in _do_configure_registries
+    |     raise e
+    | sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Agent(agents)]'. Original exception was: Could not determine join condition between parent/child tables on relationship Agent.rag_index - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 83, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app.py", line 370, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 159, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/trustedhost.py", line 36, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/routers/agents.py", line 150, in get_agents
+    selectinload(Agent.agent_tools).selectinload(AgentTool.tool),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 2447, in selectinload
+    return _generate_from_keys(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 2327, in _generate_from_keys
+    lead_element = Load(lead_entity)
+                   ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/strategy_options.py", line 1013, in __init__
+    insp._post_inspect
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1338, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2724, in _post_inspect
+    self._check_configure()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 2401, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4218, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4255, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Agent(agents)]'. Original exception was: Could not determine join condition between parent/child tables on relationship Agent.rag_index - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+
+2025-08-14 19:02:23,125 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-14 19:02:23,149 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-14 19:24:10,204 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-14 19:24:11,749 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-14 19:24:17,403 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 19:24:30,893 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 19:24:31,015 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 19:26:44,389 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 19:26:58,366 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 19:26:58,441 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:27:03,882 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:27:08,291 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:27:08,372 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:27:28,483 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:27:31,126 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:27:31,181 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:27:46,766 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:27:51,217 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:27:51,261 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:30:16,742 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:30:20,143 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:30:20,178 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:31:27,738 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:31:30,382 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:31:30,450 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:31:43,794 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:31:46,159 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:31:46,195 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:32:07,866 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:32:12,293 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:32:12,353 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:34:13,517 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:34:15,955 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:34:15,995 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:42:17,575 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:42:21,104 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:42:21,152 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:42:21,328 - app - [INFO] - ✅ Router de agents importado
+2025-08-14 22:42:21,366 - app - [INFO] - ✅ Router de workflows importado
+2025-08-14 22:42:21,381 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-14 22:42:21,398 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-14 22:42:21,406 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-14 22:42:21,409 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:21,410 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-14 22:42:21,411 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:21,411 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-14 22:42:21,516 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-14 22:42:21,516 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-14 22:42:21,517 - app - [INFO] - ⏱️ Inicialização completada em 0.11s
+2025-08-14 22:42:21,519 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:23,203 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:42:26,061 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:42:26,110 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:42:26,244 - app - [INFO] - ✅ Router de agents importado
+2025-08-14 22:42:26,282 - app - [INFO] - ✅ Router de workflows importado
+2025-08-14 22:42:26,294 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-14 22:42:26,311 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-14 22:42:26,318 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-14 22:42:26,320 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:26,322 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-14 22:42:26,322 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:26,324 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-14 22:42:26,381 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-14 22:42:26,382 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-14 22:42:26,382 - app - [INFO] - ⏱️ Inicialização completada em 0.06s
+2025-08-14 22:42:26,383 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:40,729 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-14 22:42:40,735 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-14 22:42:42,525 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:42:45,675 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:42:45,725 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:42:45,873 - app - [INFO] - ✅ Router de agents importado
+2025-08-14 22:42:45,905 - app - [INFO] - ✅ Router de workflows importado
+2025-08-14 22:42:45,915 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-14 22:42:45,930 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-14 22:42:45,936 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-14 22:42:45,937 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:45,938 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-14 22:42:45,939 - app - [INFO] - 🚀============================================================
+2025-08-14 22:42:45,940 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-14 22:42:45,986 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-14 22:42:45,987 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-14 22:42:45,987 - app - [INFO] - ⏱️ Inicialização completada em 0.05s
+2025-08-14 22:42:45,988 - app - [INFO] - 🚀============================================================
+2025-08-14 22:43:05,847 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-14 22:43:05,853 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-14 22:43:07,511 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-14 22:43:10,899 - app - [INFO] - ✅ Agno framework disponível
+2025-08-14 22:43:10,933 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-14 22:43:11,083 - app - [INFO] - ✅ Router de agents importado
+2025-08-14 22:43:11,115 - app - [INFO] - ✅ Router de workflows importado
+2025-08-14 22:43:11,125 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-14 22:43:11,137 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-14 22:43:11,143 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-14 22:43:11,145 - app - [INFO] - 🚀============================================================
+2025-08-14 22:43:11,146 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-14 22:43:11,146 - app - [INFO] - 🚀============================================================
+2025-08-14 22:43:11,147 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-14 22:43:11,197 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-14 22:43:11,198 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-14 22:43:11,198 - app - [INFO] - ⏱️ Inicialização completada em 0.05s
+2025-08-14 22:43:11,199 - app - [INFO] - 🚀============================================================
+2025-08-14 22:43:28,246 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-14 22:43:28,250 - app - [INFO] - ✅ Conexões fechadas com sucesso
+2025-08-15 00:03:13,111 - app - [INFO] - 🗄️ Conectando ao banco: postgres:5432/agno_db
+2025-08-15 00:03:18,745 - app - [INFO] - ✅ Agno framework disponível
+2025-08-15 00:03:18,817 - app - [INFO] - ✅ Rotas do Agno importadas
+2025-08-15 00:03:19,062 - app - [INFO] - ✅ Router de agents importado
+2025-08-15 00:03:19,101 - app - [INFO] - ✅ Router de workflows importado
+2025-08-15 00:03:19,116 - app - [INFO] - ✅ Rotas de agents incluídas em /api/agents
+2025-08-15 00:03:19,139 - app - [INFO] - ✅ Rotas de workflows incluídas em /api
+2025-08-15 00:03:19,149 - app - [INFO] - ✅ Rotas do Agno Framework incluídas
+2025-08-15 00:03:19,152 - app - [INFO] - 🚀============================================================
+2025-08-15 00:03:19,152 - app - [INFO] - 🚀 INICIANDO AGNO PLATFORM v4.5.1
+2025-08-15 00:03:19,153 - app - [INFO] - 🚀============================================================
+2025-08-15 00:03:19,153 - app - [INFO] - 🔑 Variáveis configuradas: 3/3
+2025-08-15 00:03:19,288 - app - [INFO] - ✅ Banco de dados conectado
+2025-08-15 00:03:19,288 - app - [INFO] - 🎉 Sistema totalmente operacional!
+2025-08-15 00:03:19,288 - app - [INFO] - ⏱️ Inicialização completada em 0.14s
+2025-08-15 00:03:19,289 - app - [INFO] - 🚀============================================================
+2025-08-15 00:03:49,268 - app - [ERROR] - ❌ Erro interno [083b03a9-99f6-4dfc-af9b-fd207b36650b]: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+[SQL: SELECT agents.id, agents.name, agents.role, agents.description, agents.user_id, agents.model_provider, agents.model_id, agents.instructions, agents.configuration, agents.memory_enabled, agents.rag_enabled, agents.is_active, agents.rag_index_id, agents.created_at, agents.updated_at 
+FROM agents 
+WHERE agents.user_id = $1::INTEGER AND agents.is_active = true 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER]
+[parameters: (1, 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-08-15 00:03:49,269 - app - [ERROR] - ❌ Path: GET /api/agents/
+2025-08-15 00:03:49,315 - app - [ERROR] - ❌ Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 521, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 768, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "agents" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 83, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app.py", line 370, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 159, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/trustedhost.py", line 36, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/routers/agents.py", line 159, in get_agents
+    result = await db.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+[SQL: SELECT agents.id, agents.name, agents.role, agents.description, agents.user_id, agents.model_provider, agents.model_id, agents.instructions, agents.configuration, agents.memory_enabled, agents.rag_enabled, agents.is_active, agents.rag_index_id, agents.created_at, agents.updated_at 
+FROM agents 
+WHERE agents.user_id = $1::INTEGER AND agents.is_active = true 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER]
+[parameters: (1, 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+
+2025-08-15 00:03:49,368 - app - [ERROR] - ❌ Erro interno [877859fe-55d4-4db7-96d5-5a917f7624a3]: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+[SQL: SELECT agents.id, agents.name, agents.role, agents.description, agents.user_id, agents.model_provider, agents.model_id, agents.instructions, agents.configuration, agents.memory_enabled, agents.rag_enabled, agents.is_active, agents.rag_index_id, agents.created_at, agents.updated_at 
+FROM agents 
+WHERE agents.user_id = $1::INTEGER AND agents.is_active = true 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER]
+[parameters: (1, 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-08-15 00:03:49,369 - app - [ERROR] - ❌ Path: GET /api/agents/
+2025-08-15 00:03:49,379 - app - [ERROR] - ❌ Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 521, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 768, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "agents" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 83, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app.py", line 370, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 159, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/trustedhost.py", line 36, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/routers/agents.py", line 159, in get_agents
+    result = await db.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+[SQL: SELECT agents.id, agents.name, agents.role, agents.description, agents.user_id, agents.model_provider, agents.model_id, agents.instructions, agents.configuration, agents.memory_enabled, agents.rag_enabled, agents.is_active, agents.rag_index_id, agents.created_at, agents.updated_at 
+FROM agents 
+WHERE agents.user_id = $1::INTEGER AND agents.is_active = true 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER]
+[parameters: (1, 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+
+2025-08-15 00:03:49,397 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-15 00:03:49,430 - app - [ERROR] - ❌ Erro interno [965d64bb-a07e-45f8-a702-afae0ad43e94]: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+[SQL: SELECT agents.id, agents.name, agents.role, agents.description, agents.user_id, agents.model_provider, agents.model_id, agents.instructions, agents.configuration, agents.memory_enabled, agents.rag_enabled, agents.is_active, agents.rag_index_id, agents.created_at, agents.updated_at 
+FROM agents 
+WHERE agents.user_id = $1::INTEGER AND agents.is_active = true 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER]
+[parameters: (1, 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-08-15 00:03:49,431 - app - [ERROR] - ❌ Path: GET /api/agents/
+2025-08-15 00:03:49,437 - app - [ERROR] - ❌ Traceback: Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 521, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 768, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 635, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 653, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/connection.py", line 432, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "agents" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "/usr/local/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_utils.py", line 83, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app.py", line 370, in log_requests
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 159, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/trustedhost.py", line 36, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/routers/agents.py", line 159, in get_agents
+    result = await db.execute(query)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 508, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 792, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "agents" does not exist
+[SQL: SELECT agents.id, agents.name, agents.role, agents.description, agents.user_id, agents.model_provider, agents.model_id, agents.instructions, agents.configuration, agents.memory_enabled, agents.rag_enabled, agents.is_active, agents.rag_index_id, agents.created_at, agents.updated_at 
+FROM agents 
+WHERE agents.user_id = $1::INTEGER AND agents.is_active = true 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER]
+[parameters: (1, 100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+
+2025-08-15 00:03:49,456 - app - [INFO] - 📋 Listados 3 teams para usuário 1
+2025-08-15 00:05:13,953 - app - [INFO] - 🛑 Encerrando Agno Platform...
+2025-08-15 00:05:13,958 - app - [INFO] - ✅ Conexões fechadas com sucesso
