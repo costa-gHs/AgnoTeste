@@ -152,12 +152,11 @@ async def lifespan(app: FastAPI):
 # =============================================
 
 app = FastAPI(
-    title="Agno Platform API - CORRIGIDA (AsyncPG)",
-    description="Backend corrigido com driver AsyncPG para PostgreSQL",
-    version="5.1.1",
-    lifespan=lifespan,
-    docs_url="/docs",
-    redoc_url="/redoc"
+    title="AGNO API",
+    description="API para Agentes e Teams - Versão Corrigida",
+    version="5.1.2-no-redirects",
+    # IMPORTANTE: redirect_slashes=False evita os redirects automáticos
+    redirect_slashes=False
 )
 
 # =============================================
@@ -166,7 +165,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Em produção, especificar domínios
+    allow_origins=["*"],  # Em produção, especifique os domínios
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

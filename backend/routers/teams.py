@@ -1,4 +1,4 @@
-# backend/routers/teams.py - VERSÃO CORRIGIDA FINAL
+# backend/routers/teams.py - VERSÃO CORRIGIDA SEM 307 REDIRECTS
 from fastapi import APIRouter, HTTPException, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, insert, update, delete, func
@@ -15,30 +15,28 @@ except ImportError:
     from ..models.database import get_db
     from ..models.agents import Agent, Team, TeamAgent
 
+# ==================== ROUTER SEM TRAILING SLASH ISSUES ====================
 router = APIRouter(prefix="/api/teams", tags=["Teams"])
 
-
-# ==================== MODELOS PYDANTIC CORRIGIDOS ====================
+# ==================== MODELOS PYDANTIC ====================
 
 class AgentInTeamRequest(BaseModel):
-    agent_id: int  # Deve ser int, não string
+    agent_id: int
     role_in_team: str = "member"
     priority: int = 1
-
 
 class TeamCreateRequest(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     description: str = Field(default="", max_length=500)
     team_type: str = Field(default="collaborative")
     agents: List[AgentInTeamRequest] = Field(default=[])
-    supervisor_agent_id: Optional[int] = None  # Deve ser int, não string
+    supervisor_agent_id: Optional[int] = None
     team_configuration: Dict[str, Any] = Field(default_factory=dict)
-
+    user_id: int = Field(default=1)
 
 class TeamExecuteRequest(BaseModel):
     message: str = Field(..., min_length=1)
     context: Optional[Dict[str, Any]] = Field(default_factory=dict)
-
 
 class TeamResponse(BaseModel):
     id: int
@@ -50,7 +48,6 @@ class TeamResponse(BaseModel):
     updated_at: datetime
     agents: List[Dict[str, Any]]
     agent_count: int
-
 
 # ==================== HELPER FUNCTIONS ====================
 
@@ -70,69 +67,100 @@ async def get_team_with_agents(db: AsyncSession, team_id: int, user_id: int = 1)
         if not team:
             return None
 
-        # Buscar team_agents
+        # Buscar team_agents com dados dos agentes
         result = await db.execute(
-            select(TeamAgent).where(
+            select(TeamAgent, Agent)
+            .join(Agent, TeamAgent.agent_id == Agent.id)
+            .where(
                 TeamAgent.team_id == team_id,
-                TeamAgent.is_active == True
+                TeamAgent.is_active == True,
+                Agent.is_active == True
             )
+            .order_by(TeamAgent.priority.asc())
         )
-        team_agents = result.scalars().all()
+        team_agents = result.all()
 
-        # Buscar dados dos agentes
+        # Processar agentes
         agents_data = []
-        if team_agents:
-            agent_ids = [ta.agent_id for ta in team_agents]
-            agents_result = await db.execute(
-                select(Agent).where(
-                    Agent.id.in_(agent_ids),
-                    Agent.is_active == True
-                )
-            )
-            agents = {agent.id: agent for agent in agents_result.scalars().all()}
+        for team_agent, agent in team_agents:
+            # Processar configuração do agente no team
+            agent_config = {}
+            if team_agent.agent_config:
+                if isinstance(team_agent.agent_config, str):
+                    try:
+                        agent_config = json.loads(team_agent.agent_config)
+                    except:
+                        agent_config = {}
+                elif isinstance(team_agent.agent_config, dict):
+                    agent_config = team_agent.agent_config
 
-            for ta in team_agents:
-                if ta.agent_id in agents:
-                    agent = agents[ta.agent_id]
-                    agent_data = {
-                        "agent_id": agent.id,
-                        "name": agent.name,
-                        "role": agent.role,
-                        "role_in_team": ta.role_in_team,
-                        "priority": ta.priority,
-                        "model_provider": agent.model_provider,
-                        "model_id": agent.model_id
-                    }
-                    agents_data.append(agent_data)
+            # Processar instruções do agente
+            instructions = agent.instructions if agent.instructions else []
+            if isinstance(instructions, str):
+                try:
+                    instructions = json.loads(instructions)
+                except:
+                    instructions = [instructions]
+
+            # Processar tools do agente
+            tools = agent.tools if agent.tools else []
+            if isinstance(tools, str):
+                try:
+                    tools = json.loads(tools)
+                except:
+                    tools = []
+
+            agent_data = {
+                "id": agent.id,
+                "name": agent.name,
+                "role": agent.role,
+                "description": agent.description or "",
+                "model_provider": agent.model_provider,
+                "model_id": agent.model_id,
+                "instructions": instructions,
+                "tools": tools,
+                "role_in_team": team_agent.role_in_team,
+                "priority": team_agent.priority,
+                "config": agent_config
+            }
+            agents_data.append(agent_data)
+
+        # Processar configuração do team
+        team_config = team.team_configuration if team.team_configuration else {}
+        if isinstance(team_config, str):
+            try:
+                team_config = json.loads(team_config)
+            except:
+                team_config = {}
 
         return {
             "id": team.id,
             "name": team.name,
-            "description": team.description,
+            "description": team.description or "",
             "team_type": team.team_type,
+            "supervisor_agent_id": team.supervisor_agent_id,
+            "team_configuration": team_config,
             "is_active": team.is_active,
             "created_at": team.created_at,
             "updated_at": team.updated_at,
             "agents": agents_data,
-            "agent_count": len(agents_data),
-            "team_configuration": team.team_configuration or {}
+            "agent_count": len(agents_data)
         }
 
     except Exception as e:
         print(f"❌ Erro ao buscar team {team_id}: {e}")
         return None
 
+# ==================== ENDPOINTS PRINCIPAIS ====================
 
-# ==================== ENDPOINTS CORRIGIDOS ====================
-
-@router.get("/")
-@router.get("")
+@router.get("", response_model=List[TeamResponse])
 async def list_teams(
-        user_id: int = Query(1, description="ID do usuário"),
-        db: AsyncSession = Depends(get_db)
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
 ):
-    """Lista todos os teams do usuário"""
+    """Lista todos os teams do usuário - SEM TRAILING SLASH"""
     try:
+        # Buscar teams ativos do usuário
         result = await db.execute(
             select(Team)
             .where(Team.user_id == user_id, Team.is_active == True)
@@ -140,6 +168,7 @@ async def list_teams(
         )
         teams = result.scalars().all()
 
+        # Buscar dados completos para cada team
         teams_response = []
         for team in teams:
             team_data = await get_team_with_agents(db, team.id, user_id)
@@ -153,15 +182,12 @@ async def list_teams(
         print(f"❌ Erro ao listar teams: {e}")
         raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
 
-
-@router.post("/")
-@router.post("")
+@router.post("", response_model=TeamResponse)
 async def create_team(
-        request: TeamCreateRequest,
-        user_id: int = Query(1, description="ID do usuário"),
-        db: AsyncSession = Depends(get_db)
+    request: TeamCreateRequest,
+    db: AsyncSession = Depends(get_db)
 ):
-    """Cria um novo team com validação corrigida"""
+    """Cria um novo team - SEM TRAILING SLASH"""
     try:
         # Validar que os agentes existem
         if request.agents:
@@ -169,7 +195,7 @@ async def create_team(
             result = await db.execute(
                 select(Agent).where(
                     Agent.id.in_(agent_ids),
-                    Agent.user_id == user_id,
+                    Agent.user_id == request.user_id,
                     Agent.is_active == True
                 )
             )
@@ -185,7 +211,7 @@ async def create_team(
 
         # Criar team
         team_data = {
-            "user_id": user_id,
+            "user_id": request.user_id,
             "name": request.name,
             "description": request.description,
             "team_type": request.team_type,
@@ -209,7 +235,7 @@ async def create_team(
                     "agent_id": agent_data.agent_id,
                     "role_in_team": agent_data.role_in_team,
                     "priority": agent_data.priority,
-                    "agent_config": "{}",  # JSON vazio como string
+                    "agent_config": {},  # JSON como dict
                     "is_active": True,
                     "created_at": datetime.utcnow()
                 }
@@ -223,7 +249,7 @@ async def create_team(
         print(f"✅ Team criado: {new_team.name} (ID: {new_team.id}) com {len(request.agents)} agentes")
 
         # Retornar team completo
-        team_complete = await get_team_with_agents(db, new_team.id, user_id)
+        team_complete = await get_team_with_agents(db, new_team.id, request.user_id)
         return TeamResponse(**team_complete)
 
     except HTTPException:
@@ -232,18 +258,39 @@ async def create_team(
     except Exception as e:
         await db.rollback()
         print(f"❌ Erro ao criar team: {e}")
-        print(f"Request data: {request}")
         raise HTTPException(status_code=500, detail=f"Erro ao criar team: {str(e)}")
 
+@router.get("/{team_id}", response_model=TeamResponse)
+async def get_team(
+    team_id: int,
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
+):
+    """Busca um team específico"""
+    try:
+        team_data = await get_team_with_agents(db, team_id, user_id)
+        if not team_data:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Team {team_id} não encontrado"
+            )
+
+        return TeamResponse(**team_data)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Erro ao buscar team {team_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
 
 @router.post("/{team_id}/execute")
 async def execute_team(
-        team_id: int,
-        request: TeamExecuteRequest,
-        user_id: int = Query(1, description="ID do usuário"),
-        db: AsyncSession = Depends(get_db)
+    team_id: int,
+    request: TeamExecuteRequest,
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
 ):
-    """ENDPOINT CORRIGIDO: Executa um team"""
+    """Executa um team"""
     try:
         # Buscar team com agentes
         team_data = await get_team_with_agents(db, team_id, user_id)
@@ -283,12 +330,104 @@ async def execute_team(
         print(f"❌ Erro na execução do team {team_id}: {e}")
         raise HTTPException(status_code=500, detail=f"Erro na execução: {str(e)}")
 
+@router.put("/{team_id}", response_model=TeamResponse)
+async def update_team(
+    team_id: int,
+    request: TeamCreateRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """Atualiza um team existente"""
+    try:
+        # Verificar se team existe
+        result = await db.execute(
+            select(Team).where(
+                Team.id == team_id,
+                Team.user_id == request.user_id,
+                Team.is_active == True
+            )
+        )
+        team = result.scalar_one_or_none()
+
+        if not team:
+            raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        # Validar agentes se fornecidos
+        if request.agents:
+            agent_ids = [agent.agent_id for agent in request.agents]
+            result = await db.execute(
+                select(Agent).where(
+                    Agent.id.in_(agent_ids),
+                    Agent.user_id == request.user_id,
+                    Agent.is_active == True
+                )
+            )
+            existing_agents = {agent.id for agent in result.scalars().all()}
+
+            missing_agents = set(agent_ids) - existing_agents
+            if missing_agents:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Agentes não encontrados: {list(missing_agents)}"
+                )
+
+        # Atualizar team
+        await db.execute(
+            update(Team)
+            .where(Team.id == team_id)
+            .values(
+                name=request.name,
+                description=request.description,
+                team_type=request.team_type,
+                supervisor_agent_id=request.supervisor_agent_id,
+                team_configuration=request.team_configuration,
+                updated_at=datetime.utcnow()
+            )
+        )
+
+        # Desativar team_agents existentes
+        await db.execute(
+            update(TeamAgent)
+            .where(TeamAgent.team_id == team_id)
+            .values(is_active=False)
+        )
+
+        # Adicionar novos team_agents
+        if request.agents:
+            for agent_data in request.agents:
+                team_agent_data = {
+                    "team_id": team_id,
+                    "agent_id": agent_data.agent_id,
+                    "role_in_team": agent_data.role_in_team,
+                    "priority": agent_data.priority,
+                    "agent_config": {},
+                    "is_active": True,
+                    "created_at": datetime.utcnow()
+                }
+
+                await db.execute(
+                    insert(TeamAgent).values(**team_agent_data)
+                )
+
+        await db.commit()
+
+        print(f"✅ Team atualizado: {request.name} (ID: {team_id})")
+
+        # Retornar team atualizado
+        team_complete = await get_team_with_agents(db, team_id, request.user_id)
+        return TeamResponse(**team_complete)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        print(f"❌ Erro ao atualizar team {team_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
 
 @router.delete("/{team_id}")
 async def delete_team(
-        team_id: int,
-        user_id: int = Query(1, description="ID do usuário"),
-        db: AsyncSession = Depends(get_db)
+    team_id: int,
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
 ):
     """Remove um team (soft delete)"""
     try:
@@ -330,4 +469,177 @@ async def delete_team(
     except Exception as e:
         await db.rollback()
         print(f"❌ Erro ao remover team {team_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
+
+# ==================== ENDPOINTS ADICIONAIS ====================
+
+@router.get("/{team_id}/agents")
+async def list_team_agents(
+    team_id: int,
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
+):
+    """Lista agentes de um team específico"""
+    try:
+        team_data = await get_team_with_agents(db, team_id, user_id)
+        if not team_data:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Team {team_id} não encontrado"
+            )
+
+        return {
+            "team_id": team_id,
+            "team_name": team_data["name"],
+            "agents": team_data["agents"],
+            "agent_count": team_data["agent_count"]
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Erro ao listar agentes do team {team_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
+
+@router.post("/{team_id}/agents/{agent_id}")
+async def add_agent_to_team(
+    team_id: int,
+    agent_id: int,
+    role_in_team: str = "member",
+    priority: int = 1,
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
+):
+    """Adiciona um agente a um team"""
+    try:
+        # Verificar se team existe
+        result = await db.execute(
+            select(Team).where(
+                Team.id == team_id,
+                Team.user_id == user_id,
+                Team.is_active == True
+            )
+        )
+        team = result.scalar_one_or_none()
+
+        if not team:
+            raise HTTPException(status_code=404, detail="Team não encontrado")
+
+        # Verificar se agente existe
+        result = await db.execute(
+            select(Agent).where(
+                Agent.id == agent_id,
+                Agent.user_id == user_id,
+                Agent.is_active == True
+            )
+        )
+        agent = result.scalar_one_or_none()
+
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agente não encontrado")
+
+        # Verificar se agente já está no team
+        result = await db.execute(
+            select(TeamAgent).where(
+                TeamAgent.team_id == team_id,
+                TeamAgent.agent_id == agent_id,
+                TeamAgent.is_active == True
+            )
+        )
+        existing = result.scalar_one_or_none()
+
+        if existing:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Agente {agent.name} já está no team {team.name}"
+            )
+
+        # Adicionar agente ao team
+        team_agent_data = {
+            "team_id": team_id,
+            "agent_id": agent_id,
+            "role_in_team": role_in_team,
+            "priority": priority,
+            "agent_config": {},
+            "is_active": True,
+            "created_at": datetime.utcnow()
+        }
+
+        await db.execute(
+            insert(TeamAgent).values(**team_agent_data)
+        )
+        await db.commit()
+
+        print(f"✅ Agente {agent.name} adicionado ao team {team.name}")
+
+        return {
+            "message": f"Agente {agent.name} adicionado ao team {team.name}",
+            "team_id": team_id,
+            "agent_id": agent_id,
+            "role_in_team": role_in_team,
+            "priority": priority
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        print(f"❌ Erro ao adicionar agente ao team: {e}")
+        raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
+
+@router.delete("/{team_id}/agents/{agent_id}")
+async def remove_agent_from_team(
+    team_id: int,
+    agent_id: int,
+    user_id: int = Query(1, description="ID do usuário"),
+    db: AsyncSession = Depends(get_db)
+):
+    """Remove um agente de um team"""
+    try:
+        # Verificar se team_agent existe
+        result = await db.execute(
+            select(TeamAgent, Team, Agent)
+            .join(Team, TeamAgent.team_id == Team.id)
+            .join(Agent, TeamAgent.agent_id == Agent.id)
+            .where(
+                TeamAgent.team_id == team_id,
+                TeamAgent.agent_id == agent_id,
+                Team.user_id == user_id,
+                TeamAgent.is_active == True
+            )
+        )
+        team_agent_data = result.first()
+
+        if not team_agent_data:
+            raise HTTPException(
+                status_code=404,
+                detail="Agente não encontrado no team"
+            )
+
+        team_agent, team, agent = team_agent_data
+
+        # Remover agente do team
+        await db.execute(
+            update(TeamAgent)
+            .where(
+                TeamAgent.team_id == team_id,
+                TeamAgent.agent_id == agent_id
+            )
+            .values(is_active=False)
+        )
+        await db.commit()
+
+        print(f"🗑️ Agente {agent.name} removido do team {team.name}")
+
+        return {
+            "message": f"Agente {agent.name} removido do team {team.name}",
+            "team_id": team_id,
+            "agent_id": agent_id
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        print(f"❌ Erro ao remover agente do team: {e}")
         raise HTTPException(status_code=500, detail=f"Erro interno: {str(e)}")
