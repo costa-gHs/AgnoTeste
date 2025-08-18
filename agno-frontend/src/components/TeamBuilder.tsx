@@ -3,19 +3,20 @@ import {
   Users, Plus, Settings, Play, Bot, MessageSquare, Save, AlertCircle,
   CheckCircle, Loader, Search, Trash2, Edit, Copy, BarChart3, Clock,
   Target, Zap, Send, Eye, Filter, X, FileText, Database, Globe,
-  Code, Brain, TestTube, Activity, ChevronRight, ArrowRight, Sparkles
+  Code, Brain, TestTube, Activity, ChevronRight, ArrowRight, Sparkles,
+  RefreshCw, User, Shield, Layers
 } from 'lucide-react';
 
 // ==================== TYPES CORRIGIDOS ====================
 interface Agent {
-  id: number;  // Corrigido para number
+  id: number;
   name: string;
   role: string;
   description?: string;
   model_provider: string;
   model_id: string;
-  instructions: string[]; // Corrigido para array
-  tools: Array<{ tool_id: string; config: any }>; // Corrigido para formato do backend
+  instructions: string[];
+  tools: Array<{ tool_id: string; config: any }>;
   memory_enabled: boolean;
   rag_enabled: boolean;
   is_active: boolean;
@@ -24,16 +25,16 @@ interface Agent {
 }
 
 interface Team {
-  id: number; // Corrigido para number
+  id: number;
   name: string;
   description: string;
   team_type: 'collaborative' | 'hierarchical' | 'sequential';
   agents: Array<{
-    agent_id: number; // Corrigido para number
+    agent_id: number;
     role_in_team: string;
     priority: number;
   }>;
-  supervisor_agent_id?: number; // Corrigido para number
+  supervisor_agent_id?: number;
   team_configuration: Record<string, any>;
   is_active: boolean;
   created_at: string;
@@ -60,83 +61,71 @@ const Modal: React.FC<{
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen p-4">
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-          onClick={onClose}
-        />
-        <div className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="flex items-center justify-between p-6 border-b">
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
+        <div className="p-6 border-b">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold">{title}</h2>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
-          <div className="p-6">
-            {children}
-          </div>
+        </div>
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+          {children}
         </div>
       </div>
     </div>
   );
 };
 
-// ==================== API CLIENT CORRIGIDO ====================
-const API_BASE_URL = 'http://localhost:8000/api';
+// ==================== API CLIENT ====================
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 const apiClient = {
-  async request(endpoint: string, options: RequestInit = {}) {
-    const url = `${API_BASE_URL}${endpoint}`;
+  async request(endpoint: string, options?: RequestInit) {
+    const url = `${API_BASE}/api${endpoint}`;
     const response = await fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...options.headers,
+        ...options?.headers,
       },
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(error.detail || error.message || `HTTP ${response.status}`);
+      throw new Error(`API Error: ${response.statusText}`);
     }
 
-    return response.json();
+    const data = await response.json();
+    return data.data || data;
   },
 
-  // Teams API - CORRIGIDO
   async getTeams(): Promise<Team[]> {
     return this.request('/teams?user_id=1');
   },
 
   async createTeam(data: any): Promise<Team> {
-    // Formato correto para o backend
     const teamData = {
       name: data.name,
       description: data.description,
       team_type: data.team_type,
-      agents: data.agents.map((agent: any) => ({
-        agent_id: parseInt(agent.agent_id), // Conversão para int
-        role_in_team: agent.role_in_team,
-        priority: agent.priority
+      agents: data.agents.map((a: any) => ({
+        agent_id: parseInt(a.agent_id),
+        role_in_team: a.role_in_team,
+        priority: parseInt(a.priority) || 1
       })),
       supervisor_agent_id: data.supervisor_agent_id ? parseInt(data.supervisor_agent_id) : null,
-      team_configuration: data.team_configuration || {}
+      team_configuration: data.team_configuration || {},
+      is_active: true
     };
 
-    return this.request('/teams', {
+    return this.request('/teams?user_id=1', {
       method: 'POST',
       body: JSON.stringify(teamData),
-    });
-  },
-
-  async updateTeam(id: number, data: any): Promise<Team> {
-    return this.request(`/teams/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
     });
   },
 
@@ -147,60 +136,49 @@ const apiClient = {
   },
 
   async executeTeam(id: number, message: string): Promise<any> {
-    return this.request(`/teams/${id}/execute`, {
+    return this.request(`/teams/${id}/execute?user_id=1`, {
       method: 'POST',
       body: JSON.stringify({
-        message,
+        input_message: message,  // Campo correto: input_message
         context: {}
       }),
     });
   },
 
-  // Agents API - CORRIGIDO
   async getAgents(): Promise<Agent[]> {
     return this.request('/agents?user_id=1');
   },
 
   async createAgent(data: any): Promise<Agent> {
-    // Validação simples no frontend
-    if (!Array.isArray(data.tools) || !data.tools.every((t: any) => typeof t === 'string')) {
-      throw new Error('tools deve ser um array de strings');
-    }
     const agentData = {
       name: data.name,
       role: data.role,
       description: data.description || '',
       model_provider: data.model_provider,
       model_id: data.model_id,
-      instructions: data.instructions ? [data.instructions] : [], // Array de strings
+      instructions: data.instructions ? [data.instructions] : [],
       tools: data.tools.map((toolId: string) => ({
         tool_id: toolId,
         config: {}
-      })), // Formato correto
+      })),
       memory_enabled: data.memory_enabled,
-      rag_config: {
-        enabled: data.rag_enabled,
+      rag_enabled: data.rag_enabled,
+      rag_config: data.rag_enabled ? {
+        enabled: true,
         index_name: null,
         embedding_model: "text-embedding-ada-002",
         chunk_size: 1000,
         chunk_overlap: 200,
         top_k: 5,
         threshold: 0.7
-      }, // Formato correto para RAG
+      } : null,
       configuration: {},
-      user_id: 1
+      is_active: true
     };
 
-    return this.request('/agents', {
+    return this.request('/agents?user_id=1', {
       method: 'POST',
       body: JSON.stringify(agentData),
-    });
-  },
-
-  async updateAgent(id: number, data: any): Promise<Agent> {
-    return this.request(`/agents/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
     });
   },
 
@@ -211,11 +189,10 @@ const apiClient = {
   },
 
   async testAgent(id: number, prompt: string): Promise<any> {
-    // ENDPOINT CORRIGIDO: /chat ao invés de /run
-    return this.request(`/agents/${id}/chat`, {
+    return this.request(`/agents/${id}/chat?user_id=1`, {
       method: 'POST',
       body: JSON.stringify({
-        prompt, // Campo correto
+        message: prompt,  // Campo correto: message
         stream: false
       }),
     });
@@ -235,46 +212,63 @@ const TeamCreationModal: React.FC<{
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    team_type: 'collaborative' as Team['team_type'],
-    agents: [] as Array<{ agent_id: number; role_in_team: string; priority: number }>,
-    supervisor_agent_id: undefined as number | undefined,
+    team_type: 'collaborative' as const,
+    agents: [] as Array<{ agent_id: string; role_in_team: string; priority: string }>,
+    supervisor_agent_id: '',
+    team_configuration: {},
   });
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      if (selectedTeam) {
-        setFormData({
-          name: selectedTeam.name,
-          description: selectedTeam.description,
-          team_type: selectedTeam.team_type,
-          agents: selectedTeam.agents || [],
-          supervisor_agent_id: selectedTeam.supervisor_agent_id,
-        });
-      } else {
-        setFormData({
-          name: '',
-          description: '',
-          team_type: 'collaborative',
-          agents: [],
-          supervisor_agent_id: undefined,
-        });
-      }
+    if (selectedTeam) {
+      setFormData({
+        name: selectedTeam.name,
+        description: selectedTeam.description,
+        team_type: selectedTeam.team_type,
+        agents: selectedTeam.agents.map(a => ({
+          agent_id: a.agent_id.toString(),
+          role_in_team: a.role_in_team,
+          priority: a.priority.toString()
+        })),
+        supervisor_agent_id: selectedTeam.supervisor_agent_id?.toString() || '',
+        team_configuration: selectedTeam.team_configuration,
+      });
+    } else {
+      setFormData({
+        name: '',
+        description: '',
+        team_type: 'collaborative',
+        agents: [],
+        supervisor_agent_id: '',
+        team_configuration: {},
+      });
     }
-  }, [isOpen, selectedTeam]);
+  }, [selectedTeam]);
+
+  const handleAddAgent = () => {
+    setFormData(prev => ({
+      ...prev,
+      agents: [...prev.agents, { agent_id: '', role_in_team: '', priority: '1' }]
+    }));
+  };
+
+  const handleRemoveAgent = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      agents: prev.agents.filter((_, i) => i !== index)
+    }));
+  };
 
   const handleSave = async () => {
-    if (!formData.name || formData.agents.length === 0) return;
+    if (!formData.name || !formData.description || formData.agents.length === 0) {
+      onError('Preencha todos os campos obrigatórios');
+      return;
+    }
 
     setSaving(true);
     try {
-      if (selectedTeam) {
-        await apiClient.updateTeam(selectedTeam.id, formData);
-        onSuccess('Time atualizado com sucesso!');
-      } else {
-        await apiClient.createTeam(formData);
-        onSuccess('Time criado com sucesso!');
-      }
+      await apiClient.createTeam(formData);
+      onSuccess('Time criado com sucesso!');
       onTeamSaved();
       onClose();
     } catch (err: any) {
@@ -284,130 +278,127 @@ const TeamCreationModal: React.FC<{
     }
   };
 
-  const addAgentToTeam = (agentId: number) => {
-    if (!formData.agents.find(a => a.agent_id === agentId)) {
-      setFormData(prev => ({
-        ...prev,
-        agents: [...prev.agents, {
-          agent_id: agentId,
-          role_in_team: 'member',
-          priority: prev.agents.length + 1
-        }]
-      }));
-    }
-  };
-
-  const removeAgentFromTeam = (agentId: number) => {
-    setFormData(prev => ({
-      ...prev,
-      agents: prev.agents.filter(a => a.agent_id !== agentId)
-    }));
-  };
-
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={selectedTeam ? 'Editar Time' : 'Criar Novo Time'}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title={selectedTeam ? 'Editar Time' : 'Criar Novo Time'}>
       <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Nome do Time *
-            </label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Nome do time..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tipo de Time *
-            </label>
-            <select
-              value={formData.team_type}
-              onChange={(e) => setFormData(prev => ({
-                ...prev,
-                team_type: e.target.value as Team['team_type']
-              }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="collaborative">Colaborativo</option>
-              <option value="hierarchical">Hierárquico</option>
-              <option value="sequential">Sequencial</option>
-            </select>
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Nome do Time</label>
+          <input
+            type="text"
+            value={formData.name}
+            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Ex: Time de Análise"
+          />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Descrição
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Descrição</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             rows={3}
-            placeholder="Descrição do time..."
+            placeholder="Descreva o objetivo do time..."
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            Agentes do Time
-          </label>
-          <div className="grid grid-cols-1 gap-3 max-h-60 overflow-y-auto border rounded-lg p-3">
-            {agents.map(agent => {
-              const isSelected = formData.agents.some(a => a.agent_id === agent.id);
-              return (
-                <div
-                  key={agent.id}
-                  className={`p-3 border rounded-lg cursor-pointer transition-all ${
-                    isSelected 
-                      ? 'border-blue-500 bg-blue-50' 
-                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
-                  onClick={() =>
-                    isSelected
-                      ? removeAgentFromTeam(agent.id)
-                      : addAgentToTeam(agent.id)
-                  }
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-sm">{agent.name}</p>
-                      <p className="text-xs text-gray-600">{agent.role}</p>
-                    </div>
-                    {isSelected && <CheckCircle className="w-4 h-4 text-blue-600" />}
-                  </div>
-                </div>
-              );
-            })}
+          <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Time</label>
+          <select
+            value={formData.team_type}
+            onChange={(e) => setFormData(prev => ({ ...prev, team_type: e.target.value as any }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="collaborative">Colaborativo</option>
+            <option value="hierarchical">Hierárquico</option>
+            <option value="sequential">Sequencial</option>
+          </select>
+        </div>
 
-            {agents.length === 0 && (
-              <p className="text-sm text-gray-500 text-center py-4">
-                Nenhum agente disponível. Crie agentes primeiro.
-              </p>
-            )}
+        {formData.team_type === 'hierarchical' && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Supervisor</label>
+            <select
+              value={formData.supervisor_agent_id}
+              onChange={(e) => setFormData(prev => ({ ...prev, supervisor_agent_id: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">Selecione um supervisor...</option>
+              {agents.map(agent => (
+                <option key={agent.id} value={agent.id}>
+                  {agent.name} - {agent.role}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-medium text-gray-700">Agentes do Time</label>
+            <button
+              onClick={handleAddAgent}
+              className="text-blue-600 hover:text-blue-700 text-sm flex items-center"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Adicionar Agente
+            </button>
+          </div>
+
+          <div className="space-y-2">
+            {formData.agents.map((teamAgent, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <select
+                  value={teamAgent.agent_id}
+                  onChange={(e) => {
+                    const newAgents = [...formData.agents];
+                    newAgents[index].agent_id = e.target.value;
+                    setFormData(prev => ({ ...prev, agents: newAgents }));
+                  }}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Selecione um agente...</option>
+                  {agents.map(agent => (
+                    <option key={agent.id} value={agent.id}>
+                      {agent.name} - {agent.role}
+                    </option>
+                  ))}
+                </select>
+
+                <input
+                  type="text"
+                  value={teamAgent.role_in_team}
+                  onChange={(e) => {
+                    const newAgents = [...formData.agents];
+                    newAgents[index].role_in_team = e.target.value;
+                    setFormData(prev => ({ ...prev, agents: newAgents }));
+                  }}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Papel no time"
+                />
+
+                <button
+                  onClick={() => handleRemoveAgent(index)}
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="flex justify-end space-x-3 pt-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-            disabled={saving}
+            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={handleSave}
-            disabled={!formData.name || formData.agents.length === 0 || saving}
+            disabled={saving}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
           >
             {saving ? (
@@ -471,32 +462,15 @@ const AgentCreationModal: React.FC<{
     },
   ];
 
-  useEffect(() => {
-    if (isOpen) {
-      setFormData({
-        name: '',
-        role: '',
-        description: '',
-        model_provider: 'openai',
-        model_id: 'gpt-4o',
-        instructions: '',
-        tools: [],
-        memory_enabled: true,
-        rag_enabled: false,
-      });
-    }
-  }, [isOpen]);
-
   const handleSave = async () => {
-    if (!formData.name || !formData.role) return;
+    if (!formData.name || !formData.role) {
+      onError('Preencha todos os campos obrigatórios');
+      return;
+    }
 
     setSaving(true);
     try {
-      await apiClient.createAgent({
-        ...formData,
-        configuration: {},
-        is_active: true,
-      });
+      await apiClient.createAgent(formData);
       onSuccess('Agente criado com sucesso!');
       onAgentSaved();
       onClose();
@@ -516,73 +490,49 @@ const AgentCreationModal: React.FC<{
     }));
   };
 
-  const selectedProvider = modelProviders.find(p => p.value === formData.model_provider);
-
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Criar Novo Agente"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title="Criar Novo Agente">
       <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Nome do Agente *
-            </label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Nome do agente..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Função/Papel *
-            </label>
-            <input
-              type="text"
-              value={formData.role}
-              onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="Ex: Analista de Dados, Assistente..."
-            />
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Nome do Agente</label>
+          <input
+            type="text"
+            value={formData.name}
+            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="Ex: Assistente de Pesquisa"
+          />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Descrição
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Papel</label>
+          <input
+            type="text"
+            value={formData.role}
+            onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="Ex: Especialista em análise de dados"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Descrição</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
             rows={3}
-            placeholder="Descrição do agente..."
+            placeholder="Descreva as capacidades do agente..."
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Provedor do Modelo
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Provedor</label>
             <select
               value={formData.model_provider}
-              onChange={(e) => {
-                const provider = e.target.value;
-                const providerData = modelProviders.find(p => p.value === provider);
-                setFormData(prev => ({
-                  ...prev,
-                  model_provider: provider,
-                  model_id: providerData?.models[0] || ''
-                }));
-              }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              onChange={(e) => setFormData(prev => ({ ...prev, model_provider: e.target.value }))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
               {modelProviders.map(provider => (
                 <option key={provider.value} value={provider.value}>
@@ -593,25 +543,25 @@ const AgentCreationModal: React.FC<{
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Modelo
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Modelo</label>
             <select
               value={formData.model_id}
               onChange={(e) => setFormData(prev => ({ ...prev, model_id: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
-              {selectedProvider?.models.map(model => (
-                <option key={model} value={model}>{model}</option>
-              ))}
+              {modelProviders
+                .find(p => p.value === formData.model_provider)
+                ?.models.map(model => (
+                  <option key={model} value={model}>
+                    {model}
+                  </option>
+                ))}
             </select>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Instruções
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Instruções</label>
           <textarea
             value={formData.instructions}
             onChange={(e) => setFormData(prev => ({ ...prev, instructions: e.target.value }))}
@@ -622,74 +572,69 @@ const AgentCreationModal: React.FC<{
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            Ferramentas Disponíveis
-          </label>
-          <div className="grid grid-cols-2 gap-3 max-h-40 overflow-y-auto border rounded-lg p-3">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Ferramentas</label>
+          <div className="grid grid-cols-2 gap-2">
             {availableTools.map(tool => {
               const Icon = tool.icon;
               const isSelected = formData.tools.includes(tool.id);
               return (
-                <div
+                <button
                   key={tool.id}
-                  className={`p-3 border rounded-lg cursor-pointer transition-all ${
-                    isSelected 
-                      ? 'border-green-500 bg-green-50' 
-                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
                   onClick={() => toggleTool(tool.id)}
+                  className={`p-3 rounded-lg border-2 transition-all ${
+                    isSelected
+                      ? 'border-green-500 bg-green-50 text-green-700'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
                 >
                   <div className="flex items-center space-x-2">
-                    <Icon className={`w-4 h-4 ${isSelected ? 'text-green-600' : 'text-gray-600'}`} />
-                    <span className={`text-sm ${isSelected ? 'text-green-900' : 'text-gray-700'}`}>
-                      {tool.name}
-                    </span>
+                    <Icon className="w-4 h-4" />
+                    <span className="text-sm">{tool.name}</span>
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label className="flex items-center space-x-3">
+        <div className="flex items-center space-x-4">
+          <label className="flex items-center space-x-2">
             <input
               type="checkbox"
               checked={formData.memory_enabled}
               onChange={(e) => setFormData(prev => ({ ...prev, memory_enabled: e.target.checked }))}
-              className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+              className="rounded text-green-600"
             />
-            <span className="text-sm text-gray-700">Habilitar Memória</span>
+            <span className="text-sm">Habilitar Memória</span>
           </label>
 
-          <label className="flex items-center space-x-3">
+          <label className="flex items-center space-x-2">
             <input
               type="checkbox"
               checked={formData.rag_enabled}
               onChange={(e) => setFormData(prev => ({ ...prev, rag_enabled: e.target.checked }))}
-              className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+              className="rounded text-green-600"
             />
-            <span className="text-sm text-gray-700">Habilitar RAG</span>
+            <span className="text-sm">Habilitar RAG</span>
           </label>
         </div>
 
         <div className="flex justify-end space-x-3 pt-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-            disabled={saving}
+            className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={handleSave}
-            disabled={!formData.name || !formData.role || saving}
+            disabled={saving}
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
           >
             {saving ? (
               <>
                 <Loader className="w-4 h-4 animate-spin" />
-                <span>Criando...</span>
+                <span>Salvando...</span>
               </>
             ) : (
               <span>Criar Agente</span>
@@ -703,70 +648,37 @@ const AgentCreationModal: React.FC<{
 
 // ==================== MAIN COMPONENT ====================
 const TeamBuilder: React.FC = () => {
-  // States
-  const [activeZone, setActiveZone] = useState<'teams' | 'agents' | 'test-agent' | 'test-team'>('teams');
   const [teams, setTeams] = useState<Team[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-
-  // Modal states
+  const [activeZone, setActiveZone] = useState<'teams' | 'agents' | 'test-agent' | 'test-team'>('teams');
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [showAgentModal, setShowAgentModal] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
-  // Load data function - CORRIGIDO PARA EVITAR LOOPS
-  const loadData = useCallback(async () => {
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    setLoading(true);
     try {
       const [teamsData, agentsData] = await Promise.all([
         apiClient.getTeams(),
-        apiClient.getAgents()
+        apiClient.getAgents(),
       ]);
-      setTeams(Array.isArray(teamsData) ? teamsData : []);
-      setAgents(Array.isArray(agentsData) ? agentsData : []);
+      setTeams(teamsData);
+      setAgents(agentsData);
+      setError(null);
     } catch (err: any) {
       setError(err.message);
-      console.error('Error loading data:', err);
+    } finally {
+      setLoading(false);
     }
-  }, []); // VAZIO para evitar re-criação da função
+  };
 
-  // Load data on mount ONLY - CORRIGIDO
-  useEffect(() => {
-    let mounted = true; // Flag para evitar updates após unmount
-
-    const initialLoad = async () => {
-      if (!mounted) return;
-      setLoading(true);
-      await loadData();
-      if (mounted) {
-        setLoading(false);
-      }
-    };
-
-    initialLoad();
-
-    return () => {
-      mounted = false; // Cleanup
-    };
-  }, []); // DEPENDENCY ARRAY VAZIO - só executa uma vez
-
-  // Clear messages after timeout
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => setError(null), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => setSuccess(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [success]);
-
-  // Handlers
   const handleOpenTeamModal = (team?: Team) => {
     setSelectedTeam(team || null);
     setShowTeamModal(true);
@@ -795,7 +707,7 @@ const TeamBuilder: React.FC = () => {
         setError(err.message);
       }
     }
-  }, [loadData]);
+  }, []);
 
   // ==================== ZONA 1: TIMES ====================
   const TeamsZone: React.FC = () => (
@@ -835,26 +747,22 @@ const TeamBuilder: React.FC = () => {
                 <p className="text-gray-600 mb-3">{team.description}</p>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                   <span className="flex items-center">
-                    <Bot className="w-4 h-4 mr-1" />
+                    <Users className="w-4 h-4 mr-1" />
                     {team.agents?.length || 0} agentes
                   </span>
                   <span className="flex items-center">
-                    <Activity className="w-4 h-4 mr-1" />
+                    <BarChart3 className="w-4 h-4 mr-1" />
                     {team.execution_count || 0} execuções
-                  </span>
-                  <span className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {new Date(team.created_at).toLocaleDateString()}
                   </span>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => handleOpenTeamModal(team)}
+                  onClick={() => setActiveZone('test-team')}
                   className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                  title="Editar"
+                  title="Testar"
                 >
-                  <Edit className="w-4 h-4" />
+                  <Play className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleDeleteTeam(team.id)}
@@ -930,6 +838,13 @@ const TeamBuilder: React.FC = () => {
                 >
                   <TestTube className="w-4 h-4" />
                 </button>
+                <button
+                  onClick={() => apiClient.deleteAgent(agent.id).then(loadData)}
+                  className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  title="Deletar"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
@@ -945,14 +860,13 @@ const TeamBuilder: React.FC = () => {
     </div>
   );
 
-  // ==================== ZONA 3: TESTE DE AGENTE - CORRIGIDA ====================
+  // ==================== ZONA 3: TESTE DE AGENTE ====================
   const AgentTestZone: React.FC = () => {
     const [selectedAgent, setSelectedAgent] = useState<string>('');
     const [testPrompt, setTestPrompt] = useState('');
     const [testResult, setTestResult] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Debounce para evitar muitas chamadas
     const handleTestAgent = useCallback(async () => {
       if (!selectedAgent || !testPrompt.trim() || isLoading) return;
 
@@ -1041,7 +955,7 @@ const TeamBuilder: React.FC = () => {
                 <pre className="text-sm whitespace-pre-wrap text-gray-800">
                   {testResult.error
                     ? `Erro: ${testResult.error}`
-                    : JSON.stringify(testResult, null, 2)
+                    : testResult.response || testResult.data?.response || testResult.message || JSON.stringify(testResult, null, 2)
                   }
                 </pre>
               </div>
@@ -1057,7 +971,7 @@ const TeamBuilder: React.FC = () => {
     );
   };
 
-  // ==================== ZONA 4: TESTE DE TIME - CORRIGIDA ====================
+  // ==================== ZONA 4: TESTE DE TIME ====================
   const TeamTestZone: React.FC = () => {
     const [selectedTeam, setSelectedTeam] = useState<string>('');
     const [testMessage, setTestMessage] = useState('');
@@ -1082,25 +996,29 @@ const TeamBuilder: React.FC = () => {
           id: Date.now().toString(),
           timestamp: new Date().toISOString(),
           type: 'success',
-          message: `Execução concluída com sucesso!`,
-          duration: result?.metadata?.execution_time || 0
+          message: result.response || result.data?.response || result.message || 'Execução concluída!',
+          duration: result?.metadata?.execution_time || result?.execution_time_ms || 0
         }]);
 
-        if (result?.response) {
-          setExecutionLogs(prev => [...prev, {
-            id: Date.now().toString(),
-            timestamp: new Date().toISOString(),
-            type: 'info',
-            message: `Resposta: ${result.response}`
-          }]);
+        if (result?.agent_results || result?.data?.agent_results) {
+          const agentResults = result.agent_results || result.data?.agent_results;
+          agentResults.forEach((agentResult: any) => {
+            setExecutionLogs(prev => [...prev, {
+              id: Date.now().toString(),
+              timestamp: new Date().toISOString(),
+              type: 'info',
+              message: `${agentResult.agent_name}: ${agentResult.response}`,
+              agent: agentResult.agent_name,
+              duration: agentResult.execution_time
+            }]);
+          });
         }
-
       } catch (err: any) {
         setExecutionLogs(prev => [...prev, {
           id: Date.now().toString(),
           timestamp: new Date().toISOString(),
           type: 'error',
-          message: `Erro na execução: ${err.message}`
+          message: `Erro: ${err.message}`
         }]);
       } finally {
         setIsExecuting(false);
@@ -1111,10 +1029,10 @@ const TeamBuilder: React.FC = () => {
       <div className="space-y-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-            <Activity className="w-7 h-7 text-orange-600 mr-3" />
+            <Play className="w-7 h-7 text-orange-600 mr-3" />
             Teste de Time
           </h2>
-          <p className="text-gray-600 mt-1">Execute tasks completas com times de agentes</p>
+          <p className="text-gray-600 mt-1">Execute testes colaborativos com times de agentes</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -1140,36 +1058,16 @@ const TeamBuilder: React.FC = () => {
                 </select>
               </div>
 
-              {selectedTeam && (
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Preview do Time</h4>
-                  {(() => {
-                    const team = teams.find(t => t.id === parseInt(selectedTeam));
-                    if (!team) return null;
-
-                    return (
-                      <div className="space-y-2">
-                        <p className="text-sm text-gray-600">{team.description}</p>
-                        <div className="flex items-center space-x-4 text-xs text-gray-500">
-                          <span>Tipo: {team.team_type}</span>
-                          <span>Agentes: {team.agents?.length || 0}</span>
-                        </div>
-                      </div>
-                    );
-                  })()}
-                </div>
-              )}
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Mensagem para o Time
+                  Mensagem de Entrada
                 </label>
                 <textarea
                   value={testMessage}
                   onChange={(e) => setTestMessage(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   rows={6}
-                  placeholder="Digite a tarefa que você quer que o time execute..."
+                  placeholder="Digite a mensagem para o time processar..."
                 />
               </div>
 
@@ -1185,7 +1083,7 @@ const TeamBuilder: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
+                    <Play className="w-4 h-4" />
                     <span>Executar Time</span>
                   </>
                 )}
@@ -1196,29 +1094,31 @@ const TeamBuilder: React.FC = () => {
           <div className="bg-white border rounded-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Logs de Execução</h3>
 
-            <div className="space-y-3 max-h-96 overflow-y-auto">
+            <div className="space-y-2 max-h-96 overflow-y-auto">
               {executionLogs.length > 0 ? (
                 executionLogs.map(log => (
                   <div
                     key={log.id}
-                    className={`p-3 rounded-lg text-sm border-l-4 ${
-                      log.type === 'error' ? 'bg-red-50 border-red-500 text-red-700' :
-                      log.type === 'success' ? 'bg-green-50 border-green-500 text-green-700' :
-                      log.type === 'warning' ? 'bg-yellow-50 border-yellow-500 text-yellow-700' :
-                      'bg-blue-50 border-blue-500 text-blue-700'
+                    className={`p-3 rounded-lg ${
+                      log.type === 'error' ? 'bg-red-50 text-red-800' :
+                      log.type === 'success' ? 'bg-green-50 text-green-800' :
+                      log.type === 'warning' ? 'bg-yellow-50 text-yellow-800' :
+                      'bg-gray-50 text-gray-800'
                     }`}
                   >
-                    <div className="flex items-start justify-between">
-                      <p className="flex-1">{log.message}</p>
-                      <span className="text-xs opacity-70 ml-2">
-                        {new Date(log.timestamp).toLocaleTimeString()}
-                      </span>
+                    <div className="flex items-start space-x-2">
+                      <div className="flex-1">
+                        <p className="text-sm">{log.message}</p>
+                        {log.agent && (
+                          <p className="text-xs mt-1 opacity-75">Agente: {log.agent}</p>
+                        )}
+                      </div>
+                      {log.duration && (
+                        <span className="text-xs opacity-75">
+                          {(log.duration / 1000).toFixed(2)}s
+                        </span>
+                      )}
                     </div>
-                    {log.duration && (
-                      <p className="text-xs opacity-70 mt-1">
-                        Duração: {log.duration}ms
-                      </p>
-                    )}
                   </div>
                 ))
               ) : (
@@ -1234,118 +1134,122 @@ const TeamBuilder: React.FC = () => {
     );
   };
 
-  // ==================== MAIN RENDER ====================
+  // ==================== RENDER PRINCIPAL ====================
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <h1 className="text-xl font-bold text-gray-900">Team Builder</h1>
-            </div>
+    <div className="max-w-7xl mx-auto p-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+          <Layers className="w-8 h-8 text-indigo-600 mr-3" />
+          Team Builder
+        </h1>
+        <p className="text-gray-600 mt-2">Gerencie agentes, times e execute testes colaborativos</p>
+      </div>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex space-x-1">
-              {[
-                { key: 'teams', label: 'Times', icon: Users, color: 'blue' },
-                { key: 'agents', label: 'Agentes', icon: Bot, color: 'green' },
-                { key: 'test-agent', label: 'Teste Agente', icon: TestTube, color: 'purple' },
-                { key: 'test-team', label: 'Teste Time', icon: Activity, color: 'orange' },
-              ].map(({ key, label, icon: Icon, color }) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveZone(key as any)}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
-                    activeZone === key
-                      ? `bg-${color}-100 text-${color}-700`
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span className="text-sm font-medium">{label}</span>
-                </button>
-              ))}
-            </nav>
-
-            {/* Mobile Navigation */}
-            <div className="md:hidden">
-              <select
-                value={activeZone}
-                onChange={(e) => setActiveZone(e.target.value as any)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
-              >
-                <option value="teams">Times</option>
-                <option value="agents">Agentes</option>
-                <option value="test-agent">Teste Agente</option>
-                <option value="test-team">Teste Time</option>
-              </select>
+      {/* Navigation Tabs */}
+      <div className="border-b mb-6">
+        <nav className="flex space-x-8">
+          <button
+            onClick={() => setActiveZone('teams')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+              activeZone === 'teams'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              <Users className="w-4 h-4" />
+              <span>Times</span>
             </div>
+          </button>
+
+          <button
+            onClick={() => setActiveZone('agents')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+              activeZone === 'agents'
+                ? 'border-green-500 text-green-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              <Bot className="w-4 h-4" />
+              <span>Agentes</span>
+            </div>
+          </button>
+
+          <button
+            onClick={() => setActiveZone('test-agent')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+              activeZone === 'test-agent'
+                ? 'border-purple-500 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              <TestTube className="w-4 h-4" />
+              <span>Teste de Agente</span>
+            </div>
+          </button>
+
+          <button
+            onClick={() => setActiveZone('test-team')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+              activeZone === 'test-team'
+                ? 'border-orange-500 text-orange-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              <Play className="w-4 h-4" />
+              <span>Teste de Time</span>
+            </div>
+          </button>
+        </nav>
+      </div>
+
+      {/* Alerts */}
+      {error && (
+        <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <AlertCircle className="w-5 h-5 text-red-600 mr-2" />
+            <span className="text-red-700">{error}</span>
           </div>
+          <button
+            onClick={() => setError(null)}
+            className="text-red-600 hover:text-red-800"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
-      </div>
+      )}
 
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Loading State */}
-        {loading && (
-          <div className="flex items-center justify-center py-12">
-            <div className="flex items-center space-x-3">
-              <Loader className="w-6 h-6 animate-spin text-blue-600" />
-              <span className="text-gray-600">Carregando dados...</span>
-            </div>
+      {success && (
+        <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+            <span className="text-green-700">{success}</span>
           </div>
-        )}
+          <button
+            onClick={() => setSuccess(null)}
+            className="text-green-600 hover:text-green-800"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
-        {/* Error Display */}
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <AlertCircle className="w-5 h-5 text-red-600" />
-                <span className="text-red-700">{error}</span>
-              </div>
-              <button
-                onClick={() => setError(null)}
-                className="text-red-600 hover:text-red-800"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Success Display */}
-        {success && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="w-5 h-5 text-green-600" />
-                <span className="text-green-700">{success}</span>
-              </div>
-              <button
-                onClick={() => setSuccess(null)}
-                className="text-green-600 hover:text-green-800"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Zone Content */}
-        {!loading && (
-          <>
-            {activeZone === 'teams' && <TeamsZone />}
-            {activeZone === 'agents' && <AgentsZone />}
-            {activeZone === 'test-agent' && <AgentTestZone />}
-            {activeZone === 'test-team' && <TeamTestZone />}
-          </>
-        )}
-      </div>
+      {/* Zone Content */}
+      {loading ? (
+        <div className="flex items-center justify-center h-64">
+          <Loader className="w-8 h-8 animate-spin text-indigo-600" />
+        </div>
+      ) : (
+        <>
+          {activeZone === 'teams' && <TeamsZone />}
+          {activeZone === 'agents' && <AgentsZone />}
+          {activeZone === 'test-agent' && <AgentTestZone />}
+          {activeZone === 'test-team' && <TeamTestZone />}
+        </>
+      )}
 
       {/* Modals */}
       <TeamCreationModal
