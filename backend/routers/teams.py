@@ -6,6 +6,18 @@ from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 from datetime import datetime
 import json
+import asyncio
+
+try:
+    from .agno_services import RealAgnoService, AGNO_AVAILABLE
+except ImportError:
+    try:
+        from agno_services import RealAgnoService, AGNO_AVAILABLE
+    except ImportError:
+        AGNO_AVAILABLE = False
+        RealAgnoService = None
+
+real_agno_service = RealAgnoService() if AGNO_AVAILABLE else None
 
 # Ajuste os imports conforme sua estrutura
 try:
@@ -109,6 +121,11 @@ async def get_team_with_agents(db: AsyncSession, team_id: int, user_id: int = 1)
                     tools = json.loads(tools)
                 except:
                     tools = []
+            if isinstance(tools, list):
+                tools = [
+                    t if isinstance(t, dict) else {"tool_id": str(t), "config": {}}
+                    for t in tools
+                ]
 
             agent_data = {
                 "id": agent.id,
@@ -302,25 +319,69 @@ async def execute_team(
 
         print(f"🚀 Executando team: {team_data['name']} com {len(team_data['agents'])} agentes")
 
-        # Simular execução do team (substitua pela lógica real)
-        execution_result = {
-            "team_id": team_id,
-            "team_name": team_data["name"],
-            "message": request.message,
-            "agents_involved": [agent["name"] for agent in team_data["agents"]],
-            "response": f"Team '{team_data['name']}' processou a mensagem: '{request.message}'. "
-                        f"Resultado simulado com {len(team_data['agents'])} agentes trabalhando em modo {team_data['team_type']}.",
-            "execution_time_ms": 1500,  # Simulado
-            "timestamp": datetime.utcnow().isoformat(),
-            "status": "completed",
-            "context": request.context,
-            "logs": [
-                f"Iniciando execução do team {team_data['name']}",
-                f"Coordenando {len(team_data['agents'])} agentes",
-                f"Processando mensagem: {request.message[:50]}...",
-                "Execução concluída com sucesso"
-            ]
-        }
+        if AGNO_AVAILABLE and real_agno_service:
+            responses = []
+            for agent_info in team_data["agents"]:
+                tools_list = [
+                    t["tool_id"] if isinstance(t, dict) else str(t)
+                    for t in (agent_info.get("tools") or [])
+                ]
+                agent_config = {
+                    "name": agent_info["name"],
+                    "role": agent_info["role"],
+                    "model_provider": agent_info["model_provider"],
+                    "model_id": agent_info["model_id"],
+                    "instructions": agent_info.get("instructions", []),
+                    "tools": tools_list,
+                    "memory_enabled": getattr(agent_info, "memory_enabled", False),
+                    "rag_enabled": getattr(agent_info, "rag_enabled", False),
+                    "rag_index_id": getattr(agent_info, "rag_index_id", None),
+                }
+                try:
+                    result = await asyncio.to_thread(
+                        real_agno_service.execute_agent_task,
+                        agent_config,
+                        request.message,
+                        tools_list,
+                    )
+                    responses.append({
+                        "agent": agent_info["name"],
+                        "response": result.get("response", "")
+                    })
+                except Exception as e:
+                    print(f"⚠️ Falha na execução do agente {agent_info['name']}: {e}")
+                    responses.append({
+                        "agent": agent_info["name"],
+                        "error": str(e)
+                    })
+
+            execution_result = {
+                "team_id": team_id,
+                "team_name": team_data["name"],
+                "message": request.message,
+                "responses": responses,
+                "timestamp": datetime.utcnow().isoformat(),
+                "status": "completed",
+                "context": request.context,
+            }
+        else:
+            execution_result = {
+                "team_id": team_id,
+                "team_name": team_data["name"],
+                "message": request.message,
+                "agents_involved": [agent["name"] for agent in team_data["agents"]],
+                "response": f"Team '{team_data['name']}' processou a mensagem: '{request.message}'. Resultado simulado com {len(team_data['agents'])} agentes trabalhando em modo {team_data['team_type']}.",
+                "execution_time_ms": 1500,
+                "timestamp": datetime.utcnow().isoformat(),
+                "status": "completed",
+                "context": request.context,
+                "logs": [
+                    f"Iniciando execução do team {team_data['name']}",
+                    f"Coordenando {len(team_data['agents'])} agentes",
+                    f"Processando mensagem: {request.message[:50]}...",
+                    "Execução concluída com sucesso",
+                ],
+            }
 
         return execution_result
 
