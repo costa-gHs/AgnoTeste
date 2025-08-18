@@ -162,6 +162,11 @@ const apiClient = {
   },
 
   async createAgent(data: any): Promise<Agent> {
+    // Validação simples no frontend
+    if (!Array.isArray(data.tools) || !data.tools.every((t: any) => typeof t === 'string')) {
+      throw new Error('tools deve ser um array de strings');
+    }
+
     // Formato correto para o backend
     const agentData = {
       name: data.name,

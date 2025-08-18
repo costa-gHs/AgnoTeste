@@ -689,7 +689,8 @@ const AgnoChatInterface: React.FC = () => {
       content: '🚀 **Agno Chat Interface** inicializado!\n\nSelecione um agente e comece a conversar. As ferramentas serão utilizadas automaticamente quando necessário.',
       timestamp: new Date()
     }]);
-  }, [testConnection, loadAgents]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // =============================================
   // AUTO-RESIZE DO TEXTAREA

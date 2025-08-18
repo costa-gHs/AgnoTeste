@@ -6,6 +6,18 @@ from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field
 from datetime import datetime
 import json
+import asyncio
+
+try:
+    from .agno_services import RealAgnoService, AGNO_AVAILABLE
+except ImportError:
+    try:
+        from agno_services import RealAgnoService, AGNO_AVAILABLE
+    except ImportError:
+        AGNO_AVAILABLE = False
+        RealAgnoService = None
+
+real_agno_service = RealAgnoService() if AGNO_AVAILABLE else None
 
 # Ajuste os imports conforme sua estrutura
 try:
@@ -105,6 +117,13 @@ async def list_agents(
                         tools = []
                 elif not isinstance(tools, list):
                     tools = []
+
+                # Garantir que cada ferramenta seja um dicionário
+                if isinstance(tools, list):
+                    tools = [
+                        t if isinstance(t, dict) else {"tool_id": str(t), "config": {}}
+                        for t in tools
+                    ]
 
                 agent_data = {
                     "id": agent.id,
@@ -281,22 +300,57 @@ async def chat_with_agent(
 
         print(f"💬 Chat iniciado com agente: {agent.name}")
 
-        # Simular resposta do agente (substitua pela integração real com LLM)
+        tools_list = []
+        if agent.tools:
+            if isinstance(agent.tools, list):
+                tools_list = [
+                    t["tool_id"] if isinstance(t, dict) else str(t)
+                    for t in agent.tools
+                ]
+
+        if AGNO_AVAILABLE and real_agno_service:
+            try:
+                agent_config = {
+                    "name": agent.name,
+                    "role": agent.role,
+                    "model_provider": agent.model_provider,
+                    "model_id": agent.model_id,
+                    "instructions": agent.instructions or [],
+                    "tools": tools_list,
+                    "memory_enabled": agent.memory_enabled,
+                    "rag_enabled": getattr(agent, "rag_enabled", False),
+                    "rag_index_id": getattr(agent, "rag_index_id", None),
+                }
+                result = await asyncio.to_thread(
+                    real_agno_service.execute_agent_task,
+                    agent_config,
+                    request.prompt,
+                    tools_list,
+                )
+                response_text = result.get("response", "")
+                tools_used = result.get("tools_used", 0)
+            except Exception as e:
+                print(f"⚠️ Falha na execução real: {e}")
+                response_text = f"[mock] {agent.name} recebeu: '{request.prompt}'"
+                tools_used = []
+        else:
+            response_text = f"Olá! Sou o {agent.name}, um {agent.role}. Recebi sua mensagem: '{request.prompt}'. Esta é uma resposta simulada para teste da API."
+            tools_used = []
+
         response_data = {
             "agent_id": agent_id,
             "agent_name": agent.name,
             "user_prompt": request.prompt,
-            "response": f"Olá! Sou o {agent.name}, um {agent.role}. Recebi sua mensagem: '{request.prompt}'. Esta é uma resposta simulada para teste da API.",
+            "response": response_text,
             "timestamp": datetime.utcnow().isoformat(),
             "model": f"{agent.model_provider}/{agent.model_id}",
-            "tools_used": [],
-            "context": request.context
+            "tools_used": tools_used,
+            "context": request.context,
         }
 
         if request.stream:
             return {"message": "Streaming não implementado ainda", "data": response_data}
-        else:
-            return response_data
+        return response_data
 
     except HTTPException:
         raise
