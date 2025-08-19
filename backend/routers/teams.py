@@ -346,6 +346,7 @@ async def execute_team(
                         "agent": agent_info["name"],
                         "response": result.get("response", "")
                     })
+                    print(responses)
                 except Exception as e:
                     print(f"⚠️ Falha na execução do agente {agent_info['name']}: {e}")
                     responses.append({

@@ -329,6 +329,7 @@ async def chat_with_agent(
                 )
                 response_text = result.get("response", "")
                 tools_used = result.get("tools_used", 0)
+                print(response_text)
             except Exception as e:
                 print(f"⚠️ Falha na execução real: {e}")
                 response_text = f"[mock] {agent.name} recebeu: '{request.prompt}'"
